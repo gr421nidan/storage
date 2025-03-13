@@ -1,0 +1,62 @@
+@import "tailwindcss" important;
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+@theme {
+    --color-purple-light: #AEA1C9;
+    --color-purple: #624699;
+    --color-purple-dark: #230E36;
+    --color-dark-gray: rgba(0, 0, 0, 0.7);
+    --color-purple-secondary: rgba(84, 56, 126, 0.5);
+    --color-purple-dark-secondary: #483B55;
+    --color-gray: rgba(252, 249, 255, 0.16);
+    --color-error-primary:rgba(195, 63, 63, 1);
+    --color-error-secondary: rgba(253, 169, 169, 0.16);
+    --color-custom-shadow:rgba(174, 161, 201, 0.5);
+    --color-white-secondary:rgba(255, 255, 255, 0.7);
+    --gradient-purple-light: linear-gradient(to right, rgba(174, 161, 201, 0.5), rgba(174, 161, 201, 0.1));
+    --color-purple-lighter-opacity: rgba(98, 70, 153, 0.5);
+    --color-dark-theme: rgba(11, 1, 33, 1);
+    --font-manrope: 'Manrope', sans-serif;
+}
+[data-theme="dark"] body {
+    background-color: var(--color-dark-theme);
+}
+body{
+    width: 1920px;
+    height: 1080px;
+    font-family: "Nunito", sans-serif;
+}
+@layer base {
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    input[type="password"]::-ms-reveal,
+    input[type="password"]::-ms-clear {
+        @apply hidden;
+    }
+    h2 {
+        @apply text-[40px]/[64px] font-manrope;
+    }
+    a {
+        @apply  hover:text-purple-light active:text-purple dark:text-white;
+    }
+}
+
+@layer components {
+    .hover\:custom-shadow:hover {
+        box-shadow: 0 0 20px var(--color-custom-shadow);
+    }
+    .focus\:custom-shadow:focus {
+        box-shadow: 0 0 20px var(--color-custom-shadow);
+    }
+    .hover\:custom-drop-shadow:hover {
+        filter: drop-shadow(0 0 5px var(--color-purple));
+    }
+    .bg-gr-purple {
+        background: var(--gradient-purple-light);
+    }
+}
