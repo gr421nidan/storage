@@ -1,7 +1,7 @@
-import {forwardRef} from "react";
+import { forwardRef } from "react";
 import OtpInput from "react-otp-input";
-import {cn} from "@/shared/utils/cn";
-import {inputsStyles} from "../style.ts";
+import { cn } from "@/shared/utils/cn";
+import { inputsStyles } from "../style.ts";
 
 interface IOtpCodeInputProps {
     value: string;
@@ -13,27 +13,37 @@ interface IOtpCodeInputProps {
     isError?: boolean;
 }
 
-const OtpCodeInput = forwardRef<HTMLInputElement, IOtpCodeInputProps>(
-    ({value, onChange, numInputs, className, inputMode, isError, ...props}, ref) => {
+const OtpCodeInput = forwardRef<HTMLDivElement, IOtpCodeInputProps>(
+    (
+        {
+            value,
+            onChange,
+            numInputs,
+            className,
+            inputMode = "numeric",
+            isError,
+            ...props
+        },
+        ref
+    ) => {
         return (
-            <OtpInput
-                {...props}
-                value={value}
-                onChange={onChange}
-                numInputs={numInputs}
-                containerStyle={cn("flex gap-[27px]", className)}
-                renderInput={(inputProps) => (
-                    <input
-                        {...inputProps}
-                        ref={ref}
-                        type="number"
-                        inputMode={inputMode}
-                        className={cn(
-                            inputsStyles({ variant: "otp", error: isError })
-                        )}
-                    />
-                )}
-            />
+            <div ref={ref}>
+                <OtpInput
+                    {...props}
+                    value={value}
+                    onChange={onChange}
+                    numInputs={numInputs}
+                    containerStyle={cn("flex gap-[27px]", className)}
+                    renderInput={(inputProps) => (
+                        <input
+                            {...inputProps}
+                            type="text"
+                            inputMode={inputMode}
+                            className={cn(inputsStyles({ variant: "otp", error: isError }))}
+                        />
+                    )}
+                />
+            </div>
         );
     }
 );

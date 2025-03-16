@@ -1,3 +1,5 @@
+import {ERoleID} from "@/shared/type/auth";
+
 interface ISignInPort {
     password: string;
     email: string;
@@ -5,7 +7,9 @@ interface ISignInPort {
 
 interface ISignInDto {
     accessToken: string;
-    id: number;
+    id: string;
+    role_id:ERoleID;
+    storage_id:string;
 }
 
 type IFormSignInData = ISignInPort;

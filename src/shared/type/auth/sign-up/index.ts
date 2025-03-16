@@ -19,6 +19,7 @@ interface ISignUpDto {
 }
 
 interface IApiErrorDto {
+    status?:number;
     message?: string;
     type?: string;
     property?: string;

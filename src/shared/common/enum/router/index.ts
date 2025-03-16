@@ -3,6 +3,7 @@ enum ERouterPath {
     SIGN_IN_PAGE = '/sign-in',
     SIGN_UP_PAGE = '/sign-up',
     RESET_PAGE = '/reset-page',
+    USERS= '/users',
 }
 
 export default ERouterPath

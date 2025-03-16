@@ -38,9 +38,19 @@ body{
     input[type="password"]::-ms-clear {
         @apply hidden;
     }
-    h2 {
-        @apply text-[40px]/[64px] font-manrope;
+
+    h1 {
+        @apply text-[48px] font-manrope;
     }
+
+    h2 {
+        @apply text-[40px] font-manrope;
+    }
+
+    h3 {
+        @apply text-[24px] font-manrope font-light;
+    }
+
     a {
         @apply  hover:text-purple-light active:text-purple dark:text-white;
     }
