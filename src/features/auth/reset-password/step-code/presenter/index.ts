@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 import { sendResetCodeUser } from "@/entities/auth/reset-password/api";
 import {IFormSendCodeData, IResetCodePort} from "@/shared/type/auth/reset-password";
-import validationSchema from "@/features/auth/validation-auth-form/reset-password/step-code";
+import validationSchema from "@/entities/auth/validation-auth-form/reset-password/step-code";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
 
