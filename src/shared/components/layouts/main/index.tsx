@@ -12,15 +12,12 @@ const MainLayout: React.FC = () => {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <HeaderWidget toggleNavbar={toggleNavbar} className="fixed top-0 w-full z-10" />
-            <NavbarWidget isOpen={isNavbarOpen} className="flex fixed left-0 " />
-            <main className="flex pl-[193px] pr-[430px] pt-[166px] ">
+            <HeaderWidget toggleNavbar={toggleNavbar} className="fixed top-0 w-full z-30" />
+            <NavbarWidget isOpen={isNavbarOpen} className="fixed left-0 z-20" />
+            <main className=" pl-[193px] pr-[430px] pt-[166px] ">
                 <Outlet />
             </main>
-
-            <SidebarWidget className="fixed right-0 top-0 h-screen z-20" />
-
-
+            <SidebarWidget className="fixed right-0 top-0 h-screen z-40" />
         </div>
     );
 };

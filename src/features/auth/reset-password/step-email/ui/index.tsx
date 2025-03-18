@@ -1,6 +1,6 @@
 import React from "react";
 import { cn } from "@/shared/utils/cn";
-import useStepEmailPresenter from "../presenter";
+import useStepEmailPresenter from "../../../../../entities/cases/user/reset-password/send-email/presenter";
 import {
     formAuthStyles,
     formContainerStyles,

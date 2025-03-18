@@ -1,11 +1,11 @@
-import useSignInPresenter from "../presenter";
+import useSignInPresenter from "@/entities/cases/user/sign-in/presenter";
 import {Link} from "react-router-dom";
 import ERouterPath from "@/shared/common/enum/router";
 import Input from "@/shared/components/inputs/base-input";
 import Button from "@/shared/components/buttons/button";
 import icon from '@/assets/icon.svg';
 import {cn} from "@/shared/utils/cn";
-import {inputsStyles} from "@/shared/components/inputs/style.ts";
+import {inputsStyles} from "@/shared/components/inputs/style";
 import {
     formContainerStyles, formAuthStyles, errorTextStyles, headerStyles, linkStyles
 } from "@/features/auth/style";

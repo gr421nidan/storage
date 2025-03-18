@@ -1,2 +1,6 @@
 export * from './add-users';
 export * from './get-users';
+export * from './block-users';
+export * from './unblock-users';
+export * from './delete-users';
+export * from './update-users';

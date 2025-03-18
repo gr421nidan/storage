@@ -1,5 +1,5 @@
 import React from "react";
-import useStepCodePresenter from "../presenter";
+import useStepCodePresenter from "../../../../../entities/cases/user/reset-password/step-code/presenter";
 import {cn} from "@/shared/utils/cn";
 import {
     formAuthStyles,

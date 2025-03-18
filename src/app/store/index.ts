@@ -7,14 +7,14 @@ interface IUserState {
     storage_id: string | null;
 }
 
-export const userStore = new Store<IUserState>({
-    user_id: null,
+const userStore = new Store<IUserState>({
+    user_id:  null,
     role_id: null,
     storage_id: null,
 });
 
 
-export const setUserData = (user_id: string, role_id: ERoleID, storage_id: string) => {
+const setUserData = (user_id: string, role_id: ERoleID, storage_id: string) => {
     userStore.setState((prev) => ({
         ...prev,
         user_id,
@@ -23,7 +23,7 @@ export const setUserData = (user_id: string, role_id: ERoleID, storage_id: strin
     }));
 };
 
-export const clearUserData = () => {
+ const clearUserData = () => {
     userStore.setState(() => ({
         user_id: null,
         role_id: null,
@@ -31,3 +31,4 @@ export const clearUserData = () => {
     }));
 };
 
+export { setUserData, clearUserData, userStore };

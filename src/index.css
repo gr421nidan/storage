@@ -18,6 +18,8 @@
     --color-purple-lighter-opacity: rgba(98, 70, 153, 0.5);
     --color-dark-theme: rgba(11, 1, 33, 1);
     --font-manrope: 'Manrope', sans-serif;
+    --gradient-purple-lighter: linear-gradient(to bottom right, rgba(174, 161, 201, 0.8), rgba(174, 161, 201, 0.1));
+    --gradient-purple-dark: linear-gradient(to bottom right, rgba(98, 70, 153, 0.8), rgba(98, 70, 153, 0.1));
 }
 [data-theme="dark"] body {
     background-color: var(--color-dark-theme);
@@ -38,13 +40,12 @@ body{
     input[type="password"]::-ms-clear {
         @apply hidden;
     }
-
     h1 {
         @apply text-[48px] font-manrope;
     }
 
     h2 {
-        @apply text-[40px] font-manrope;
+        @apply text-[40px] font-manrope font-light;
     }
 
     h3 {
@@ -68,5 +69,23 @@ body{
     }
     .bg-gr-purple {
         background: var(--gradient-purple-light);
+    }
+    .bg-purple-gr {
+        background: var(--gradient-purple-lighter);
+    }
+
+    [data-theme="dark"] .bg-purple-gr {
+        background: var(--gradient-purple-dark);
+    }
+}
+@layer utilities {
+    .scrollbar {
+        scrollbar-width: auto;
+        scrollbar-color: var(--color-purple-light) white;
+    }
+
+    [data-theme="dark"] .scrollbar {
+        scrollbar-width: auto;
+        scrollbar-color: var(--color-purple-light) var(--color-dark-theme);
     }
 }

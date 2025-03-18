@@ -7,7 +7,7 @@ import Input from "@/shared/components/inputs/base-input";
 import CheckboxInput from "@/shared/components/inputs/checkbox-input";
 import {Link} from "react-router-dom";
 import ERouterPath from "@/shared/common/enum/router";
-import useLogout from "@/entities/auth/logout";
+import useLogout from "../../entities/cases/user/logout";
 
 const MainPage = (): ReactNode => {
     const [otp, setOtp] = useState("");

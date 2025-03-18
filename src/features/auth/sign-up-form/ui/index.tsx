@@ -1,8 +1,8 @@
-import useSignUpPresenter from "../presenter";
+import useSignUpPresenter from "@/entities/cases/user/sign-up/presenter";
 import Input from "@/shared/components/inputs/base-input";
 import Button from "@/shared/components/buttons/button";
 import icon from '@/assets/icon.svg';
-import {inputsStyles} from "@/shared/components/inputs/style.ts";
+import {inputsStyles} from "@/shared/components/inputs/style";
 import {cn} from "@/shared/utils/cn";
 
 import {

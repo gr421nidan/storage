@@ -1,5 +1,5 @@
 import React from "react";
-import useStepNewPasswordPresenter from "../presenter";
+import useStepNewPasswordPresenter from "../../../../../entities/cases/user/reset-password/step-new-password/presenter";
 import { cn } from "@/shared/utils/cn";
 import {
     formAuthStyles,

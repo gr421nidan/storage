@@ -5,6 +5,8 @@ import {RouterProvider} from "react-router-dom";
 import router from "@/app/router";
 import ErrorBoundaryProvider from "@/app/provider/error-boundary";
 import {ThemeProvider} from "@/app/provider/theme";
+import {SnackbarProvider} from "notistack";
+import CustomSnackbar from "@/shared/components/snackbar";
 
 const client = new QueryClient({
     defaultOptions: {
@@ -26,8 +28,14 @@ const App = (): ReactNode => {
         <ThemeProvider>
             <ErrorBoundaryProvider>
                 <QueryClientProvider client={client}>
-                    <ReactQueryDevtools initialIsOpen={false}/>
-                    <RouterProvider router={router}/>
+                    <SnackbarProvider
+                        Components={{
+                            successSnackbar: CustomSnackbar,
+                            errorSnackbar: CustomSnackbar
+                        }}>
+                        <ReactQueryDevtools initialIsOpen={false}/>
+                        <RouterProvider router={router}/>
+                    </SnackbarProvider>
                 </QueryClientProvider>
             </ErrorBoundaryProvider>
         </ThemeProvider>

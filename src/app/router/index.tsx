@@ -4,6 +4,8 @@ import ERouterPath from "@/shared/common/enum/router";
 import AuthLayout from "@/shared/components/layouts/auth";
 import MainLayout from "@/shared/components/layouts/main";
 import ProtectedRoute from "@/shared/components/protected-router";
+import {ERoleID} from "@/shared/type/auth";
+
 
 const router = createBrowserRouter([
     {
@@ -24,7 +26,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        element: <ProtectedRoute />,
+        element: <ProtectedRoute allowedRoles={[ERoleID.ADMIN, ERoleID.USER]}/>,
         children: [
             {
                 element: <MainLayout />,
@@ -33,6 +35,16 @@ const router = createBrowserRouter([
                         path: ERouterPath.MAIN_PAGE,
                         element: <LazyMainPage />,
                     },
+                ],
+            },
+        ],
+    },
+    {
+        element: <ProtectedRoute allowedRoles={[ERoleID.ADMIN]}/>,
+        children: [
+            {
+                element: <MainLayout />,
+                children: [
                     {
                         path: ERouterPath.USERS,
                         element: <LazyStorageUsersPage />,
@@ -41,5 +53,6 @@ const router = createBrowserRouter([
             },
         ],
     },
+
 ])
 export default router
