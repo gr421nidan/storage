@@ -19,8 +19,8 @@ export const selectBoxStyles = cva(
     }
 );
 export const selectOptionStyles = cva(
-    "absolute z-50 left-0 bg-white dark:bg-purple-dark overflow-hidden shadow-[0_0_5px_var(--color-custom-shadow)] mt-2 rounded-[20px] border-2 border-purple"
+    "absolute z-50 left-0 w-[250px] bg-white dark:bg-dark-theme py-[20px] overflow-hidden shadow-[0_0_5px_var(--color-custom-shadow)] mt-3 rounded-[20px] border-2 border-purple"
 );
 export const optionStyles = cva(
-    "mx-[27px] py-2 text-black dark:text-white cursor-pointer whitespace-nowrap hover:text-purple dark:hover:text-purple"
+    "mx-[27px] text-[24px] py-3 text-black dark:text-white cursor-pointer whitespace-nowrap hover:text-purple dark:hover:text-purple"
 );

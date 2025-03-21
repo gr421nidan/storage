@@ -4,15 +4,15 @@ import { AxiosError } from "axios";
 import { IBlockUserDto } from "@/shared/type/admin";
 import blockUserRepository from "@/entities/repo/user-storage/block-user";
 
-const execute = (userId: string) => blockUserRepository(userId);
+
 
 const useBlockUserUseCase = () => {
     const queryClient = useQueryClient();
-
+    const execute = (userId: string) => blockUserRepository(userId);
     return useMutation<IBlockUserDto, AxiosError<IApiErrorDto>, string>({
-        mutationFn: execute, // Функция для блокировки пользователя
+        mutationFn: execute,
         onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: ["users"] });
+            await queryClient.invalidateQueries({ queryKey: ["usersStorage"] });
         },
     });
 };

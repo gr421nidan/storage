@@ -1,39 +1,58 @@
-import React from "react";
+import React, {useState} from "react";
 import useAddUserPresenter from "@/entities/cases/user-storage/add-user/presenter";
-import Input from "@/shared/components/inputs/base-input";
 import {EGrantID} from "@/shared/type/admin";
 import {cn} from "@/shared/utils/cn";
 import Button from "@/shared/components/buttons/button";
-import {inputsStyles} from "@/shared/components/inputs/style";
+
 import {errorTextStyles} from "@/features/auth/style";
 import {formStyles} from "@/features/admin/add-users-form/style";
 import CustomSelect from "@/shared/components/select";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
+import useGetAllUsersUseCase from "@/entities/cases/user/get-all-users/use-case";
+import SearchSelect from "@/shared/components/search-select";
 
 const AddUserForm: React.FC = () => {
     const {
-        register,
         onSubmit,
         errors,
         watch,
         setValue,
     } = useAddUserPresenter();
+    const { data: users} = useGetAllUsersUseCase();
+
     const grantOptions = [
-        {value: EGrantID.VIEW, label: "Просмотр"},
-        {value: EGrantID.FULL_ACCESS, label: "Полный доступ"},
+        { value: EGrantID.VIEW, label: "Просмотр" },
+        { value: EGrantID.FULL_ACCESS, label: "Полный доступ" },
     ];
+
+    const [selectedEmail, setSelectedEmail] = useState<any>(null);
+
+    const userOptions = users?.map((user: any) => ({
+        value: user.id,
+        label: user.email,
+    })) || [];
+
+    // Обработчик выбора почты
+    const handleEmailChange = (selectedOption: any) => {
+        setSelectedEmail(selectedOption); // Обновляем состояние выбранного значения
+        setValue("user_id", selectedOption?.value); // Обновляем значение email в форме
+    };
+
     return (
         <form onSubmit={onSubmit}
               className={formStyles}>
             <h3>Добавление учетной записи</h3>
             <div className="flex justify-between gap-[12px]">
                 <div>
-                    <Input
-                        type="email"
+                    <SearchSelect
+                        options={userOptions} // Передаем данные с почтами
+                        value={selectedEmail} // Отображаем выбранное значение
+                        onChange={handleEmailChange} // Обрабатываем изменения почты
                         placeholder="Почта"
-                        className={cn(inputsStyles({error: !!errors.email}), "h-[52px] w-[696px]")}
-                        {...register("email")}/>
-                    {errors.email && (
-                        <p className={errorTextStyles()}>{errors.email.message}</p>
+                        className={ "h-[52px] w-[696px] text-xl"}
+                    />
+                    {errors.user_id && (
+                        <p className={errorTextStyles()}>{errors.user_id.message}</p>
                     )}
                 </div>
                 <div>
@@ -45,13 +64,11 @@ const AddUserForm: React.FC = () => {
                         isError={!!errors.grant_id}
                         defaultLabel="Права"
                     />
-                    {/*<CustomSelect options={grantOptions} className="h-[52px] w-[248px]" defaultLabel="Права"*/}
-                    {/*              isError={!!errors.grant_id} {...register("grant_id")}/>*/}
                     {errors.grant_id && (
                         <p className={errorTextStyles()}>{errors.grant_id.message}</p>
                     )}
                 </div>
-                <Button type="submit" className="h-[52px] w-[273px] bg-purple text-white dark:text-black dark:bg-purple-light ">Сохранить</Button>
+                <Button type="submit" className={cn(buttonStyles({ variant: "two" }),"h-[52px] w-[273px]")}>Сохранить</Button>
             </div>
         </form>
     );

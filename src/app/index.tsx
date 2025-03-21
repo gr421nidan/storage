@@ -8,6 +8,8 @@ import {ThemeProvider} from "@/app/provider/theme";
 import {SnackbarProvider} from "notistack";
 import CustomSnackbar from "@/shared/components/snackbar";
 
+
+
 const client = new QueryClient({
     defaultOptions: {
         mutations: {
@@ -24,18 +26,19 @@ const client = new QueryClient({
 });
 
 const App = (): ReactNode => {
+
     return (
         <ThemeProvider>
             <ErrorBoundaryProvider>
                 <QueryClientProvider client={client}>
-                    <SnackbarProvider
-                        Components={{
-                            successSnackbar: CustomSnackbar,
-                            errorSnackbar: CustomSnackbar
-                        }}>
-                        <ReactQueryDevtools initialIsOpen={false}/>
-                        <RouterProvider router={router}/>
-                    </SnackbarProvider>
+                        <SnackbarProvider
+                            Components={{
+                                successSnackbar: CustomSnackbar,
+                                errorSnackbar: CustomSnackbar
+                            }}>
+                            <ReactQueryDevtools initialIsOpen={false}/>
+                            <RouterProvider router={router}/>
+                        </SnackbarProvider>
                 </QueryClientProvider>
             </ErrorBoundaryProvider>
         </ThemeProvider>

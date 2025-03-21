@@ -5,13 +5,16 @@ import UserCard from "@/features/admin/users-cards/ui";
 import SearchFilter from "@/features/search";
 import {IGetUserDto} from "@/shared/type/admin";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
+import PageHeader from "@/shared/components/page-header";
 
 const StorageUsersPage = (): ReactNode => {
     const {data} = useGetUsersUseCase();
     const [filteredUsers, setFilteredUsers] = useState<IGetUserDto[]>(data);
 
     useEffect(() => {
-        setFilteredUsers(data);
+        if (data) {
+            setFilteredUsers(data);
+        }
     }, [data]);
     const handleSearch = (query: string) => {
         if (!query) {
@@ -26,10 +29,7 @@ const StorageUsersPage = (): ReactNode => {
 
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
-            <div>
-                <h2 className=" ">Пользователи</h2>
-                <div className="h-1 mt-[27px] bg-purple "></div>
-            </div>
+            <PageHeader title="Пользователи"/>
             <div className="flex flex-col gap-[32px]">
                 <AddUserForm/>
                 <div className="flex justify-between">

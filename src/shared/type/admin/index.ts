@@ -1,5 +1,5 @@
 export * from './add-users';
-export * from './get-users';
+export * from './get-storage-users';
 export * from './block-users';
 export * from './unblock-users';
 export * from './delete-users';

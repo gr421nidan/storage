@@ -1,11 +1,16 @@
 import {createBrowserRouter} from "react-router-dom";
-import {LazyMainPage, LazyResetPage, LazySignInPage, LazySignUpPage, LazyStorageUsersPage} from "@/pages";
+import {
+    LazyMainPage,
+    LazyResetPage,
+    LazySignInPage,
+    LazySignUpPage,
+    LazyStorageUsersPage,
+    LazyUserLogsPage, LazyUserProfilePage
+} from "@/pages";
 import ERouterPath from "@/shared/common/enum/router";
 import AuthLayout from "@/shared/components/layouts/auth";
 import MainLayout from "@/shared/components/layouts/main";
 import ProtectedRoute from "@/shared/components/protected-router";
-import {ERoleID} from "@/shared/type/auth";
-
 
 const router = createBrowserRouter([
     {
@@ -26,7 +31,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        element: <ProtectedRoute allowedRoles={[ERoleID.ADMIN, ERoleID.USER]}/>,
+        element: <ProtectedRoute/>,
         children: [
             {
                 element: <MainLayout />,
@@ -35,23 +40,25 @@ const router = createBrowserRouter([
                         path: ERouterPath.MAIN_PAGE,
                         element: <LazyMainPage />,
                     },
+                    {
+                        path: ERouterPath.USERS,
+                        element: <LazyStorageUsersPage />,
+                    },
+                    {
+                        path: ERouterPath.USER_LOGS,
+                        element: <LazyUserLogsPage />,
+                    },
+                    {
+                        path: ERouterPath.USER_PROFILE,
+                        element: <LazyUserProfilePage />,
+                    },
                 ],
             },
         ],
     },
     {
-        element: <ProtectedRoute allowedRoles={[ERoleID.ADMIN]}/>,
-        children: [
-            {
-                element: <MainLayout />,
-                children: [
-                    {
-                        path: ERouterPath.USERS,
-                        element: <LazyStorageUsersPage />,
-                    },
-                ],
-            },
-        ],
+        path: "*",
+        element: <div>404</div>,
     },
 
 ])

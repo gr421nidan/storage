@@ -1,14 +1,9 @@
-import { api } from "@/shared/api";
-import {userStore} from "@/app/store";
+import {api} from "@/shared/api";
 import {IDeleteUserDto} from "@/shared/type/admin";
 
 const deleteUserRepository = async (userId: string): Promise<IDeleteUserDto> => {
-    try {
-        const storageId = userStore.state.storage_id;
-        const response = await api.delete<IDeleteUserDto>(`/storage/${storageId}/users/${userId}`);
-        return response.data;
-    } catch (error: any) {
-        throw error;
-    }
+    const response = await api.delete<IDeleteUserDto>(`/storage/users/${userId}`);
+    return response.data;
+
 };
 export default deleteUserRepository;

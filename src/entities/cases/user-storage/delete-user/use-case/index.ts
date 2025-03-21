@@ -1,18 +1,22 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IApiErrorDto } from "@/shared/type/auth";
-import { AxiosError } from "axios";
-import { IBlockUserDto } from "@/shared/type/admin";
+import {AxiosError, HttpStatusCode} from "axios";
 import deleteUserRepository from "@/entities/repo/user-storage/delete-user";
+import {enqueueSnackbar} from "notistack";
+import {IDeleteUserDto} from "@/shared/type/admin";
 
-const execute = (userId: string) => deleteUserRepository(userId);
+
 
 const useDeleteUserUseCase = () => {
     const queryClient = useQueryClient();
-
-    return useMutation<IBlockUserDto, AxiosError<IApiErrorDto>, string>({
+    const execute = (userId: string) => deleteUserRepository(userId);
+    return useMutation<IDeleteUserDto, AxiosError<IApiErrorDto>, string>({
         mutationFn: execute,
-        onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: ["users"] });
+        onSuccess: async (data) => {
+            await queryClient.invalidateQueries({ queryKey: ["usersStorage"] });
+            if (data.status === HttpStatusCode.Ok) {
+                enqueueSnackbar("Пользователь удалён", {variant: 'successSnackbar'});
+            }
         },
     });
 };

@@ -1,0 +1,1 @@
+export const formStyles = "w-[524px] h-[624px] border-2 dark:border-purple border-purple-light  rounded-[15px]"

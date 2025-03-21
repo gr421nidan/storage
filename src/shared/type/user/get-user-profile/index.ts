@@ -7,7 +7,7 @@ interface IGetUserProfileDto {
     patronymic:string;
     email:string;
     phone:string;
-    birthday:Date;
+    birthday:string;
     role_id: ERoleID;
     storage_id: string;
 }

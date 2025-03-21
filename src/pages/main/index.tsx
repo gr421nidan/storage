@@ -1,43 +1,55 @@
 import {ReactNode, useState} from 'react';
-import Button from "@/shared/components/buttons/button";
+import PageHeader from "@/shared/components/page-header";
+import SearchFilter from "@/features/search";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import ThemeSwitcher from "@/shared/components/theme-switcher";
-import OtpCodeInput from "@/shared/components/inputs/otp-input";
-import Input from "@/shared/components/inputs/base-input";
-import CheckboxInput from "@/shared/components/inputs/checkbox-input";
-import {Link} from "react-router-dom";
-import ERouterPath from "@/shared/common/enum/router";
-import useLogout from "../../entities/cases/user/logout";
+
 
 const MainPage = (): ReactNode => {
-    const [otp, setOtp] = useState("");
-    const logout = useLogout();
+    const handleSearch = (query: string) => {
+
+    };
+    const folders = ["Приготовление тортов", "Документы", "Музыка"];
+    const files = [
+        { name: "Шоколадный бисквит", date: "18.03.24", tag: "#Учеба", size: "39 мб" },
+        { name: "Рецепт чизкейка", date: "12.03.24", tag: "#Кулинария", size: "25 мб" },
+    ];
+    const [viewMode, setViewMode] = useState<"grid" | "list">("list");
+
+
     return (
-        <div>
-            <Button onClick={logout} className="w-[200px] h-[52px]">Выход</Button>
-            <p>Просто</p>
-            <ThemeSwitcher/>
-            <Button className="w-[455px] h-[52px]">🤡</Button>
-            <Link to={ERouterPath.SIGN_UP_PAGE}>Регистрация</Link>
-            <p>C иконками</p>
-            <ButtonIcon icon="mdi:home" className="h-[52px]">Домой</ButtonIcon>
-            <ButtonIcon icon="mdi:settings"/>
-                <p>Просто</p>
-                <div>
-                    <Input placeholder="Имя*" className="w-[474px] h-[54px]"/>
+        <div className="dark:text-white flex flex-col gap-[40px]">
+            <PageHeader title="Моё хранилище"/>
+            <div className="flex justify-between items-center mr-[17px]">
+                <SearchFilter
+                    onSearch={handleSearch}
+                    className="w-[421px] h-[54px]"
+                    placeholder="Поиск материалов"
+                />
+                <div className="flex gap-2 items-center ">
+                    <div  className={`flex items-center justify-center ${viewMode === "grid" ? "w-[61px] h-[58px]  bg-purple-gr rounded-[15px] border-2 border-purple-light" : ""}`}>
+                        <ButtonIcon
+                            icon="proicons:grid"
+                            className={`w-[37px] h-[37px] ${
+                                viewMode === "grid"
+                                    ? "dark:text-white text-purple"
+                                    : "text-purple-light dark:text-purple"
+                            }`}
+                            onClick={() => setViewMode("grid")}
+                        />
+                    </div>
+                    <div  className={`flex items-center justify-center ${viewMode === "list" ? "w-[61px] h-[58px]  bg-purple-gr rounded-[15px] border-2 border-purple-light" : ""}`}>
+                    <ButtonIcon
+                        icon="iconoir:menu"
+                        className={`w-[32px] h-[30px] ${
+                            viewMode === "list"
+                                ? "dark:text-white text-purple w-[32px] h-[35px]"
+                                : "text-purple-light dark:text-purple"
+                        }`}
+                        onClick={() => setViewMode("list")}
+                    />
+                    </div>
                 </div>
-                <p>Пароль</p>
-                <div>
-                    <Input placeholder="Пароль*" type="password" className="w-[474px]  h-[54px]"/>
-                </div>
-                <div>
-                    <p>Отп</p>
-                    <OtpCodeInput value={otp} onChange={setOtp} numInputs={6}/>
-                    <p>Чек-Бох</p>
-                    <CheckboxInput name="me" value="1"  type="radio" className="w-[20px] h-[20px]"/>
-                    <CheckboxInput name="me" value="2"  type="radio" className="w-[20px] h-[20px]"/>
-                    <CheckboxInput name="к" value="32"  type="checkbox" className="w-[20px] h-[20px]"/>
-                </div>
+            </div>
         </div>
     );
 };

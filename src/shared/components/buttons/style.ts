@@ -11,6 +11,8 @@ export const buttonStyles = cva(
 
                 withIcon:
                     "px-[27px] justify-between flex items-center border bg-white border-2 border-purple dark:bg-gray dark:text-white hover:custom-shadow focus:custom-shadow  hover:text-purple dark:hover:text-purple text-2xl",
+
+                two: "border border-3 text-center items-center justify-center bg-purple text-white border-purple-light dark:border-purple hover:text-purple-light hover:custom-shadow dark:text-black dark:hover:text-white dark:bg-purple-light dark:active:text-purple active:text-white active:shadow-none active:border-white"
             },
         },
         defaultVariants: {

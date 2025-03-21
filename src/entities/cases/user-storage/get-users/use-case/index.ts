@@ -1,13 +1,12 @@
 import {IGetUserDto} from "@/shared/type/admin";
 import {AxiosError} from "axios";
 import {useQuery} from "@tanstack/react-query";
-import getUsers from "@/entities/repo/user-storage/get-users";
-
+import getUsersRepository from "@/entities/repo/user-storage/get-users";
 
 const useGetUsersUseCase = () => {
     const { data, error } = useQuery<IGetUserDto[], AxiosError>({
-        queryKey: ["users"],
-        queryFn: getUsers,
+        queryKey: ["usersStorage"],
+        queryFn: getUsersRepository,
     });
     return {
         data: data ?? [],

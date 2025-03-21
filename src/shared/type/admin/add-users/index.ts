@@ -4,7 +4,7 @@ export enum EGrantID {
 }
 
 interface IAddUserPort {
-    email: string;
+    user_id: string;
     grant_id: EGrantID;
 }
 

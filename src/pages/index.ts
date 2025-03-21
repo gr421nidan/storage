@@ -6,3 +6,5 @@ export const LazySignInPage = LoadComponent(lazy(async () => import("@/pages/aut
 export const LazySignUpPage = LoadComponent(lazy(async () => import("@/pages/auth/sign-up")))
 export const LazyResetPage = LoadComponent(lazy(async () => import("@/pages/auth/reset-page")))
 export const LazyStorageUsersPage =LoadComponent(lazy(async () => import("@/pages/admin/storage-users")))
+export const LazyUserLogsPage =LoadComponent(lazy(async () => import("@/pages/admin/user-logs")))
+export const LazyUserProfilePage =LoadComponent(lazy(async () => import("@/pages/user/profile")))

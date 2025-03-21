@@ -14,8 +14,8 @@ import {cn} from "@/shared/utils/cn";
 import {Link} from "react-router-dom";
 import ERouterPath from "@/shared/common/enum/router";
 import {Icon} from "@iconify/react";
-import {userStore} from "@/app/store";
 import {ERoleID} from "@/shared/type/auth";
+import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 
 
 interface INavbarWidgetProps {
@@ -25,7 +25,8 @@ interface INavbarWidgetProps {
 
 const NavbarWidget: React.FC<INavbarWidgetProps> = ({isOpen, className}) => {
     const logout = useLogout();
-    const userRole = userStore.state.role_id;
+    const { data } = useGetUserProfileUseCase();
+    const userRole = data?.role_id;
     return (
         <div
             className={cn(navbarContainerStyles, className, isOpen ? "w-[281px] shadow-[0_0_250px_#0B0121]" : "w-[139px]")}>
@@ -35,7 +36,7 @@ const NavbarWidget: React.FC<INavbarWidgetProps> = ({isOpen, className}) => {
                         <div className={navLinkStyles}>
                             <div className={navCircleStyle}>
                                 <Link to={ERouterPath.USERS} className={navLinkBlockStyles}>
-                                    <Icon icon="lets-icons:user-light" width="26" height="26"
+                                    <Icon icon="octicon:people-24" width="26" height="26"
                                           className={iconLinkStyle}/>
                                 </Link>
                             </div>

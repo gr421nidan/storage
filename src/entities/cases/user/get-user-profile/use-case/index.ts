@@ -1,19 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import { IGetUserProfileDto } from "@/shared/type/user/get-user-profile";
-import { setUserData } from "@/app/store";
+import {useQuery} from "@tanstack/react-query";
 import getUserProfileRepository from "@/entities/repo/user/get-user-profile";
+import {AUTH_TOKEN_KEY} from "@/shared/config";
 
 const useGetUserProfileUseCase = () => {
-    return useQuery<IGetUserProfileDto, Error>({
+    const token = localStorage.getItem(AUTH_TOKEN_KEY);
+
+    const { data, error } = useQuery({
         queryKey: ["userProfile"],
-        queryFn: async () => {
-            const data = await getUserProfileRepository();
-            setUserData(data.id, data.role_id, data.storage_id);
-            console.log(data.role_id)
-            return data;
-        },
-
+        queryFn: getUserProfileRepository,
+        enabled: !!token,
     });
-};
 
+    return { data, error};
+};
 export default useGetUserProfileUseCase;

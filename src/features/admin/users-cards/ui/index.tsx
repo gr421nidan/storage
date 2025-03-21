@@ -6,41 +6,46 @@ import useBlockUserPresenter from "@/entities/cases/user-storage/block-user/pres
 import useUnblockUserPresenter from "@/entities/cases/user-storage/unblock-user/presenter";
 import ConfirmModal from "@/shared/components/modals/modals-confirm";
 import useDeleteUserPresenter from "@/entities/cases/user-storage/delete-user/presenter";
+import ERouterPath from "@/shared/common/enum/router";
+import {useNavigate} from "react-router-dom";
 
 interface IUserCardProps {
     user: IGetUserDto;
 }
 
 const UserCard: React.FC<IUserCardProps> = ({user}) => {
+    const navigate = useNavigate();
     const fullName = `${user.surname} ${user.firstname[0]}. ${user.patronymic ? user.patronymic[0] + '.' : ''}`;
     const userStatus = user.is_active ? 'Активный' : 'Неактивный';
     const userAccess = user.grant_id === EGrantID.FULL_ACCESS ? 'Полный доступ' : 'Просмотр';
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { handleBlockUser } = useBlockUserPresenter();
-    const { handleUnblockUser } = useUnblockUserPresenter();
-    const { handleDeleteUser } = useDeleteUserPresenter();
+    const {handleBlockUser} = useBlockUserPresenter();
+    const {handleUnblockUser} = useUnblockUserPresenter();
+    const {handleDeleteUser} = useDeleteUserPresenter();
 
 
     const openModal = () => {
-        setIsModalOpen(true); // Открыть модальное окно
+        setIsModalOpen(true);
     };
 
     const closeModal = () => {
-        setIsModalOpen(false); // Закрыть модальное окно
+        setIsModalOpen(false);
     };
     const confirmDeleteUser = async () => {
-        try {
-            await handleDeleteUser(user.id);
-            console.log(`Пользователь с ID ${user.id} удалён`);
-            closeModal(); // Закрыть модальное окно после успешного удаления
-        } catch (error) {
-            console.error("Ошибка при удалении пользователя:", error);
-        }
+        await handleDeleteUser(user.id);
+        closeModal();
+
+    };
+    const handleUserClick = () => {
+        console.log(user.id)
+        navigate(ERouterPath.USER_LOGS.replace(':id_user', String(user.id)));
     };
     return (
         <div className={cardStyles}>
             <div className="flex">
-                <span className="w-[275px]">{fullName}</span>
+                <span className="w-[275px] cursor-pointer text-blue-500 hover:underline" onClick={handleUserClick}>
+                    {fullName}
+                </span>
                 <span className={`w-[220px] ${user.is_active ? "Активный" : "Неактивный"}`}>
         {userStatus}</span>
             </div>
@@ -48,9 +53,11 @@ const UserCard: React.FC<IUserCardProps> = ({user}) => {
             </span>
             <div className={iconContainerStyles}>
                 <ButtonIcon icon="ci:edit-pencil-line-02" className={iconStyles}/>
-                {user.is_active ? <ButtonIcon icon="iconamoon:lock-off-thin" className={iconStyles}  onClick={() => handleBlockUser(user.id)} /> :
-                    <ButtonIcon icon="iconamoon:lock-thin" className={iconStyles} onClick={() => handleUnblockUser(user.id)}/>}
-                <ButtonIcon icon="lucide:trash" className={iconStyles} onClick={openModal} />
+                {user.is_active ? <ButtonIcon icon="iconamoon:lock-off-thin" className={iconStyles}
+                                              onClick={() => handleBlockUser(user.id)}/> :
+                    <ButtonIcon icon="iconamoon:lock-thin" className={iconStyles}
+                                onClick={() => handleUnblockUser(user.id)}/>}
+                <ButtonIcon icon="lucide:trash" className={iconStyles} onClick={openModal}/>
             </div>
             <ConfirmModal
                 isOpen={isModalOpen}
