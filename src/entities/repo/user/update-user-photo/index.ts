@@ -2,7 +2,13 @@ import { api } from "@/shared/api";
 import {IUpdateUserPhotoPort, IUpdateUserDto} from "@/shared/type/user";
 
 const updateUserPhotoRepository = async (data:IUpdateUserPhotoPort): Promise<IUpdateUserDto> => {
-    const response = await api.patch<IUpdateUserDto>("/user/me", data);
+    const formData = new FormData();
+    formData.append("file", data.file);
+    const response = await api.patch<IUpdateUserDto>("/user/update-image", formData, {
+        headers: {
+            "Content-Type": "multipart/form-data",
+        },
+    });
     return response.data;
 };
 

@@ -3,15 +3,19 @@ import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use
 import defaultAvatar from "@/assets/default-avatar.png";
 import Button from "@/shared/components/buttons/button";
 import UserPhotoUploadForm from "@/features/user/upload-user-photo-form/ui";
+import {API_BASE_URL} from "@/shared/config";
 
 const GetUserPhotoProfile: React.FC = () => {
     const {data: userProfile} = useGetUserProfileUseCase();
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const profileImage = userProfile?.img
+        ? `${API_BASE_URL}${userProfile.img}`
+        : defaultAvatar;
 
     return (
         <div className="flex flex-col items-center gap-4">
             <img
-                src={userProfile?.img || defaultAvatar}
+                src={profileImage}
                 alt="Фото профиля"
                 className="w-[315px] h-[315px] rounded-full border-2 border-purple-light dark:border-purple object-cover shadow-purple-custom"
             />

@@ -1,10 +1,10 @@
 import * as yup from "yup";
-import { IFormUpdatePhotoData } from "@/shared/type/user";
+import { IUpdateUserPhotoPort } from "@/shared/type/user";
 
-const validationSchema: yup.ObjectSchema<IFormUpdatePhotoData> = yup.object().shape({
-    img: yup
-        .string()
-        .required("Поле обязательно к заполнению"),
+const validationSchema: yup.ObjectSchema<IUpdateUserPhotoPort> = yup.object().shape({
+    file: yup
+        .mixed<File>()
+        .required("Выберите изображение")
 });
 
 export default validationSchema;

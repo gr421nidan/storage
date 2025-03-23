@@ -1,7 +1,7 @@
 import {cva} from "class-variance-authority";
 
 export const buttonStyles = cva(
-    "cursor-pointer  rounded-[20px] transition-all duration-200 outline-none",
+    "cursor-pointer rounded-[20px] transition-all duration-200 outline-none",
     {
         variants: {
             variant: {

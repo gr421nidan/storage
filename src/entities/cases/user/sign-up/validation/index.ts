@@ -5,11 +5,11 @@ const validationSchema: yup.ObjectSchema<IFormData> = yup.object().shape({
     firstname: yup
         .string()
         .required("Поле обязательно к заполнению")
-        .matches(/^[А-Яа-яЁё\-]{1,255}$/, "Поле введено некорректно"),
+        .matches(/^[А-Яа-яЁё -]{1,255}$/, "Поле введено некорректно"),
     surname: yup
         .string()
         .required("Поле обязательно к заполнению")
-        .matches(/^[А-Яа-яЁё\-]{1,255}$/, "Поле введено некорректно"),
+        .matches(/^[А-Яа-яЁё -]{1,255}$/, "Поле введено некорректно"),
     email: yup
         .string()
         .required("Поле обязательно к заполнению")

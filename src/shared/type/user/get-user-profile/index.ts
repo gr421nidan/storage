@@ -2,14 +2,13 @@ import {ERoleID} from "@/shared/type/auth";
 
 interface IGetUserProfileDto {
     id: string;
-    surname:string;
-    firstname:string;
-    patronymic:string;
-    email:string;
-    phone:string;
-    birthday:string;
+    surname: string;
+    firstname: string;
+    patronymic: string | null;
+    phone: string | null;
     role_id: ERoleID;
-    storage_id: string;
-    img: string;
+    img: string | null;
+    bucket_name: string | null;
 }
+
 export type {IGetUserProfileDto};

@@ -16,7 +16,7 @@ const UserProfileForm: React.FC = () => {
     const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
     const inputSize = "h-[54px] w-[535px]"
 
-    const fields: { name: keyof IUpdateUserPort; placeholder: string; value: string | undefined }[] = [
+    const fields: { name: keyof IUpdateUserPort; placeholder: string; value: string | null | undefined }[] = [
         {name: "firstname", placeholder: "Имя...", value: userProfile?.firstname},
         {name: "surname", placeholder: "Фамилия...", value: userProfile?.surname},
         {name: "patronymic", placeholder: "Отчество...", value: userProfile?.patronymic},
@@ -29,7 +29,8 @@ const UserProfileForm: React.FC = () => {
                 <div className="flex flex-col gap-[32px]">
                     {fields.map(({name, placeholder, value}) => (
                         <div key={name}>
-                            <Input type="text" placeholder={value || placeholder}
+                            <Input type="text" placeholder={placeholder}
+                                   defaultValue={value || ""}
                                    className={cn(inputsStyles({error: isError(name)}), inputSize)}
                                    {...register(name)}/>
                             {errors[name] && <p className={errorTextStyles()}>{errors[name].message}</p>}

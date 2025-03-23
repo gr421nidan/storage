@@ -1,18 +1,19 @@
 interface IUpdateUserPort {
-    surname: string;
-    firstname: string;
-    patronymic?: string;
-    phone?: string;
+    surname?: string | null;
+    firstname?: string | null;
+    patronymic?: string | null;
+    phone?: string | null;
 }
 
 type IFormUpdateUserData = IUpdateUserPort;
 
 interface IUpdateUserDto {
     message: string;
+    status: number;
 }
 
 interface IUpdateUserPhotoPort {
-    img: string;
+    file: File;
 }
 
 type IFormUpdatePhotoData = IUpdateUserPhotoPort;

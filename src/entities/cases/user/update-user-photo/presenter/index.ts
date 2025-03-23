@@ -3,20 +3,30 @@ import {yupResolver} from "@hookform/resolvers/yup";
 import validationSchema from "../validation";
 import {IFormUpdatePhotoData} from "@/shared/type/user";
 import useUpdateUserPhotoUseCase from "@/entities/cases/user/update-user-photo/use-case";
+import {useState} from "react";
 
 const useUpdateUserPhotoPresenter = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm<IFormUpdatePhotoData>({
+    const [fileName, setFileName] = useState<string | null>(null);
+    const {register, handleSubmit, setValue, formState: {errors}} = useForm<IFormUpdatePhotoData>({
         resolver: yupResolver(validationSchema),
     });
     const {mutateAsync} = useUpdateUserPhotoUseCase();
     const onSubmit = handleSubmit(async (data: IFormUpdatePhotoData) => {
         await mutateAsync(data);
     })
-
+    const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const file = event.target.files ? event.target.files[0] : null;
+        if (file) {
+            setFileName(file.name);
+            setValue("file", file);
+        }
+    };
     return {
         register,
         onSubmit,
         errors,
+        handleFileChange,
+        fileName,
     };
 };
 export default useUpdateUserPhotoPresenter;
