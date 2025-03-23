@@ -19,7 +19,7 @@ interface IUpdateUserPhotoPort {
 type IFormUpdatePhotoData = IUpdateUserPhotoPort;
 
 interface IPasswordUserChangePort {
-    password: string;
+    oldPassword: string;
     newPassword: string;
 }
 interface IFormPasswordChangeData extends IPasswordUserChangePort {

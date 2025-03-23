@@ -10,8 +10,8 @@ const useChangePasswordPresenter = () => {
         resolver: yupResolver(validationSchema),
     });
     const onSubmit = handleSubmit(async (data) => {
-        const { password, newPassword } = data;
-        await mutateAsync({ password, newPassword });
+        const { oldPassword, newPassword } = data;
+        await mutateAsync({ oldPassword, newPassword });
     });
 
     return {

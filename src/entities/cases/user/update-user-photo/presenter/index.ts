@@ -13,6 +13,7 @@ const useUpdateUserPhotoPresenter = () => {
     const {mutateAsync} = useUpdateUserPhotoUseCase();
     const onSubmit = handleSubmit(async (data: IFormUpdatePhotoData) => {
         await mutateAsync(data);
+        setFileName(null);
     })
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const file = event.target.files ? event.target.files[0] : null;

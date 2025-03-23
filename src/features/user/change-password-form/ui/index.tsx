@@ -25,10 +25,10 @@ const ChangePasswordForm: React.FC<IChangePasswordProps> = ({isOpen, onClose}) =
                     <Input
                         type="password"
                         placeholder="Текущий пароль*"
-                        className={cn(inputsStyles({error: isError("password")}), inputSize)}
-                        {...register("password")}
+                        className={cn(inputsStyles({error: isError("oldPassword")}), inputSize)}
+                        {...register("oldPassword")}
                     />
-                    {errors.password && <p className={errorTextStyles()}>{errors.password.message}</p>}
+                    {errors.oldPassword && <p className={errorTextStyles()}>{errors.oldPassword.message}</p>}
                 </div>
                 <div>
                     <Input

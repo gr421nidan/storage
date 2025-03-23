@@ -2,10 +2,8 @@ import {ReactNode, useState} from 'react';
 import PageHeader from "@/shared/components/page-header";
 import SearchFilter from "@/features/search";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 
 const MainPage = (): ReactNode => {
-    const {isAdmin} = useGetUserProfileUseCase();
     const handleSearch = (query: string) => {
 
     };

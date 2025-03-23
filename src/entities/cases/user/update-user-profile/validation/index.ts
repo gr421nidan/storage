@@ -18,6 +18,7 @@ const validationSchema: yup.ObjectSchema<IFormUpdateUserData> = yup.object().sha
         .string()
         .matches(/^(\+7|7|8)?[\s-]?\(?[0-9]{3}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/, "Поле введено неккоретно")
         .notRequired()
+        .min(11, 'Минимум 11 символов')
 });
 
 export default validationSchema;

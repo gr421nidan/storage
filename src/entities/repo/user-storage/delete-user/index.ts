@@ -1,9 +1,9 @@
 import {api} from "@/shared/api";
 import {IDeleteUserDto} from "@/shared/type/admin";
+import {AxiosResponse} from "axios";
 
-const deleteUserRepository = async (userId: string): Promise<IDeleteUserDto> => {
-    const response = await api.delete<IDeleteUserDto>(`/storage/users/${userId}`);
-    return response.data;
+const deleteUserRepository = async (userId: string): Promise<AxiosResponse<IDeleteUserDto>> => {
+    return api.delete<IDeleteUserDto>(`/storage/users/${userId}`);
 
 };
 export default deleteUserRepository;

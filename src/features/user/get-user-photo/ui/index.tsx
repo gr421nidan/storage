@@ -11,7 +11,7 @@ const GetUserPhotoProfile: React.FC = () => {
     const profileImage = userProfile?.img
         ? `${API_BASE_URL}${userProfile.img}`
         : defaultAvatar;
-
+    console.log("Image URL:", profileImage);
     return (
         <div className="flex flex-col items-center gap-4">
             <img

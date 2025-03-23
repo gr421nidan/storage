@@ -2,7 +2,7 @@ import * as yup from "yup";
 import {IFormPasswordChangeData} from "@/shared/type/user";
 
 const validationSchema: yup.ObjectSchema<IFormPasswordChangeData> = yup.object().shape({
-    password: yup
+    oldPassword: yup
         .string()
         .required("Поле обязательно к заполнению")
         .min(8, "Пароль должен содержать от 8 до 65 символов")
