@@ -7,8 +7,8 @@ import useUnblockUserPresenter from "@/entities/cases/user-storage/unblock-user/
 import useDeleteUserPresenter from "@/entities/cases/user-storage/delete-user/presenter";
 import ERouterPath from "@/shared/common/enum/router";
 import {useNavigate} from "react-router-dom";
-import Modal from "@/shared/components/modals";
-import Button from "@/shared/components/buttons/button";
+import DeleteUserConfirm from "@/features/admin/delete-user-confirm/ui";
+import UpdateUserGrants from "@/features/admin/update-grant-user";
 
 interface IUserCardProps {
     user: IGetUserDto;
@@ -19,31 +19,23 @@ const UserCard: React.FC<IUserCardProps> = ({user}) => {
     const fullName = `${user.surname} ${user.firstname[0]}. ${user.patronymic ? user.patronymic[0] + '.' : ''}`;
     const userStatus = user.is_active ? 'Активный' : 'Неактивный';
     const userAccess = user.grant_id === EGrantID.FULL_ACCESS ? 'Полный доступ' : 'Просмотр';
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const {handleBlockUser} = useBlockUserPresenter();
     const {handleUnblockUser} = useUnblockUserPresenter();
     const {handleDeleteUser} = useDeleteUserPresenter();
-
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+    const [isDeleteConfirmModalOpen, setDeleteConfirmModalOpen] = useState(false);
+    const [isUpdateUserGrantModalOpen, setUpdateUserGrantModalOpen] = useState(false);
     const confirmDeleteUser = async () => {
         await handleDeleteUser(user.id);
-        closeModal();
+        setDeleteConfirmModalOpen(false);
 
     };
     const handleUserClick = () => {
-        console.log(user.id)
         navigate(ERouterPath.USER_LOGS.replace(':id_user', String(user.id)));
     };
     return (
         <div className={cardStyles}>
             <div className="flex">
-                <span className="w-[275px] cursor-pointer text-blue-500 hover:underline" onClick={handleUserClick}>
+                <span className="w-[275px] cursor-pointer hover:text-purple" onClick={handleUserClick}>
                     {fullName}
                 </span>
                 <span className={`w-[220px] ${user.is_active ? "Активный" : "Неактивный"}`}>
@@ -52,23 +44,23 @@ const UserCard: React.FC<IUserCardProps> = ({user}) => {
             <span className="user-access">{userAccess}
             </span>
             <div className={iconContainerStyles}>
-                <ButtonIcon icon="ci:edit-pencil-line-02" className={iconStyles}/>
+                <ButtonIcon icon="ci:edit-pencil-line-02" className={iconStyles}  onClick={() => setUpdateUserGrantModalOpen(true)} />
                 {user.is_active ? <ButtonIcon icon="iconamoon:lock-off-thin" className={iconStyles}
                                               onClick={() => handleBlockUser(user.id)}/> :
                     <ButtonIcon icon="iconamoon:lock-thin" className={iconStyles}
                                 onClick={() => handleUnblockUser(user.id)}/>}
-                <ButtonIcon icon="lucide:trash" className={iconStyles} onClick={openModal}/>
+                <ButtonIcon icon="lucide:trash" className={iconStyles} onClick={() => setDeleteConfirmModalOpen(true)}/>
             </div>
-            {isModalOpen && (
-                <Modal  title="Удалить" className=" w-[655px]" onClose={closeModal}>
-                    <div>
-                        <p className='text-xl'>Вы уверены, что хотите удалить пользователя?</p>
-                        <div className="text-center mt-[40px]">
-                            <Button onClick={confirmDeleteUser} className="w-[190px] h-[52px]">Удалить</Button>
-                        </div>
-                    </div>
-                </Modal>
-            )}
+            <DeleteUserConfirm
+                isOpen={isDeleteConfirmModalOpen}
+                onClose={() => setDeleteConfirmModalOpen(false)}
+                onDelete={confirmDeleteUser}
+            />
+            <UpdateUserGrants
+                isOpen={isUpdateUserGrantModalOpen}
+                onClose={() => setUpdateUserGrantModalOpen(false)}
+                userId={user.id}
+            />
         </div>
     );
 };

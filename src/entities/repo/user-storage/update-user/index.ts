@@ -1,9 +1,9 @@
 import {api} from "@/shared/api";
-import {IUpdateUserDto, IUpdateUserPort} from "@/shared/type/admin";
+import {IUpdateUsersDto, IUpdateUsersPort} from "@/shared/type/admin";
 
-const updateUserRepository = async (data: IUpdateUserPort, userId: string): Promise<IUpdateUserDto> => {
-    const response = await api.patch<IUpdateUserDto>(`/storage/users/${userId}/grants`, data);
+const updateUsersRepository = async (data: IUpdateUsersPort, userId: string): Promise<IUpdateUsersDto> => {
+    const response = await api.patch<IUpdateUsersDto>(`/storage/users/${userId}/grants`, data);
     return response.data;
 };
 
-export default updateUserRepository;
+export default updateUsersRepository;

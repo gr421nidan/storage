@@ -1,9 +1,13 @@
 import {EGrantID} from "@/shared/type/admin";
 
-interface IUpdateUserPort {
+interface IUpdateUsersPort {
     grant_id: EGrantID;
 }
-interface IUpdateUserDto {
+
+type IFormUpdateUsersData = IUpdateUsersPort;
+
+interface IUpdateUsersDto {
     message: string;
 }
-export type {IUpdateUserDto, IUpdateUserPort}
+
+export type {IUpdateUsersDto, IUpdateUsersPort, IFormUpdateUsersData}
