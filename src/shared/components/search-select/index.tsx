@@ -2,21 +2,21 @@ import React from 'react';
 import Select from 'react-select';
 import { customStyles } from "@/shared/components/search-select/style.ts";
 
-interface Option {
+interface IOption {
     value: string;
     label: string;
 }
 
-interface SearchSelectProps {
-    options: Option[];
-    onChange: (selectedOption: Option | null) => void;
-    value: Option | null;
+interface ISearchSelectProps {
+    options: IOption[];
+    onChange: (selectedOption: IOption | null) => void;
+    value: IOption | null;
     placeholder?: string;
     isSearchable?: boolean;
     className: string;
 }
 
-const SearchSelect: React.FC<SearchSelectProps> = ({
+const SearchSelect: React.FC<ISearchSelectProps> = ({
                                                        options,
                                                        onChange,
                                                        value,
@@ -32,8 +32,8 @@ const SearchSelect: React.FC<SearchSelectProps> = ({
             options={options}
             onChange={handleChange}
             value={value}
-            getOptionLabel={(e: Option) => e.label}
-            getOptionValue={(e: Option) => e.value}
+            getOptionLabel={(e: IOption) => e.label}
+            getOptionValue={(e: IOption) => e.value}
             placeholder={placeholder}
             isClearable={true}
             isSearchable={true}

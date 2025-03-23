@@ -1,119 +1,56 @@
 import React from "react";
 import {
-    iconLinkStyle,
     iconNavStyles,
     navbarContainerStyles,
-    navCircleStyle,
-    navContainerStyles,
-    navLinkBlockStyles,
-    navLinkStyles
+    navContainerStyles
 } from "./style";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import useLogout from "../../entities/cases/user/logout";
+import useLogout from "@/entities/cases/user/logout";
 import {cn} from "@/shared/utils/cn";
-import {Link} from "react-router-dom";
-import ERouterPath from "@/shared/common/enum/router";
-import {Icon} from "@iconify/react";
-import {ERoleID} from "@/shared/type/auth";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
-
+import NavItem from "@/shared/components/nav-item";
+import ERouterPath from "@/shared/common/enum/router";
 
 interface INavbarWidgetProps {
     isOpen: boolean;
-    className?: string;
 }
 
-const NavbarWidget: React.FC<INavbarWidgetProps> = ({isOpen, className}) => {
+interface INavItem {
+    path: ERouterPath;
+    label: string;
+    icon: string;
+}
+
+const adminNavItems: INavItem[] = [
+    {path: ERouterPath.USERS, label: "Пользователи", icon: "octicon:people-24"},
+    {path: ERouterPath.STORAGE_SETTINGS, label: "Настройки хранилища", icon: "lsicon:setting-outline"},
+    {path: ERouterPath.MAIN_PAGE, label: "Общее хранилище", icon: "material-symbols-light:cloud-lock-outline"},
+    {path: ERouterPath.STORAGE_TRASH, label: "Корзина", icon: "mage:trash-2"}
+];
+
+const userNavItems: INavItem[] = [
+    {path: ERouterPath.MAIN_PAGE, label: "Моё хранилище", icon: "ion:cloud-upload-outline"},
+    {path: ERouterPath.AVAILABLE_STORAGE, label: "Доступные хранилища", icon: "bi:clouds"},
+    {path: ERouterPath.STORAGE_TRASH, label: "Корзина", icon: "mage:trash-2"}
+];
+
+const NavbarWidget: React.FC<INavbarWidgetProps> = ({isOpen}) => {
     const logout = useLogout();
-    const { data } = useGetUserProfileUseCase();
-    const userRole = data?.role_id;
+    const {isAdmin} = useGetUserProfileUseCase();
+    const navItems = isAdmin ? adminNavItems : userNavItems;
+
     return (
         <div
-            className={cn(navbarContainerStyles, className, isOpen ? "w-[281px] shadow-[0_0_250px_#0B0121]" : "w-[139px]")}>
+            className={cn(navbarContainerStyles, isOpen ? "w-[281px] shadow-[0_0_250px_#0B0121]" : "w-[130px]")}>
             <nav className={navContainerStyles}>
-                {userRole === ERoleID.ADMIN && (
-                    <>
-                        <div className={navLinkStyles}>
-                            <div className={navCircleStyle}>
-                                <Link to={ERouterPath.USERS} className={navLinkBlockStyles}>
-                                    <Icon icon="octicon:people-24" width="26" height="26"
-                                          className={iconLinkStyle}/>
-                                </Link>
-                            </div>
-                            {isOpen && <Link to={ERouterPath.USERS}>Пользователи</Link>}
-                        </div>
-                        <div className={navLinkStyles}>
-
-                            <div className={navCircleStyle}>
-                                <Link to={ERouterPath.MAIN_PAGE} className={navLinkBlockStyles}>
-                                    <Icon icon="solar:settings-outline" width="26" height="26"
-                                          className={iconLinkStyle}/>
-                                </Link>
-                            </div>
-                            {isOpen && <Link to={ERouterPath.MAIN_PAGE}>Настройки хранилища</Link>}
-                        </div>
-                        <div className={navLinkStyles}>
-
-                            <div className={navCircleStyle}>
-                                <Link to={ERouterPath.MAIN_PAGE} className={navLinkBlockStyles}>
-                                    <Icon icon="material-symbols-light:cloud-lock-outline" width="26" height="26"
-                                          className={iconLinkStyle}/>
-                                </Link>
-                            </div>
-                            {isOpen && <Link to={ERouterPath.MAIN_PAGE}>Общее хранилище</Link>}
-                        </div>
-                        <div className={navLinkStyles}>
-
-                            <div className={navCircleStyle}>
-                                <Link to={ERouterPath.MAIN_PAGE} className={navLinkBlockStyles}>
-                                    <Icon icon="lucide:trash" width="26" height="26" className={iconLinkStyle}/>
-                                </Link>
-
-                            </div>
-                            {isOpen && <Link to={ERouterPath.MAIN_PAGE}>Корзина</Link>}
-                        </div>
-                    </>
-
-                )}
-                {userRole === ERoleID.USER && (
-                    <>
-                        <div className={navLinkStyles}>
-                            <div className={navCircleStyle}>
-                                <Link to={ERouterPath.MAIN_PAGE} className={navLinkBlockStyles}>
-                                    <Icon icon="iconamoon:cloud-upload-thin" width="26" height="26"
-                                          className={iconLinkStyle}/>
-                                </Link>
-                            </div>
-                            {isOpen && <Link to={ERouterPath.MAIN_PAGE}>Моё хранилище</Link>}
-                        </div>
-                        <div className={navLinkStyles}>
-
-                            <div className={navCircleStyle}>
-                                <Link to={ERouterPath.MAIN_PAGE} className={navLinkBlockStyles}>
-                                    <Icon icon="iconamoon:cloud-thin" width="26" height="26" className={iconLinkStyle}/>
-                                </Link>
-                            </div>
-                            {isOpen && <Link to={ERouterPath.MAIN_PAGE}>Доступные хранилища</Link>}
-                        </div>
-                        <div className={navLinkStyles}>
-
-                            <div className={navCircleStyle}>
-                                <Link to={ERouterPath.MAIN_PAGE} className={navLinkBlockStyles}>
-                                    <Icon icon="lucide:trash" width="26" height="26" className={iconLinkStyle}/>
-                                </Link>
-
-                            </div>
-                            {isOpen && <Link to={ERouterPath.MAIN_PAGE}>Корзина</Link>}
-                        </div>
-                    </>
-
-                )}
+                {navItems.map(({path, label, icon}) => (
+                    <NavItem key={path} path={path} label={label} icon={icon} isOpen={isOpen}/>
+                ))}
             </nav>
-            <div className={`flex items-end gap-2 ${isOpen ? 'ml-30' : ''}`}>
-                {isOpen && <span onClick={logout} className="text-2xl">Выход</span>}
+            <div className={cn("flex items-end gap-2", {"ml-30": isOpen})}>
+                {isOpen && <span onClick={logout} className="text-2xl cursor-pointer">Выход</span>}
                 <ButtonIcon onClick={logout} className={iconNavStyles} icon="material-symbols-light:logout"/>
             </div>
-
         </div>
     );
 };

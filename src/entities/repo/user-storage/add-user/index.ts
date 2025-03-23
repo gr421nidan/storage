@@ -6,4 +6,3 @@ const addUserRepository = async (data: IAddUserPort): Promise<IAddUserDto> => {
     return response.data;
 };
 export default addUserRepository;
-

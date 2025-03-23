@@ -4,10 +4,11 @@ import ButtonIcon from "@/shared/components/buttons/button-icon";
 import {cardStyles, iconContainerStyles, iconStyles} from "@/features/admin/users-cards/style.ts";
 import useBlockUserPresenter from "@/entities/cases/user-storage/block-user/presenter";
 import useUnblockUserPresenter from "@/entities/cases/user-storage/unblock-user/presenter";
-import ConfirmModal from "@/shared/components/modals/modals-confirm";
 import useDeleteUserPresenter from "@/entities/cases/user-storage/delete-user/presenter";
 import ERouterPath from "@/shared/common/enum/router";
 import {useNavigate} from "react-router-dom";
+import Modal from "@/shared/components/modals";
+import Button from "@/shared/components/buttons/button";
 
 interface IUserCardProps {
     user: IGetUserDto;
@@ -22,7 +23,6 @@ const UserCard: React.FC<IUserCardProps> = ({user}) => {
     const {handleBlockUser} = useBlockUserPresenter();
     const {handleUnblockUser} = useUnblockUserPresenter();
     const {handleDeleteUser} = useDeleteUserPresenter();
-
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -59,13 +59,16 @@ const UserCard: React.FC<IUserCardProps> = ({user}) => {
                                 onClick={() => handleUnblockUser(user.id)}/>}
                 <ButtonIcon icon="lucide:trash" className={iconStyles} onClick={openModal}/>
             </div>
-            <ConfirmModal
-                isOpen={isModalOpen}
-                onClose={closeModal}
-                onConfirm={confirmDeleteUser}
-                title="Подтвердить удаление"
-                message={`Вы уверены, что хотите удалить пользователя ${fullName}?`}
-            />
+            {isModalOpen && (
+                <Modal  title="Удалить" className=" w-[655px]" onClose={closeModal}>
+                    <div>
+                        <p className='text-xl'>Вы уверены, что хотите удалить пользователя?</p>
+                        <div className="text-center mt-[40px]">
+                            <Button onClick={confirmDeleteUser} className="w-[190px] h-[52px]">Удалить</Button>
+                        </div>
+                    </div>
+                </Modal>
+            )}
         </div>
     );
 };

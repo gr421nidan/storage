@@ -3,8 +3,7 @@ import { IApiErrorDto } from "@/shared/type/auth";
 import { AxiosError } from "axios";
 import { IBlockUserDto } from "@/shared/type/admin";
 import blockUserRepository from "@/entities/repo/user-storage/block-user";
-
-
+import QueryKey from "@/shared/common/enum/query-key";
 
 const useBlockUserUseCase = () => {
     const queryClient = useQueryClient();
@@ -12,7 +11,7 @@ const useBlockUserUseCase = () => {
     return useMutation<IBlockUserDto, AxiosError<IApiErrorDto>, string>({
         mutationFn: execute,
         onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: ["usersStorage"] });
+            await queryClient.invalidateQueries({ queryKey: [QueryKey.USERS_STORAGE] });
         },
     });
 };

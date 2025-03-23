@@ -2,9 +2,9 @@ import { FC, ButtonHTMLAttributes } from "react";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "../style";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
+type IButtonProps = ButtonHTMLAttributes<HTMLButtonElement>;
 
-const Button: FC<ButtonProps> = ({
+const Button: FC<IButtonProps> = ({
                                      type = "button",
                                      className,
                                      ...props

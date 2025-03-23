@@ -1,13 +1,10 @@
 import React, {useState} from "react";
 import useAddUserPresenter from "@/entities/cases/user-storage/add-user/presenter";
 import {EGrantID} from "@/shared/type/admin";
-import {cn} from "@/shared/utils/cn";
 import Button from "@/shared/components/buttons/button";
-
 import {errorTextStyles} from "@/features/auth/style";
 import {formStyles} from "@/features/admin/add-users-form/style";
 import CustomSelect from "@/shared/components/select";
-import {buttonStyles} from "@/shared/components/buttons/style.ts";
 import useGetAllUsersUseCase from "@/entities/cases/user/get-all-users/use-case";
 import SearchSelect from "@/shared/components/search-select";
 
@@ -68,7 +65,7 @@ const AddUserForm: React.FC = () => {
                         <p className={errorTextStyles()}>{errors.grant_id.message}</p>
                     )}
                 </div>
-                <Button type="submit" className={cn(buttonStyles({ variant: "two" }),"h-[52px] w-[273px]")}>Сохранить</Button>
+                <Button type="submit" className="h-[52px] w-[273px]">Сохранить</Button>
             </div>
         </form>
     );

@@ -2,20 +2,14 @@ import {ReactNode, useState} from 'react';
 import PageHeader from "@/shared/components/page-header";
 import SearchFilter from "@/features/search";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-
+import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 
 const MainPage = (): ReactNode => {
+    const {isAdmin} = useGetUserProfileUseCase();
     const handleSearch = (query: string) => {
 
     };
-    const folders = ["Приготовление тортов", "Документы", "Музыка"];
-    const files = [
-        { name: "Шоколадный бисквит", date: "18.03.24", tag: "#Учеба", size: "39 мб" },
-        { name: "Рецепт чизкейка", date: "12.03.24", tag: "#Кулинария", size: "25 мб" },
-    ];
-    const [viewMode, setViewMode] = useState<"grid" | "list">("list");
-
-
+     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
             <PageHeader title="Моё хранилище"/>

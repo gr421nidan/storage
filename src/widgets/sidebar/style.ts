@@ -1,11 +1,9 @@
+const sidebarContainerStyles = "fixed right-0 top-0 z-40 bg-white dark:bg-dark-theme w-[376px] h-screen border-l-3 border-purple rounded-l-[50px] flex flex-col justify-between items-center py-[27px]";
 
-export const sidebarContainerStyles = "bg-white dark:bg-dark-theme w-[376px] h-screen border-l-3 border-purple rounded-l-[50px] flex flex-col justify-between items-center py-[27px]";
+const buttonIconStyle = "h-[30px] w-[25px] ml-auto text-black dark:text-white"
 
-export const circleProfileStyle = "w-[60px] h-[60px] border-2 rounded-full border-purple dark:border-purple-light flex items-center justify-center dark:text-white";
+const dataSidebarContainerStyles = "flex flex-col text-center dark:text-white mt-14"
 
-export const profileButtonStyle =
-    "rounded-[50px] flex items-center justify-between w-[277px] h-[60px] bg-purple-gr pr-[29px] border-2 border-purple-light mb-[55px]"
+const infoDiagramStyles = "mt-2 flex justify-end font-light"
 
-export const storageContainerStyles =
-    "w-full flex flex-col items-center gap-4 px-6";
-;
+export {sidebarContainerStyles, buttonIconStyle, dataSidebarContainerStyles, infoDiagramStyles}

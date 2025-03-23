@@ -1,25 +1,38 @@
-import React from "react";
+import React, {useMemo} from "react";
 import {PieChart, Pie, Cell, Tooltip} from "recharts";
+import {
+    chartWrapper,
+    chartContainer,
+    circleWrapper,
+    innerCircleWrapper,
+    smallCircleWrapper,
+    smallestCircleWrapper,
+    legendWrapper,
+    legendItem,
+    legendCircleUsed,
+    legendCircleFree
+} from "./style";
 
 interface IStorageChartProps {
     used: number;
     total: number;
 }
 
-const COLORS_LIGHT = ["#624699", "#AEA1C9"];
-const COLORS_DARK = ["#AEA1C9", "#624699"];
+interface IChartData {
+    name: string;
+    value: number;
+}
 
+const COLORS = ["var(--color-purple-light)", "var(--color-purple)"];
 
 const StorageChart: React.FC<IStorageChartProps> = ({used, total}) => {
-    const chartData = [
+    const chartData: IChartData[] = useMemo(() => [
         {name: "Занято", value: used},
         {name: "Свободно", value: total - used},
-    ];
-    const isDarkMode = document.documentElement.getAttribute("data-theme") === "dark";
-    const COLORS = isDarkMode ? COLORS_DARK : COLORS_LIGHT;
+    ], [used, total]);
     return (
-        <div className="flex flex-col">
-            <div className="relative flex items-center justify-center">
+        <div className={chartWrapper}>
+            <div className={chartContainer}>
                 <PieChart width={250} height={250}>
                     <Pie
                         data={chartData}
@@ -32,8 +45,7 @@ const StorageChart: React.FC<IStorageChartProps> = ({used, total}) => {
                         paddingAngle={4}
                         cornerRadius={8}
                         dataKey="value"
-                        stroke="none"
-                    >
+                        stroke="none">
                         {chartData.map((_, index) => (
                             <Cell
                                 key={`cell-${index}`}
@@ -44,26 +56,18 @@ const StorageChart: React.FC<IStorageChartProps> = ({used, total}) => {
                     <Tooltip/>
                 </PieChart>
 
-                <div
-                    className="absolute w-[252px] h-[252px] rounded-full border-2 border-purple "></div>
-                <div
-                    className="absolute w-[186px] h-[186px] rounded-full border-2 border-white dark:border-dark-theme"></div>
-                <div
-                    className="absolute w-[77px] h-[77px] rounded-full border-2 border-purple"></div>
-                <div
-                    className="absolute w-[35px] h-[35px] rounded-full border-2 border-purple"></div>
+                <div className={circleWrapper}></div>
+                <div className={innerCircleWrapper}></div>
+                <div className={smallCircleWrapper}></div>
+                <div className={smallestCircleWrapper}></div>
             </div>
-            <div className="flex justify-start mt-2 flex-col font-light">
-                <div className="flex items-center gap-2 ">
-                        <span
-                            className="w-3 h-3 block rounded-full bg-purple dark:bg-purple-light"
-                        ></span>
+            <div className={legendWrapper}>
+                <div className={legendItem}>
+                    <span className={legendCircleUsed}></span>
                     <span>Занято</span>
                 </div>
-                <div className="flex items-center gap-2">
-                        <span
-                            className="w-3 h-3 block rounded-full bg-purple-light dark:bg-purple"
-                        ></span>
+                <div className={legendItem}>
+                    <span className={legendCircleFree}></span>
                     <span>Свободно</span>
                 </div>
             </div>

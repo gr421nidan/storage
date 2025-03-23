@@ -5,4 +5,5 @@ const updateUserRepository = async (data: IUpdateUserPort, userId: string): Prom
     const response = await api.patch<IUpdateUserDto>(`/storage/users/${userId}/grants`, data);
     return response.data;
 };
+
 export default updateUserRepository;

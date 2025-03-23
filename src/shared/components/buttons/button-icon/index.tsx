@@ -3,11 +3,11 @@ import {Icon, IconifyIcon} from "@iconify/react";
 import {cn} from "@/shared/utils/cn";
 import {buttonStyles} from "../style";
 
-type ButtonIconProps = ButtonHTMLAttributes<HTMLButtonElement> & {
+type IButtonIconProps = ButtonHTMLAttributes<HTMLButtonElement> & {
     icon?: string | IconifyIcon;
 };
 
-const ButtonIcon: FC<ButtonIconProps> = ({
+const ButtonIcon: FC<IButtonIconProps> = ({
                                              icon,
                                              type = "button",
                                              className = "",

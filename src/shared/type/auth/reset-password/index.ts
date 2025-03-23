@@ -14,7 +14,6 @@ interface IResetPasswordPort {
 
 type IResetPasswordDto = IResetCodeDto;
 
-
 interface IFormNewPasswordData {
     password: string;
     confirm_password: string;
@@ -36,5 +35,3 @@ export type {
     IFormSendEmailData,
     IFormSendCodeData
 };
-
-

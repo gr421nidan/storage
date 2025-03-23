@@ -3,7 +3,6 @@ declare module 'notistack' {
         errorSnackbar: {
         };
         successSnackbar:{
-
         }
     }
 }

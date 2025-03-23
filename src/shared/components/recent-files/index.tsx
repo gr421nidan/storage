@@ -1,17 +1,16 @@
-
 import React from "react";
 import { Icon } from "@iconify/react";
 
-interface File {
+interface IFile {
     name: string;
     date: string;
 }
 
-interface RecentFilesProps {
-    files: File[];
+interface IRecentFilesProps {
+    files: IFile[];
 }
 
-const RecentFiles: React.FC<RecentFilesProps> = ({ files }) => {
+const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {
     return (
         <div className="space-y-2 w-[350px] py-[27px] px-[23px] dark:text-white border-t-3 border-l-3 border-b-3 rounded-l-[50px] border-purple ">
             <h4 className="text-center mb-6">Недавние</h4>

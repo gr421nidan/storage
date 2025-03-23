@@ -1,4 +1,3 @@
-
 interface IBlockUserDto {
     message: string;
 }

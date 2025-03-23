@@ -8,8 +8,6 @@ import {ThemeProvider} from "@/app/provider/theme";
 import {SnackbarProvider} from "notistack";
 import CustomSnackbar from "@/shared/components/snackbar";
 
-
-
 const client = new QueryClient({
     defaultOptions: {
         mutations: {

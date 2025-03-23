@@ -1,9 +1,10 @@
 import {createBrowserRouter} from "react-router-dom";
 import {
-    LazyMainPage,
+    LazyAvailableStoragePage, LazyConnectingStoragePage, LazyForbiddenPage,
+    LazyMainPage, LazyNotFoundPage,
     LazyResetPage,
     LazySignInPage,
-    LazySignUpPage,
+    LazySignUpPage, LazyStorageSettingsPage, LazyStorageTrashPage,
     LazyStorageUsersPage,
     LazyUserLogsPage, LazyUserProfilePage
 } from "@/pages";
@@ -11,6 +12,8 @@ import ERouterPath from "@/shared/common/enum/router";
 import AuthLayout from "@/shared/components/layouts/auth";
 import MainLayout from "@/shared/components/layouts/main";
 import ProtectedRoute from "@/shared/components/protected-router";
+import ConnectingStorageLayout from "@/shared/components/layouts/connecting-storage";
+import {ERoleID} from "@/shared/type/auth";
 
 const router = createBrowserRouter([
     {
@@ -31,7 +34,7 @@ const router = createBrowserRouter([
         ],
     },
     {
-        element: <ProtectedRoute/>,
+        element: <ProtectedRoute allowedRoles={[ERoleID.USER, ERoleID.ADMIN]} />,
         children: [
             {
                 element: <MainLayout />,
@@ -41,6 +44,24 @@ const router = createBrowserRouter([
                         element: <LazyMainPage />,
                     },
                     {
+                        path: ERouterPath.USER_PROFILE,
+                        element: <LazyUserProfilePage />,
+                    },
+                    {
+                        path: ERouterPath.STORAGE_TRASH,
+                        element: <LazyStorageTrashPage />,
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        element: <ProtectedRoute allowedRoles={[ERoleID.ADMIN]} />,
+        children: [
+            {
+                element: <MainLayout />,
+                children: [
+                    {
                         path: ERouterPath.USERS,
                         element: <LazyStorageUsersPage />,
                     },
@@ -49,16 +70,43 @@ const router = createBrowserRouter([
                         element: <LazyUserLogsPage />,
                     },
                     {
-                        path: ERouterPath.USER_PROFILE,
-                        element: <LazyUserProfilePage />,
+                        path: ERouterPath.STORAGE_SETTINGS,
+                        element: <LazyStorageSettingsPage />,
                     },
                 ],
             },
         ],
     },
     {
+        element: <ProtectedRoute allowedRoles={[ERoleID.USER]} />,
+        children: [
+            {
+                element: <MainLayout />,
+                children: [
+                    {
+                        path: ERouterPath.AVAILABLE_STORAGE,
+                        element: <LazyAvailableStoragePage />,
+                    },
+                ],
+            },
+            {
+                element: <ConnectingStorageLayout />,
+                children: [
+                    {
+                        path: ERouterPath.CONNECTING_STORAGE,
+                        element: <LazyConnectingStoragePage />,
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        path: ERouterPath.FORBIDDEN_PAGE,
+        element: <LazyForbiddenPage/>,
+    },
+    {
         path: "*",
-        element: <div>404</div>,
+        element: <LazyNotFoundPage/>,
     },
 
 ])

@@ -3,10 +3,14 @@ enum ERouterPath {
     SIGN_IN_PAGE = '/sign-in',
     SIGN_UP_PAGE = '/sign-up',
     RESET_PAGE = '/reset-page',
-    USERS= '/users',
-    USER_PROFILE= '/profile',
-    USER_LOGS= '/users/:id_user',
-    FORBIDDEN_PAGE= '/403',
+    USERS = '/storage-users',
+    USER_PROFILE = '/profile',
+    STORAGE_SETTINGS = '/storage-settings',
+    STORAGE_TRASH = '/storage-trash',
+    AVAILABLE_STORAGE = '/available-storage',
+    USER_LOGS = '/users/:id_user',
+    CONNECTING_STORAGE = '/connect',
+    FORBIDDEN_PAGE = '/forbidden',
 }
 
 export default ERouterPath

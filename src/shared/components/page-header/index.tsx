@@ -5,8 +5,6 @@ interface IPageHeaderProps {
 }
 
 const PageHeader: React.FC<IPageHeaderProps> = ({title}) => {
-
-
     return (
         <div className="flex flex-col gap-4">
             <div>

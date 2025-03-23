@@ -10,5 +10,6 @@ interface IGetUserProfileDto {
     birthday:string;
     role_id: ERoleID;
     storage_id: string;
+    img: string;
 }
 export type {IGetUserProfileDto};

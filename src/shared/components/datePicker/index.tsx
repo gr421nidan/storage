@@ -4,13 +4,13 @@ import "react-datepicker/dist/react-datepicker.css";
 import { cn } from "@/shared/utils/cn";
 import { Icon } from "@iconify/react";
 
-interface DatePickerProps {
+interface IDatePickerProps {
     placeholder?: string;
     className?: string;
     onChange?: (date: Date | null) => void;
 }
 
-const CustomDatePicker: React.FC<DatePickerProps> = ({ placeholder, className, onChange }) => {
+const CustomDatePicker: React.FC<IDatePickerProps> = ({ placeholder, className, onChange }) => {
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
     const handleChange = (date: Date | null) => {

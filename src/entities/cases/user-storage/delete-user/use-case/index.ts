@@ -4,8 +4,7 @@ import {AxiosError, HttpStatusCode} from "axios";
 import deleteUserRepository from "@/entities/repo/user-storage/delete-user";
 import {enqueueSnackbar} from "notistack";
 import {IDeleteUserDto} from "@/shared/type/admin";
-
-
+import QueryKey from "@/shared/common/enum/query-key";
 
 const useDeleteUserUseCase = () => {
     const queryClient = useQueryClient();
@@ -13,7 +12,7 @@ const useDeleteUserUseCase = () => {
     return useMutation<IDeleteUserDto, AxiosError<IApiErrorDto>, string>({
         mutationFn: execute,
         onSuccess: async (data) => {
-            await queryClient.invalidateQueries({ queryKey: ["usersStorage"] });
+            await queryClient.invalidateQueries({ queryKey: [QueryKey.USERS_STORAGE] });
             if (data.status === HttpStatusCode.Ok) {
                 enqueueSnackbar("Пользователь удалён", {variant: 'successSnackbar'});
             }

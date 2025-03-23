@@ -16,9 +16,7 @@ interface IErrorBoundaryState {
 
 export class ErrorBoundaryTemplate extends Component<IErrorBoundaryProps, IErrorBoundaryState> {
     state: IErrorBoundaryState = {}
-    
     static getDerivedStateFromError: GetDerivedStateFromError<IErrorBoundaryProps, IErrorBoundaryState> = (error) => ({error});
-
     componentDidCatch(error: Error) {
         this.setState({error});
     }

@@ -1,11 +1,11 @@
 import React, { InputHTMLAttributes, useState } from "react";
 import { Icon } from "@iconify/react";
 
-interface SearchFilterProps extends InputHTMLAttributes<HTMLInputElement> {
+interface ISearchFilterProps extends InputHTMLAttributes<HTMLInputElement> {
     onSearch: (query: string) => void;
 }
 
-const SearchFilter: React.FC<SearchFilterProps> = ({ onSearch, className, placeholder = "Поиск", ...props }) => {
+const SearchFilter: React.FC<ISearchFilterProps> = ({ onSearch, className, placeholder = "Поиск", ...props }) => {
     const [query, setQuery] = useState("");
     const [searched, setSearched] = useState(false);
 

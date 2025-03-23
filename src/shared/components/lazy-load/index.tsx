@@ -5,4 +5,3 @@ export const LoadComponent = <Props extends object, >(Component: FC<Props>): Nam
         <Component {...props} />
     </Suspense>
 ))
-
