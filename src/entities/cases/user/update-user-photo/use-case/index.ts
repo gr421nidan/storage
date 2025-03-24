@@ -20,6 +20,9 @@ const useUpdateUserPhotoUseCase = () => {
             if (error.status === HttpStatusCode.BadRequest) {
                 enqueueSnackbar("Недопустимый тип файла. Разрешенные расширения JPG, PNG, GIF", {variant: 'errorSnackbar'});
             }
+            if (error.status === HttpStatusCode.RequestHeaderFieldsTooLarge) {
+                enqueueSnackbar("Недопустимый размер файла.", {variant: 'errorSnackbar'});
+            }
         },
     });
 };
