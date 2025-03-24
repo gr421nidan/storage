@@ -4,21 +4,21 @@ import {IFormUpdateUserData} from "@/shared/type/user";
 const validationSchema: yup.ObjectSchema<IFormUpdateUserData> = yup.object().shape({
     surname: yup
         .string()
-        .notRequired()
-        .matches(/^[А-Яа-яЁё -]{1,255}$/, "Поле введено некорректно"),
+        .matches(/^[А-Яа-яЁё -]{1,255}$/, "Поле введено некорректно")
+        .notRequired(),
     firstname: yup
         .string()
-        .notRequired()
-        .matches(/^[А-Яа-яЁё -]{1,255}$/, "Поле введено некорректно"),
+        .matches(/^[А-Яа-яЁё -]{1,255}$/, "Поле введено некорректно")
+        .notRequired(),
     patronymic: yup
         .string()
-        .notRequired()
-        .matches(/^[А-Яа-яЁё -]{1,255}$/, 'Поле введено неккоретно'),
+        .matches(/^[А-Яа-яЁё -]{1,255}$/, 'Поле введено неккоретно')
+        .notRequired(),
     phone: yup
         .string()
         .matches(/^(\+7|7|8)?[\s-]?\(?[0-9]{3}\)?[\s-]?[0-9]{3}[\s-]?[0-9]{2}[\s-]?[0-9]{2}$/, "Поле введено неккоретно")
-        .notRequired()
         .min(11, 'Минимум 11 символов')
+        .notRequired()
 });
 
 export default validationSchema;

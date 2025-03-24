@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Input from "@/shared/components/inputs/base-input";
 import Button from "@/shared/components/buttons/button";
 import Modal from "@/shared/components/modals";
@@ -14,40 +14,36 @@ interface IChangePasswordProps {
 }
 
 const ChangePasswordForm: React.FC<IChangePasswordProps> = ({isOpen, onClose}) => {
-    const {register, onSubmit, errors} = useChangePasswordPresenter();
-    const inputSize ="w-[474px] h-[54px]"
+    const {register, onSubmit, errors, reset} = useChangePasswordPresenter({
+        onClose,
+    });
+    const inputSize = "w-[474px] h-[54px]"
     const isError = (field: keyof IFormPasswordChangeData): boolean => !!errors[field];
+    const fields: { name: keyof IFormPasswordChangeData; placeholder: string }[] = [
+        {name: "oldPassword", placeholder: "Текущий пароль*"},
+        {name: "newPassword", placeholder: "Новый пароль*"},
+        {name: "passwordRepeater", placeholder: "Повтор пароля*"},
+    ];
+    useEffect(() => {
+        if (!isOpen) {
+            reset();
+        }
+    }, [isOpen, reset]);
     if (!isOpen) return null;
     return (
         <Modal className="w-[655px]" title="Сменить пароль" onClose={onClose}>
             <form onSubmit={onSubmit} className="flex flex-col gap-6 items-center">
-                <div>
-                    <Input
-                        type="password"
-                        placeholder="Текущий пароль*"
-                        className={cn(inputsStyles({error: isError("oldPassword")}), inputSize)}
-                        {...register("oldPassword")}
-                    />
-                    {errors.oldPassword && <p className={errorTextStyles()}>{errors.oldPassword.message}</p>}
-                </div>
-                <div>
-                    <Input
-                        type="password"
-                        placeholder="Новый пароль*"
-                        className={cn(inputsStyles({error: isError("newPassword")}), inputSize)}
-                        {...register("newPassword")}
-                    />
-                    {errors.newPassword && <p className={errorTextStyles()}>{errors.newPassword.message}</p>}
-                </div>
-                <div>
-                    <Input
-                        type="password"
-                        placeholder="Повтор пароля*"
-                        className={cn(inputsStyles({error: isError("passwordRepeater")}), inputSize)}
-                        {...register("passwordRepeater")}
-                    />
-                    {errors.passwordRepeater && <p className={errorTextStyles()}>{errors.passwordRepeater.message}</p>}
-                </div>
+                {fields.map(({name, placeholder}) => (
+                    <div key={name}>
+                        <Input
+                            type="password"
+                            placeholder={placeholder}
+                            className={cn(inputsStyles({error: isError(name)}), inputSize)}
+                            {...register(name)}
+                        />
+                        {errors[name] && <p className={errorTextStyles()}>{errors[name].message}</p>}
+                    </div>
+                ))}
                 <div className="text-center mt-[40px]">
                     <Button type="submit" className="w-[217px] h-[52px]">Сохранить</Button>
                 </div>

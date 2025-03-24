@@ -1,6 +1,6 @@
 import React from 'react';
 import Select from 'react-select';
-import { customStyles } from "@/shared/components/search-select/style.ts";
+import { customStyles } from "@/shared/components/search-select/style";
 
 interface IOption {
     value: string;
@@ -13,30 +13,24 @@ interface ISearchSelectProps {
     value: IOption | null;
     placeholder?: string;
     isSearchable?: boolean;
-    className: string;
+    className?: string;
 }
 
 const SearchSelect: React.FC<ISearchSelectProps> = ({
-                                                       options,
-                                                       onChange,
-                                                       value,
-                                                       placeholder,
-                                                       className
-                                                   }) => {
-    const handleChange = (selectedItem: any) => {
-        onChange(selectedItem);
-    };
-
+                                                        options,
+                                                        onChange,
+                                                        value,
+                                                        placeholder,
+                                                        isSearchable = true,
+                                                        className}) => {
     return (
         <Select
             options={options}
-            onChange={handleChange}
+            onChange={onChange}
             value={value}
-            getOptionLabel={(e: IOption) => e.label}
-            getOptionValue={(e: IOption) => e.value}
             placeholder={placeholder}
             isClearable={true}
-            isSearchable={true}
+            isSearchable={isSearchable}
             filterOption={(candidate, input) => {
                 if (!input) {
                     return false;

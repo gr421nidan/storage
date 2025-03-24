@@ -1,5 +1,5 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IApiErrorDto } from "@/shared/type/auth";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {IApiErrorDto} from "@/shared/type/auth";
 import {AxiosError, AxiosResponse, HttpStatusCode} from "axios";
 import updateUserRepository from "@/entities/repo/user/update-user-profile";
 import {IUpdateUserDto, IUpdateUserPort} from "@/shared/type/user";
@@ -12,9 +12,9 @@ const useUpdateUserUseCase = () => {
     return useMutation<AxiosResponse<IUpdateUserDto>, AxiosError<IApiErrorDto>, IUpdateUserPort>({
         mutationFn: execute,
         onSuccess: async (response) => {
-            await queryClient.invalidateQueries({ queryKey: [QueryKey.USER_PROFILE] });
+            await queryClient.invalidateQueries({queryKey: [QueryKey.USER_PROFILE]});
             if (response.status === HttpStatusCode.Ok) {
-                enqueueSnackbar("Данные изменены", {variant: 'successSnackbar'});
+                enqueueSnackbar("Данные изменены", {variant: "successSnackbar"});
             }
         }
     });

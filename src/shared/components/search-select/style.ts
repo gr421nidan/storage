@@ -1,42 +1,48 @@
-export const customStyles = {
-    control: (styles: any) => ({
-        ...styles,
-        borderColor: 'var(--color-purple-light)',  // Используем цвет из глобальной темы
+import { StylesConfig } from 'react-select';
+
+export interface IOption {
+    value: string;
+    label: string;
+}
+
+export const customStyles: StylesConfig<IOption, false> = {
+    control: (provided) => ({
+        ...provided,
+        borderColor: 'var(--color-purple-light)',
         borderWidth: '2px',
         borderRadius: '20px',
         padding: '0 10px',
-        height: '52px', // Устанавливаем нужную высоту
-        boxShadow: 'none', // Убираем тень
-    // Убираем фоновый цвет
+        height: '52px',
+        boxShadow: 'none',
     }),
-    menu: (styles: any) => ({
-        ...styles,
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)', // Можно оставить для меню, чтобы оно не сливалось с фоном
+    menu: (provided) => ({
+        ...provided,
+        backgroundColor: 'white',
     }),
-    option: (styles: any, state: any) => ({
-        ...styles,
+    option: (provided, state) => ({
+        ...provided,
         padding: '10px 20px',
         backgroundColor: state.isSelected
-            ? 'var(--color-purple-light)' // Цвет при выборе
+            ? 'var(--color-purple-light)'
             : state.isFocused
-                ? 'rgba(98, 70, 153, 0.1)' // Цвет при фокусе
-                : 'transparent', // Обычное состояние
+                ? 'rgba(98, 70, 153, 0.1)'
+                : 'transparent',
         color: state.isSelected ? 'white' : 'black',
     }),
-    placeholder: (styles: any) => ({
-        ...styles,
-        color: 'black', // Цвет плейсхолдера
+    placeholder: (provided) => ({
+        ...provided,
+        color: 'black',
     }),
-    clearIndicator: (styles: any) => ({
-        ...styles,
-        color: 'var(--color-purple-light)', // Скрываем кнопку очистки
+    clearIndicator: (provided) => ({
+        ...provided,
+        color: 'var(--color-purple-light)',
     }),
-    indicatorSeparator: (styles: any) => ({
-        ...styles,
-        display: 'none', // Скрываем разделитель
+    indicatorSeparator: (provided) => ({
+        ...provided,
+        display: 'none',
     }),
-    dropdownIndicator: (styles: any) => ({
-        ...styles,
-        display: 'none', // Скрываем стрелку вниз
+    dropdownIndicator: (provided) => ({
+        ...provided,
+        display: 'none',
     }),
 };

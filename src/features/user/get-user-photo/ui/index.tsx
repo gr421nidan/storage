@@ -4,6 +4,7 @@ import defaultAvatar from "@/assets/default-avatar.png";
 import Button from "@/shared/components/buttons/button";
 import UserPhotoUploadForm from "@/features/user/upload-user-photo-form/ui";
 import {API_BASE_URL} from "@/shared/config";
+import {containerPhotoStyle, profileImageStyle} from "@/features/user/get-user-photo/style.ts";
 
 const GetUserPhotoProfile: React.FC = () => {
     const {data: userProfile} = useGetUserProfileUseCase();
@@ -11,15 +12,14 @@ const GetUserPhotoProfile: React.FC = () => {
     const profileImage = userProfile?.img
         ? `${API_BASE_URL}${userProfile.img}`
         : defaultAvatar;
-    console.log("Image URL:", profileImage);
     return (
-        <div className="flex flex-col items-center gap-4">
+        <div className={containerPhotoStyle}>
             <img
                 src={profileImage}
                 alt="Фото профиля"
-                className="w-[315px] h-[315px] rounded-full border-2 border-purple-light dark:border-purple object-cover shadow-purple-custom"
+                className={profileImageStyle}
             />
-            <Button className="w-[270px] h-[52px]" onClick={() => setIsModalOpen(true)}>
+            <Button className="w-[270px] h-13" onClick={() => setIsModalOpen(true)}>
                 Изменить фото
             </Button>
             <UserPhotoUploadForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

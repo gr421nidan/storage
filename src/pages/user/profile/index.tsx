@@ -2,13 +2,14 @@ import {ReactNode} from 'react';
 import PageHeader from "@/shared/components/page-header";
 import UserProfileForm from "@/features/user/update-profile-form/ui";
 import GetUserPhotoProfile from "@/features/user/get-user-photo/ui";
+import {contentWrapperStyle, pageContainerStyle, profileStyle} from "@/pages/user/profile/style.ts";
 
 const UserProfilePage = (): ReactNode => {
     return (
-        <div className="dark:text-white flex flex-col gap-[42px]">
+        <div className={pageContainerStyle}>
             <PageHeader title="Личные данные"/>
-            <div className="flex flex-col  items-center">
-                <div className="w-[1158px] h-[710px] bg-purple-gr rounded-[15px] border-3 border-purple-light flex px-[66px] py-[42px] justify-between">
+            <div className={contentWrapperStyle}>
+                <div className={profileStyle}>
                     <GetUserPhotoProfile/>
                     <UserProfileForm/>
                 </div>

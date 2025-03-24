@@ -2,5 +2,6 @@ const circleProfileStyle = "w-[60px] h-[60px] text-purple-light border-2 rounded
 
 const profileButtonStyle =
     "rounded-[50px] flex items-center justify-between w-[277px] h-[60px] bg-purple-gr pr-7 border-2 border-purple-light"
+const profileLinkStyle = "font-manrope font-light text-lg dark:text-white"
 
-export {circleProfileStyle, profileButtonStyle}
+export {circleProfileStyle, profileButtonStyle, profileLinkStyle}

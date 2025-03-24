@@ -24,14 +24,14 @@ interface INavItem {
 const adminNavItems: INavItem[] = [
     {path: ERouterPath.USERS, label: "Пользователи", icon: "octicon:people-24"},
     {path: ERouterPath.STORAGE_SETTINGS, label: "Настройки хранилища", icon: "lsicon:setting-outline"},
-    {path: ERouterPath.MAIN_PAGE, label: "Общее хранилище", icon: "material-symbols-light:cloud-lock-outline"},
-    {path: ERouterPath.STORAGE_TRASH, label: "Корзина", icon: "mage:trash-2"}
+    {path: ERouterPath.MAIN_PAGE, label: "Общее хранилище", icon: "bi:clouds"},
+    {path: ERouterPath.STORAGE_TRASH, label: "Корзина", icon: "lucide:trash"}
 ];
 
 const userNavItems: INavItem[] = [
     {path: ERouterPath.MAIN_PAGE, label: "Моё хранилище", icon: "ion:cloud-upload-outline"},
     {path: ERouterPath.AVAILABLE_STORAGE, label: "Доступные хранилища", icon: "bi:clouds"},
-    {path: ERouterPath.STORAGE_TRASH, label: "Корзина", icon: "mage:trash-2"}
+    {path: ERouterPath.STORAGE_TRASH, label: "Корзина", icon: "lucide:trash"}
 ];
 
 const NavbarWidget: React.FC<INavbarWidgetProps> = ({isOpen}) => {

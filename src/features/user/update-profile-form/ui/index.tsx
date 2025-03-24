@@ -37,7 +37,7 @@ const UserProfileForm: React.FC = () => {
                         </div>
                     ))}
                 </div>
-                <div className="flex gap-4 mt-4">
+                <div className="flex gap-4">
                     <Button type="button" className="w-[294px] h-[52px]" onClick={() => setPasswordModalOpen(true)}>
                         Изменить пароль
                     </Button>
