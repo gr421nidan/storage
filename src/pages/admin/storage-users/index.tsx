@@ -3,7 +3,7 @@ import AddUserForm from "@/features/admin/add-users-form/ui";
 import useGetUsersUseCase from "@/entities/cases/user-storage/get-users/use-case";
 import UserCard from "@/features/admin/users-cards/ui";
 import SearchFilter from "@/features/search";
-import {IGetUserDto} from "@/shared/type/admin";
+import {IGetUserDto} from "@/shared/interface/admin";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import PageHeader from "@/shared/components/page-header";
 

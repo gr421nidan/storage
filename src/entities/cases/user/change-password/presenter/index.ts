@@ -1,7 +1,7 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import useChangePasswordUseCase from "../use-case";
-import {IFormPasswordChangeData} from "@/shared/type/user";
+import {IFormPasswordChangeData} from "@/shared/interface/user";
 import validationSchema from "../validation";
 
 interface IUseUpdateUserPasswordProps {

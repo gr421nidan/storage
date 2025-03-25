@@ -1,5 +1,5 @@
 import {useMutation} from "@tanstack/react-query";
-import {IApiErrorDto, ISignInDto, ISignInPort} from "@/shared/type/auth";
+import {IApiErrorDto, ISignInDto, ISignInPort} from "@/shared/interface/auth";
 import {AxiosError} from "axios";
 import loginUserRepository from "@/entities/repo/user/sign-in";
 

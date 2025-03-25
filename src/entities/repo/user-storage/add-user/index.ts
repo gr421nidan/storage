@@ -1,5 +1,5 @@
 import {api} from "@/shared/api";
-import {IAddUserDto, IAddUserPort} from "@/shared/type/admin";
+import {IAddUserDto, IAddUserPort} from "@/shared/interface/admin";
 
 const addUserRepository = async (data: IAddUserPort): Promise<IAddUserDto> => {
     const response = await api.post<IAddUserDto>("/storage/add-user", data);

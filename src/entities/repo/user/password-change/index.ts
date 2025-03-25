@@ -1,5 +1,5 @@
 import {api} from "@/shared/api";
-import {IPasswordUserChangePort, IUpdateUserDto} from "@/shared/type/user";
+import {IPasswordUserChangePort, IUpdateUserDto} from "@/shared/interface/user";
 import {AxiosResponse} from "axios";
 
 const changePasswordRepository = async (data: IPasswordUserChangePort):  Promise<AxiosResponse<IUpdateUserDto>> => {

@@ -1,6 +1,6 @@
 import {useForm} from "react-hook-form";
 import useResetPasswordUseCase from "../use-case";
-import {IFormNewPasswordData, IResetPasswordPort} from "@/shared/type/auth/reset-password";
+import {IFormNewPasswordData, IResetPasswordPort} from "@/shared/interface/auth/reset-password";
 import ERouterPath from "@/shared/common/enum/router";
 import {useNavigate} from "react-router-dom";
 import {yupResolver} from "@hookform/resolvers/yup";

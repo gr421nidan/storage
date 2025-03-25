@@ -1,7 +1,7 @@
 import React from 'react';
 import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
-import {EGrantID} from "@/shared/type/admin";
+import {EGrantID} from "@/shared/emum/admin";
 import CustomSelect from "@/shared/components/select";
 import useUpdateUsersGrantPresenter from "@/entities/cases/user-storage/update-user/presenter";
 

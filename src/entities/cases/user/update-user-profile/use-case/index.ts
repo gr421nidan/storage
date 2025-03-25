@@ -1,8 +1,8 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {IApiErrorDto} from "@/shared/type/auth";
+import {IApiErrorDto} from "@/shared/interface/auth";
 import {AxiosError, AxiosResponse, HttpStatusCode} from "axios";
 import updateUserRepository from "@/entities/repo/user/update-user-profile";
-import {IUpdateUserDto, IUpdateUserPort} from "@/shared/type/user";
+import {IUpdateUserDto, IUpdateUserPort} from "@/shared/interface/user";
 import QueryKey from "@/shared/common/enum/query-key";
 import {enqueueSnackbar} from "notistack";
 

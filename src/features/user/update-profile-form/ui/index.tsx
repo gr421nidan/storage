@@ -7,8 +7,9 @@ import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use
 import {errorTextStyles} from "@/features/auth/style.ts";
 import useUpdateUserPresenter from "@/entities/cases/user/update-user-profile/presenter";
 import Button from "@/shared/components/buttons/button";
-import {IFormUpdateUserData, IUpdateUserPort} from "@/shared/type/user";
+import {IUpdateUserPort} from "@/shared/interface/user";
 import ChangePasswordForm from "@/features/user/change-password-form/ui";
+import {IFormUpdateUserData} from "@/shared/type/user";
 
 const UserProfileForm: React.FC = () => {
     const {data: userProfile} = useGetUserProfileUseCase();

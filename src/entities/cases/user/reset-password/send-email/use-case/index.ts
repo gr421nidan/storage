@@ -4,7 +4,7 @@ import {
     IApiErrorDto,
     IResetCodePort,
     IResetCodeDto,
-} from "@/shared/type/auth";
+} from "@/shared/interface/auth";
 import { sendResetCodeUser} from "@/entities/repo/user/resset-password";
 
 const execute = (data: IResetCodePort) => sendResetCodeUser(data);

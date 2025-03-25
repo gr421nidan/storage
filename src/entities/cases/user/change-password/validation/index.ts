@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import {IFormPasswordChangeData} from "@/shared/type/user";
+import {IFormPasswordChangeData} from "@/shared/interface/user";
 
 const validationSchema: yup.ObjectSchema<IFormPasswordChangeData> = yup.object().shape({
     oldPassword: yup

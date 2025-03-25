@@ -6,7 +6,7 @@ import {errorTextStyles} from "@/features/auth/style.ts";
 import useChangePasswordPresenter from "@/entities/cases/user/change-password/presenter";
 import {cn} from "@/shared/utils/cn";
 import {inputsStyles} from "@/shared/components/inputs/style.ts";
-import {IFormPasswordChangeData} from "@/shared/type/user";
+import {IFormPasswordChangeData} from "@/shared/interface/user";
 
 interface IChangePasswordProps {
     isOpen: boolean;

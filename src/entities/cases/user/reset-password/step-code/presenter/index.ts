@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import { sendResetCodeUser } from "@/entities/repo/user/resset-password";
-import {IFormSendCodeData, IResetCodePort} from "@/shared/type/auth/reset-password";
+import {IFormSendCodeData, IResetCodePort} from "@/shared/interface/auth/reset-password";
 import validationSchema from "../validation";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
@@ -28,8 +28,6 @@ const useStepCodePresenter = ({ onSuccess, email }: IUseStepCodeFormParams) => {
     const onSubmit = handleSubmit(async (data) => {
         onSuccess(data.confirmation_code);
     });
-
-
     const handleResendClick = async () => {
         try {
             await sendResetCodeUser({ email } as IResetCodePort);

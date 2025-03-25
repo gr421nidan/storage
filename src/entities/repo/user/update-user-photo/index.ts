@@ -1,5 +1,5 @@
 import { api } from "@/shared/api";
-import {IUpdateUserPhotoPort, IUpdateUserDto} from "@/shared/type/user";
+import {IUpdateUserPhotoPort, IUpdateUserDto} from "@/shared/interface/user";
 
 const updateUserPhotoRepository = async (data:IUpdateUserPhotoPort): Promise<IUpdateUserDto> => {
     const formData = new FormData();

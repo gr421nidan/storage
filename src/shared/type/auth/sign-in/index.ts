@@ -1,17 +1,5 @@
-import {ERoleID} from "@/shared/type/auth";
-
-interface ISignInPort {
-    password: string;
-    email: string;
-}
-
-interface ISignInDto {
-    accessToken: string;
-    id: string;
-    role_id:ERoleID;
-    storage_id:string;
-}
+import {ISignInPort} from "@/shared/interface/auth";
 
 type IFormSignInData = ISignInPort;
 
-export type {ISignInPort, ISignInDto, IFormSignInData}
+export type {IFormSignInData}

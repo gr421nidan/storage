@@ -3,8 +3,8 @@ import {
     IResetCodePort,
     IResetCodeDto,
     IResetPasswordPort,
-    IResetPasswordDto
-} from "@/shared/type/auth";
+} from "@/shared/interface/auth";
+import {IResetPasswordDto} from "@/shared/type/auth";
 
 export const sendResetCodeUser = async (
     data: IResetCodePort

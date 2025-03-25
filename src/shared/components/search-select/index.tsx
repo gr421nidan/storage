@@ -1,5 +1,5 @@
-import React from 'react';
-import Select from 'react-select';
+import React from "react";
+import Select from "react-select";
 import { customStyles } from "@/shared/components/search-select/style";
 
 interface IOption {
@@ -22,7 +22,8 @@ const SearchSelect: React.FC<ISearchSelectProps> = ({
                                                         value,
                                                         placeholder,
                                                         isSearchable = true,
-                                                        className}) => {
+                                                        className,
+                                                    }) => {
     return (
         <Select
             options={options}
@@ -32,7 +33,7 @@ const SearchSelect: React.FC<ISearchSelectProps> = ({
             isClearable={true}
             isSearchable={isSearchable}
             filterOption={(candidate, input) => {
-                if (!input) {
+                if (!input || input.length < 3) {
                     return false;
                 }
                 return candidate.label.toLowerCase().includes(input.toLowerCase());

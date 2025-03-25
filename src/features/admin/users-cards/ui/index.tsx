@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {EGrantID, IGetUserDto} from "@/shared/type/admin";
+import {IGetUserDto} from "@/shared/interface/admin";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import {cardStyles, iconContainerStyles, iconStyles} from "@/features/admin/users-cards/style.ts";
 import useBlockUserPresenter from "@/entities/cases/user-storage/block-user/presenter";
@@ -9,6 +9,7 @@ import ERouterPath from "@/shared/common/enum/router";
 import {useNavigate} from "react-router-dom";
 import DeleteUserConfirm from "@/features/admin/delete-user-confirm/ui";
 import UpdateUserGrants from "@/features/admin/update-grant-user";
+import {EGrantID} from "@/shared/emum/admin";
 
 interface IUserCardProps {
     user: IGetUserDto;

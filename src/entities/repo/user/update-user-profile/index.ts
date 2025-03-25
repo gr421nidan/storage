@@ -1,5 +1,5 @@
 import {api} from "@/shared/api";
-import {IUpdateUserDto, IUpdateUserPort} from "@/shared/type/user";
+import {IUpdateUserDto, IUpdateUserPort} from "@/shared/interface/user";
 import {AxiosResponse} from "axios";
 
 const updateUserRepository = async (data: IUpdateUserPort): Promise<AxiosResponse<IUpdateUserDto>> => {

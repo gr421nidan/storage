@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IApiErrorDto } from "@/shared/type/auth";
+import { IApiErrorDto } from "@/shared/interface/auth";
 import { AxiosError } from "axios";
-import { IBlockUserDto } from "@/shared/type/admin";
+import { IBlockUserDto } from "@/shared/interface/admin";
 import unblockUserRepository from "@/entities/repo/user-storage/unblock-user";
 import QueryKey from "@/shared/common/enum/query-key";
 

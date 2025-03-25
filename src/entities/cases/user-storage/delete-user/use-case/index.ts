@@ -1,9 +1,9 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IApiErrorDto } from "@/shared/type/auth";
+import { IApiErrorDto } from "@/shared/interface/auth";
 import {AxiosError, AxiosResponse, HttpStatusCode} from "axios";
 import deleteUserRepository from "@/entities/repo/user-storage/delete-user";
 import {enqueueSnackbar} from "notistack";
-import {IDeleteUserDto} from "@/shared/type/admin";
+import {IDeleteUserDto} from "@/shared/interface/admin";
 import QueryKey from "@/shared/common/enum/query-key";
 
 const useDeleteUserUseCase = () => {

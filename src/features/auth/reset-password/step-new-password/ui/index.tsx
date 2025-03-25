@@ -13,7 +13,6 @@ import { inputsStyles } from "@/shared/components/inputs/style";
 import Button from "@/shared/components/buttons/button";
 import icon from "@/assets/icon.svg";
 
-
 interface IStepNewPasswordProps {
     email: string;
     confirmation_code: string;

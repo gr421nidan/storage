@@ -5,15 +5,13 @@ import { useNavigate } from "react-router-dom";
 import {
     IApiErrorDto,
     IResetPasswordPort,
-    IResetPasswordDto,
-} from "@/shared/type/auth";
+} from "@/shared/interface/auth";
 
 import {resetPasswordUser } from "@/entities/repo/user/resset-password";
 import ERouterPath from "@/shared/common/enum/router";
-
+import {IResetPasswordDto} from "@/shared/type/auth";
 
 const execute = (data: IResetPasswordPort) => resetPasswordUser(data);
-
 
 const useResetPasswordUseCase = () => {
     const navigate = useNavigate();
