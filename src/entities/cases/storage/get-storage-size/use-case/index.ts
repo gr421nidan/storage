@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import getStorageDataRepository from "@/entities/repo/storage/get-storage-size";
-import convertBytesToGB from "../../../../../shared/utils/convertSize";
+import convertBytesToGB from "../../../../../shared/utils/convertSizeStorage";
 import QueryKey from "@/shared/common/enum/query-key";
 
 const useGetStorageSizeUseCase = () => {

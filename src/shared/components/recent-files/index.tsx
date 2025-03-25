@@ -20,7 +20,7 @@ const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {
                     key={index}
                     className={recentFilesListStyles}>
                     <span className={recentFilesNameStyles}>
-                        <FileIcon fileType={file.type} size={24} />
+                        <FileIcon fileType={file.type}  />
                         {file.title}
                     </span>
                     <span >{file.created_at}</span>

@@ -4,7 +4,7 @@ interface IGetStorageFilesDto {
     type: string;
     size: number;
     created_at:string;
-    tag_id: number;
+    tag: string | null;
 }
 
 export type {IGetStorageFilesDto};

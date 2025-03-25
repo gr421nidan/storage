@@ -10,7 +10,7 @@ const mockFiles: IGetStorageFilesDto[] = [
         type: "image/gif",
         size: 1048576,
         created_at: "2025-03-20T12:34:56Z",
-        tag_id: 1
+        tag: "Учёба"
     },
     {
         id: generateUUID(),
@@ -18,15 +18,15 @@ const mockFiles: IGetStorageFilesDto[] = [
         type: "image/jpeg",
         size: 1048575,
         created_at: "2025-03-21T12:34:56Z",
-        tag_id: 1
+        tag: "Учёба"
     },
     {
         id: generateUUID(),
         title: "file3.jpg",
         type: "image/jpg",
-        size: 1048575,
+        size: 1048576,
         created_at: "2025-03-23T12:34:56Z",
-        tag_id: 2
+        tag: "Учёба"
     },
     {
         id: generateUUID(),
@@ -34,7 +34,7 @@ const mockFiles: IGetStorageFilesDto[] = [
         type: "audio/mp3",
         size: 1048575,
         created_at: "2025-03-22T12:34:56Z",
-        tag_id: 1
+        tag: "Учёба"
     },
     {
         id: generateUUID(),
@@ -42,7 +42,7 @@ const mockFiles: IGetStorageFilesDto[] = [
         type: "application/pdf",
         size: 1048575,
         created_at: "2025-03-25T12:34:56Z",
-        tag_id: 3
+        tag: "Работа"
     },
     {
         id: generateUUID(),
@@ -50,15 +50,39 @@ const mockFiles: IGetStorageFilesDto[] = [
         type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         size: 1048575,
         created_at: "2025-03-25T12:34:56Z",
-        tag_id: 1
+        tag: "Учёба"
     },
     {
         id: generateUUID(),
         title: "file7.mp4",
-        type: "audio/mp4",
+        type: "video/mp4",
         size: 1048575,
         created_at: "2025-03-24T12:34:56Z",
-        tag_id: 1
+        tag: null
+    },
+    {
+        id: generateUUID(),
+        title: "file7.mp4",
+        type: "video/mp4",
+        size: 1048575,
+        created_at: "2025-03-24T12:34:56Z",
+        tag: null
+    },
+    {
+        id: generateUUID(),
+        title: "file6.docs",
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        size: 1048575,
+        created_at: "2025-03-25T12:34:56Z",
+        tag: "Учёба"
+    },
+    {
+        id: generateUUID(),
+        title: "file6.docs",
+        type: "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        size: 1048575,
+        created_at: "2025-03-25T12:34:56Z",
+        tag: "Учёба"
     },
 ];
 

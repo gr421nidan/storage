@@ -23,6 +23,8 @@
     --gradient-purple-dark: linear-gradient(to bottom right, rgba(98, 70, 153, 0.4), rgba(98, 70, 153, 0.1));
     --gradient-light-to-purple: linear-gradient(to right, rgba(98, 70, 153, 0), rgba(174, 161, 201, 100));
     --gradient-dark-to-purple: linear-gradient(to right, rgba(174, 161, 201, 0), rgba(98, 70, 153, 100));
+    --gradient-light-purple: linear-gradient(to right, rgba(174, 161, 201, 0.5), rgba(174, 161, 201, 0.1));
+    --gradient-dark-purple: linear-gradient(to right, rgba(98, 70, 153, 0.5), rgba(98, 70, 153, 0.1));
 }
 [data-theme="dark"] body {
     background-color: var(--color-dark-theme);
@@ -102,6 +104,12 @@ body{
 
     [data-theme="dark"] .bg-purple-gr-circle {
         background: linear-gradient(to bottom, var(--color-purple-light), rgba(174, 161, 201, 0.64));
+    }
+    .bg-gr-blocks{
+        background: var(--gradient-light-purple);
+    }
+    [data-theme="dark"] .bg-gr-blocks{
+        background: var(--gradient-dark-purple);
     }
 }
 @layer utilities {
