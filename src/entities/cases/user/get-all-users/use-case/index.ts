@@ -1,7 +1,7 @@
 import {AxiosError} from "axios";
 import {useQuery} from "@tanstack/react-query";
 import {IGetAllUsersDto} from "@/shared/interface/admin/get-all-users";
-import getAllUsersRepository from "@/entities/repo/storage/get-users";
+import getAllUsersRepository from "../../../../repo/user/get-users";
 import QueryKey from "@/shared/common/enum/query-key";
 
 const useGetAllUsersUseCase = () => {

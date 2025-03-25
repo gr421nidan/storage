@@ -1,28 +1,29 @@
 import React from "react";
-import { Icon } from "@iconify/react";
-
-interface IFile {
-    name: string;
-    date: string;
-}
+import {
+    headerRecentFilesStyles,
+    recentFilesContainerStyles,
+    recentFilesListStyles, recentFilesNameStyles
+} from "@/shared/components/recent-files/style";
+import {IGetStorageFilesDto} from "@/shared/interface/storage";
+import FileIcon from "@/shared/components/file-icon";
 
 interface IRecentFilesProps {
-    files: IFile[];
+    files: IGetStorageFilesDto[];
 }
 
 const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {
     return (
-        <div className="space-y-2 w-[350px] py-[27px] px-[23px] dark:text-white border-t-3 border-l-3 border-b-3 rounded-l-[50px] border-purple ">
-            <h4 className="text-center mb-6">Недавние</h4>
+        <div className={recentFilesContainerStyles}>
+            <h4 className={headerRecentFilesStyles}>Недавние</h4>
             {files.map((file, index) => (
                 <li
                     key={index}
-                    className="flex justify-between items-center rounded p-2">
-                    <span className="flex items-center gap-2">
-                        <Icon icon="mdi:file-outline" width="20" />
-                        {file.name}
+                    className={recentFilesListStyles}>
+                    <span className={recentFilesNameStyles}>
+                        <FileIcon fileType={file.type} size={24} />
+                        {file.title}
                     </span>
-                    <span >{file.date}</span>
+                    <span >{file.created_at}</span>
                 </li>
             ))}
         </div>

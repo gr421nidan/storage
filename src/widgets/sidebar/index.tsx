@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {
     buttonIconStyle, dataSidebarContainerStyles, infoDiagramStyles,
     sidebarContainerStyles,
@@ -9,30 +9,12 @@ import RecentFiles from "@/shared/components/recent-files";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 import ProfileLink from "@/shared/components/profile-link";
-
-const mockStorageData = {
-    total: 15,
-    used: 3,
-};
-
-const mockFiles = [
-    {name: "Название файла", date: "02.02.2025"},
-    {name: "Название файла", date: "02.02.2025"},
-    {name: "Название файла", date: "02.02.2025"},
-    {name: "Название файла", date: "02.02.2025"},
-    {name: "Название файла", date: "02.02.2025"},
-    {name: "Название файла", date: "02.02.2025"},
-    {name: "Название файла", date: "01.02.2025"},
-];
+import useGetStorageSizeUseCase from "@/entities/cases/storage/get-storage-size/use-case";
+import useGetStorageFilesUseCase from "@/entities/cases/storage/get-files/use-case";
 
 const SidebarWidget: React.FC = () => {
-    const [storage, setStorage] = useState(mockStorageData);
-    const [recentFiles, setRecentFiles] = useState(mockFiles.slice(0, 6));
-
-    useEffect(() => {
-        setStorage(mockStorageData);
-        setRecentFiles(mockFiles.slice(0, 6));
-    }, []);
+    const { data: storageData } = useGetStorageSizeUseCase();
+    const { recentFiles } = useGetStorageFilesUseCase();
     const {isAdmin} = useGetUserProfileUseCase();
     return (
         <div className={cn(sidebarContainerStyles)}>
@@ -40,15 +22,15 @@ const SidebarWidget: React.FC = () => {
                 <ProfileLink activeColorClass="text-purple"/>
                 <div className={dataSidebarContainerStyles}>
                     <h3>Данные памяти</h3>
-                    {!isAdmin ? (
-                        <ButtonIcon
-                            icon="charm:menu-kebab"
-                            className={buttonIconStyle}
-                        />) :
+                    {isAdmin ? (
+                            <ButtonIcon
+                                icon="charm:menu-kebab"
+                                className={buttonIconStyle}
+                            />) :
                         (<div className="mt-4"/>)}
-                    <StorageChart used={storage.used} total={storage.total}/>
+                    <StorageChart used_size={storageData?.storageSizeInGB ?? 0} total_size={15} />
                     <p className={infoDiagramStyles}>
-                        Занято {storage.used}ГБ из {storage.total}ГБ
+                        Занято {storageData?.storageSizeInGB} ГБ из 15 ГБ
                     </p>
                 </div>
             </div>

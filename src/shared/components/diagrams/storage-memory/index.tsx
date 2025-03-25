@@ -14,8 +14,8 @@ import {
 } from "./style";
 
 interface IStorageChartProps {
-    used: number;
-    total: number;
+    used_size: number;
+    total_size: number;
 }
 
 interface IChartData {
@@ -25,11 +25,11 @@ interface IChartData {
 
 const COLORS = ["var(--color-purple-light)", "var(--color-purple)"];
 
-const StorageChart: React.FC<IStorageChartProps> = ({used, total}) => {
+const StorageChart: React.FC<IStorageChartProps> = ({used_size, total_size}) => {
     const chartData: IChartData[] = useMemo(() => [
-        {name: "Занято", value: used},
-        {name: "Свободно", value: total - used},
-    ], [used, total]);
+        {name: "Занято", value: used_size},
+        {name: "Свободно", value: total_size - used_size},
+    ], [used_size, total_size]);
     return (
         <div className={chartWrapper}>
             <div className={chartContainer}>
