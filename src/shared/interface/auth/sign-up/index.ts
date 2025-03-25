@@ -1,4 +1,4 @@
-import {ERoleID} from "@/shared/emum/auth";
+import {ERoleID} from "@/shared/emum/user";
 
 interface ISignUpPort {
     firstname: string,

@@ -1,1 +1,1 @@
-export * from './add-users';
+export * from './grant';

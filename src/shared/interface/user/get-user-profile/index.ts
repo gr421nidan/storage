@@ -1,4 +1,4 @@
-import {ERoleID} from "@/shared/type/auth";
+import {ERoleID} from "@/shared/emum/auth";
 
 interface IGetUserProfileDto {
     id: string;
