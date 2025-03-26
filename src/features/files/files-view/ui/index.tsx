@@ -8,7 +8,7 @@ interface IFileViewProps {
     viewMode: "grid" | "list";
 }
 
-const FileView: React.FC<IFileViewProps> = ({ files, viewMode }) => {
+const FilesView: React.FC<IFileViewProps> = ({ files, viewMode }) => {
     return (
         <div className={viewMode === "grid" ? "grid grid-cols-3 gap-[16px]" : "flex flex-col gap-6"}>
             {files.map((file) =>
@@ -22,4 +22,4 @@ const FileView: React.FC<IFileViewProps> = ({ files, viewMode }) => {
     );
 };
 
-export default FileView;
+export default FilesView;

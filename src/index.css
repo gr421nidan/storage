@@ -25,6 +25,8 @@
     --gradient-dark-to-purple: linear-gradient(to right, rgba(174, 161, 201, 0), rgba(98, 70, 153, 100));
     --gradient-light-purple: linear-gradient(to right, rgba(174, 161, 201, 0.5), rgba(174, 161, 201, 0.1));
     --gradient-dark-purple: linear-gradient(to right, rgba(98, 70, 153, 0.5), rgba(98, 70, 153, 0.1));
+    --color-purple-opacity: rgba(98, 70, 153, 0.22);
+    --color-purple-light-opacity: rgba(174, 161, 201, 0.22);
 }
 [data-theme="dark"] body {
     background-color: var(--color-dark-theme);

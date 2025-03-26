@@ -46,9 +46,9 @@ const UserCard: React.FC<IUserCardProps> = ({user}) => {
             </span>
             <div className={iconContainerStyles}>
                 <ButtonIcon icon="ci:edit-pencil-line-02" className={iconStyles}  onClick={() => setUpdateUserGrantModalOpen(true)} />
-                {user.is_active ? <ButtonIcon icon="iconamoon:lock-off-thin" className={iconStyles}
+                {user.is_active ? <ButtonIcon icon="iconamoon:lock-off-light" className={iconStyles}
                                               onClick={() => handleBlockUser(user.id)}/> :
-                    <ButtonIcon icon="iconamoon:lock-thin" className={iconStyles}
+                    <ButtonIcon icon="iconamoon:lock-light" className={iconStyles}
                                 onClick={() => handleUnblockUser(user.id)}/>}
                 <ButtonIcon icon="lucide:trash" className={iconStyles} onClick={() => setDeleteConfirmModalOpen(true)}/>
             </div>

@@ -1,4 +1,4 @@
-import {EGrantID} from "@/shared/type/admin";
+import {EGrantID} from "@/shared/emum/admin";
 
 interface IUpdateUsersPort {
     grant_id: EGrantID;

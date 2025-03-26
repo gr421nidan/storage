@@ -8,7 +8,7 @@ const PageHeader: React.FC<IPageHeaderProps> = ({title}) => {
     return (
         <div className="flex flex-col gap-4">
             <div>
-                <h2>{title}</h2>
+                <h2 className="dark:text-white">{title}</h2>
                 <div className="h-1 mt-4 bg-purple"></div>
             </div>
         </div>

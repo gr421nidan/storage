@@ -4,7 +4,7 @@ const modalWrapperStyle =
 const backdropStyle = "fixed inset-0 backdrop-blur-md";
 
 const modalPanelStyle =
-    "relative bg-white flex flex-col gap-[28px] dark:bg-dark-theme dark:text-white rounded-[20px] p-6 border-2 border-purple w-fit";
+    "relative bg-white flex flex-col gap-[28px] dark:bg-dark-theme dark:text-white rounded-[20px] py-[28px] px-[32px] border-2 border-purple w-fit";
 
 const modalTitleWrapperStyle = "flex justify-between items-end";
 
