@@ -44,8 +44,9 @@ const ChangePasswordForm: React.FC<IChangePasswordProps> = ({isOpen, onClose}) =
                         {errors[name] && <p className={errorTextStyles()}>{errors[name].message}</p>}
                     </div>
                 ))}
-                <div className="text-center mt-[40px]">
+                <div className="mt-[40px] flex justify-center gap-[51px] w-full">
                     <Button type="submit" className="w-[217px] h-[52px]">Сохранить</Button>
+                    <Button className="w-[206px] h-[52px]" onClick={onClose}>Отмена</Button>
                 </div>
             </form>
         </Modal>

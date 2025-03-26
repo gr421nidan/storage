@@ -16,10 +16,9 @@ const DeleteUserConfirm: React.FC<IDeleteUserConfirmProps> = ({ isOpen, onClose,
                 <p className='text-xl'>
                     Вы уверены, что хотите удалить пользователя?
                 </p>
-                <div className="text-center mt-[40px]">
-                    <Button onClick={onDelete} className="w-[190px] h-[52px]">
-                        Удалить
-                    </Button>
+                <div className="mt-[40px] flex justify-center gap-[181px] w-full">
+                    <Button type="submit" className="w-[217px] h-[52px]" onClick={onDelete}>Удалить</Button>
+                    <Button className="w-[206px] h-[52px]" onClick={onClose}>Отмена</Button>
                 </div>
             </div>
         </Modal>

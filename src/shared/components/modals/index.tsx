@@ -1,6 +1,5 @@
 import {FC, PropsWithChildren} from "react";
 import {Dialog} from "@headlessui/react";
-import {Icon} from "@iconify/react";
 import {cn} from "@/shared/utils/cn";
 import {
     modalWrapperStyle,
@@ -8,7 +7,6 @@ import {
     modalPanelStyle,
     modalTitleWrapperStyle,
     modalTitleStyle,
-    closeButtonStyle,
     separatorStyle,
 } from "./style";
 
@@ -31,9 +29,6 @@ const Modal: FC<PropsWithChildren<IModalProps>> = ({
                 className={cn(modalPanelStyle, className)}>
                 <div className={modalTitleWrapperStyle}>
                     <p className={modalTitleStyle}>{title}</p>
-                    <button onClick={onClose} className={closeButtonStyle}>
-                        <Icon icon="si:close-circle-line" width={40} height={40}/>
-                    </button>
                 </div>
                 <div className={separatorStyle}></div>
                 <div>{children}</div>

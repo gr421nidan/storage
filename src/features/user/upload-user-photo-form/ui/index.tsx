@@ -45,13 +45,14 @@ const UserPhotoUploadForm: React.FC<IUserPhotoUploadProps> = ({ isOpen, onClose 
                         {errors.file.message}
                     </div>
                 )}
-                <div className="flex justify-center">
+                <div className="mt-[40px] flex justify-center gap-[104px] w-full">
                     <Button
                         type="submit"
-                        className={cn(buttonStyles({ variant: "base" }), "w-[275px] h-[52px]")}
+                        className={cn(buttonStyles({ variant: "base" }), "w-[274px] h-[52px]")}
                     >
                         Сохранить
                     </Button>
+                    <Button className="w-[206px] h-[52px]" onClick={onClose}>Отмена</Button>
                 </div>
             </form>
         </Modal>
