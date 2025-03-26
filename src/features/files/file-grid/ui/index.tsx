@@ -2,11 +2,20 @@ import React from "react";
 import FileIcon from "@/shared/components/file-icon";
 import {IGetStorageFilesDto} from "@/shared/interface/storage";
 import {formatFileSize} from "@/shared/utils/convertSizeFiles";
-import ButtonIcon from "@/shared/components/buttons/button-icon";
+import IconListMenu from "@/shared/components/lib/IconListMenu.tsx";
 
 interface IFileGridItemProps {
     file: IGetStorageFilesDto;
 }
+
+const iconMenuItems = [
+    { label: "Скачать", icon: "fluent:arrow-download-32-filled" },
+    { label: "Переименовать", icon: "ci:edit-pencil-line-02" },
+    { label: "Копировать", icon: "ci:copy" },
+    { label: "Пометка", icon: "akar-icons:arrow-down-left" },
+    { label: "Поделиться", icon: "mingcute:link-2-line" },
+    { label: "Удалить", icon: "lucide:trash" },
+];
 
 const FileGridItem: React.FC<IFileGridItemProps> = ({file}) => {
     return (
@@ -17,11 +26,7 @@ const FileGridItem: React.FC<IFileGridItemProps> = ({file}) => {
                 <span className="mr-auto">{file.title}</span>
                 <span className="text-xs text-right">{formatFileSize(file.size)}</span>
             </div>
-            <ButtonIcon
-                icon="charm:menu-kebab"
-                className="h-[32px] ml-auto text-black dark:text-white"
-            />
-
+            <IconListMenu items={iconMenuItems} />
         </div>
     );
 };

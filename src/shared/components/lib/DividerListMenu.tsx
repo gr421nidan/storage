@@ -32,7 +32,7 @@ const DividerListMenu: React.FC<IDividerListMenuProps> = ({items}) => {
         <Menu
             menuButton={
                 <MenuButton className={menuButtonClass}>
-                    <Icon icon="material-symbols:more-vert" className="w-6 h-6"/>
+                    <Icon icon="material-symbols:more-vert" className="w-[40px] h-[40px]"/>
                 </MenuButton>
             }
             align="end"

@@ -1,34 +1,37 @@
 import React from "react";
 import {
-    buttonIconStyle, dataSidebarContainerStyles, infoDiagramStyles,
+    dataSidebarContainerStyles, infoDiagramStyles,
     sidebarContainerStyles,
 } from "./style";
 import {cn} from "@/shared/utils/cn";
 import StorageChart from "@/shared/components/diagrams/storage-memory";
 import RecentFiles from "@/shared/components/recent-files";
-import ButtonIcon from "@/shared/components/buttons/button-icon";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 import ProfileLink from "@/shared/components/profile-link";
 import useGetStorageSizeUseCase from "@/entities/cases/storage/get-storage-size/use-case";
 import useGetStorageFilesUseCase from "@/entities/cases/storage/get-files/use-case";
+import DividerListMenu from "@/shared/components/lib/DividerListMenu.tsx";
 
 const SidebarWidget: React.FC = () => {
-    const { data: storageData } = useGetStorageSizeUseCase();
-    const { recentFiles } = useGetStorageFilesUseCase();
+    const {data: storageData} = useGetStorageSizeUseCase();
+    const {recentFiles} = useGetStorageFilesUseCase();
     const {isAdmin} = useGetUserProfileUseCase();
+    const dividerMenuItems = [
+        {label: "Резервное копирование", icon: "pepicons-pencil:arrow-spin"},
+        {label: "Очистка диска", icon: "lucide:trash"},
+        {label: "Подключение к S3", icon: "iconamoon:cloud-add"},
+    ];
     return (
         <div className={cn(sidebarContainerStyles)}>
             <div>
                 <ProfileLink activeColorClass="text-purple"/>
                 <div className={dataSidebarContainerStyles}>
                     <h3>Данные памяти</h3>
-                    {isAdmin ? (
-                            <ButtonIcon
-                                icon="charm:menu-kebab"
-                                className={buttonIconStyle}
-                            />) :
+                    {isAdmin ? (<div className="flex flex-col items-end">
+                                <DividerListMenu items={dividerMenuItems}/></div>
+                        ) :
                         (<div className="mt-4"/>)}
-                    <StorageChart used_size={storageData?.storageSizeInGB ?? 0} total_size={15} />
+                    <StorageChart used_size={storageData?.storageSizeInGB ?? 0} total_size={15}/>
                     <p className={infoDiagramStyles}>
                         Занято {storageData?.storageSizeInGB} ГБ из 15 ГБ
                     </p>

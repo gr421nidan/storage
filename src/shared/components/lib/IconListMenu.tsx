@@ -1,4 +1,3 @@
-// IconListMenu.tsx
 import React from "react";
 import {
     Menu,
@@ -30,7 +29,7 @@ const IconListMenu: React.FC<IListIconMenuProps> = ({ items }) => {
         <Menu
             menuButton={
                 <MenuButton className={menuButtonClass}>
-                    <Icon icon="material-symbols:more-vert" className="w-6 h-6" />
+                    <Icon icon="material-symbols:more-vert" className="w-20 h-[25px] " />
                 </MenuButton>
             }
             align="end"

@@ -2,11 +2,19 @@ import React from "react";
 import folderIcon from "@/assets/folder-icon/folder.png"
 import {IGetStorageFoldersDto} from "@/shared/interface/storage";
 import {formatFileSize} from "@/shared/utils/convertSizeFiles";
-import ButtonIcon from "@/shared/components/buttons/button-icon";
+import IconListMenu from "@/shared/components/lib/IconListMenu.tsx";
 
 interface IFolderGridItemProps {
     folder: IGetStorageFoldersDto;
 }
+const iconMenuItems = [
+    { label: "Скачать", icon: "fluent:arrow-download-32-filled" },
+    { label: "Переименовать", icon: "ci:edit-pencil-line-02" },
+    { label: "Копировать", icon: "ci:copy" },
+    { label: "Пометка", icon: "akar-icons:arrow-down-left" },
+    { label: "Поделиться", icon: "mingcute:link-2-line" },
+    { label: "Удалить", icon: "lucide:trash" },
+];
 
 const FolderGridItem: React.FC<IFolderGridItemProps> = ({folder}) => {
     return (
@@ -17,11 +25,7 @@ const FolderGridItem: React.FC<IFolderGridItemProps> = ({folder}) => {
                 <span className="mr-auto">{folder.title}</span>
                 <span className="text-xs text-right">{formatFileSize(folder.size)}</span>
             </div>
-            <ButtonIcon
-                icon="charm:menu-kebab"
-                className="h-[32px] ml-auto text-black dark:text-white"
-            />
-
+            <IconListMenu items={iconMenuItems} />
         </div>
     );
 };

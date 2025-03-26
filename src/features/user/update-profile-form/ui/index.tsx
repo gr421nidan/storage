@@ -9,7 +9,7 @@ import useUpdateUserPresenter from "@/entities/cases/user/update-user-profile/pr
 import Button from "@/shared/components/buttons/button";
 import {IUpdateUserPort} from "@/shared/interface/user";
 import ChangePasswordForm from "@/features/user/change-password-form/ui";
-import {IFormUpdateUserData} from "@/shared/type/user";
+import {IFormUpdateUserData} from "@/shared/type";
 
 const UserProfileForm: React.FC = () => {
     const {data: userProfile} = useGetUserProfileUseCase();
