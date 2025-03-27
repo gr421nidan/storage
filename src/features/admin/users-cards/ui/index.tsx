@@ -8,7 +8,7 @@ import useDeleteUserPresenter from "@/entities/cases/user-storage/delete-user/pr
 import ERouterPath from "@/shared/common/enum/router";
 import {useNavigate} from "react-router-dom";
 import DeleteUserConfirm from "@/features/admin/delete-user-confirm/ui";
-import UpdateUserGrants from "@/features/admin/update-grant-user";
+import UpdateUserGrants from "@/features/admin/update-grant-user/ui";
 import {EGrantID} from "@/shared/emum/admin";
 
 interface IUserCardProps {

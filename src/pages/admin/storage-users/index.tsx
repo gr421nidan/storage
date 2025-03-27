@@ -1,32 +1,14 @@
-import {ReactNode, useEffect, useState} from 'react';
+import {ReactNode, useState} from 'react';
 import AddUserForm from "@/features/admin/add-users-form/ui";
 import useGetUsersUseCase from "@/entities/cases/user-storage/get-users/use-case";
 import UserCard from "@/features/admin/users-cards/ui";
-import SearchFilter from "@/features/search";
-import {IGetUserDto} from "@/shared/interface/admin";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import PageHeader from "@/shared/components/page-header";
+import SearchInput from "@/shared/components/search";
 
 const StorageUsersPage = (): ReactNode => {
-    const {data} = useGetUsersUseCase();
-    const [filteredUsers, setFilteredUsers] = useState<IGetUserDto[]>(data);
-
-    useEffect(() => {
-        if (data) {
-            setFilteredUsers(data);
-        }
-    }, [data]);
-    const handleSearch = (query: string) => {
-        if (!query) {
-            setFilteredUsers(data);
-            return;
-        }
-        const filtered = data.filter((user) =>
-            user.surname.toLowerCase().includes(query.toLowerCase())
-        );
-        setFilteredUsers(filtered);
-    };
-
+    const [search, setSearch] = useState<string>("");
+    const {data: users} = useGetUsersUseCase(search);
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
             <PageHeader>
@@ -35,10 +17,10 @@ const StorageUsersPage = (): ReactNode => {
             <div className="flex flex-col gap-[32px]">
                 <AddUserForm/>
                 <div className="flex justify-between">
-                    <SearchFilter
-                        onSearch={handleSearch}
-                        className="w-[1036px] h-[54px]"
+                    <SearchInput
                         placeholder="Поиск по фамилии"
+                        className="w-[1036px] h-[54px]"
+                        onSearch={setSearch}
                     />
                     <ButtonIcon icon="solar:alt-arrow-down-outline"
                                 className="h-[54px] w-[248px]">Фильтрация</ButtonIcon>
@@ -55,10 +37,10 @@ const StorageUsersPage = (): ReactNode => {
                     </div>
                     <div className="overflow-y-auto max-h-[365px] scrollbar">
                         <div className="flex flex-col gap-6">
-                            {filteredUsers.length === 0 ? (
+                            {users.length === 0 ? (
                                 <p className="text-lg  flex justify-center">Ничего не найдено</p>
                             ) : (
-                                filteredUsers.map((user) => (
+                                users.map((user) => (
                                     <UserCard key={user.id} user={user}/>
                                 ))
                             )}

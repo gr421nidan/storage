@@ -4,6 +4,9 @@ import Button from "@/shared/components/buttons/button";
 import {EGrantID} from "@/shared/emum/admin";
 import CustomSelect from "@/shared/components/select";
 import useUpdateUsersGrantPresenter from "@/entities/cases/user-storage/update-user/presenter";
+import {cn} from "@/shared/utils/cn";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
+import {buttonsContainerStyle} from "../style";
 
 interface IUpdateUserGrantsProps {
     isOpen: boolean;
@@ -22,7 +25,7 @@ const UpdateUserGrants: React.FC<IUpdateUserGrantsProps> = ({
         {value: EGrantID.VIEW, label: "Просмотр"},
         {value: EGrantID.FULL_ACCESS, label: "Полный доступ"},
     ];
-
+    const buttonsSize ="h-[52px]"
     if (!isOpen) return null;
 
     return (
@@ -38,9 +41,9 @@ const UpdateUserGrants: React.FC<IUpdateUserGrantsProps> = ({
                     defaultLabel="Права"
                     onChange={(val) => setValue("grant_id", val as EGrantID)}
                     value={watch("grant_id")}/>
-                <div className="flex justify-center gap-[155px] mt-6 w-full">
-                    <Button type="submit" className="w-[217px] h-[52px]">Сохранить</Button>
-                    <Button className="w-[206px] h-[52px]" onClick={onClose}>Отмена</Button>
+                <div className={buttonsContainerStyle}>
+                    <Button type="submit" className={`w-[217px] ${buttonsSize}`}>Сохранить</Button>
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px]", buttonsSize )} onClick={onClose}>Отмена</Button>
                 </div>
             </form>
         </Modal>

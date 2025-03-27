@@ -86,11 +86,18 @@ const mockFiles: IGetStorageFilesDto[] = [
     },
 ];
 
-const getStorageFilesRepository = async (): Promise<IGetStorageFilesDto[]> => {
+const getStorageFilesRepository = async (search?: string): Promise<IGetStorageFilesDto[]> => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            resolve(mockFiles);
-        }, 1000)
+            // Фильтрация файлов по названию
+            const filteredFiles = search
+                ? mockFiles.filter((file) =>
+                    file.title.toLowerCase().includes(search.toLowerCase()) // Фильтруем только по названию
+                )
+                : mockFiles;
+
+            resolve(filteredFiles);
+        }, 1000);
     });
 };
 

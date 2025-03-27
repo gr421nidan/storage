@@ -1,6 +1,9 @@
 import React from 'react';
 import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
+import {cn} from "@/shared/utils/cn";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
+import {buttonsContainerStyle} from "../style";
 
 interface IDeleteUserConfirmProps {
     isOpen: boolean;
@@ -9,6 +12,7 @@ interface IDeleteUserConfirmProps {
 }
 
 const DeleteUserConfirm: React.FC<IDeleteUserConfirmProps> = ({ isOpen, onClose, onDelete }) => {
+    const buttonsSize ="h-[52px]"
     if (!isOpen) return null;
     return (
         <Modal title="Удалить" className="w-[655px]" onClose={onClose}>
@@ -16,9 +20,9 @@ const DeleteUserConfirm: React.FC<IDeleteUserConfirmProps> = ({ isOpen, onClose,
                 <p className='text-xl'>
                     Вы уверены, что хотите удалить пользователя?
                 </p>
-                <div className="mt-[40px] flex justify-center gap-[181px] w-full">
-                    <Button type="submit" className="w-[217px] h-[52px]" onClick={onDelete}>Удалить</Button>
-                    <Button className="w-[206px] h-[52px]" onClick={onClose}>Отмена</Button>
+                <div className={buttonsContainerStyle}>
+                    <Button type="submit" className={`w-[217px] ${buttonsSize}`} onClick={onDelete}>Удалить</Button>
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px]", buttonsSize )} onClick={onClose}>Отмена</Button>
                 </div>
             </div>
         </Modal>

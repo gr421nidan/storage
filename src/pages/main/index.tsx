@@ -1,6 +1,5 @@
 import {ReactNode, useState} from 'react';
 import PageHeader from "@/shared/components/page-header";
-import SearchFilter from "@/features/search";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import useGetStorageFilesUseCase from "@/entities/cases/storage/get-files/use-case";
 import FilesView from "@/features/files/files-view/ui";
@@ -8,25 +7,26 @@ import FoldersView from "@/features/folders/folders-view/ui";
 import useGetStorageFoldersUseCase from "@/entities/cases/storage/get-folders/use-case";
 import StorageActionsPanel from "@/features/storage/storage-actions-panel/ui";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
+import SearchInput from "@/shared/components/search";
 
 const MainPage = (): ReactNode => {
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
     const [showFiles, setShowFiles] = useState<boolean>(true);
     const [showFolders, setShowFolders] = useState<boolean>(true);
-    const {allFiles} = useGetStorageFilesUseCase();
     const {data: folders} = useGetStorageFoldersUseCase();
     const {data} = useGetUserProfileUseCase();
+    const [search, setSearch] = useState<string>("");
+    const {allFiles} = useGetStorageFilesUseCase(search);
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
             <PageHeader>
                 <h2>{data?.isAdmin ? "Общее хранилище" : "Моё хранилище"}</h2>
             </PageHeader>
             <div className="flex justify-between items-center mr-[17px]">
-                <SearchFilter
-                    onSearch={() => {
-                    }}
-                    className="w-[421px] h-[54px]"
+                <SearchInput
                     placeholder="Поиск материалов"
+                    className="w-[421px] h-[54px]"
+                    onSearch={setSearch}
                 />
                 <div className="flex gap-2 items-center ">
                     <div

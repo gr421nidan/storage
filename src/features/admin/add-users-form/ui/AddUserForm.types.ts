@@ -22,6 +22,6 @@ export interface IUser {
 
 // Тип для опции селекта (используется в SearchSelect и CustomSelect)
 export interface IOption {
-    value: string;
+    value: EGrantID;
     label: string;
 }

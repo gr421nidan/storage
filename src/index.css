@@ -7,8 +7,10 @@
     --color-purple: #624699;
     --color-purple-dark: #230E36;
     --color-dark-gray: rgba(0, 0, 0, 0.7);
-    --color-purple-secondary: rgba(84, 56, 126, 0.5);
-    --color-purple-dark-secondary: #483B55;
+    /*на гитлабе поменять!!*/
+    --color-purple-secondary: rgba(98, 70, 153, 0.7);
+    --color-purple-dark-secondary: rgba(174, 161, 201, 0.7);
+    /*не забыть*/
     --color-gray: rgba(252, 249, 255, 0.16);
     --color-error-primary:rgba(195, 63, 63, 1);
     --color-error-secondary: rgba(253, 169, 169, 0.16);
@@ -27,6 +29,7 @@
     --gradient-dark-purple: linear-gradient(to right, rgba(98, 70, 153, 0.5), rgba(98, 70, 153, 0.1));
     --color-purple-opacity: rgba(98, 70, 153, 0.22);
     --color-purple-light-opacity: rgba(174, 161, 201, 0.22);
+    --shadow-inner-button: inset 0px 4px 7px rgba(0, 0, 0, 0.25);
 }
 [data-theme="dark"] body {
     background-color: var(--color-dark-theme);
@@ -113,6 +116,10 @@ body{
     [data-theme="dark"] .bg-gr-blocks{
         background: var(--gradient-dark-purple);
     }
+    .shadow-inner-button {
+        box-shadow: var(--shadow-inner-button);
+    }
+
 }
 @layer utilities {
     .scrollbar {
