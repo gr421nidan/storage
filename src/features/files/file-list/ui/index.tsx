@@ -29,8 +29,9 @@ const FileListItem: React.FC<IFileListItemProps> = ({file}) => {
         setIsEditing(false);
     };
     return (
-        <div className="text-xl flex bg-gr-blocks items-center p-4 border-3 border-purple-light w-[1227px] h-[64px] px-[36px] rounded-[15px] ">
-            <div className="w-[373px]" onDoubleClick={handleEdit}>
+        <div
+            className="text-xl flex bg-gr-blocks items-center p-4 border-3 border-purple-light w-[1227px] h-[64px] px-[36px] rounded-[15px] ">
+            <div className="w-[373px] flex" onDoubleClick={handleEdit}>
                 {isEditing ? (
                     <input
                         className="w-fit p-1 border rounded "
@@ -41,7 +42,9 @@ const FileListItem: React.FC<IFileListItemProps> = ({file}) => {
                         autoFocus
                     />
                 ) : (
-                    <span>{file.title}</span>
+                    <span
+                        className="max-w-[250px] truncate"
+                        title={file.title}>{file.title}</span>
                 )}
             </div>
             <span className="w-[236px]">{file.created_at}</span>
@@ -51,7 +54,7 @@ const FileListItem: React.FC<IFileListItemProps> = ({file}) => {
                 <ButtonIcon icon="akar-icons:arrow-down-left" className="w-6 h-6"/>
                 <ButtonIcon icon="fluent:arrow-download-32-filled" className="w-6 h-6"/>
                 <ButtonIcon icon="mingcute:link-2-line" className="w-6 h-6"/>
-                <ButtonIcon icon="si:close-circle-line" className="w-6 h-6"/>
+                <ButtonIcon icon="lucide:trash" className="w-6 h-6"/>
             </div>
         </div>
     );

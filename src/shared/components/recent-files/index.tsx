@@ -19,9 +19,9 @@ const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {
                 <li
                     key={index}
                     className={recentFilesListStyles}>
-                    <span className={recentFilesNameStyles}>
+                    <span className={recentFilesNameStyles} title={file.title}>
                         <FileIcon fileType={file.type}  />
-                        {file.title}
+                         <span className="truncate">{file.title}</span>
                     </span>
                     <span >{file.created_at}</span>
                 </li>

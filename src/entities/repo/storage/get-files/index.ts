@@ -6,7 +6,7 @@ function generateUUID(): string {
 const mockFiles: IGetStorageFilesDto[] = [
     {
         id: generateUUID(),
-        title: "file1.gif",
+        title: "file1сывсвысвсвсвсвывфвсвсввывысвысвы.gif",
         type: "image/gif",
         size: 1048576,
         created_at: "2025-03-20T12:34:56Z",
@@ -16,7 +16,7 @@ const mockFiles: IGetStorageFilesDto[] = [
         id: generateUUID(),
         title: "file2.jpeg",
         type: "image/jpeg",
-        size: 1048575,
+        size: 2042456,
         created_at: "2025-03-21T12:34:56Z",
         tag: "Учёба"
     },

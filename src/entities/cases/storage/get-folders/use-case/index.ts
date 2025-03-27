@@ -3,12 +3,14 @@ import QueryKey from "@/shared/common/enum/query-key";
 import getStorageFoldersRepository from "@/entities/repo/storage/get-folders";
 
 const useGetStorageFoldersUseCase = () => {
-    const {data} = useQuery({
+    const execute = getStorageFoldersRepository;
+    const {data, ...rest} = useQuery({
         queryKey: [QueryKey.FOLDERS],
-        queryFn: getStorageFoldersRepository,
+        queryFn: execute,
     });
     return {
         data: data || [],
+        ...rest
     };
 };
 

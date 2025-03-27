@@ -3,14 +3,14 @@ import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use
 import defaultAvatar from "@/assets/default-avatar.png";
 import Button from "@/shared/components/buttons/button";
 import UserPhotoUploadForm from "@/features/user/upload-user-photo-form/ui";
-import {API_BASE_URL} from "@/shared/config";
+import {BUCKET_BASE_URL} from "@/shared/config";
 import {containerPhotoStyle, profileImageStyle} from "@/features/user/get-user-photo/style.ts";
 
 const GetUserPhotoProfile: React.FC = () => {
     const {data: userProfile} = useGetUserProfileUseCase();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const profileImage = userProfile?.img
-        ? `${API_BASE_URL}${userProfile.img}`
+        ? `${BUCKET_BASE_URL}${userProfile.img}`
         : defaultAvatar;
     return (
         <div className={containerPhotoStyle}>

@@ -1,16 +1,10 @@
-import React from "react";
+import React, {PropsWithChildren} from "react";
 
-interface IPageHeaderProps {
-    title: string;
-}
-
-const PageHeader: React.FC<IPageHeaderProps> = ({title}) => {
+const PageHeader: React.FC<PropsWithChildren> = ({children}) => {
     return (
-        <div className="flex flex-col gap-4">
-            <div>
-                <h2 className="dark:text-white">{title}</h2>
-                <div className="h-1 mt-4 bg-purple"></div>
-            </div>
+        <div>
+            <div>{children}</div>
+            <div className="h-1 mt-4 bg-purple"></div>
         </div>
     );
 };

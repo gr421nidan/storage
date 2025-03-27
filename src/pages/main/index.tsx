@@ -7,16 +7,20 @@ import FilesView from "@/features/files/files-view/ui";
 import FoldersView from "@/features/folders/folders-view/ui";
 import useGetStorageFoldersUseCase from "@/entities/cases/storage/get-folders/use-case";
 import StorageActionsPanel from "@/features/storage/storage-actions-panel/ui";
+import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 
 const MainPage = (): ReactNode => {
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
     const [showFiles, setShowFiles] = useState<boolean>(true);
     const [showFolders, setShowFolders] = useState<boolean>(true);
     const {allFiles} = useGetStorageFilesUseCase();
-    const {data} = useGetStorageFoldersUseCase();
+    const {data: folders} = useGetStorageFoldersUseCase();
+    const {data} = useGetUserProfileUseCase();
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
-            <PageHeader title="Моё хранилище"/>
+            <PageHeader>
+                <h2>{data?.isAdmin ? "Общее хранилище" : "Моё хранилище"}</h2>
+            </PageHeader>
             <div className="flex justify-between items-center mr-[17px]">
                 <SearchFilter
                     onSearch={() => {
@@ -54,7 +58,7 @@ const MainPage = (): ReactNode => {
             <div>
                 <StorageActionsPanel/>
             </div>
-            <div className="relative max-h-[380px] overflow-y-auto scrollbar">
+            <div className="relative max-h-[420px] overflow-y-auto scrollbar">
                 <div>
                     <div
                         className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]"
@@ -67,8 +71,8 @@ const MainPage = (): ReactNode => {
                         />
                     </div>
                     {showFolders && (
-                        <div className="w-[1033px]">
-                            <FoldersView folders={data} />
+                        <div className="w-[1227px]">
+                            <FoldersView folders={folders} />
                         </div>
                     )}
                 </div>
@@ -96,7 +100,7 @@ const MainPage = (): ReactNode => {
                                     <span className="w-[140px]">Действия</span>
                                 </div>
                             )}
-                            <div className={`${viewMode === "list" ? "w-[1227px]" : "w-[1033px]"}`}>
+                            <div className="w-[1227px]">
                                 <FilesView files={allFiles} viewMode={viewMode} />
                             </div>
                         </div>

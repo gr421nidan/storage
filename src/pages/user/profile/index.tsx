@@ -7,7 +7,9 @@ import {contentWrapperStyle, pageContainerStyle, profileStyle} from "@/pages/use
 const UserProfilePage = (): ReactNode => {
     return (
         <div className={pageContainerStyle}>
-            <PageHeader title="Личные данные"/>
+            <PageHeader>
+                <h2>Личные данные</h2>
+            </PageHeader>
             <div className={contentWrapperStyle}>
                 <div className={profileStyle}>
                     <GetUserPhotoProfile/>

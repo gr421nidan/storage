@@ -36,8 +36,8 @@ const userNavItems: INavItem[] = [
 
 const NavbarWidget: React.FC<INavbarWidgetProps> = ({isOpen}) => {
     const logout = useLogout();
-    const {isAdmin} = useGetUserProfileUseCase();
-    const navItems = isAdmin ? adminNavItems : userNavItems;
+    const {data} = useGetUserProfileUseCase();
+    const navItems = data?.isAdmin ? adminNavItems : userNavItems;
 
     return (
         <div

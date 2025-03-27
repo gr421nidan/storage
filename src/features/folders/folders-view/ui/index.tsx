@@ -8,7 +8,7 @@ interface IFileViewProps {
 
 const FoldersView: React.FC<IFileViewProps> = ({folders}) => {
     return (
-        <div className="grid grid-cols-3 gap-[16px]">
+        <div className="grid grid-cols-4 gap-[32px]">
             {folders.map((folder) => (
                 <FolderGridItem key={folder.id} folder={folder}/>
             ))}

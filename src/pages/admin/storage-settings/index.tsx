@@ -4,7 +4,9 @@ import PageHeader from "@/shared/components/page-header";
 const StorageSettingsPage = (): ReactNode => {
     return (
         <div>
-            <PageHeader title="Настройки хранилища"/>
+            <PageHeader>
+                <h2>Настройки хранилища</h2>
+            </PageHeader>
         </div>
     );
 };

@@ -12,7 +12,7 @@ const mockFolders: IGetStorageFoldersDto[] = [
     {
         id: generateUUID(),
         title: "Папка 2",
-        size: 1048575,
+        size: 2048675,
     },
     {
         id: generateUUID(),
@@ -43,11 +43,6 @@ const mockFolders: IGetStorageFoldersDto[] = [
         id: generateUUID(),
         title: "Папка 2",
         size: 1048575,
-    },
-    {
-        id: generateUUID(),
-        title: "Папка 3",
-        size: 0,
     },
 ];
 

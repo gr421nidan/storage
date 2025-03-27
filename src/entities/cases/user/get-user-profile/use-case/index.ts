@@ -5,18 +5,20 @@ import QueryKey from "@/shared/common/enum/query-key";
 import {AUTH_TOKEN_KEY} from "@/shared/config";
 
 const useGetUserProfileUseCase = () => {
+    const execute = getUserProfileRepository;
     const token = localStorage.getItem(AUTH_TOKEN_KEY);
-    const { data, error, isLoading } = useQuery({
+    const { data, ...rest } = useQuery({
         queryKey: [QueryKey.USER_PROFILE],
-        queryFn: getUserProfileRepository,
+        queryFn: execute,
         enabled: !!token,
+        select: (data) => {
+            const isAdmin = data?.role_id === ERoleID.ADMIN;
+            return {...data, isAdmin};
+        }
     });
-    const isAdmin = Boolean(data?.role_id === ERoleID.ADMIN);
     return {
         data,
-        error,
-        isAdmin,
-        isLoading
+        ...rest
     };
 };
 export default useGetUserProfileUseCase;

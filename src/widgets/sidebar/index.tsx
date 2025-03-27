@@ -10,14 +10,14 @@ import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use
 import ProfileLink from "@/shared/components/profile-link";
 import useGetStorageSizeUseCase from "@/entities/cases/storage/get-storage-size/use-case";
 import useGetStorageFilesUseCase from "@/entities/cases/storage/get-files/use-case";
-import DividerListMenu from "@/shared/components/lib/DividerListMenu.tsx";
+import ContextMenu from "@/shared/components/context-menu";
 
 const SidebarWidget: React.FC = () => {
     const {data: storageData} = useGetStorageSizeUseCase();
     const {recentFiles} = useGetStorageFilesUseCase();
-    const {isAdmin} = useGetUserProfileUseCase();
-    const dividerMenuItems = [
-        {label: "Резервное копирование", icon: "pepicons-pencil:arrow-spin"},
+    const {data} = useGetUserProfileUseCase();
+    const menuItems = [
+        {label: "Резервное копирование", icon: "garden:reload-stroke-12"},
         {label: "Очистка диска", icon: "lucide:trash"},
         {label: "Подключение к S3", icon: "iconamoon:cloud-add"},
     ];
@@ -27,8 +27,8 @@ const SidebarWidget: React.FC = () => {
                 <ProfileLink activeColorClass="text-purple"/>
                 <div className={dataSidebarContainerStyles}>
                     <h3>Данные памяти</h3>
-                    {isAdmin ? (<div className="flex flex-col items-end">
-                                <DividerListMenu items={dividerMenuItems}/></div>
+                    {data?.isAdmin ? (<div className="flex flex-col items-end">
+                                <ContextMenu withSeparator iconSize="h-[40px] w-[30px]" items={menuItems}/></div>
                         ) :
                         (<div className="mt-4"/>)}
                     <StorageChart used_size={storageData?.storageSizeInGB ?? 0} total_size={15}/>

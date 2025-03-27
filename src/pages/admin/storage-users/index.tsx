@@ -29,7 +29,9 @@ const StorageUsersPage = (): ReactNode => {
 
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
-            <PageHeader title="Пользователи"/>
+            <PageHeader>
+                <h2>Пользователи</h2>
+            </PageHeader>
             <div className="flex flex-col gap-[32px]">
                 <AddUserForm/>
                 <div className="flex justify-between">

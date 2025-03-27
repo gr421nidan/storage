@@ -4,7 +4,9 @@ import PageHeader from "@/shared/components/page-header";
 const StorageTrashPage = (): ReactNode => {
     return (
         <div>
-            <PageHeader title="Корзина"/>
+            <PageHeader>
+                <h2>Корзина</h2>
+            </PageHeader>
         </div>
     );
 };

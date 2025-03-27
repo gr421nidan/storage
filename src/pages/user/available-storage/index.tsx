@@ -4,7 +4,9 @@ import PageHeader from "@/shared/components/page-header";
 const AvailableStoragePage = (): ReactNode => {
     return (
         <div>
-            <PageHeader title="Доступные хранилища"/>
+            <PageHeader>
+                <h2>Доступные хранилища</h2>
+            </PageHeader>
         </div>
     );
 };

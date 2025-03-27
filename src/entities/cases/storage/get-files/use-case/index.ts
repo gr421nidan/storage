@@ -5,15 +5,16 @@ import {IGetStorageFilesDto} from "@/shared/interface/storage";
 import formatedDate from "@/shared/utils/formatedDate";
 
 const useGetStorageFilesUseCase = () => {
-    const {data} = useQuery({
+    const execute = async () => {
+        const files = await getStorageFilesRepository();
+        return files.map((file: IGetStorageFilesDto) => ({
+            ...file,
+            created_at: formatedDate(file.created_at),
+        }));
+    }
+    const {data, ...rest} = useQuery({
         queryKey: [QueryKey.FILES],
-        queryFn: async () => {
-            const files = await getStorageFilesRepository();
-            return files.map((file: IGetStorageFilesDto) => ({
-                ...file,
-                created_at: formatedDate(file.created_at),
-            }));
-        },
+        queryFn: execute,
         select: (files) => ({
             allFiles: files,
             recentFiles: files.slice(0, 6),
@@ -22,6 +23,7 @@ const useGetStorageFilesUseCase = () => {
     return {
         allFiles: data?.allFiles || [],
         recentFiles: data?.recentFiles || [],
+        ...rest
     };
 };
 

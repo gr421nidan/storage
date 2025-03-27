@@ -4,9 +4,10 @@ import convertBytesToGB from "../../../../../shared/utils/convertSizeStorage";
 import QueryKey from "@/shared/common/enum/query-key";
 
 const useGetStorageSizeUseCase = () => {
-    const {data} = useQuery({
+    const execute = getStorageDataRepository;
+    const {data, ...rest} = useQuery({
         queryKey: [QueryKey.STORAGE_SIZE],
-        queryFn: getStorageDataRepository,
+        queryFn: execute,
         select: (data) => {
             const storageSizeInGB = data ? convertBytesToGB(data.size) : null;
             return {
@@ -16,7 +17,8 @@ const useGetStorageSizeUseCase = () => {
         },
     });
     return {
-        data
+        data,
+        ...rest
     };
 };
 

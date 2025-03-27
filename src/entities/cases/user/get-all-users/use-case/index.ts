@@ -5,13 +5,14 @@ import getAllUsersRepository from "../../../../repo/user/get-users";
 import QueryKey from "@/shared/common/enum/query-key";
 
 const useGetAllUsersUseCase = () => {
-    const { data, error } = useQuery<IGetAllUsersDto[], AxiosError>({
+    const execute=getAllUsersRepository;
+    const { data, ...rest } = useQuery<IGetAllUsersDto[], AxiosError>({
         queryKey: [QueryKey.USERS],
-        queryFn: getAllUsersRepository,
+        queryFn: execute,
     });
     return {
         data: data ?? [],
-        error,
+        ...rest,
     };
 };
 
