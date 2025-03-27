@@ -5,6 +5,8 @@ import Button from "@/shared/components/buttons/button";
 import UserPhotoUploadForm from "@/features/user/upload-user-photo-form/ui";
 import {BUCKET_BASE_URL} from "@/shared/config";
 import {containerPhotoStyle, profileImageStyle} from "@/features/user/get-user-photo/style.ts";
+import {cn} from "@/shared/utils/cn";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
 
 const GetUserPhotoProfile: React.FC = () => {
     const {data: userProfile} = useGetUserProfileUseCase();
@@ -19,7 +21,7 @@ const GetUserPhotoProfile: React.FC = () => {
                 alt="Фото профиля"
                 className={profileImageStyle}
             />
-            <Button className="w-[270px] h-13" onClick={() => setIsModalOpen(true)}>
+            <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[270px] h-13" )} onClick={() => setIsModalOpen(true)}>
                 Изменить фото
             </Button>
             <UserPhotoUploadForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />

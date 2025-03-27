@@ -19,7 +19,7 @@ const UpdateUserGrants: React.FC<IUpdateUserGrantsProps> = ({
                                                                 onClose,
                                                                 userId,
                                                             }) => {
-    const {watch, onSubmit, setValue, errors} = useUpdateUsersGrantPresenter(userId);
+    const {watch, onSubmit, setValue, errors} = useUpdateUsersGrantPresenter(userId, onClose);
 
     const grantOptions = [
         {value: EGrantID.VIEW, label: "Просмотр"},
@@ -42,8 +42,8 @@ const UpdateUserGrants: React.FC<IUpdateUserGrantsProps> = ({
                     onChange={(val) => setValue("grant_id", val as EGrantID)}
                     value={watch("grant_id")}/>
                 <div className={buttonsContainerStyle}>
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px]", buttonsSize )} onClick={onClose}>Отменить</Button>
                     <Button type="submit" className={`w-[217px] ${buttonsSize}`}>Сохранить</Button>
-                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px]", buttonsSize )} onClick={onClose}>Отмена</Button>
                 </div>
             </form>
         </Modal>

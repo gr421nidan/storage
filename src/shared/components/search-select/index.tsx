@@ -1,46 +1,37 @@
+// Обновленный интерфейс для SearchSelect
 import React from "react";
-import Select from "react-select";
-import { customStyles } from "@/shared/components/search-select/style";
-
-interface IOption {
-    value: string;
-    label: string;
-}
+import AsyncSelect from "react-select/async";
+import { IGetAllUsersDto } from "@/shared/interface/admin"; // Подключаем IGetAllUsersDto
 
 interface ISearchSelectProps {
-    options: IOption[];
-    onChange: (selectedOption: IOption | null) => void;
-    value: IOption | null;
+    value: IGetAllUsersDto | null;
+    onChange: (selectedOption: IGetAllUsersDto | null) => void;
+    loadOptions: (inputValue: string) => Promise<IGetAllUsersDto[]>; // Функция для загрузки пользователей
     placeholder?: string;
-    isSearchable?: boolean;
-    className?: string;
+    isSearchable?: boolean;  // Добавлено свойство isSearchable
+    onInputChange?: (inputValue: string) => void; // Добавлено свойство onInputChange
 }
 
-const SearchSelect: React.FC<ISearchSelectProps> = ({
-                                                        options,
-                                                        onChange,
-                                                        value,
-                                                        placeholder,
-                                                        isSearchable = true,
-                                                        className,
-                                                    }) => {
+const SearchSelect: React.FC<ISearchSelectProps> = ({ value, onChange, loadOptions, placeholder, isSearchable = true, onInputChange }) => {
     return (
-        <Select
-            options={options}
-            onChange={onChange}
+        <AsyncSelect
+            cacheOptions
+            loadOptions={loadOptions}
+            defaultOptions
             value={value}
+            onChange={onChange}
             placeholder={placeholder}
-            isClearable={true}
-            isSearchable={isSearchable}
-            filterOption={(candidate, input) => {
-                if (!input || input.length < 3) {
-                    return false;
-                }
-                return candidate.label.toLowerCase().includes(input.toLowerCase());
+            isSearchable={isSearchable}  // Используем переданное свойство isSearchable
+            onInputChange={onInputChange} // Передаем onInputChange в AsyncSelect
+            getOptionLabel={(e: IGetAllUsersDto) => e.email} // Используем email пользователя как label
+            getOptionValue={(e: IGetAllUsersDto) => e.id}  // Используем id пользователя как value
+            styles={{
+                control: (provided) => ({
+                    ...provided,
+                    minHeight: "52px",
+                    fontSize: "16px",
+                }),
             }}
-            className={className}
-            styles={customStyles}
-            noOptionsMessage={() => "Нет совпадений"}
         />
     );
 };

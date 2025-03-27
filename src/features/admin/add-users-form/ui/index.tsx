@@ -5,37 +5,40 @@ import Button from "@/shared/components/buttons/button";
 import { errorTextStyles } from "@/features/auth/style";
 import { formStyles } from "@/features/admin/add-users-form/style";
 import CustomSelect from "@/shared/components/select";
-import useGetAllUsersUseCase from "@/entities/cases/user/get-all-users/use-case";
 import SearchSelect from "@/shared/components/search-select";
-import {
-    IAddUserFormValues,
-    IUser,
-    IOption,
-} from "./AddUserForm.types";
+import { IGetAllUsersDto } from "@/shared/interface/admin";
+import useGetAllUsersUseCase from "@/entities/cases/user/get-all-users/use-case";
 
 const AddUserForm: React.FC = () => {
-    // Если useAddUserPresenter поддерживает дженерики, можно указать <IAddUserFormValues>
-    const { onSubmit, errors, watch, setValue } =
-        useAddUserPresenter<IAddUserFormValues>();
-    const { data: users } = useGetAllUsersUseCase<IUser[]>();
+    const { onSubmit, errors, watch, setValue } = useAddUserPresenter();
+    const [selectedEmail, setSelectedEmail] = useState<IGetAllUsersDto | null>(null);
+    const [searchQuery, setSearchQuery] = useState<string>("");
 
-    const grantOptions: IOption[] = [
+    // Обработчик выбора пользователя
+    const handleEmailChange = (selectedOption: IGetAllUsersDto | null) => {
+        setSelectedEmail(selectedOption);
+        setValue("user_id", selectedOption?.id || ""); // Используем id пользователя
+    };
+
+    // Опции для прав пользователя
+    const grantOptions = [
         { value: EGrantID.VIEW, label: "Просмотр" },
         { value: EGrantID.FULL_ACCESS, label: "Полный доступ" },
     ];
 
-    const [selectedEmail, setSelectedEmail] = useState<IOption | null>(null);
+    // Используем хук для поиска пользователей с параметром query
+    const { data: users } = useGetAllUsersUseCase(searchQuery);
 
-    const userOptions: IOption[] =
-        users?.map((user: IUser) => ({
-            value: user.id,
-            label: user.email,
-        })) || [];
+    // Обработчик для изменения текста в поле поиска
+    const handleSearchChange = (inputValue: string) => {
+        setSearchQuery(inputValue); // Устанавливаем новый текст запроса
+    };
 
-    // Обработчик выбора почты
-    const handleEmailChange = (selectedOption: IOption | null) => {
-        setSelectedEmail(selectedOption); // Обновляем состояние выбранного значения
-        setValue("user_id", selectedOption?.value || "");
+    // Функция для загрузки пользователей на основе поиска
+    const loadUsers = async (inputValue: string): Promise<IGetAllUsersDto[]> => {
+        if (!inputValue) return []; // Если ничего не введено, возвращаем пустой список
+        const filteredUsers = users.filter(user => user.email.includes(inputValue)); // Фильтруем пользователей по email
+        return filteredUsers;
     };
 
     return (
@@ -44,11 +47,12 @@ const AddUserForm: React.FC = () => {
             <div className="flex justify-between gap-[12px]">
                 <div>
                     <SearchSelect
-                        options={userOptions} // Передаем данные с почтами
-                        value={selectedEmail} // Отображаем выбранное значение
-                        onChange={handleEmailChange} // Обрабатываем изменения почты
-                        placeholder="Почта"
-                        className="h-[52px] w-[696px] text-xl"
+                        value={selectedEmail}
+                        onChange={handleEmailChange}
+                        loadOptions={loadUsers}  // Передаем функцию для загрузки пользователей
+                        placeholder="Введите email"
+                        isSearchable
+                        onInputChange={handleSearchChange}  // Изменение запроса при вводе
                     />
                     {errors.user_id && (
                         <p className={errorTextStyles()}>{errors.user_id.message}</p>

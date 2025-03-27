@@ -10,6 +10,7 @@ import Button from "@/shared/components/buttons/button";
 import {IUpdateUserPort} from "@/shared/interface/user";
 import ChangePasswordForm from "@/features/user/change-password-form/ui";
 import {IFormUpdateUserData} from "@/shared/type/user";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
 
 const UserProfileForm: React.FC = () => {
     const {data: userProfile} = useGetUserProfileUseCase();
@@ -39,7 +40,7 @@ const UserProfileForm: React.FC = () => {
                     ))}
                 </div>
                 <div className="flex gap-4">
-                    <Button type="button" className="w-[294px] h-[52px]" onClick={() => setPasswordModalOpen(true)}>
+                    <Button type="button" className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[294px] h-13" )} onClick={() => setPasswordModalOpen(true)}>
                         Изменить пароль
                     </Button>
                     <Button type="submit" className="w-[217px] h-[52px]">Сохранить</Button>

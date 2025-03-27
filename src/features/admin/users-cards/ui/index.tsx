@@ -4,7 +4,6 @@ import ButtonIcon from "@/shared/components/buttons/button-icon";
 import {cardStyles, iconContainerStyles, iconStyles} from "@/features/admin/users-cards/style.ts";
 import useBlockUserPresenter from "@/entities/cases/user-storage/block-user/presenter";
 import useUnblockUserPresenter from "@/entities/cases/user-storage/unblock-user/presenter";
-import useDeleteUserPresenter from "@/entities/cases/user-storage/delete-user/presenter";
 import ERouterPath from "@/shared/common/enum/router";
 import {useNavigate} from "react-router-dom";
 import DeleteUserConfirm from "@/features/admin/delete-user-confirm/ui";
@@ -22,14 +21,9 @@ const UserCard: React.FC<IUserCardProps> = ({user}) => {
     const userAccess = user.grant_id === EGrantID.FULL_ACCESS ? 'Полный доступ' : 'Просмотр';
     const {handleBlockUser} = useBlockUserPresenter();
     const {handleUnblockUser} = useUnblockUserPresenter();
-    const {handleDeleteUser} = useDeleteUserPresenter();
     const [isDeleteConfirmModalOpen, setDeleteConfirmModalOpen] = useState(false);
     const [isUpdateUserGrantModalOpen, setUpdateUserGrantModalOpen] = useState(false);
-    const confirmDeleteUser = async () => {
-        await handleDeleteUser(user.id);
-        setDeleteConfirmModalOpen(false);
 
-    };
     const handleUserClick = () => {
         navigate(ERouterPath.USER_LOGS.replace(':id_user', String(user.id)));
     };
@@ -55,7 +49,7 @@ const UserCard: React.FC<IUserCardProps> = ({user}) => {
             <DeleteUserConfirm
                 isOpen={isDeleteConfirmModalOpen}
                 onClose={() => setDeleteConfirmModalOpen(false)}
-                onDelete={confirmDeleteUser}
+                userId={user.id}
             />
             <UpdateUserGrants
                 isOpen={isUpdateUserGrantModalOpen}

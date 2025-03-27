@@ -7,6 +7,7 @@ import useChangePasswordPresenter from "@/entities/cases/user/change-password/pr
 import {cn} from "@/shared/utils/cn";
 import {inputsStyles} from "@/shared/components/inputs/style.ts";
 import {IFormPasswordChangeData} from "@/shared/interface/user";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
 
 interface IChangePasswordProps {
     isOpen: boolean;
@@ -45,8 +46,8 @@ const ChangePasswordForm: React.FC<IChangePasswordProps> = ({isOpen, onClose}) =
                     </div>
                 ))}
                 <div className="mt-[40px] flex justify-center gap-[51px] w-full">
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px] h-[52px]" )} onClick={onClose}>Отменить</Button>
                     <Button type="submit" className="w-[217px] h-[52px]">Сохранить</Button>
-                    <Button className="w-[206px] h-[52px]" onClick={onClose}>Отмена</Button>
                 </div>
             </form>
         </Modal>

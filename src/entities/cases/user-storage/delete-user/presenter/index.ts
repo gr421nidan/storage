@@ -1,13 +1,14 @@
 import useUnblockUserUseCase from "../use-case";
 
-const useDeleteUserPresenter = () => {
-    const {mutateAsync: deleteUser} = useUnblockUserUseCase();
+const useDeleteUserPresenter = (onClose: () => void) => {
+    const { mutateAsync: deleteUser } = useUnblockUserUseCase();
+
     const handleDeleteUser = async (userId: string) => {
         await deleteUser(userId);
+        onClose();
     };
-    return {
-        handleDeleteUser,
-    };
+
+    return { handleDeleteUser };
 };
 
 export default useDeleteUserPresenter;

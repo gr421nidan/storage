@@ -23,7 +23,7 @@ const UserPhotoUploadForm: React.FC<IUserPhotoUploadProps> = ({ isOpen, onClose 
                 <div className="flex items-center gap-4 justify-center">
                     <label
                         className={cn(
-                            buttonStyles({ variant: "base" }),
+                            buttonStyles({ variant: "baseSecondary" }),
                             "w-[275px] h-[52px] flex items-center justify-center")}>
                         Выберите файл
                         <input
@@ -46,13 +46,12 @@ const UserPhotoUploadForm: React.FC<IUserPhotoUploadProps> = ({ isOpen, onClose 
                     </div>
                 )}
                 <div className="mt-[40px] flex justify-center gap-[104px] w-full">
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px] h-13" )} onClick={onClose}>Отменить</Button>
                     <Button
                         type="submit"
-                        className={cn(buttonStyles({ variant: "base" }), "w-[274px] h-[52px]")}
-                    >
+                        className={"w-[274px] h-[52px]"}>
                         Сохранить
                     </Button>
-                    <Button className="w-[206px] h-[52px]" onClick={onClose}>Отмена</Button>
                 </div>
             </form>
         </Modal>
