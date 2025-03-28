@@ -4,6 +4,15 @@ import Button from "@/shared/components/buttons/button";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import { cn } from "@/shared/utils/cn";
 import useUpdateUserPhotoPresenter from "@/entities/cases/user/update-user-photo/presenter";
+import {
+    fileInputContainerStyle,
+    fileNameStyle,
+    errorMessageStyle,
+    buttonsContainerStyle,
+    cancelButtonStyle,
+    saveButtonStyle,
+    labelButtonStyle, formContainerStyle, formWrapperStyle
+} from "../style";
 
 interface IUserPhotoUploadProps {
     isOpen: boolean;
@@ -19,12 +28,13 @@ const UserPhotoUploadForm: React.FC<IUserPhotoUploadProps> = ({ isOpen, onClose 
 
     return (
         <Modal className="w-[655px]" title="Изменить фото" onClose={onClose}>
-            <form onSubmit={onSubmit} className="flex flex-col gap-6">
-                <div className="flex items-center gap-4 justify-center">
+            <form onSubmit={onSubmit} className={formContainerStyle}>
+                <div className={formWrapperStyle}>
                     <label
                         className={cn(
                             buttonStyles({ variant: "baseSecondary" }),
-                            "w-[275px] h-[52px] flex items-center justify-center")}>
+                            labelButtonStyle
+                        )}>
                         Выберите файл
                         <input
                             type="file"
@@ -34,22 +44,22 @@ const UserPhotoUploadForm: React.FC<IUserPhotoUploadProps> = ({ isOpen, onClose 
                         />
                     </label>
 
-                    <div className="w-[296px] h-[52px] flex items-center justify-between border-2 border-purple dark:bg-white/17 dark:border-purple-light rounded-[20px] px-4">
-            <span className="text-xl dark:text-white">
-              {fileName || ""}
-            </span>
+                    <div className={fileInputContainerStyle}>
+                        <span className={fileNameStyle}>
+                            {fileName || ""}
+                        </span>
                     </div>
                 </div>
                 {errors.file && (
-                    <div className="text-red-500 text-center">
+                    <div className={errorMessageStyle}>
                         {errors.file.message}
                     </div>
                 )}
-                <div className="mt-[40px] flex justify-center gap-[104px] w-full">
-                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px] h-13" )} onClick={onClose}>Отменить</Button>
+                <div className={buttonsContainerStyle}>
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), cancelButtonStyle)} onClick={onClose}>Отменить</Button>
                     <Button
                         type="submit"
-                        className={"w-[274px] h-[52px]"}>
+                        className={saveButtonStyle}>
                         Сохранить
                     </Button>
                 </div>

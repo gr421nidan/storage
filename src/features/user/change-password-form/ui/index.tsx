@@ -8,6 +8,7 @@ import {cn} from "@/shared/utils/cn";
 import {inputsStyles} from "@/shared/components/inputs/style.ts";
 import {IFormPasswordChangeData} from "@/shared/interface/user";
 import {buttonStyles} from "@/shared/components/buttons/style.ts";
+import {buttonsContainerStyle, buttonWidthCancel, buttonWidthSave, formContainerStyle} from "../style";
 
 interface IChangePasswordProps {
     isOpen: boolean;
@@ -33,7 +34,7 @@ const ChangePasswordForm: React.FC<IChangePasswordProps> = ({isOpen, onClose}) =
     if (!isOpen) return null;
     return (
         <Modal className="w-[655px]" title="Сменить пароль" onClose={onClose}>
-            <form onSubmit={onSubmit} className="flex flex-col gap-6 items-center">
+            <form onSubmit={onSubmit} className={formContainerStyle}>
                 {fields.map(({name, placeholder}) => (
                     <div key={name}>
                         <Input
@@ -45,9 +46,9 @@ const ChangePasswordForm: React.FC<IChangePasswordProps> = ({isOpen, onClose}) =
                         {errors[name] && <p className={errorTextStyles()}>{errors[name].message}</p>}
                     </div>
                 ))}
-                <div className="mt-[40px] flex justify-center gap-[51px] w-full">
-                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px] h-[52px]" )} onClick={onClose}>Отменить</Button>
-                    <Button type="submit" className="w-[217px] h-[52px]">Сохранить</Button>
+                <div className={buttonsContainerStyle}>
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), buttonWidthCancel )} onClick={onClose}>Отменить</Button>
+                    <Button type="submit" className={buttonWidthSave}>Сохранить</Button>
                 </div>
             </form>
         </Modal>

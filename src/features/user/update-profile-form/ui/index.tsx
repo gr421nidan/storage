@@ -24,6 +24,8 @@ const UserProfileForm: React.FC = () => {
         {name: "patronymic", placeholder: "Отчество...", value: userProfile?.patronymic},
         {name: "phone", placeholder: "Телефон...", value: userProfile?.phone}
     ];
+    const handlePasswordModalOpen = () => setPasswordModalOpen(true);
+    const handlePasswordModalClose = () => setPasswordModalOpen(false);
     const isError = (field: keyof IFormUpdateUserData): boolean => !!errors[field];
     return (
         <div>
@@ -40,13 +42,13 @@ const UserProfileForm: React.FC = () => {
                     ))}
                 </div>
                 <div className="flex gap-4">
-                    <Button type="button" className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[294px] h-13" )} onClick={() => setPasswordModalOpen(true)}>
+                    <Button type="button" className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[294px] h-13" )} onClick={handlePasswordModalOpen}>
                         Изменить пароль
                     </Button>
-                    <Button type="submit" className="w-[217px] h-[52px]">Сохранить</Button>
+                    <Button type="submit" className="w-[217px] h-13">Сохранить</Button>
                 </div>
             </form>
-            <ChangePasswordForm isOpen={isPasswordModalOpen} onClose={() => setPasswordModalOpen(false)} />
+            <ChangePasswordForm isOpen={isPasswordModalOpen} onClose={handlePasswordModalClose} />
         </div>
     );
 };

@@ -14,6 +14,9 @@ const GetUserPhotoProfile: React.FC = () => {
     const profileImage = userProfile?.img
         ? `${BUCKET_BASE_URL}${userProfile.img}`
         : defaultAvatar;
+    const handleOpenModal = () => setIsModalOpen(true);
+    const handleCloseModal = () => setIsModalOpen(false);
+
     return (
         <div className={containerPhotoStyle}>
             <img
@@ -21,10 +24,10 @@ const GetUserPhotoProfile: React.FC = () => {
                 alt="Фото профиля"
                 className={profileImageStyle}
             />
-            <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[270px] h-13" )} onClick={() => setIsModalOpen(true)}>
+            <Button className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[270px] h-13" )} onClick={handleOpenModal}>
                 Изменить фото
             </Button>
-            <UserPhotoUploadForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
+            <UserPhotoUploadForm isOpen={isModalOpen} onClose={handleCloseModal} />
         </div>
     );
 };
