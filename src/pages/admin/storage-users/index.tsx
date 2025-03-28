@@ -1,31 +1,59 @@
-import {ReactNode, useState} from 'react';
+import { ReactNode, useState } from "react";
 import AddUserForm from "@/features/admin/add-users-form/ui";
 import useGetUsersUseCase from "@/entities/cases/user-storage/get-users/use-case";
 import UserCard from "@/features/admin/users-cards/ui";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import PageHeader from "@/shared/components/page-header";
 import SearchInput from "@/shared/components/search";
+import FiltersUsersPopupMenu from "@/features/admin/filters-users";
+import {EGrantID} from "@/shared/emum/admin";
 
 const StorageUsersPage = (): ReactNode => {
     const [search, setSearch] = useState<string>("");
-    const {data: users} = useGetUsersUseCase(search);
+    const [grantId, setGrantId] = useState<EGrantID | undefined>(undefined);
+    const [isActive, setIsActive] = useState<boolean | undefined>(undefined);
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const { data: users} = useGetUsersUseCase({
+        search,
+        grant_id: grantId,
+        is_active: isActive,
+    });
+    const handlePopupToggle = () => {
+        setIsPopupOpen((prevState) => !prevState);
+    };
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
             <PageHeader>
                 <h2>Пользователи</h2>
             </PageHeader>
             <div className="flex flex-col gap-[32px]">
-                <AddUserForm/>
+                <AddUserForm />
                 <div className="flex justify-between">
                     <SearchInput
                         placeholder="Поиск по фамилии"
                         className="w-[1036px] h-[54px]"
                         onSearch={setSearch}
                     />
-                    <ButtonIcon icon="solar:alt-arrow-down-outline"
-                                className="h-[54px] w-[248px]">Фильтрация</ButtonIcon>
+                    <ButtonIcon
+                        icon="solar:alt-arrow-down-outline"
+                        className="h-[54px] w-[248px]"
+                        onClick={handlePopupToggle}>
+                        Фильтрация
+                    </ButtonIcon>
                 </div>
             </div>
+            <FiltersUsersPopupMenu
+                isOpen={isPopupOpen}
+                onClose={() => setIsPopupOpen(false)}
+                onApply={(filters) => {
+                    setGrantId(filters.access);
+                    setIsActive(filters.activity);
+                }}
+                onReset={() => {
+                    setGrantId(undefined);
+                    setIsActive(undefined);
+                }}
+            />
             <div>
                 <div className="flex flex-col gap-6">
                     <div className="flex gap-[183px] ml-[31px] ">
@@ -38,10 +66,10 @@ const StorageUsersPage = (): ReactNode => {
                     <div className="overflow-y-auto max-h-[365px] scrollbar">
                         <div className="flex flex-col gap-6">
                             {users.length === 0 ? (
-                                <p className="text-lg  flex justify-center">Ничего не найдено</p>
+                                <p className="text-lg flex justify-center">Ничего не найдено</p>
                             ) : (
                                 users.map((user) => (
-                                    <UserCard key={user.id} user={user}/>
+                                    <UserCard key={user.id} user={user} />
                                 ))
                             )}
                         </div>

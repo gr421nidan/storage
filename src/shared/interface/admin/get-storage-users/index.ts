@@ -1,5 +1,7 @@
+import {EGrantID} from "@/shared/emum/admin";
+
 interface IGetUserDto {
-    id:string
+    id: string
     img: string | null;
     surname: string;
     firstname: string;
@@ -8,4 +10,10 @@ interface IGetUserDto {
     is_active: boolean;
 }
 
-export type { IGetUserDto };
+interface IGetUsersParams {
+    search?: string;
+    grant_id?: EGrantID;
+    is_active?: boolean;
+}
+
+export type {IGetUserDto, IGetUsersParams};
