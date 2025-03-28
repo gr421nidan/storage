@@ -1,37 +1,32 @@
-// Обновленный интерфейс для SearchSelect
-import React from "react";
-import AsyncSelect from "react-select/async";
-import { IGetAllUsersDto } from "@/shared/interface/admin"; // Подключаем IGetAllUsersDto
+import {FC} from "react";
+import Select from "react-select";
+import {customStyles} from "@/shared/components/search-select/style.ts";
 
-interface ISearchSelectProps {
-    value: IGetAllUsersDto | null;
-    onChange: (selectedOption: IGetAllUsersDto | null) => void;
-    loadOptions: (inputValue: string) => Promise<IGetAllUsersDto[]>; // Функция для загрузки пользователей
-    placeholder?: string;
-    isSearchable?: boolean;  // Добавлено свойство isSearchable
-    onInputChange?: (inputValue: string) => void; // Добавлено свойство onInputChange
+interface IUserSelectProps {
+    options: { value: string; label: string }[];
+    onChange: (selectedUser: { value: string; label: string } | null) => void;
+    onInputChange: (value: string) => void;
+    placeholder: string;
+    className?:string;
 }
 
-const SearchSelect: React.FC<ISearchSelectProps> = ({ value, onChange, loadOptions, placeholder, isSearchable = true, onInputChange }) => {
+const SearchSelect: FC<IUserSelectProps> = ({
+                                              options,
+                                              onChange,
+                                              onInputChange,
+                                              placeholder,
+                                                className,
+                                          }) => {
     return (
-        <AsyncSelect
-            cacheOptions
-            loadOptions={loadOptions}
-            defaultOptions
-            value={value}
+        <Select
+            onInputChange={onInputChange}
             onChange={onChange}
+            options={options}
             placeholder={placeholder}
-            isSearchable={isSearchable}  // Используем переданное свойство isSearchable
-            onInputChange={onInputChange} // Передаем onInputChange в AsyncSelect
-            getOptionLabel={(e: IGetAllUsersDto) => e.email} // Используем email пользователя как label
-            getOptionValue={(e: IGetAllUsersDto) => e.id}  // Используем id пользователя как value
-            styles={{
-                control: (provided) => ({
-                    ...provided,
-                    minHeight: "52px",
-                    fontSize: "16px",
-                }),
-            }}
+            noOptionsMessage={() => "Совпадений не найдено"}
+            className={className}
+            isClearable
+            styles={customStyles}
         />
     );
 };

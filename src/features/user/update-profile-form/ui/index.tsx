@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {formStyles} from "@/features/user/update-profile-form/style.ts";
+import {formStyles, inputWrapperStyles} from "@/features/user/update-profile-form/style.ts";
 import Input from "@/shared/components/inputs/base-input";
 import {cn} from "@/shared/utils/cn";
 import {inputsStyles} from "@/shared/components/inputs/style.ts";
@@ -28,7 +28,7 @@ const UserProfileForm: React.FC = () => {
     return (
         <div>
             <form className={formStyles} onSubmit={onSubmit}>
-                <div className="flex flex-col gap-[32px]">
+                <div className={inputWrapperStyles}>
                     {fields.map(({name, placeholder, value}) => (
                         <div key={name}>
                             <Input type="text" placeholder={placeholder}

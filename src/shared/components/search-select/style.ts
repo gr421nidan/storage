@@ -8,16 +8,25 @@ export interface IOption {
 export const customStyles: StylesConfig<IOption, false> = {
     control: (provided) => ({
         ...provided,
-        borderColor: 'var(--color-purple-light)',
+        borderColor: 'var(--color-border-search-select-text)',
         borderWidth: '2px',
         borderRadius: '20px',
         padding: '0 10px',
         height: '52px',
         boxShadow: 'none',
+        backgroundColor: 'var(--color-search-select)',
+        color: 'var(--color-search-select-text)',
+        '&:hover': {
+            borderColor: 'var(--color-purple-light)',
+        },
+        '&:focus': {
+            borderColor: 'var(--color-purple)',
+        },
     }),
     menu: (provided) => ({
         ...provided,
-        backgroundColor: 'white',
+        backgroundColor: 'var(--color-menu-background)',
+        fontSize: '20px',
     }),
     option: (provided, state) => ({
         ...provided,
@@ -27,11 +36,12 @@ export const customStyles: StylesConfig<IOption, false> = {
             : state.isFocused
                 ? 'rgba(98, 70, 153, 0.1)'
                 : 'transparent',
-        color: state.isSelected ? 'white' : 'black',
+        color: state.isSelected ? 'white' : 'var(--color-search-select-text)',
     }),
     placeholder: (provided) => ({
         ...provided,
-        color: 'black',
+        color: 'var(--color-search-select-text)',
+        fontSize: '20px',
     }),
     clearIndicator: (provided) => ({
         ...provided,
@@ -44,5 +54,15 @@ export const customStyles: StylesConfig<IOption, false> = {
     dropdownIndicator: (provided) => ({
         ...provided,
         display: 'none',
+    }),
+    input: (provided) => ({
+        ...provided,
+        color: 'var(--color-input-text)',
+        fontSize: '20px',
+    }),
+    singleValue: (provided) => ({
+        ...provided,
+        fontSize: '20px',
+        color: 'var(--color-input-text)',
     }),
 };
