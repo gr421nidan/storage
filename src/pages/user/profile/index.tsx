@@ -1,5 +1,4 @@
 import {ReactNode} from 'react';
-import PageHeader from "@/shared/components/page-header";
 import UserProfileForm from "@/features/user/update-profile-form/ui";
 import GetUserPhotoProfile from "@/features/user/get-user-photo/ui";
 import {contentWrapperStyle, pageContainerStyle, profileStyle} from "@/pages/user/profile/style.ts";
@@ -7,9 +6,6 @@ import {contentWrapperStyle, pageContainerStyle, profileStyle} from "@/pages/use
 const UserProfilePage = (): ReactNode => {
     return (
         <div className={pageContainerStyle}>
-            <PageHeader>
-                <h2>Личные данные</h2>
-            </PageHeader>
             <div className={contentWrapperStyle}>
                 <div className={profileStyle}>
                     <GetUserPhotoProfile/>

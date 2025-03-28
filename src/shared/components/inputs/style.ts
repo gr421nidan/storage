@@ -8,7 +8,7 @@ export const inputsStyles = cva(
             variant: {
                 basic: "text-black border-purple-light text-[20px] px-6 rounded-[20px] bg-white dark:bg-gray placeholder-dark-gray ",
                 otp: "text-black border-purple-light rounded-[10px] w-[60px] h-[60px] focus:border-purple text-center focus:outline-none hover:custom-shadow dark:text-white text-[32px]",
-                check:"peer appearance-none rounded-[5px] border-purple flex text-white items-center cursor-pointer transition-all checked:bg-purple"
+                check:"peer appearance-none rounded-[5px] border-purple flex text-white items-center cursor-pointer transition-all checked:bg-purple dark:checked:bg-white/27"
             },
             error: {
                 true: "border-error-primary bg-error-secondary focus:border-error-primary hover:border-error-primary",

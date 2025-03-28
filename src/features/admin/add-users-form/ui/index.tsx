@@ -10,7 +10,7 @@ import { IGetAllUsersDto } from "@/shared/interface/admin";
 import useGetAllUsersUseCase from "@/entities/cases/user/get-all-users/use-case";
 
 const AddUserForm: React.FC = () => {
-    const { onSubmit, errors, watch, setValue } = useAddUserPresenter();
+    const { onSubmit, errors, watch, setValue} = useAddUserPresenter();
     const [inputValue, setInputValue] = useState<string>("");
     const [debouncedValue, setDebouncedValue] = useState<string>("");
     useEffect(() => {
@@ -31,7 +31,7 @@ const AddUserForm: React.FC = () => {
         { value: EGrantID.VIEW, label: "Просмотр" },
         { value: EGrantID.FULL_ACCESS, label: "Полный доступ" },
     ];
-
+    const grantValue = watch("grant_id") ?? "";
     return (
         <form onSubmit={onSubmit} className={formStyles}>
             <h3>Добавление учетной записи</h3>
@@ -52,7 +52,7 @@ const AddUserForm: React.FC = () => {
                 <div>
                     <CustomSelect
                         options={grantOptions}
-                        value={watch("grant_id")}
+                        value={grantValue}
                         onChange={(val) => setValue("grant_id", val as EGrantID)}
                         className="h-[52px] w-[248px]"
                         isError={!!errors.grant_id}

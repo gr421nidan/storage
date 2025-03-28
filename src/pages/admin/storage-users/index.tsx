@@ -3,9 +3,8 @@ import AddUserForm from "@/features/admin/add-users-form/ui";
 import useGetUsersUseCase from "@/entities/cases/user-storage/get-users/use-case";
 import UserCard from "@/features/admin/users-cards/ui";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import PageHeader from "@/shared/components/page-header";
 import SearchInput from "@/shared/components/search";
-import FiltersUsersPopupMenu from "@/features/admin/filters-users";
+import FiltersUsersPopupMenu from "@/features/admin/filters-users/ui";
 import {EGrantID} from "@/shared/emum/admin";
 
 const StorageUsersPage = (): ReactNode => {
@@ -21,11 +20,11 @@ const StorageUsersPage = (): ReactNode => {
     const handlePopupToggle = () => {
         setIsPopupOpen((prevState) => !prevState);
     };
+    const handleClose = () => {
+        setIsPopupOpen(false);
+    };
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
-            <PageHeader>
-                <h2>Пользователи</h2>
-            </PageHeader>
             <div className="flex flex-col gap-[32px]">
                 <AddUserForm />
                 <div className="flex justify-between">
@@ -44,7 +43,7 @@ const StorageUsersPage = (): ReactNode => {
             </div>
             <FiltersUsersPopupMenu
                 isOpen={isPopupOpen}
-                onClose={() => setIsPopupOpen(false)}
+                onClose={handleClose}
                 onApply={(filters) => {
                     setGrantId(filters.access);
                     setIsActive(filters.activity);

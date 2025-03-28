@@ -1,35 +1,39 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { cn } from "@/shared/utils/cn";
-import { Icon } from "@iconify/react";
+import Button from "@/shared/components/buttons/button";
+import {cn} from "@/shared/utils/cn";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
 
-interface IDatePickerProps {
-    placeholder?: string;
-    className?: string;
-    onChange?: (date: Date | null) => void;
+interface IDatePickerButtonProps {
+    value: Date | null;
+    onChange: (date: Date | null) => void;
+    format?: string;
 }
 
-const CustomDatePicker: React.FC<IDatePickerProps> = ({ placeholder, className, onChange }) => {
-    const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-
-    const handleChange = (date: Date | null) => {
-        setSelectedDate(date);
-        if (onChange) onChange(date);
+const DatePickerButton: React.FC<IDatePickerButtonProps> = ({ value, onChange, format = "dd/MM/yyyy" }) => {
+    const [isOpen, setIsOpen] = useState(false);
+    const handleButtonClick = () => {
+        setIsOpen(!isOpen);
     };
 
     return (
-        <div className={cn("relative flex items-center border rounded-[20px] px-[27px] bg-white dark:bg-gray-900", className)}>
-            <DatePicker
-                selected={selectedDate}
-                onChange={handleChange}
-                dateFormat="dd.MM.yyyy"
-                placeholderText={placeholder}
-                className="outline-none bg-transparent dark:text-white"
-            />
-            <Icon icon="mdi:calendar-month-outline" className="w-5 h-5 text-gray-500 dark:text-gray-400 ml-2" />
+        <div className="relative">
+            <Button className={cn(buttonStyles({ variant: "date" }),"w-[109px] h-[30px]")} onClick={handleButtonClick}>{value ? value.toLocaleDateString("ru-RU") : "дд.мм.гггг"}</Button>
+
+            {isOpen && (
+                <DatePicker
+                    selected={value}
+                    onChange={(date: Date | null) => {
+                        onChange(date);
+                        setIsOpen(false);
+                    }}
+                    dateFormat={format}
+                    inline
+                />
+            )}
         </div>
     );
 };
 
-export default CustomDatePicker;
+export default DatePickerButton;

@@ -163,3 +163,19 @@ body {
     --color-menu-background: var(--color-purple);
     --color-input-text: white;
 }
+
+.react-datepicker__day--selected {
+    @apply bg-purple text-white ;
+}
+
+.react-datepicker__header {
+    @apply bg-white dark:bg-purple-dark  shadow-[0_0_20px_var(--color-purple)] text-white;
+}
+.react-datepicker__current-month {
+    @apply text-lg font-bold text-white;
+}
+.react-datepicker__navigation--previous,
+.react-datepicker__navigation--next {
+    @apply text-white;
+}
+

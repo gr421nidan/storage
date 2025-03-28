@@ -4,13 +4,17 @@ import {ETypeLog} from "@/shared/emum/admin";
 import Button from "@/shared/components/buttons/button";
 import {PopupMenu} from "@/shared/components/popup-menu";
 import {cn} from "@/shared/utils/cn";
-import {buttonStyles} from "@/shared/components/buttons/style";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
 import {
-    buttonContainerStyle, buttonStyle, containerButtonRadiosStyle,
-    containerFiltersStyle, containerRadioStyle,
+    buttonContainerStyle,
+    containerFiltersStyle,
+    containerRadioStyle,
     radioButtonStyle,
-    separatorStyle, titleStyle
-} from "../filters-users/style";
+    separatorStyle,
+    titleStyle,
+    containerButtonRadiosStyle,
+    buttonStyle
+} from "@/features/admin/filters-users/style";
 
 const logTypeLabels: { [key in ETypeLog]: string } = {
     [ETypeLog.DELETE_FOLDER]: "Удаление папки",
@@ -20,6 +24,7 @@ const logTypeLabels: { [key in ETypeLog]: string } = {
     [ETypeLog.DOWNLOAD_FOLDER]: "Скачивание папки",
     [ETypeLog.DOWNLOAD_FILE]: "Скачивание файла",
 };
+
 interface IFilters {
     logType: ETypeLog | undefined;
 }
@@ -32,11 +37,11 @@ interface IFiltersPopupMenuProps {
 }
 
 const FiltersUserLogsPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
-                                                                     isOpen,
-                                                                     onClose,
-                                                                     onApply,
-                                                                     onReset,
-                                                                 }) => {
+                                                                        isOpen,
+                                                                        onClose,
+                                                                        onApply,
+                                                                        onReset,
+                                                                    }) => {
     const [logType, setLogType] = useState<ETypeLog | undefined>(undefined);
 
     const handleLogTypeChange = (value: ETypeLog | undefined) => {
@@ -76,10 +81,6 @@ const FiltersUserLogsPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
             <div className={separatorStyle}></div>
             <div className="flex">
                 <p className={titleStyle}>Дата</p>
-            </div>
-            <div className={separatorStyle}></div>
-            <p className={titleStyle}>Статус опрерации</p>
-            <div>
             </div>
             <div className={buttonContainerStyle}>
                 <Button

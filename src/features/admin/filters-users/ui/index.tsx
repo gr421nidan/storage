@@ -4,13 +4,13 @@ import {EGrantID} from "@/shared/emum/admin";
 import Button from "@/shared/components/buttons/button";
 import {PopupMenu} from "@/shared/components/popup-menu";
 import {cn} from "@/shared/utils/cn";
-import {buttonStyles} from "@/shared/components/buttons/style";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
 import {
     buttonContainerStyle, buttonStyle, containerButtonRadiosStyle,
     containerFiltersStyle, containerRadioStyle,
     radioButtonStyle,
     separatorStyle, titleStyle
-} from "./style";
+} from "../style.ts";
 
 interface IFilters {
     access:EGrantID | undefined,
@@ -55,7 +55,7 @@ const FiltersUsersPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
     };
 
     return (
-        <PopupMenu isOpen={isOpen} onClose={onClose} className={containerFiltersStyle}>
+        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(containerFiltersStyle, "h-[256px]") }>
             <p className={titleStyle}>Доступ</p>
             <div className={containerButtonRadiosStyle}>
                 <label className={containerRadioStyle}>
