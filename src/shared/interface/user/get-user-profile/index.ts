@@ -9,6 +9,7 @@ interface IGetUserProfileDto {
     role_id: ERoleID;
     img: string | null;
     bucket_name: string | null;
+    storage_id: string;
 }
 
 export type {IGetUserProfileDto};
