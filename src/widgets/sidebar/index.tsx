@@ -9,12 +9,12 @@ import RecentFiles from "@/shared/components/recent-files";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 import ProfileLink from "@/shared/components/profile-link";
 import useGetStorageSizeUseCase from "@/entities/cases/storage/get-storage-size/use-case";
-import useGetStorageFilesUseCase from "@/entities/cases/storage/get-files/use-case";
 import ContextMenu from "@/shared/components/context-menu";
+import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-folders-and-files/use-case";
 
 const SidebarWidget: React.FC = () => {
     const {data: storageData} = useGetStorageSizeUseCase();
-    const {recentFiles} = useGetStorageFilesUseCase();
+    const {recentFiles} = useGetStorageFilesAndFoldersUseCase();
     const {data} = useGetUserProfileUseCase();
     const menuItems = [
         {label: "Резервное копирование", icon: "garden:reload-stroke-12"},

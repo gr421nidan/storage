@@ -10,10 +10,10 @@ import {
     radioButtonStyle,
     separatorStyle
 } from "@/features/admin/filters-users/style.ts";
-import DatePickerButton from "@/shared/components/datePicker";
+import DatePickerButton from "../../../../shared/components/date-picker";
 
 interface IFilters {
-    fileType?: string[];
+    fileType?: string[] | undefined;
     date?: Date | null;
 }
 
@@ -30,7 +30,7 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
                                                                      onApply,
                                                                      onReset,
                                                                  }) => {
-    const [fileTypes, setFileTypes] = useState<string[]>([]);
+    const [fileTypes, setFileTypes] = useState<string[] | undefined>(undefined);
     const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
     const handleFileTypeChange = (type: string) => {
@@ -47,7 +47,7 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
         });
     };
     const handleReset = () => {
-        setFileTypes([]);
+        setFileTypes(undefined);
         setSelectedDate(null);
         onReset();
     };

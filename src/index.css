@@ -58,7 +58,7 @@ body {
     }
 
     h2 {
-        @apply text-[40px] font-manrope;
+        @apply text-[40px] font-manrope dark:text-white;
     }
 
     h3 {

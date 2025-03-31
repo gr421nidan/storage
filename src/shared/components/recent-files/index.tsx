@@ -4,11 +4,11 @@ import {
     recentFilesContainerStyles,
     recentFilesListStyles, recentFilesNameStyles
 } from "@/shared/components/recent-files/style";
-import {IGetStorageFilesDto} from "@/shared/interface/storage";
+import {IGetStorageFileDto} from "@/shared/interface/storage";
 import FileIcon from "@/shared/components/file-icon";
 
 interface IRecentFilesProps {
-    files: IGetStorageFilesDto[];
+    files: IGetStorageFileDto[];
 }
 
 const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {

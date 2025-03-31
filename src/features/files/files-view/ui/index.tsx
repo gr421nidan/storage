@@ -1,10 +1,10 @@
 import React from "react";
 import FileGridItem from "@/features/files/file-grid/ui";
 import FileListItem from "@/features/files/file-list/ui";
-import { IGetStorageFilesDto } from "@/shared/interface/storage";
+import { IGetStorageFileDto } from "@/shared/interface/storage";
 
 interface IFileViewProps {
-    files: IGetStorageFilesDto[];
+    files: IGetStorageFileDto[];
     viewMode: "grid" | "list";
 }
 

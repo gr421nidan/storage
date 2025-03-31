@@ -31,6 +31,15 @@ const AddUserForm: React.FC = () => {
         { value: EGrantID.VIEW, label: "Просмотр" },
         { value: EGrantID.FULL_ACCESS, label: "Полный доступ" },
     ];
+    const handleUserChange = (selectedUser: { value: string } | null) => {
+        setValue("user_id", selectedUser?.value || "");
+    };
+    const handleInputChange = (value: string) => {
+        setInputValue(value);
+    };
+    const handleGrantChange = (val: EGrantID) => {
+        setValue("grant_id", val);
+    };
     const grantValue = watch("grant_id") ?? "";
     return (
         <form onSubmit={onSubmit} className={formStyles}>
@@ -41,8 +50,8 @@ const AddUserForm: React.FC = () => {
                         placeholder="Почта"
                         className="w-[696px]"
                         options={userOptions}
-                        onChange={(selectedUser) => setValue("user_id", selectedUser?.value || "")}
-                        onInputChange={(value) => setInputValue(value)}
+                        onChange={handleUserChange}
+                        onInputChange={handleInputChange}
                     />
                     {errors.user_id && (
                         <p className={errorTextStyles()}>{errors.user_id.message}</p>
@@ -53,7 +62,7 @@ const AddUserForm: React.FC = () => {
                     <CustomSelect
                         options={grantOptions}
                         value={grantValue}
-                        onChange={(val) => setValue("grant_id", val as EGrantID)}
+                        onChange={handleGrantChange}
                         className="h-[52px] w-[248px]"
                         isError={!!errors.grant_id}
                         defaultLabel="Права"

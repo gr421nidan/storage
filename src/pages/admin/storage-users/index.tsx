@@ -34,7 +34,7 @@ const StorageUsersPage = (): ReactNode => {
                         onSearch={setSearch}
                     />
                     <ButtonIcon
-                        icon="solar:alt-arrow-down-outline"
+                        icon="simple-line-icons:arrow-down"
                         className="h-[54px] w-[248px]"
                         onClick={handlePopupToggle}>
                         Фильтрация

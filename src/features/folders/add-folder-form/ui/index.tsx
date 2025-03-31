@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
 import Input from "@/shared/components/inputs/base-input";
+import {cn} from "@/shared/utils/cn";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
 
 interface ICreateFolderModalProps {
     isOpen: boolean;
@@ -23,11 +25,11 @@ const CreateFolderModal: React.FC<ICreateFolderModalProps> = ({ isOpen, onClose}
                         onChange={(e) => setFolderName(e.target.value)}
                 />
                 <div className="flex justify-between">
+                    <Button className={cn(buttonStyles({variant: "baseSecondary"}), "w-[206px] h-[52px]")} onClick={onClose}>
+                        Отменить
+                    </Button>
                     <Button className="w-[217px] h-[52px]">
                         Сохранить
-                    </Button>
-                    <Button className="w-[200px] h-[52px]" onClick={onClose}>
-                        Отмена
                     </Button>
                 </div>
             </div>

@@ -1,11 +1,11 @@
 import React from "react";
 import folderIcon from "@/assets/folder-icon/folder.png"
-import {IGetStorageFoldersDto} from "@/shared/interface/storage";
+import {IGetStorageFolderDto} from "@/shared/interface/storage";
 import {formatFileSize} from "@/shared/utils/convertSizeFiles";
 import ContextMenu from "@/shared/components/context-menu";
 
 interface IFolderGridItemProps {
-    folder: IGetStorageFoldersDto;
+    folder: IGetStorageFolderDto;
 }
 const menuItems = [
     { label: "Скачать", icon: "fluent:arrow-download-32-filled" },

@@ -1,4 +1,4 @@
 export * from './get-size';
-export * from './get-files';
-export * from './get-folders';
-export * from './upload-files';
+export * from './folders';
+export * from './files';
+export * from './get-files-and-folders';

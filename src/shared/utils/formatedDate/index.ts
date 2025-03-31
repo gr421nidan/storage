@@ -1,8 +1,7 @@
+import { format } from 'date-fns';
+import { ru } from 'date-fns/locale';
+
 const formatedDate = (isoString: string): string => {
-    return new Date(isoString).toLocaleDateString("ru-RU", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "numeric",
-    });
+    return format(new Date(isoString), 'dd.MM.yyyy', { locale: ru });
 };
 export default formatedDate;

@@ -7,18 +7,22 @@ import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use
 import {errorTextStyles} from "@/features/auth/style.ts";
 import useUpdateUserPresenter from "@/entities/cases/user/update-user-profile/presenter";
 import Button from "@/shared/components/buttons/button";
-import {IUpdateUserPort} from "@/shared/interface/user";
 import ChangePasswordForm from "@/features/user/change-password-form/ui";
 import {IFormUpdateUserData} from "@/shared/type/user";
 import {buttonStyles} from "@/shared/components/buttons/style.ts";
+
+interface IField {
+    name: keyof IFormUpdateUserData;
+    placeholder: string;
+    value: string | null | undefined;
+}
 
 const UserProfileForm: React.FC = () => {
     const {data: userProfile} = useGetUserProfileUseCase();
     const {register, onSubmit, errors} = useUpdateUserPresenter();
     const [isPasswordModalOpen, setPasswordModalOpen] = useState(false);
     const inputSize = "h-[54px] w-[535px]"
-
-    const fields: { name: keyof IUpdateUserPort; placeholder: string; value: string | null | undefined }[] = [
+    const fields: IField[] = [
         {name: "firstname", placeholder: "Имя...", value: userProfile?.firstname},
         {name: "surname", placeholder: "Фамилия...", value: userProfile?.surname},
         {name: "patronymic", placeholder: "Отчество...", value: userProfile?.patronymic},
@@ -34,7 +38,7 @@ const UserProfileForm: React.FC = () => {
                     {fields.map(({name, placeholder, value}) => (
                         <div key={name}>
                             <Input type="text" placeholder={placeholder}
-                                   defaultValue={value || ""}
+                                   defaultValue={value ?? ""}
                                    className={cn(inputsStyles({error: isError(name)}), inputSize)}
                                    {...register(name)}/>
                             {errors[name] && <p className={errorTextStyles()}>{errors[name].message}</p>}

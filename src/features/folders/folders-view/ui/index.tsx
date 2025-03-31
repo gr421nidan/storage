@@ -1,9 +1,9 @@
 import React from "react";
-import {IGetStorageFoldersDto} from "@/shared/interface/storage";
+import {IGetStorageFolderDto} from "@/shared/interface/storage";
 import FolderGridItem from "@/features/folders/folder-grid/ui";
 
 interface IFileViewProps {
-    folders: IGetStorageFoldersDto[];
+    folders: IGetStorageFolderDto[];
 }
 
 const FoldersView: React.FC<IFileViewProps> = ({folders}) => {

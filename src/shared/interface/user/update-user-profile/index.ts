@@ -1,13 +1,12 @@
 interface IUpdateUserPort {
-    surname?: string | null;
-    firstname?: string | null;
-    patronymic?: string | null;
-    phone?: string | null;
+    surname?: string;
+    firstname?: string;
+    patronymic?: string
+    phone?: string;
 }
 
 interface IUpdateUserDto {
     message: string;
-    status: number;
 }
 
 interface IUpdateUserPhotoPort {

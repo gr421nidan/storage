@@ -1,7 +1,6 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import validationSchema from "../validation";
-
 import {IFormUpdateUserData} from "@/shared/type/user";
 import useUpdateUserUseCase from "../use-case";
 
@@ -11,8 +10,13 @@ const useUpdateUserPresenter = () => {
     });
     const {mutateAsync} = useUpdateUserUseCase();
     const onSubmit = handleSubmit(async (data: IFormUpdateUserData) => {
-        await mutateAsync(data);
-    })
+        const cleanedData = Object.fromEntries(
+            Object.entries(data).filter(([, value]) => {
+                return value !== "" && value !== null && value !== undefined;
+            })
+        );
+        await mutateAsync(cleanedData);
+    });
 
     return {
         register,

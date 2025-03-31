@@ -2,10 +2,11 @@ import { useState, forwardRef } from "react";
 import { Icon } from "@iconify/react";
 import { cn } from "@/shared/utils/cn";
 import { selectBoxStyles, selectOptionStyles, optionStyles } from "./style";
+import {EGrantID} from "@/shared/emum/admin";
 
 interface IOption {
     label: string;
-    value: string | number;
+    value: EGrantID;
 }
 
 interface ISelectProps extends Omit<React.HTMLProps<HTMLInputElement>, "onChange"> {
@@ -14,7 +15,7 @@ interface ISelectProps extends Omit<React.HTMLProps<HTMLInputElement>, "onChange
     defaultLabel?: string;
     isError?: boolean;
     value?: string | number;
-    onChange?: (value: string | number) => void;
+    onChange?: (value: EGrantID) => void;
 }
 
 const CustomSelect = forwardRef<HTMLDivElement, ISelectProps>(
@@ -32,8 +33,8 @@ const CustomSelect = forwardRef<HTMLDivElement, ISelectProps>(
                     onClick={() => setIsOpen(!isOpen)}>
                     {displayLabel}
                     <Icon
-                        icon="solar:alt-arrow-down-outline"
-                        width="45"
+                        icon="simple-line-icons:arrow-down"
+                        width="25"
                         className={cn("transition-transform", isOpen && "rotate-180")}
                     />
                 </div>
