@@ -10,7 +10,7 @@ interface IFileViewProps {
 
 const FilesView: React.FC<IFileViewProps> = ({ files, viewMode }) => {
     return (
-        <div className={viewMode === "grid" ? "grid grid-cols-4 gap-[32px]" : "flex flex-col gap-6"}>
+        <div className={viewMode === "grid" ? "grid grid-cols-4 gap-8 w-[1227px]" : "flex flex-col gap-6"}>
             {files.map((file) =>
                 viewMode === "grid" ? (
                     <FileGridItem key={file.id} file={file} />

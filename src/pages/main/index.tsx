@@ -51,7 +51,6 @@ const MainPage = (): ReactNode => {
 
             <FiltersFilesPopupMenu isOpen={isFilterPopupOpen} onClose={handleToggleFilterPopup} onApply={console.log} onReset={() => console.log("Filters reset")} />
             <SortingFilesPopupMenu isOpen={isSortingPopupOpen} onClose={handleToggleSortingPopup} onApply={console.log} onReset={() => console.log("Sorting reset")} />
-            
             <div className="flex gap-[35px]">
                 <Button className="w-[295px] h-13" onClick={handleOpenUploadModal}>Загрузить файлы</Button>
                 <Button className="w-[261px] h-13" onClick={handleOpenCreateModal}>Создать папку</Button>
@@ -59,7 +58,7 @@ const MainPage = (): ReactNode => {
 
             <CreateFolderModal isOpen={isOpenCreate} onClose={handleCloseCreateModal} />
             <FilesUploadModal isOpen={isOpenUpload} onClose={handleCloseUploadModal} onUpload={handleUploadFiles}/>
-            <div className="relative max-h-[560px] overflow-y-auto scrollbar">
+            <div className="relative max-h-[560px] overflow-y-auto scrollbar ">
                 <div>
                     <div className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]" onClick={handleToggleFolders}>
                         <span>Все папки</span>
@@ -77,12 +76,12 @@ const MainPage = (): ReactNode => {
                     {showFiles && (
                         <div>
                             {viewMode === "list" && (
-                                <div className="flex justify-between w-[1227px] px-[36px] py-[10px]">
-                                    <span className="w-[275px]">Наименование</span>
-                                    <span className="w-[130px]">Дата создания</span>
-                                    <span className="w-[140px]">Пометки (Тэги)</span>
-                                    <span className="w-[110px]">Размер файла</span>
-                                    <span className="w-[140px]">Действия</span>
+                                <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr_1.4fr] gap-6 px-[36px] py-[10px] text-center">
+                                    <span className="text-left">Наименование</span>
+                                    <span>Дата создания</span>
+                                    <span>Пометки (Тэги)</span>
+                                    <span>Размер файла</span>
+                                    <span>Действия</span>
                                 </div>
                             )}
                             <FilesView files={allFiles} viewMode={viewMode} />
