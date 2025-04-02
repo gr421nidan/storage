@@ -1,12 +1,29 @@
 import { useQuery } from "@tanstack/react-query";
 import QueryKey from "@/shared/common/enum/query-key";
-import getStorageData from "@/entities/repo/storage/get-folders-and-files";
-import { IGetStorageFileDto } from "@/shared/interface/storage";
+import { IGetStorageFileDto } from "@/shared/interface/files";
 import formatedDate from "@/shared/utils/formatedDate";
+import getStorageFilesAndFoldersRepository from "@/entities/repo/storage/get-folders-and-files";
+import CurrentStorage from "@/shared/hooks/storage";
+import { IGetStorageFilesAndFoldersPort } from "@/shared/interface/storage";
 
-const useGetStorageFilesAndFoldersUseCase = (search?: string) => {
+const useGetStorageFilesAndFoldersUseCase = ({
+                                                 search,
+                                                 sortBy,
+                                                 sortOrder,
+                                                 fileType,
+                                                 created_at,
+                                             }: IGetStorageFilesAndFoldersPort) => {
+    const storageId = CurrentStorage();
+
     const execute = async () => {
-        const { files, folders } = await getStorageData(search);
+        if (!storageId) {
+            throw new Error("Storage ID не найден");
+        }
+
+        const params = {
+            search, sort_by: sortBy, sort_order: sortOrder, fileType, created_at,
+        };
+        const { files, folders } = await getStorageFilesAndFoldersRepository(storageId, params);
 
         const formattedFiles = files.map((file: IGetStorageFileDto) => ({
             ...file,
@@ -17,7 +34,7 @@ const useGetStorageFilesAndFoldersUseCase = (search?: string) => {
     };
 
     const { data, ...rest } = useQuery({
-        queryKey: [QueryKey.FILES_AND_FOLDERS, search],
+        queryKey: [QueryKey.FILES_AND_FOLDERS, storageId, search, sortBy, sortOrder, fileType, created_at],
         queryFn: execute,
         select: (result) => ({
             allFiles: result.files,

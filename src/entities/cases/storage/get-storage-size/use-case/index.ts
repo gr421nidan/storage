@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import getStorageDataRepository from "@/entities/repo/storage/get-storage-size";
-import convertBytesToGB from "../../../../../shared/utils/convertSizeStorage";
+import convertBytesToGB from "@/shared/utils/convertSizeStorage";
 import QueryKey from "@/shared/common/enum/query-key";
 
 const useGetStorageSizeUseCase = () => {
@@ -9,9 +9,11 @@ const useGetStorageSizeUseCase = () => {
         queryKey: [QueryKey.STORAGE_SIZE],
         queryFn: execute,
         select: (data) => {
-            const storageSizeInGB = data ? convertBytesToGB(data.size) : null;
+            const storageUsedSizeInGB = data ? convertBytesToGB(data.usedSpace) : null;
+            const storageSizeInGB = data ? convertBytesToGB(data.totalStorage) : null;
             return {
                 ...data,
+                storageUsedSizeInGB,
                 storageSizeInGB
             };
         },

@@ -1,6 +1,6 @@
 import React from "react";
 import folderIcon from "@/assets/folder-icon/folder.png"
-import {IGetStorageFolderDto} from "@/shared/interface/storage";
+import {IGetStorageFolderDto} from "@/shared/interface/folders";
 import {formatFileSize} from "@/shared/utils/convertSizeFiles";
 import ContextMenu from "@/shared/components/context-menu";
 

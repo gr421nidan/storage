@@ -14,27 +14,28 @@ import docx from "@/assets/file-icons/icon-docx.png";
 import pdf from "@/assets/file-icons/icon-pdf.png";
 import txt from "@/assets/file-icons/icon-txt.png";
 import odt from "@/assets/file-icons/icon-odt.png";
+import {EFileType} from "@/shared/emum/file-types";
 
-const fileIcons: Record<string, string> = {
-    "image/jpeg": jpeg,
-    "image/jpg": jpg,
-    "image/png": png,
-    "image/gif": gif,
-    "audio/mp3": mp3,
-    "audio/wav": wav,
-    "audio/flac": flac,
-    "audio/aac": aac,
-    "video/mp4": mp4,
-    "video/avi": avi,
-    "application/pdf": pdf,
-    "application/msword": doc,
-    "application/vnd.openxmlformats-officedocument.wordprocessingml.document": docx,
-    "text/plain": txt,
-    "application/vnd.oasis.opendocument.text": odt,
+const fileIcons: Record<EFileType, string> = {
+    [EFileType.JPEG]: jpeg,
+    [EFileType.JPG]: jpg,
+    [EFileType.PNG]: png,
+    [EFileType.GIF]: gif,
+    [EFileType.MP3]: mp3,
+    [EFileType.WAV]: wav,
+    [EFileType.FLAC]: flac,
+    [EFileType.AAC]: aac,
+    [EFileType.MP4]: mp4,
+    [EFileType.AVI]: avi,
+    [EFileType.PDF]: pdf,
+    [EFileType.DOC]: doc,
+    [EFileType.DOCX]: docx,
+    [EFileType.TXT]: txt,
+    [EFileType.ODT]: odt,
 };
 
 interface IFileIconProps {
-    fileType: string;
+    fileType: EFileType;
     size?: number;
 }
 

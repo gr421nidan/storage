@@ -6,7 +6,7 @@ import ButtonIcon from "@/shared/components/buttons/button-icon";
 interface ISearchInputProps {
     placeholder?: string;
     className?: string;
-    onSearch: (value: string) => void;
+    onSearch: (value: string | undefined) => void;
 }
 
 const SearchInput: React.FC<ISearchInputProps> = ({placeholder, className, onSearch}) => {
@@ -21,7 +21,7 @@ const SearchInput: React.FC<ISearchInputProps> = ({placeholder, className, onSea
 
     const handleClearSearch = () => {
         setSearch("");
-        onSearch("");
+        onSearch(undefined);
     };
 
     return (

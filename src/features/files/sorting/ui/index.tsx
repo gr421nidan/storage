@@ -3,18 +3,16 @@ import CheckboxInput from "@/shared/components/inputs/checkbox-input";
 import Button from "@/shared/components/buttons/button";
 import { PopupMenu } from "@/shared/components/popup-menu";
 import { cn } from "@/shared/utils/cn";
-import {
-    buttonContainerStyle,
-    buttonStyle,
-    containerFiltersStyle,
-    radioButtonStyle
-} from "@/features/admin/filters-users/style";
-import {buttonStyles} from "@/shared/components/buttons/style.ts";
+import { buttonContainerStyle, buttonStyle, containerFiltersStyle, radioButtonStyle } from "@/features/admin/filters-users/style";
+import { buttonStyles } from "@/shared/components/buttons/style.ts";
 
 type ISortOrder = "asc" | "desc";
 
+type ISortField = "type" | "created_at" | "update_at" | "size";
+
 interface ISorting {
-    sort?: Record<string, ISortOrder>;
+    sort_by: ISortField;
+    sort_order: ISortOrder;
 }
 
 interface ISortingPopupMenuProps {
@@ -24,16 +22,23 @@ interface ISortingPopupMenuProps {
     onReset: () => void;
 }
 
-const SORT_FIELDS: { key: string; label: string; options: { label: string; value: ISortOrder }[] }[] = [
-    { key: "name", label: "Тип данных", options: [
+interface ISortingPopupMenuProps {
+    isOpen: boolean;
+    onClose: () => void;
+    onApply: (sorting: ISorting) => void;
+    onReset: () => void;
+}
+
+const SORT_FIELDS: { key: ISortField; label: string; options: { label: string; value: ISortOrder }[] }[] = [
+    { key: "type", label: "Тип данных", options: [
             { label: "От a до z", value: "asc" },
             { label: "От z до a", value: "desc" }
         ]},
-    { key: "createdAt", label: "Дата добавления", options: [
+    { key: "created_at", label: "Дата добавления", options: [
             { label: "По возрастанию", value: "asc" },
             { label: "По убыванию", value: "desc" }
         ]},
-    { key: "updatedAt", label: "Дата изменения", options: [
+    { key: "update_at", label: "Дата изменения", options: [
             { label: "По возрастанию", value: "asc" },
             { label: "По убыванию", value: "desc" }
         ]},
@@ -44,18 +49,21 @@ const SORT_FIELDS: { key: string; label: string; options: { label: string; value
 ];
 
 const SortingFilesPopupMenu: React.FC<ISortingPopupMenuProps> = ({ isOpen, onClose, onApply, onReset }) => {
-    const [sortCriteria, setSortCriteria] = useState<Record<string, ISortOrder>>({});
+    const [sortBy, setSortBy] = useState<ISortField | undefined>(undefined);
+    const [sortOrder, setSortOrder] = useState<ISortOrder | undefined>(undefined);
 
-    const handleSortChange = (field: string, order: ISortOrder) => {
-        setSortCriteria((prev) => ({ ...prev, [field]: order }));
+    const handleSortChange = (field: ISortField, order: ISortOrder) => {
+        setSortBy(field);
+        setSortOrder(order);
     };
-
     const handleApply = () => {
-        onApply({ sort: sortCriteria });
+        if (sortBy && sortOrder) {
+            onApply({ sort_by: sortBy, sort_order: sortOrder });
+        }
     };
-
     const handleReset = () => {
-        setSortCriteria({});
+        setSortBy(undefined);
+        setSortOrder(undefined);
         onReset();
     };
 
@@ -73,7 +81,7 @@ const SortingFilesPopupMenu: React.FC<ISortingPopupMenuProps> = ({ isOpen, onClo
                                         name={key}
                                         type="radio"
                                         value={value}
-                                        checked={sortCriteria[key] === value}
+                                        checked={sortBy === key && sortOrder === value}
                                         onChange={() => handleSortChange(key, value)}
                                         className={radioButtonStyle}
                                     />
@@ -84,9 +92,7 @@ const SortingFilesPopupMenu: React.FC<ISortingPopupMenuProps> = ({ isOpen, onClo
                     </div>
                 ))}
                 <div className={buttonContainerStyle}>
-                    <Button
-                        onClick={handleReset}
-                        className={cn(buttonStyles({variant: "baseSecondary"}), buttonStyle)}>
+                    <Button onClick={handleReset} className={cn(buttonStyles({variant: "baseSecondary"}), buttonStyle)}>
                         Сбросить
                     </Button>
                     <Button onClick={handleApply} className={buttonStyle}>

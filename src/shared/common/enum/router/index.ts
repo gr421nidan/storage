@@ -11,6 +11,7 @@ enum ERouterPath {
     USER_LOGS = '/users/:id_user',
     CONNECTING_STORAGE = '/connect',
     FORBIDDEN_PAGE = '/forbidden',
+    STORAGE = '/storage/:id_storage',
 }
 
 export default ERouterPath

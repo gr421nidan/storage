@@ -16,9 +16,7 @@ interface IChangePasswordProps {
 }
 
 const ChangePasswordForm: React.FC<IChangePasswordProps> = ({isOpen, onClose}) => {
-    const {register, onSubmit, errors, reset} = useChangePasswordPresenter({
-        onClose,
-    });
+    const {register, onSubmit, errors, reset} = useChangePasswordPresenter({onClose});
     const inputSize = "w-[474px] h-[54px]"
     const isError = (field: keyof IFormPasswordChangeData): boolean => !!errors[field];
     const fields: { name: keyof IFormPasswordChangeData; placeholder: string }[] = [

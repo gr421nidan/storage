@@ -1,4 +1,4 @@
 interface IUploadFilePort {
-    file: File;
+    file: File[];
 }
 export type {IUploadFilePort};

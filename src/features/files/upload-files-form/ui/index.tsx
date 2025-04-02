@@ -1,4 +1,3 @@
-import React, { useCallback, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
@@ -9,35 +8,32 @@ import {
     buttonCancelStyle,
     highlightTextStyle,
     modalWrapperStyle,
-    buttonStyle, fileWrapperStyle, fileGridStyle
+    buttonStyle,
+    fileWrapperStyle,
+    fileGridStyle
 } from "../style";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
+import useUploadFilePresenter from "@/entities/cases/storage/files/upload/presenter";
 
-interface IUploadFilesProps {
+interface IFilesUploadModalProps {
     isOpen: boolean;
     onClose: () => void;
-    onUpload: (files: File[]) => void;
 }
 
-const FilesUploadModal: React.FC<IUploadFilesProps> = ({ isOpen, onClose, onUpload }) => {
-    const [files, setFiles] = useState<File[]>([]);
+const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({ isOpen, onClose }) => {
+    const {
+        onUploadFiles,
+        selectedFiles,
+        setValue,
+        onSubmit
+    } = useUploadFilePresenter();
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
+        onDrop: (acceptedFiles) => {
+            onUploadFiles([...selectedFiles, ...acceptedFiles]);
+        },
+        multiple: true,
+    });
 
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        setFiles(acceptedFiles);
-    }, []);
-
-    const { getRootProps, getInputProps, isDragActive } = useDropzone({ onDrop, multiple: true });
-
-    const handleSave = () => {
-        if (files.length) {
-            onUpload(files);
-            onClose();
-        }
-    };
-    const handleClose = () => {
-        setFiles([]);
-        onClose();
-    };
     if (!isOpen) return null;
 
     return (
@@ -55,19 +51,18 @@ const FilesUploadModal: React.FC<IUploadFilesProps> = ({ isOpen, onClose, onUplo
                         )}
                     </p>
                 </div>
-                {files.length > 0 && (
+
+                {selectedFiles.length > 0 && (
                     <div>
                         <p className="text-xl mb-2">Выбранные файлы:</p>
                         <div className={fileGridStyle}>
-                            {files.map((file, index) => (
-                                <div
-                                    key={index}
-                                    className={fileWrapperStyle}>
-                                    <span className="truncate" title={file.name}>{file.name}
-                                    </span>
+                            {selectedFiles.map((file, index) => (
+                                <div key={index} className={fileWrapperStyle}>
+                                    <span className="truncate" title={file.name}>{file.name}</span>
                                     <ButtonIcon
                                         icon="ic:round-close"
-                                        onClick={() => setFiles(files.filter((_, i) => i !== index))}
+                                        onClick={() => setValue("file", selectedFiles.filter((_, i) => i !== index), { shouldValidate: true })}
+
                                     />
                                 </div>
                             ))}
@@ -76,10 +71,10 @@ const FilesUploadModal: React.FC<IUploadFilesProps> = ({ isOpen, onClose, onUplo
                 )}
 
                 <div className="flex justify-between">
-                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), buttonCancelStyle)} onClick={handleClose}>
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), buttonCancelStyle)} onClick={onClose}>
                         Отменить
                     </Button>
-                    <Button className={buttonStyle} onClick={handleSave} disabled={!files.length}>
+                    <Button className={buttonStyle} onClick={onSubmit} disabled={!selectedFiles.length}>
                         Сохранить
                     </Button>
                 </div>

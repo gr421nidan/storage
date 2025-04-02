@@ -1,6 +1,6 @@
 import React from "react";
 import FileIcon from "@/shared/components/file-icon";
-import { IGetStorageFileDto } from "@/shared/interface/storage";
+import { IGetStorageFileDto } from "@/shared/interface/files";
 import { formatFileSize } from "@/shared/utils/convertSizeFiles";
 import ContextMenu from "@/shared/components/context-menu";
 

@@ -1,13 +1,9 @@
+import { api } from "@/shared/api";
 import {IGetStorageSizeDto} from "@/shared/interface/storage";
 
-const getStorageSizeRepository = async (): Promise<IGetStorageSizeDto> => {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            resolve({
-                size: 4294967296,
-            });
-        }, 1000);
-    });
+const getUserProfileRepository = async (): Promise<IGetStorageSizeDto> => {
+    const response = await api.get<IGetStorageSizeDto>("/storage/usage");
+    return response.data;
 };
 
-export default getStorageSizeRepository;
+export default getUserProfileRepository;

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {IGetStorageFileDto} from "@/shared/interface/storage";
+import {IGetStorageFileDto} from "@/shared/interface/files";
 import {formatFileSize} from "@/shared/utils/convertSizeFiles";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 
@@ -19,7 +19,7 @@ const FileListItem: React.FC<IFileListItemProps> = ({file}) => {
     };
     const handleSave = () => {
         if (newTitle.trim() === "") {
-            setNewTitle(file.title); // Если пусто — вернуть старое имя
+            setNewTitle(file.title);
         } else {
             console.log(`Файл переименован: ${newTitle}`);
         }
@@ -45,7 +45,7 @@ const FileListItem: React.FC<IFileListItemProps> = ({file}) => {
                 )}
             </div>
             <span className="w-[236px]">{file.created_at}</span>
-            <span className="w-[224px]">{file.tag ? `#${file.tag}` : "-"}</span>
+            <span className="w-[224px]">{file.tag_title ? `#${file.tag_title}` : "-"}</span>
             <span className="w-[209px]">{formatFileSize(file.size)}</span>
             <div className="flex gap-3">
                 <ButtonIcon icon="fluent:arrow-download-32-filled" className="w-5 h-5"/>

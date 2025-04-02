@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import validationSchema from "../validation";
-import { IFormUpdatePhotoData } from "@/shared/type/user";
 import useUpdateUserPhotoUseCase from "@/entities/cases/user/update-user-photo/use-case";
 import { useState } from "react";
+import {IUpdateUserPhotoPort} from "@/shared/interface/user";
 
 interface IUseUpdateUserPhotoPresenterProps {
     onClose: () => void;
@@ -11,12 +11,12 @@ interface IUseUpdateUserPhotoPresenterProps {
 
 const useUpdateUserPhotoPresenter = ({ onClose }: IUseUpdateUserPhotoPresenterProps) => {
     const [fileName, setFileName] = useState<string | null>(null);
-    const { register, handleSubmit, setValue, formState: { errors } } = useForm<IFormUpdatePhotoData>({
+    const { register, handleSubmit, setValue, formState: { errors } } = useForm<IUpdateUserPhotoPort>({
         resolver: yupResolver(validationSchema),
     });
     const { mutateAsync } = useUpdateUserPhotoUseCase();
 
-    const onSubmit = handleSubmit(async (data: IFormUpdatePhotoData) => {
+    const onSubmit = handleSubmit(async (data: IUpdateUserPhotoPort) => {
         await mutateAsync(data);
         setFileName(null);
         onClose();

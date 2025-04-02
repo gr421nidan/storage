@@ -11,6 +11,7 @@ import {
     radioButtonStyle
 } from "@/features/admin/filters-users/style";
 import {buttonStyles} from "@/shared/components/buttons/style";
+import {EFileType} from "@/shared/emum/file-types";
 
 interface IFilters {
     fileType?: string[];
@@ -23,12 +24,18 @@ interface IFiltersPopupMenuProps {
     onApply: (filters: IFilters) => void;
     onReset: () => void;
 }
+const fileTypeMapping: Record<string, string[]> = {
+    image: [EFileType.JPEG, EFileType.JPG, EFileType.PNG, EFileType.GIF],
+    audio: [EFileType.MP3, EFileType.WAV, EFileType.FLAC, EFileType.AAC],
+    video: [EFileType.MP4, EFileType.AVI],
+    document: [EFileType.PDF, EFileType.DOC, EFileType.DOCX, EFileType.TXT, EFileType.ODT],
+};
 
 const fileTypeOptions = [
     { label: "Изображения", value: "image" },
     { label: "Аудио", value: "audio" },
     { label: "Видео", value: "video" },
-    { label: "Текстовые файлы", value: "document" }
+    { label: "Текстовые файлы", value: "document" },
 ];
 
 const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClose, onApply, onReset }) => {
@@ -40,9 +47,9 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
             prev.includes(type) ? prev.filter((item) => item !== type) : [...prev, type]
         );
     };
-
     const handleApply = () => {
-        onApply({ fileType: selectedFileTypes, date: selectedDate });
+        const fileTypeMIMEs = selectedFileTypes.flatMap((type) => fileTypeMapping[type] || []);
+        onApply({ fileType: fileTypeMIMEs, date: selectedDate });
     };
 
     const handleReset = () => {

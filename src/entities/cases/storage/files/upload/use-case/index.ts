@@ -1,26 +1,40 @@
-// import {useMutation, useQueryClient} from "@tanstack/react-query";
-// import {AxiosError} from "axios";
-// import {IApiErrorDto} from "@/shared/interface/auth";
-// import {IGetStorageFileDto, IUploadFilePort} from "@/shared/interface/storage";
-// import uploadFileRepository from "@/entities/repo/storage/files/upload-files";
-// import {enqueueSnackbar} from "notistack";
-// import QueryKey from "@/shared/common/enum/query-key";
-//
-// const useUploadFileUseCase = () => {
-//     const queryClient = useQueryClient();
-//     const execute = (data: IUploadFilePort) => uploadFileRepository(data.file);
-//     return useMutation<IGetStorageFileDto, AxiosError<IApiErrorDto>, IUploadFilePort>({
-//         mutationFn: execute,
-//         onSuccess: async () => {
-//             await queryClient.invalidateQueries({queryKey: [QueryKey.FILES_AND_FOLDERS]});
-//             enqueueSnackbar("Файл успешно загружен", {variant: "successSnackbar"});
-//         },
-//         onError(error) {
-//             if (error instanceof AxiosError && error.response) {
-//                 enqueueSnackbar("Ошибка загрузки файла", {variant: "errorSnackbar"});
-//             }
-//         },
-//     });
-// };
-//
-// export default useUploadFileUseCase;
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {AxiosError, HttpStatusCode} from "axios";
+import {IApiErrorDto} from "@/shared/interface/auth";
+import {IUploadFilePort, IUploadStorageFileDto} from "@/shared/interface/files";
+import uploadFileRepository from "@/entities/repo/storage/files/upload-files";
+import {enqueueSnackbar} from "notistack";
+import QueryKey from "@/shared/common/enum/query-key";
+import CurrentStorage from "@/shared/hooks/storage";
+
+const useUploadFileUseCase = () => {
+    const storageId = CurrentStorage();
+    const queryClient = useQueryClient();
+    const execute = (data: IUploadFilePort) => {
+        if (!storageId) {
+            return Promise.reject(new Error("Storage ID не найден"));
+        }
+        return uploadFileRepository(data, storageId);
+    };
+    return useMutation<IUploadStorageFileDto[], AxiosError<IApiErrorDto>, IUploadFilePort>({
+        mutationFn: execute,
+        onSuccess: async () => {
+            await queryClient.invalidateQueries({queryKey: [QueryKey.FILES_AND_FOLDERS]});
+            await queryClient.invalidateQueries({ queryKey: [QueryKey.STORAGE_SIZE] });
+            enqueueSnackbar("Файлы успешно загружен", {variant: "successSnackbar"});
+        },
+        onError: (error) => {
+            if (error.status === HttpStatusCode.BadRequest) {
+                enqueueSnackbar("Недопустимый тип файла. Разрешенные расширения JPG, JPEG PNG, GIF, ODT, DOC, DOCX, TXT, AAC, AVI, FLAC, MP3, MP4, WAV", {variant: 'errorSnackbar'});
+            }
+            if (error.status === HttpStatusCode.PayloadTooLarge) {
+                enqueueSnackbar("Недопустимый размер файла.", {variant: 'errorSnackbar'});
+            }
+            if (error.status === HttpStatusCode.Conflict) {
+                enqueueSnackbar("Файл с таким названием уже существует.", {variant: 'errorSnackbar'});
+            }
+        },
+    });
+};
+
+export default useUploadFileUseCase;

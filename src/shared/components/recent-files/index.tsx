@@ -4,7 +4,7 @@ import {
     recentFilesContainerStyles,
     recentFilesListStyles, recentFilesNameStyles
 } from "@/shared/components/recent-files/style";
-import {IGetStorageFileDto} from "@/shared/interface/storage";
+import {IGetStorageFileDto} from "@/shared/interface/files";
 import FileIcon from "@/shared/components/file-icon";
 
 interface IRecentFilesProps {

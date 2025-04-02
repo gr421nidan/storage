@@ -14,7 +14,7 @@ import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-fo
 
 const SidebarWidget: React.FC = () => {
     const {data: storageData} = useGetStorageSizeUseCase();
-    const {recentFiles} = useGetStorageFilesAndFoldersUseCase();
+    const { recentFiles } = useGetStorageFilesAndFoldersUseCase({});
     const {data} = useGetUserProfileUseCase();
     const menuItems = [
         {label: "Резервное копирование", icon: "garden:reload-stroke-12"},
@@ -31,9 +31,12 @@ const SidebarWidget: React.FC = () => {
                                 <ContextMenu withSeparator iconSize="h-[40px] w-[30px]" items={menuItems}/></div>
                         ) :
                         (<div className="mt-4"/>)}
-                    <StorageChart used_size={storageData?.storageSizeInGB ?? 0} total_size={15}/>
+                    <StorageChart
+                        used_size={storageData?.storageUsedSizeInGB ?? 0}
+                        total_size={storageData?.storageSizeInGB ?? 0}
+                    />
                     <p className={infoDiagramStyles}>
-                        Занято {storageData?.storageSizeInGB} ГБ из 15 ГБ
+                        Занято {storageData?.storageUsedSizeInGB} ГБ из {storageData?.storageSizeInGB} ГБ
                     </p>
                 </div>
             </div>

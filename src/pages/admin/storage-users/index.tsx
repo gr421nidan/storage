@@ -8,7 +8,7 @@ import FiltersUsersPopupMenu from "@/features/admin/filters-users/ui";
 import {EGrantID} from "@/shared/emum/admin";
 
 const StorageUsersPage = (): ReactNode => {
-    const [search, setSearch] = useState<string>("");
+    const [search, setSearch] = useState<string | undefined>(undefined);
     const [grantId, setGrantId] = useState<EGrantID | undefined>(undefined);
     const [isActive, setIsActive] = useState<boolean | undefined>(undefined);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
