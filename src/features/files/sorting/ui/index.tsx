@@ -68,12 +68,11 @@ const SortingFilesPopupMenu: React.FC<ISortingPopupMenuProps> = ({ isOpen, onClo
     };
 
     return (
-        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(containerFiltersStyle, "h-[512px]")}>
-            <div className="space-y-4">
-                {SORT_FIELDS.map(({ key, label, options }) => (
+        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(containerFiltersStyle, "h-[510px]")}>
+            <div>
+                {SORT_FIELDS.map(({ key, label, options }, index) => (
                     <div key={key}>
-                        <p className="mb-[3px]">{label}</p>
-                        <div className="border-b border-purple-light mb-2"></div>
+                        <p className="mb-2">{label}</p>
                         <div className="flex flex-col gap-2">
                             {options.map(({ label, value }) => (
                                 <label key={value} className="flex items-center">
@@ -89,6 +88,9 @@ const SortingFilesPopupMenu: React.FC<ISortingPopupMenuProps> = ({ isOpen, onClo
                                 </label>
                             ))}
                         </div>
+                        {index !== SORT_FIELDS.length - 1 && index < 3 && (
+                            <div className="border-b-2 border-purple-light my-2"></div>
+                        )}
                     </div>
                 ))}
                 <div className={buttonContainerStyle}>

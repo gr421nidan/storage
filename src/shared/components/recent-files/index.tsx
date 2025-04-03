@@ -6,7 +6,9 @@ import {
 } from "@/shared/components/recent-files/style";
 import {IGetStorageFileDto} from "@/shared/interface/files";
 import FileIcon from "@/shared/components/file-icon";
-import {Icon} from "@iconify/react";
+import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
+import notFoundDark from "@/assets/img-empty/not_found_dark.png";
+import notFound from "@/assets/img-empty/not_found.png";
 
 interface IRecentFilesProps {
     files: IGetStorageFileDto[];
@@ -15,7 +17,7 @@ interface IRecentFilesProps {
 const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {
     return (
         <div className={recentFilesContainerStyles}>
-            <h4 className={headerRecentFilesStyles}>Недавние</h4>
+            <h4 className={headerRecentFilesStyles}>Недавние файлы</h4>
             {files.length > 0 ? (
                 files.map((file, index) => (
                     <li key={index} className={recentFilesListStyles}>
@@ -27,9 +29,14 @@ const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {
                     </li>
                 ))
             ) : (
-                <div className="flex flex-col h-fit items-center justify-center mt-4 ">
-                    <p className=" mt-2">У вас нет пока что нет файлов</p>
-                    <Icon icon="solar:document-outline" width={70} height={70} />
+                <div className="flex flex-col items-center justify-center ">
+                    <ImgThemeSwitcher
+                        light={notFound}
+                        dark={notFoundDark}
+                        alt="нет файлов"
+                        className="w-[165px] h-[75px]"
+                    />
+                    <span>Ничего не найдено</span>
                 </div>
             )}
         </div>

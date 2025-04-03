@@ -26,4 +26,9 @@ interface IUploadStorageFileDto {
     path: string;
     storage_id: string;
 }
-export type {IGetStorageFileDto, IUploadStorageFileDto};
+interface IGetFileDto {
+    id: string;
+    title: string;
+    path: string;
+}
+export type {IGetStorageFileDto, IUploadStorageFileDto, IGetFileDto};

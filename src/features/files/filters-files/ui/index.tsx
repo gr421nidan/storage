@@ -59,11 +59,11 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
     };
 
     return (
-        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(containerFiltersStyle, "h-[323px]") }>
-            <div className="space-y-2">
+        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(containerFiltersStyle, "h-[311px]") }>
+            <div>
                 <div>
-                    <p >Тип данных</p>
-                    <div className="border-b border-purple-light my-1"></div>
+                    <p>Тип данных</p>
+                    <div className="border-b-2 border-purple-light my-2"></div>
                     <div className="flex flex-col gap-2">
                         {fileTypeOptions.map(({ label, value }) => (
                             <label key={value} className="flex items-center gap-2">
@@ -81,9 +81,11 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
                     </div>
                 </div>
                 <div>
-                    <p className=" my-1">Дата добавления</p>
-                    <div className="border-b border-purple-light mb-4"></div>
-                    <DatePickerButton value={selectedDate} onChange={setSelectedDate} format="dd.MM.yyyy" />
+                    <div className="border-b-2 border-purple-light my-1"></div>
+                    <div className="flex justify-between items-center mt-4">
+                        <p>Дата добавления</p>
+                        <DatePickerButton value={selectedDate} onChange={setSelectedDate} format="dd.MM.yyyy" />
+                    </div>
                 </div>
 
                 <div className={buttonContainerStyle}>

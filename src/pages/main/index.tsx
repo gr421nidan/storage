@@ -11,6 +11,10 @@ import FilesUploadModal from "@/features/files/upload-files-form/ui";
 import SortingFilesPopupMenu from "@/features/files/sorting/ui";
 import ViewModeToggle from "@/shared/components/view-mode";
 import { format } from "date-fns";
+import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
+import notFound from "@/assets/img-empty/not_found.png";
+import notFoundDark from "@/assets/img-empty/not_found_dark.png";
+import {Icon} from "@iconify/react";
 
 const MainPage = (): ReactNode => {
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
@@ -122,11 +126,19 @@ const MainPage = (): ReactNode => {
                 {currentFolder && (
                     <div className="flex items-center cursor-pointer gap-2 font-semibold mb-[15px]"
                          onClick={handleBackToAllFolders}>
-                        <span>Моё хранилище  {folders.find(f => f.id === currentFolder)?.title}</span>
+                        <span className="flex items-center gap-2">Моё хранилище <Icon icon="simple-line-icons:arrow-right" width="15" height="15" /> {folders.find(f => f.id === currentFolder)?.title}</span>
                     </div>)
                 }
                 {isEmpty ? (
-                    <div className="text-center text-xl text-gray-500 mt-10">Ничего не найдено</div>
+                    <div className="flex flex-col items-center justify-center mt-[100px] h-full">
+                        <ImgThemeSwitcher
+                            light={notFound}
+                            dark={notFoundDark}
+                            alt="нет файлов"
+                            className="w-[381px] h-[169px]"
+                        />
+                        <span className="text-[32px] mt-5">Ничего не найдено</span>
+                    </div>
                 ) : (
                     <>
                     {hasFolders && (
