@@ -10,7 +10,7 @@ interface IViewModeProps {
 const ViewModeToggle: React.FC<IViewModeProps> = ({ viewMode, setViewMode }) => {
     const modes = [
         { type: "grid", icon: "proicons:grid", size: "w-[37px] h-[37px]" },
-        { type: "list", icon: "iconoir:menu", size: "w-[32px] h-[30px]" },
+        { type: "list", icon: "iconoir:menu", size: "w-[37px] h-[37px]" },
     ] as const;
 
     return (

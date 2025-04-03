@@ -16,10 +16,7 @@ const useGetStorageFilesAndFoldersUseCase = ({
     const storageId = CurrentStorage();
 
     const execute = async () => {
-        if (!storageId) {
-            throw new Error("Storage ID не найден");
-        }
-
+        if (!storageId) return { files: [], folders: [] };
         const params = {
             search, sort_by: sortBy, sort_order: sortOrder, fileType, created_at,
         };

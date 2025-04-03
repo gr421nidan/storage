@@ -31,11 +31,9 @@ const MainPage = (): ReactNode => {
     const [isSortingPopupOpen, setIsSortingPopupOpen] = useState(false);
     const [isOpenCreate, setIsOpenCreate] = useState(false);
     const [isOpenUpload, setIsOpenUpload] = useState(false);
-    const [currentFolder, setCurrentFolder] = useState<string | null>(null);
+    const [currentFolder, setCurrentFolder] = useState<string | undefined>(undefined);
     const handleToggleFiles = () => setShowFiles((prev) => !prev);
     const handleToggleFolders = () => setShowFolders((prev) => !prev);
-    const handleToggleFilterPopup = () => setIsFilterPopupOpen((prev) => !prev);
-    const handleToggleSortingPopup = () => setIsSortingPopupOpen((prev) => !prev);
     const handleOpenCreateModal = () => setIsOpenCreate(true);
     const handleOpenUploadModal = () => setIsOpenUpload(true);
     const handleCloseCreateModal = () => setIsOpenCreate(false);
@@ -44,18 +42,25 @@ const MainPage = (): ReactNode => {
         setSortBy(sorting.sort_by);
         setSortOrder(sorting.sort_order);
     };
-    const handleFolderClick = (folderId: string) => {
+    const handleFolderDoubleClick = (folderId: string) => {
         setCurrentFolder(folderId);
     };
 
     const handleBackToAllFolders = () => {
-        setCurrentFolder(null);
+        setCurrentFolder(undefined);
     };
     const handleApplyFilters = (newFilters: { fileType?: string[]; date?: Date | null }) => {
         setFilters({
             fileType: newFilters.fileType,
             created_at: newFilters.date ? format(newFilters.date, "yyyy-MM-dd") : undefined,
         });
+    };
+    const toggleFilterPopup = () => setIsFilterPopupOpen((prev) => !prev);
+    const toggleSortingPopup = () => setIsSortingPopupOpen((prev) => !prev);
+    const resetFilters = () => setFilters({});
+    const resetSorting = () => {
+        setSortBy(undefined);
+        setSortOrder(undefined);
     };
     const hasFiles = allFiles.length > 0;
     const hasFolders = folders.length > 0;
@@ -69,7 +74,7 @@ const MainPage = (): ReactNode => {
                         <ButtonIcon
                             icon="simple-line-icons:arrow-down"
                             className="h-[52px] w-[248px]"
-                            onClick={() => setIsFilterPopupOpen((prev) => !prev)}
+                            onClick={toggleFilterPopup}
                         >
                             Фильтрация
                         </ButtonIcon>
@@ -77,9 +82,9 @@ const MainPage = (): ReactNode => {
                             <div className="absolute left-0 top-full mt-2 z-50">
                                 <FiltersFilesPopupMenu
                                     isOpen={isFilterPopupOpen}
-                                    onClose={handleToggleFilterPopup}
+                                    onClose={toggleFilterPopup}
                                     onApply={handleApplyFilters}
-                                    onReset={() => setFilters({})}
+                                    onReset={resetFilters}
                                 />
                             </div>
                         )}
@@ -88,7 +93,7 @@ const MainPage = (): ReactNode => {
                         <ButtonIcon
                             icon="simple-line-icons:arrow-down"
                             className="h-[52px] w-[248px]"
-                            onClick={() => setIsSortingPopupOpen((prev) => !prev)}
+                            onClick={toggleSortingPopup}
                         >
                             Сортировка
                         </ButtonIcon>
@@ -96,12 +101,9 @@ const MainPage = (): ReactNode => {
                             <div className="absolute left-0 top-full mt-2 z-50">
                                 <SortingFilesPopupMenu
                                     isOpen={isSortingPopupOpen}
-                                    onClose={handleToggleSortingPopup}
+                                    onClose={toggleSortingPopup}
                                     onApply={handleApplySorting}
-                                    onReset={() => {
-                                        setSortBy(undefined);
-                                        setSortOrder(undefined);
-                                    }}
+                                    onReset={resetSorting}
                                 />
                             </div>
                         )}
@@ -114,8 +116,8 @@ const MainPage = (): ReactNode => {
                 <Button className="w-[261px] h-13" onClick={handleOpenCreateModal}>Создать папку</Button>
             </div>
 
-            <CreateFolderModal isOpen={isOpenCreate} onClose={handleCloseCreateModal}/>
-            <FilesUploadModal isOpen={isOpenUpload} onClose={handleCloseUploadModal}/>
+            <CreateFolderModal isOpen={isOpenCreate} onClose={handleCloseCreateModal} currentFolder={currentFolder}/>
+            <FilesUploadModal isOpen={isOpenUpload} onClose={handleCloseUploadModal} currentFolder={currentFolder}/>
             <div className="relative max-h-[560px] overflow-y-auto scrollbar ">
                 {currentFolder && (
                     <div className="flex items-center cursor-pointer gap-2 font-semibold mb-[15px]"
@@ -135,7 +137,7 @@ const MainPage = (): ReactNode => {
                                 <ButtonIcon icon="simple-line-icons:arrow-up"
                                             className={showFolders ? "rotate-90" : ""}/>
                             </div>
-                            {showFolders && <FoldersView folders={folders} onFolderClick={handleFolderClick}/>}
+                            {showFolders && <FoldersView folders={folders} onFolderDoubleClick={handleFolderDoubleClick}/>}
                         </div>
                     )}
                     {hasFolders && hasFiles && <div className="h-[2px] bg-purple w-[1227px] mt-[18px] mb-[10px]" />}

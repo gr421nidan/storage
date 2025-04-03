@@ -12,7 +12,6 @@ const useCreateFolderUseCase = () => {
     const queryClient = useQueryClient();
     const execute = (data: ICreateStorageFolderPort) => {
         if (!storageId) {
-            enqueueSnackbar("Ошибка: Storage ID не найден", { variant: "errorSnackbar" });
             return Promise.reject(new Error("Storage ID не найден"));
         }
         return createFolderRepository(data, storageId);

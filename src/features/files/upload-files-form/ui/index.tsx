@@ -18,29 +18,33 @@ import useUploadFilePresenter from "@/entities/cases/storage/files/upload/presen
 interface IFilesUploadModalProps {
     isOpen: boolean;
     onClose: () => void;
+    currentFolder?: string;
 }
 
-const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({ isOpen, onClose }) => {
+const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({ isOpen, onClose, currentFolder }) => {
     const {
         onUploadFiles,
         selectedFiles,
         setValue,
-        onSubmit
-    } = useUploadFilePresenter();
+        onSubmit,
+    } = useUploadFilePresenter(currentFolder);
     const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: (acceptedFiles) => {
             onUploadFiles([...selectedFiles, ...acceptedFiles]);
         },
         multiple: true,
     });
-
+    const handleCancel = () => {
+        setValue("file", []);
+        onClose();
+    };
     if (!isOpen) return null;
 
     return (
         <Modal title="Загрузить файл" className="w-[655px]" onClose={onClose}>
             <div className={modalWrapperStyle}>
                 <div {...getRootProps()} className={dropzoneStyle}>
-                    <input {...getInputProps()} />
+                    <input {...getInputProps()}/>
                     <p className="text-center text-2xl">
                         {isDragActive ? (
                             <span className={highlightTextStyle}>Отпустите файлы для загрузки</span>
@@ -51,7 +55,6 @@ const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({ isOpen, onClose })
                         )}
                     </p>
                 </div>
-
                 {selectedFiles.length > 0 && (
                     <div>
                         <p className="text-xl mb-2">Выбранные файлы:</p>
@@ -71,7 +74,7 @@ const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({ isOpen, onClose })
                 )}
 
                 <div className="flex justify-between">
-                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), buttonCancelStyle)} onClick={onClose}>
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), buttonCancelStyle)} onClick={handleCancel}>
                         Отменить
                     </Button>
                     <Button className={buttonStyle} onClick={onSubmit} disabled={!selectedFiles.length}>

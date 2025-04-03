@@ -10,10 +10,11 @@ import {errorTextStyles} from "@/features/auth/style.ts";
 interface ICreateFolderModalProps {
     isOpen: boolean;
     onClose: () => void;
+    currentFolder?: string;
 }
 
-const CreateFolderModal: React.FC<ICreateFolderModalProps> = ({isOpen, onClose}) => {
-    const {register, onSubmit, errors} = useCreateFolderPresenter();
+const CreateFolderModal: React.FC<ICreateFolderModalProps> = ({isOpen, onClose, currentFolder}) => {
+    const {register, onSubmit, errors} = useCreateFolderPresenter(currentFolder);
 
     if (!isOpen) return null;
 

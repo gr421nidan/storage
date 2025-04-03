@@ -24,7 +24,7 @@ const Modal: FC<PropsWithChildren<IModalProps>> = ({
                                                        className,
                                                    }) => {
     return (
-        <Dialog open={true} onClose={onClose} className={modalWrapperStyle}>
+        <Dialog open={true} onClose={() => {}} className={modalWrapperStyle}>
             <div className={backdropStyle}></div>
             <Dialog.Panel
                 className={cn(modalPanelStyle, className)}>

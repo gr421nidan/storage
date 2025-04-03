@@ -1,42 +1,37 @@
-import {useState} from "react";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import validationSchema from "../validation";
 import {IUploadFilePort} from "@/shared/interface/files";
 import useUploadFileUseCase from "../use-case";
+import {enqueueSnackbar} from "notistack";
 
-const useUploadFilePresenter = () => {
-    const [isModalOpen, setModalOpen] = useState(false);
+const useUploadFilePresenter = (currentFolder?: string) => {
     const {register, handleSubmit, setValue, watch, formState: {errors}, reset} = useForm<IUploadFilePort>({
         resolver: yupResolver(validationSchema),
     });
 
     const {mutateAsync} = useUploadFileUseCase();
-    const openModal = () => setModalOpen(true);
-    const closeModal = () => {
-        reset();
-        setModalOpen(false);
-    };
     const selectedFiles = watch("file", []);
     const onUploadFiles = (files: File[]) => {
         setValue("file", files);
     };
 
     const onSubmit = handleSubmit(async (data) => {
-        await mutateAsync({file: data.file});
-        closeModal();
+        if (data.file.length > 10) {
+            enqueueSnackbar("Можно загрузить не более 10 файлов", { variant: "errorSnackbar" });
+            return;
+        }
+        await mutateAsync({...data, folderId: currentFolder});
+        reset();
     });
 
     return {
         register,
         onSubmit,
         errors,
-        isModalOpen,
-        openModal,
-        closeModal,
         onUploadFiles,
         selectedFiles,
-        setValue
+        setValue,
     };
 };
 

@@ -4,13 +4,16 @@ import validationSchema from "../validation";
 import useAddUserUseCase from "../use-case";
 import {ICreateStorageFolderPort} from "@/shared/interface/folders";
 
-const useCreateFolderPresenter = () => {
+const useCreateFolderPresenter = (currentFolder?: string) => {
     const {register, handleSubmit, reset, formState: {errors}} = useForm<ICreateStorageFolderPort>({
         resolver: yupResolver(validationSchema),
+        defaultValues: {
+            parent_folder_id: currentFolder || null,
+        },
     });
     const {mutateAsync} = useAddUserUseCase();
     const onSubmit = handleSubmit(async (data: ICreateStorageFolderPort) => {
-        await mutateAsync(data);
+        await mutateAsync({ ...data, parent_folder_id: currentFolder || null });
         reset();
 
     })

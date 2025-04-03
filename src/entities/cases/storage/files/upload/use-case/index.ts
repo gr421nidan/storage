@@ -6,15 +6,21 @@ import uploadFileRepository from "@/entities/repo/storage/files/upload-files";
 import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
 import CurrentStorage from "@/shared/hooks/storage";
+import uploadFileInFolderRepository from "@/entities/repo/storage/files/upload-in-folder";
 
 const useUploadFileUseCase = () => {
     const storageId = CurrentStorage();
     const queryClient = useQueryClient();
     const execute = (data: IUploadFilePort) => {
-        if (!storageId) {
-            return Promise.reject(new Error("Storage ID не найден"));
+        const { folderId } = data;
+        if (folderId) {
+            return uploadFileInFolderRepository(data, folderId);
+        } else {
+            if (!storageId) {
+                return Promise.reject(new Error("Storage ID не найден"));
+            }
+            return uploadFileRepository(data, storageId);
         }
-        return uploadFileRepository(data, storageId);
     };
     return useMutation<IUploadStorageFileDto[], AxiosError<IApiErrorDto>, IUploadFilePort>({
         mutationFn: execute,
@@ -32,6 +38,9 @@ const useUploadFileUseCase = () => {
             }
             if (error.status === HttpStatusCode.Conflict) {
                 enqueueSnackbar("Файл с таким названием уже существует.", {variant: 'errorSnackbar'});
+            }
+            if (error.status === HttpStatusCode.Forbidden) {
+                enqueueSnackbar("У вас не хватает прав.", {variant: 'errorSnackbar'});
             }
         },
     });
