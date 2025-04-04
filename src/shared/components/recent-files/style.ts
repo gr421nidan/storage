@@ -4,5 +4,6 @@ const headerRecentFilesStyles = "text-center mb-2";
 const recentFilesListStyles = "flex justify-between items-center rounded p-1";
 
 const recentFilesNameStyles =  "flex items-center gap-2 max-w-[180px]";
+const notFoundRecentFilesStyles = "flex flex-col items-center gap-2 justify-center mt-20";
 
-export {recentFilesListStyles, recentFilesNameStyles, recentFilesContainerStyles, headerRecentFilesStyles}
+export {recentFilesListStyles, recentFilesNameStyles, recentFilesContainerStyles, headerRecentFilesStyles, notFoundRecentFilesStyles}

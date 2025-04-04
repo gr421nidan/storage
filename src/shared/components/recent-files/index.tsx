@@ -1,6 +1,6 @@
 import React from "react";
 import {
-    headerRecentFilesStyles,
+    headerRecentFilesStyles, notFoundRecentFilesStyles,
     recentFilesContainerStyles,
     recentFilesListStyles, recentFilesNameStyles
 } from "@/shared/components/recent-files/style";
@@ -29,7 +29,7 @@ const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {
                     </li>
                 ))
             ) : (
-                <div className="flex flex-col items-center gap-2 justify-center mt-20">
+                <div className={notFoundRecentFilesStyles}>
                     <ImgThemeSwitcher
                         light={notFound}
                         dark={notFoundDark}
