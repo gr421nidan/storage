@@ -29,7 +29,7 @@ const RecentFiles: React.FC<IRecentFilesProps> = ({ files }) => {
                     </li>
                 ))
             ) : (
-                <div className="flex flex-col items-center justify-center ">
+                <div className="flex flex-col items-center gap-2 justify-center mt-20">
                     <ImgThemeSwitcher
                         light={notFound}
                         dark={notFoundDark}

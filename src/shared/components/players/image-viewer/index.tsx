@@ -1,15 +1,11 @@
 import React from "react";
 
-interface IImageViewerProps {
+interface IImagePlayerProps {
     fileUrl: string;
 }
 
-const ImageViewer: React.FC<IImageViewerProps> = ({ fileUrl }) => {
-    return (
-        <div className="image-viewer w-auto h-fit">
-            <img src={fileUrl} alt="File" className="w-auto h-fit object-contain" />
-        </div>
-    );
+const ImagePlayer: React.FC<IImagePlayerProps> = ({ fileUrl }) => {
+    return <img src={fileUrl} alt="image preview" className="w-full max-w-3xl max-h-[65vh] rounded-lg shadow-md" />;
 };
 
-export default ImageViewer;
+export default ImagePlayer;

@@ -7,12 +7,8 @@ interface IVideoPlayerProps {
 
 const VideoPlayer: React.FC<IVideoPlayerProps> = ({ fileUrl }) => {
     return (
-        <div className="video-player w-full h-fit">
-            <ReactPlayer
-                url={fileUrl}
-                controls={true}
-                width="100%"
-            />
+        <div className="w-full max-w-lg">
+            <ReactPlayer url={fileUrl} controls width="100%" height="auto" className="rounded-lg shadow-md" />
         </div>
     );
 };

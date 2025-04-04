@@ -31,7 +31,7 @@ const FileViewerModal: React.FC<IFileViewerModalProps> = ({
     return (
         <Dialog open={isOpen} onClose={onRequestClose} className={modalWrapperStyle}>
             <div className={backdropStyle}></div>
-            <Dialog.Panel className={`${modalPanelStyle} w-[80%] h-[80%]`}>
+            <Dialog.Panel className={`${modalPanelStyle} w-auto h-auto`}>
                 <div className={modalTitleWrapperStyle}>
                     <p className={modalTitleStyle}>{title}</p>
                     <button onClick={onRequestClose} className={closeButtonStyle}>
