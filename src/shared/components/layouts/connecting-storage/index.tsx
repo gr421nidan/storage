@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NavbarWidget from "@/widgets/navbar";
 import { Outlet } from "react-router-dom";
-import HeaderConnectingWidget from "@/widgets/header-connecting-storage";
+import HeaderConnectingWidget from "../../../../widgets/header-secondary";
 
 const ConnectingStorageLayout: React.FC = () => {
     const [isNavbarOpen, setNavbarOpen] = useState(false);

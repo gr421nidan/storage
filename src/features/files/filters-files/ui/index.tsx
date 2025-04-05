@@ -42,7 +42,7 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
     const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
-    const handleFileTypeChange = (type: string) => {
+    const handleFileTypeChange = (type: string) => () => {
         setSelectedFileTypes((prev) =>
             prev.includes(type) ? prev.filter((item) => item !== type) : [...prev, type]
         );
@@ -72,7 +72,7 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
                                     type="checkbox"
                                     value={value}
                                     checked={selectedFileTypes.includes(value)}
-                                    onChange={() => handleFileTypeChange(value)}
+                                    onChange={handleFileTypeChange(value)}
                                     className={radioButtonStyle}
                                 />
                                 {label}

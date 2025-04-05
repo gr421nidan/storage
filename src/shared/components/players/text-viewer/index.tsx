@@ -14,7 +14,7 @@ const TextViewer: React.FC<ITextViewerProps> = ({ fileUrl }) => {
     }, [fileUrl]);
 
     return (
-        <pre className="w-full max-w-3xl max-h-[65vh] p-4 overflow-auto bg-gray-100 border border-gray-300 rounded-lg shadow-md">
+        <pre className="w-full max-w-3xl max-h-[65vh] p-4 overflow-y-auto scrollbar bg-gray-100 border border-gray-300 rounded-lg shadow-md">
       {text}
     </pre>
     );

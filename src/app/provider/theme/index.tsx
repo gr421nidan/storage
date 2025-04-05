@@ -2,7 +2,6 @@ import {createContext, PropsWithChildren, useState} from "react";
 import {ETheme} from "@/shared/common/enum/theme";
 import {EStorageThemeKey} from "@/shared/common/enum/local-storge";
 
-
 interface IThemeContextProps {
     theme: ETheme | null;
     toggleTheme: () => void;

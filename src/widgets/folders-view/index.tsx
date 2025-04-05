@@ -1,13 +1,13 @@
 import React from "react";
 import {IGetStorageFolderDto} from "@/shared/interface/folders";
-import FolderGridItem from "@/features/folders/folder-grid/ui";
+import FolderGridItem from "@/shared/components/folders/folder-card";
 
 interface IFileViewProps {
     folders: IGetStorageFolderDto[];
     onFolderDoubleClick: (folderId: string) => void;
 }
 
-const FoldersView: React.FC<IFileViewProps> = ({folders, onFolderDoubleClick }) => {
+const FoldersViewWidget: React.FC<IFileViewProps> = ({folders, onFolderDoubleClick }) => {
     const handleFolderClick = (folderId: string) => () => {
         onFolderDoubleClick(folderId);
     };
@@ -22,4 +22,4 @@ const FoldersView: React.FC<IFileViewProps> = ({folders, onFolderDoubleClick }) 
     );
 };
 
-export default FoldersView;
+export default FoldersViewWidget;

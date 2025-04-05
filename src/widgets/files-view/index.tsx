@@ -1,6 +1,6 @@
 import React from "react";
-import FileGridItem from "@/features/files/file-grid/ui";
-import FileListItem from "@/features/files/file-list/ui";
+import FileGridItem from "@/shared/components/files/file-card";
+import FileListItem from "@/shared/components/files/file-row";
 import { IGetStorageFileDto } from "@/shared/interface/files";
 
 interface IFileViewProps {
@@ -8,7 +8,7 @@ interface IFileViewProps {
     viewMode: "grid" | "list";
 }
 
-const FilesView: React.FC<IFileViewProps> = ({ files, viewMode }) => {
+const FilesViewWidget: React.FC<IFileViewProps> = ({ files, viewMode }) => {
     return (
         <div className={viewMode === "grid" ? "grid grid-cols-4 gap-8 w-[1227px]" : "flex flex-col gap-6"}>
             {files.map((file) =>
@@ -22,4 +22,4 @@ const FilesView: React.FC<IFileViewProps> = ({ files, viewMode }) => {
     );
 };
 
-export default FilesView;
+export default FilesViewWidget;

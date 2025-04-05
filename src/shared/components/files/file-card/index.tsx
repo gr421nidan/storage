@@ -5,9 +5,9 @@ import {formatFileSize} from "@/shared/utils/convertSizeFiles";
 import ContextMenu from "@/shared/components/context-menu";
 import downloadFile from "@/shared/utils/download-file";
 import {BUCKET_BASE_URL} from "@/shared/config";
-import FilePreviewWindow from "@/shared/components/file-preview";
+import FilePreviewWindow from "../file-preview";
 
-interface IFileGridItemProps {
+interface IFileCardItemProps {
     file: IGetStorageFileDto;
 }
 
@@ -19,7 +19,7 @@ const menuItems = (file: IGetStorageFileDto) => [
     {label: "Удалить", icon: "lucide:trash"},
 ];
 
-const FileGridItem: React.FC<IFileGridItemProps> = ({file}) => {
+const FileCardItem: React.FC<IFileCardItemProps> = ({file}) => {
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const handleDoubleClick = () => {
         setIsViewerOpen(true);
@@ -54,4 +54,4 @@ const FileGridItem: React.FC<IFileGridItemProps> = ({file}) => {
     );
 };
 
-export default FileGridItem;
+export default FileCardItem;

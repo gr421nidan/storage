@@ -1,7 +1,7 @@
 import {ReactNode, useState} from "react";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import FilesView from "@/features/files/files-view/ui";
-import FoldersView from "@/features/folders/folders-view/ui";
+import FilesView from "@/widgets/files-view";
+import FoldersView from "@/widgets/folders-view";
 import SearchInput from "@/shared/components/search";
 import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-folders-and-files/use-case";
 import FiltersFilesPopupMenu from "@/features/files/filters-files/ui";
