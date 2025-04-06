@@ -10,7 +10,7 @@ const useGetStorageFilesAndFoldersUseCase = ({
                                                  search,
                                                  sortBy,
                                                  sortOrder,
-                                                 fileType,
+                                                 type,
                                                  created_at,
                                              }: IGetStorageFilesAndFoldersPort) => {
     const storageId = CurrentStorage();
@@ -18,7 +18,7 @@ const useGetStorageFilesAndFoldersUseCase = ({
     const execute = async () => {
         if (!storageId) return { files: [], folders: [] };
         const params = {
-            search, sort_by: sortBy, sort_order: sortOrder, fileType, created_at,
+            search, sort_by: sortBy, sort_order: sortOrder, type, created_at,
         };
         const { files, folders } = await getStorageFilesAndFoldersRepository(storageId, params);
 
@@ -31,7 +31,7 @@ const useGetStorageFilesAndFoldersUseCase = ({
     };
 
     const { data, ...rest } = useQuery({
-        queryKey: [QueryKey.FILES_AND_FOLDERS, storageId, search, sortBy, sortOrder, fileType, created_at],
+        queryKey: [QueryKey.FILES_AND_FOLDERS, storageId, search, sortBy, sortOrder, type, created_at],
         queryFn: execute,
         select: (result) => ({
             allFiles: result.files,

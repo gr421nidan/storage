@@ -1,15 +1,16 @@
 import React from "react";
 import FileIcon from "@/shared/components/file-icon";
-import { IGetStorageFileDto } from "@/shared/interface/files";
+import {IGetStorageFileDto, IGetTrashFileDto} from "@/shared/interface/files";
 import { formatFileSize } from "@/shared/utils/convertSizeFiles";
 import ContextMenu from "@/shared/components/context-menu";
 import downloadFile from "@/shared/utils/download-file";
 
 interface IFileCardItemProps {
-    file: IGetStorageFileDto;
+    file: IGetStorageFileDto | IGetTrashFileDto;
     variant?: "default" | "trash";
     onMoveToTrashClick?: (fileId: string) => void;
     onDeleteClick?: (fileId: string) => void;
+    onRecoverClick?: (fileId: string) => void;
 }
 
 const FileCardItem: React.FC<IFileCardItemProps> = ({
@@ -17,11 +18,12 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                                                         variant = "default",
                                                         onMoveToTrashClick,
                                                         onDeleteClick,
+                                                        onRecoverClick
                                                     }) => {
     const getMenuItems = () => {
         if (variant === "trash") {
             return [
-                { label: "Восстановить", icon: "garden:reload-stroke-12" },
+                { label: "Восстановить", icon: "garden:reload-stroke-12", onClick: () => onRecoverClick && onRecoverClick(file.id) },
                 { label: "Удалить", icon: "lucide:trash", onClick: () => onDeleteClick && onDeleteClick(file.id) },
             ];
         }

@@ -7,20 +7,20 @@ import emptyTrashDark from "@/assets/img-empty/empty_trash_dark.png"
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import {cn} from "@/shared/utils/cn";
 import {buttonStyles} from "@/shared/components/buttons/style.ts";
-import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-folders-and-files/use-case";
 import FoldersView from "@/widgets/folders-view";
 import FilesView from "@/widgets/files-view";
 import CleaningTrashConfirm from "@/features/trash/cleaning-confirm/ui";
+import useGetTrashFilesAndFoldersUseCase from "@/entities/cases/storage/trash/get-files-and-folders/use-case";
 
 const StorageTrashPage = (): ReactNode => {
     const [search, setSearch] = useState<string | undefined>(undefined);
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
     const [visibility, setVisibility] = useState({ files: true, folders: true });
     const [isClearTrashModalOpen, setIsClearTrashModalOpen] = useState(false);
-    const { allFiles, folders } = useGetStorageFilesAndFoldersUseCase({
+    const { files, folders } = useGetTrashFilesAndFoldersUseCase({
         search
     });
-    const isEmpty = !folders.length && !allFiles.length;
+    const isEmpty = !folders.length && !files.length;
 
     const toggleVisibility = (key: "files" | "folders") => {
         setVisibility(prev => ({ ...prev, [key]: !prev[key] }));
@@ -85,11 +85,11 @@ const StorageTrashPage = (): ReactNode => {
                             </div>
                         )}
 
-                        {!!folders.length && !!allFiles.length && (
+                        {!!folders.length && !!files.length && (
                             <div className="h-[2px] bg-purple w-[1227px] mt-[18px] mb-[10px]" />
                         )}
 
-                        {!!allFiles.length && (
+                        {!!files.length && (
                             <div>
                                 <div
                                     className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]"
@@ -104,7 +104,7 @@ const StorageTrashPage = (): ReactNode => {
                                 {visibility.files && (
                                     <>
                                         {viewMode === "list" && (
-                                            <div className="grid grid-cols-[1.4fr_1fr_1fr_1fr_1fr] gap-6 px-[36px] py-[10px] text-center">
+                                            <div className="grid grid-cols-[1.6fr_1fr_1.3fr_1fr_1fr] gap-6 pl-[36px] pr-[25px] py-[10px] text-center">
                                                 <span className="text-left">Наименование</span>
                                                 <span>Дата создания</span>
                                                 <span>Дата удаления</span>
@@ -112,7 +112,7 @@ const StorageTrashPage = (): ReactNode => {
                                                 <span>Действия</span>
                                             </div>
                                         )}
-                                        <FilesView files={allFiles} viewMode={viewMode} variant="trash" />
+                                        <FilesView files={files} viewMode={viewMode} variant="trash" />
                                     </>
                                 )}
                             </div>

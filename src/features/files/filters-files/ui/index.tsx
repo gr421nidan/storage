@@ -11,7 +11,6 @@ import {
     radioButtonStyle
 } from "@/features/admin/filters-users/style";
 import {buttonStyles} from "@/shared/components/buttons/style";
-import {EFileType} from "@/shared/enum/file-types";
 import {IFiltersPort} from "@/shared/interface/files";
 
 interface IFiltersPopupMenuProps {
@@ -20,36 +19,31 @@ interface IFiltersPopupMenuProps {
     onApply: (filters: IFiltersPort) => void;
     onReset: () => void;
 }
-const fileTypeMapping: Record<string, string[]> = {
-    image: [EFileType.JPEG, EFileType.JPG, EFileType.PNG, EFileType.GIF],
-    audio: [EFileType.MP3, EFileType.WAV, EFileType.FLAC, EFileType.AAC],
-    video: [EFileType.MP4, EFileType.AVI],
-    document: [EFileType.PDF, EFileType.DOC, EFileType.DOCX, EFileType.TXT, EFileType.ODT],
-};
 
 const fileTypeOptions = [
     { label: "Изображения", value: "image" },
     { label: "Аудио", value: "audio" },
     { label: "Видео", value: "video" },
-    { label: "Текстовые файлы", value: "document" },
+    { label: "Текстовые файлы", value: "text" },
 ];
 
 const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClose, onApply, onReset }) => {
-    const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]);
+    const [selectedFileType, setSelectedFileType] = useState<string | null>(null);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
     const handleFileTypeChange = (type: string) => () => {
-        setSelectedFileTypes((prev) =>
-            prev.includes(type) ? prev.filter((item) => item !== type) : [...prev, type]
-        );
+        setSelectedFileType(prev => (prev === type ? null : type));
     };
+
     const handleApply = () => {
-        const fileTypeMIMEs = selectedFileTypes.flatMap((type) => fileTypeMapping[type] || []);
-        onApply({ fileType: fileTypeMIMEs, date: selectedDate });
+        onApply({
+            type: selectedFileType || undefined,
+            date: selectedDate,
+        });
     };
 
     const handleReset = () => {
-        setSelectedFileTypes([]);
+        setSelectedFileType(null);
         setSelectedDate(null);
         onReset();
     };
@@ -67,7 +61,7 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
                                     name={value}
                                     type="checkbox"
                                     value={value}
-                                    checked={selectedFileTypes.includes(value)}
+                                    checked={selectedFileType === value}
                                     onChange={handleFileTypeChange(value)}
                                     className={radioButtonStyle}
                                 />

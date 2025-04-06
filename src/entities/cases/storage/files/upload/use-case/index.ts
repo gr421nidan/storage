@@ -26,6 +26,7 @@ const useUploadFileUseCase = () => {
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [QueryKey.FILES_AND_FOLDERS]});
+            await queryClient.invalidateQueries({queryKey: [QueryKey.FOLDER]});
             await queryClient.invalidateQueries({ queryKey: [QueryKey.STORAGE_SIZE] });
             enqueueSnackbar("Файлы успешно загружены", {variant: "successSnackbar"});
         },

@@ -3,6 +3,6 @@ import {AxiosResponse} from "axios";
 import {IActionFolderDto} from "@/shared/interface/folders";
 
 const recoverFolderRepository = async (folderId: string): Promise<AxiosResponse<IActionFolderDto>> => {
-    return api.post<IActionFolderDto>(`/storage//${folderId}/block`);
+    return api.patch<IActionFolderDto>(`/file/restore-folder/${folderId}`);
 };
 export default recoverFolderRepository;

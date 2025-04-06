@@ -9,9 +9,10 @@ interface IFileRowItemProps {
     variant?: "default" | "trash";
     onMoveToTrashClick?: (fileId: string) => void;
     onDeleteClick?: (fileId: string) => void;
+    onRecoverClick?: (fileId: string) => void;
 }
 
-const FileRowItem: React.FC<IFileRowItemProps> = ({ file, variant = "default", onMoveToTrashClick,onDeleteClick  }) => {
+const FileRowItem: React.FC<IFileRowItemProps> = ({ file, variant = "default", onMoveToTrashClick, onDeleteClick, onRecoverClick  }) => {
     const handleDownloadClick = () => downloadFile(file.path, file.title);
     const handleDeleteClick = () => {
         if (onMoveToTrashClick) {
@@ -20,9 +21,9 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({ file, variant = "default", o
     };
 
     return (
-        <div className="cursor-pointer text-lg flex bg-gr-blocks items-center p-4 border-3 border-purple-light w-[1227px] h-[64px] px-[36px] rounded-[15px]">
+        <div className="cursor-pointer text-lg flex bg-gr-blocks items-center justify-between py-4 border-3 border-purple-light w-[1227px] h-[64px] px-[36px] rounded-[15px]">
             <div className="w-[373px] flex">
-                <span className="max-w-[250px] truncate" title={file.title}>
+                <span className="max-w-[245px] truncate" title={file.title}>
                     {file.title}
                 </span>
             </div>
@@ -51,8 +52,7 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({ file, variant = "default", o
                         <ButtonIcon
                             icon="ph:arrow-counter-clockwise-bold"
                             className="w-5 h-5"
-                            onClick={() => {
-                            }}
+                            onClick={() => onRecoverClick && onRecoverClick(file.id)}
                         />
                         <ButtonIcon
                             icon="lucide:trash"

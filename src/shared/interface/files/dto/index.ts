@@ -10,7 +10,7 @@ interface IGetStorageFileDto {
     path: string;
     tag_title: string | null;
 }
-interface IGetTrashFileDto extends IGetStorageFileDto {
+interface IGetTrashFileDto extends IGetStorageFileDto{
     deleted_at: string;
 }
 

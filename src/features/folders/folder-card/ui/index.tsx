@@ -9,17 +9,18 @@ interface IFolderCardItemProps {
     variant?: "default" | "trash";
     onMoveToTrashClick?: (folderId: string) => void;
     onDeleteClick?: (folderId: string) => void;
+    onRecoverClick?: (fileId: string) => void;
 }
 
 const FolderCardItem: React.FC<IFolderCardItemProps> = ({
                                                             folder,
                                                             variant = "default",
-                                                            onMoveToTrashClick, onDeleteClick
+                                                            onMoveToTrashClick, onDeleteClick, onRecoverClick
                                                         }) => {
     const getMenuItems = () => {
         if (variant === "trash") {
             return [
-                {label: "Восстановить", icon: "garden:reload-stroke-12"},
+                {label: "Восстановить", icon: "garden:reload-stroke-12", onClick: () => onRecoverClick && onRecoverClick(folder.id)},
                 {label: "Удалить", icon: "lucide:trash", onClick: () => onDeleteClick && onDeleteClick(folder.id)},
             ];
         }

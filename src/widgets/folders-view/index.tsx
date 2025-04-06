@@ -3,6 +3,7 @@ import { IGetStorageFolderDto } from "@/shared/interface/folders";
 import FolderCardItem from "@/features/folders/folder-card/ui";
 import MoveToTrashFolderConfirm from "@/features/folders/move-to-trash-confirm/ui";
 import DeleteFolderConfirm from "@/features/trash/folders/delete-confirm/ui";
+import useRecoverFolderPresenter from "@/entities/cases/storage/folders/recover/presenter";
 
 interface IFileViewProps {
     folders: IGetStorageFolderDto[];
@@ -15,6 +16,7 @@ const FoldersViewWidget: React.FC<IFileViewProps> = ({
                                                          onFolderDoubleClick,
                                                          variant = "default",
                                                      }) => {
+    const { handleRecoverFolder } = useRecoverFolderPresenter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
@@ -49,6 +51,7 @@ const FoldersViewWidget: React.FC<IFileViewProps> = ({
                             variant={variant}
                             onMoveToTrashClick={handleMoveToTrashClick}
                             onDeleteClick={handleDeleteClick}
+                            onRecoverClick={handleRecoverFolder}
                         />
                     </div>
                 ))}

@@ -5,7 +5,7 @@ interface IUploadFilePort {
     folderId?: string;
 }
 interface IFiltersPort {
-    fileType?: string[];
+    type?: string;
     date?: Date | null;
 }
 

@@ -12,7 +12,7 @@ const useCreateFolderUseCase = () => {
     const queryClient = useQueryClient();
     const execute = (data: ICreateStorageFolderPort) => {
         if (!storageId) {
-            return Promise.reject(new Error("Storage ID не найден"));
+            return Promise.reject();
         }
         return createFolderRepository(data, storageId);
     };
@@ -20,6 +20,7 @@ const useCreateFolderUseCase = () => {
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [QueryKey.FILES_AND_FOLDERS]});
+            await queryClient.invalidateQueries({queryKey: [QueryKey.FOLDER]});
         },
         onError: (error) => {
             if (error.status === HttpStatusCode.Conflict) {
