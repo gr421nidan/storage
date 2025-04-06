@@ -3,7 +3,7 @@ import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";;
-import {buttonsContainerStyle} from "@/features/trash/folders/delete-confirm/style.ts";
+import  styles  from "@/features/files/move-to-trash-confirm/style";
 import useCleaningTrashPresenter from "@/entities/cases/storage/trash/cleaning/presenter";
 
 interface ICleaningConfirmProps {
@@ -12,25 +12,24 @@ interface ICleaningConfirmProps {
 }
 
 const CleaningTrashConfirm: React.FC<ICleaningConfirmProps> = ({ isOpen, onClose}) => {
-    const buttonsSize = "h-[52px]";
     const { handleCleaningTrash } = useCleaningTrashPresenter(onClose);
+    const handleCleaning = () => handleCleaningTrash();
     if (!isOpen) return null;
 
     return (
         <Modal title="Удалить" className="w-[655px]" onClose={onClose}>
             <div>
                 <p className="text-xl">Вы уверены в безвозвратной очистке корзины?</p>
-                <div className={buttonsContainerStyle}>
+                <div className={styles.buttonsContainer}>
                     <Button
-                        className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px]", buttonsSize)}
+                        className={cn(buttonStyles({ variant: "baseSecondary" }), styles.buttonCancel)}
                         onClick={onClose}>
                         Отменить
                     </Button>
                     <Button
                         type="button"
-                        className={`w-[202px] ${buttonsSize}`}
-                        onClick={() => handleCleaningTrash()}
-                    >
+                        className="w-[202px] h-[52px]"
+                        onClick={handleCleaning}>
                         Очистить
                     </Button>
                 </div>

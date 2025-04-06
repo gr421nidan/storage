@@ -1,24 +1,15 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import SearchInput from "@/shared/components/search";
 import FiltersFilesPopupMenu from "@/features/files/filters-files/ui";
 import SortingFilesPopupMenu from "@/features/files/sorting/ui";
 import Button from "@/shared/components/buttons/button";
 import ViewModeToggle from "@/shared/components/view-mode";
+import styles from "./style";
 
-import {
-    controlPanelContainerStyles,
-    headerStyles,
-    buttonContainerStyles,
-    buttonIconStyles,
-    popupStyles,
-    actionButtonStyles,
-    createFolderButtonStyles,
-    flexGap
-} from "./style";
-import {IFiltersPort, ISortingPort} from "@/shared/interface/files";
+import { IFiltersPort, ISortingPort } from "@/shared/interface/files";
 
-type IViewMode="grid" | "list";
+type IViewMode = "grid" | "list";
 
 interface IControlPanelProps {
     setSearch: (search: string | undefined) => void;
@@ -52,23 +43,23 @@ const ControlPanel = ({
                           handleOpenCreateModal,
                       }: IControlPanelProps): ReactNode => {
     return (
-        <div className={controlPanelContainerStyles}>
-            <div className={headerStyles}>
+        <div className={styles.controlPanelContainer}>
+            <div className={styles.header}>
                 <SearchInput
                     placeholder="Поиск материалов"
                     className="w-[591px] h-[54px]"
                     onSearch={setSearch}
                 />
-                <div className={buttonContainerStyles}>
+                <div className={styles.buttonContainer}>
                     <div className="relative">
                         <ButtonIcon
                             icon="simple-line-icons:arrow-down"
-                            className={buttonIconStyles}
+                            className={styles.buttonIcon}
                             onClick={toggleFilterPopup}>
                             Фильтрация
                         </ButtonIcon>
                         {isFilterPopupOpen && (
-                            <div className={popupStyles}>
+                            <div className={styles.popup}>
                                 <FiltersFilesPopupMenu
                                     isOpen={isFilterPopupOpen}
                                     onClose={toggleFilterPopup}
@@ -81,12 +72,12 @@ const ControlPanel = ({
                     <div className="relative">
                         <ButtonIcon
                             icon="simple-line-icons:arrow-down"
-                            className={buttonIconStyles}
+                            className={styles.buttonIcon}
                             onClick={toggleSortingPopup}>
                             Сортировка
                         </ButtonIcon>
                         {isSortingPopupOpen && (
-                            <div className={popupStyles}>
+                            <div className={styles.popup}>
                                 <SortingFilesPopupMenu
                                     isOpen={isSortingPopupOpen}
                                     onClose={toggleSortingPopup}
@@ -97,11 +88,15 @@ const ControlPanel = ({
                         )}
                     </div>
                 </div>
-                <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode}/>
+                <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode} />
             </div>
-            <div className={flexGap}>
-                <Button className={actionButtonStyles} onClick={handleOpenUploadModal}>Загрузить файлы</Button>
-                <Button className={createFolderButtonStyles} onClick={handleOpenCreateModal}>Создать папку</Button>
+            <div className={styles.flexGap}>
+                <Button className={styles.actionButton} onClick={handleOpenUploadModal}>
+                    Загрузить файлы
+                </Button>
+                <Button className={styles.createFolderButton} onClick={handleOpenCreateModal}>
+                    Создать папку
+                </Button>
             </div>
         </div>
     );

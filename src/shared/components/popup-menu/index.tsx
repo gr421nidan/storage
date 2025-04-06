@@ -8,12 +8,7 @@ interface IPopupMenuProps {
     className?: string;
 }
 
-export const PopupMenu: FC<PropsWithChildren<IPopupMenuProps>> = ({
-                                                                      isOpen,
-                                                                      onClose,
-                                                                      children,
-                                                                      className,
-                                                                  }) => {
+const PopupMenu: FC<PropsWithChildren<IPopupMenuProps>> = ({isOpen, onClose, children, className}) => {
     const panelRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         function handleClickOutside(e: MouseEvent) {
@@ -21,7 +16,6 @@ export const PopupMenu: FC<PropsWithChildren<IPopupMenuProps>> = ({
                 onClose();
             }
         }
-
         if (isOpen) {
             document.addEventListener("mousedown", handleClickOutside);
         }
@@ -41,3 +35,4 @@ export const PopupMenu: FC<PropsWithChildren<IPopupMenuProps>> = ({
         </div>
     );
 };
+export default PopupMenu;

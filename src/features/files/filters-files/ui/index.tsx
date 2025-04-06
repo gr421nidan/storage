@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import CheckboxInput from "@/shared/components/inputs/checkbox-input";
 import Button from "@/shared/components/buttons/button";
-import { PopupMenu } from "@/shared/components/popup-menu";
+import  PopupMenu from "@/shared/components/popup-menu";
 import { cn } from "@/shared/utils/cn";
 import DatePickerButton from "@/shared/components/date-picker";
 import styles from "@/features/admin/filters-users/style";

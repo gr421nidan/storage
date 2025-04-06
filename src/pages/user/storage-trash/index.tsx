@@ -1,125 +1,85 @@
-import {ReactNode, useState} from 'react';
+import { ReactNode, useState } from "react";
 import SearchInput from "@/shared/components/search";
 import ViewModeToggle from "@/shared/components/view-mode";
-import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
 import emptyTrash from "@/assets/img-empty/empty_trash.png";
-import emptyTrashDark from "@/assets/img-empty/empty_trash_dark.png"
+import emptyTrashDark from "@/assets/img-empty/empty_trash_dark.png";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import {cn} from "@/shared/utils/cn";
-import {buttonStyles} from "@/shared/components/buttons/style.ts";
-import FoldersView from "@/widgets/folders-view";
-import FilesView from "@/widgets/files-view";
+import { cn } from "@/shared/utils/cn";
+import { buttonStyles } from "@/shared/components/buttons/style.ts";
+import FoldersViewWidget from "@/widgets/folders-view";
 import CleaningTrashConfirm from "@/features/trash/cleaning-confirm/ui";
 import useGetTrashFilesAndFoldersUseCase from "@/entities/cases/storage/trash/get-files-and-folders/use-case";
+import FilesViewWidget from "@/widgets/files-view";
+import FilesRowHeaders from "@/shared/components/files-row-header";
+import ToggleSection from "@/shared/components/toggle-section";
+import EmptyState from "@/shared/components/empty-state";
 
 const StorageTrashPage = (): ReactNode => {
     const [search, setSearch] = useState<string | undefined>(undefined);
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
     const [visibility, setVisibility] = useState({ files: true, folders: true });
     const [isClearTrashModalOpen, setIsClearTrashModalOpen] = useState(false);
-    const { files, folders } = useGetTrashFilesAndFoldersUseCase({
-        search
-    });
+    const { files, folders } = useGetTrashFilesAndFoldersUseCase({ search });
     const isEmpty = !folders.length && !files.length;
 
     const toggleVisibility = (key: "files" | "folders") => {
         setVisibility(prev => ({ ...prev, [key]: !prev[key] }));
     };
-    const openClearTrashModal = () => {
-        setIsClearTrashModalOpen(true);
-    };
 
-    const closeClearTrashModal = () => {
-        setIsClearTrashModalOpen(false);
-    };
+    const openClearTrashModal = () => setIsClearTrashModalOpen(true);
+    const closeClearTrashModal = () => setIsClearTrashModalOpen(false);
+
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
             <div className="flex justify-between items-center mr-[17px]">
-                <SearchInput placeholder="Поиск материалов" className="w-[822px] h-[54px]" onSearch={setSearch}/>
+                <SearchInput placeholder="Поиск материалов" className="w-[822px] h-[54px]" onSearch={setSearch} />
                 <div className="flex items-center gap-[35px]">
-                    <div className="relative">
-                        <ButtonIcon
-                            icon="lucide:trash"
-                            className={cn(buttonStyles({ variant: "base" }), "w-[301px] h-[52px]")}
-                            onClick={openClearTrashModal}>
-                            Очистить корзину
-                        </ButtonIcon>
-                    </div>
+                    <ButtonIcon
+                        icon="lucide:trash"
+                        className={cn(buttonStyles({ variant: "base" }), "w-[301px] h-[52px]")}
+                        onClick={openClearTrashModal}>
+                        Очистить корзину
+                    </ButtonIcon>
                     {isClearTrashModalOpen && (
-                        <CleaningTrashConfirm
-                            isOpen={isClearTrashModalOpen}
-                            onClose={closeClearTrashModal}
-                        />
+                        <CleaningTrashConfirm isOpen={isClearTrashModalOpen} onClose={closeClearTrashModal} />
                     )}
                 </div>
-                <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode}/>
+                <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode} />
             </div>
-            <div className="relative min-h-60 max-h-[560px] overflow-y-auto scrollbar">
-                {isEmpty ? (
-                    <div className="flex flex-col items-center justify-center mt-[100px] h-full">
-                        <ImgThemeSwitcher
-                            light={emptyTrash}
-                            dark={emptyTrashDark}
-                            alt="нет файлов"
-                            className="w-[400px] h-[207px]"
-                        />
-                        <span className="text-[32px] mt-5">Ничего не найдено</span>
-                    </div>
-                ) : (
+
+            <EmptyState
+                isEmpty={isEmpty}
+                emptyText="Ничего не найдено"
+                emptyImage={{ light: emptyTrash, dark: emptyTrashDark }}
+                content={
                     <>
                         {!!folders.length && (
-                            <div>
-                                <div
-                                    className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]"
-                                    onClick={() => toggleVisibility("folders")}
-                                >
-                                    <span>Все папки</span>
-                                    <ButtonIcon
-                                        icon="simple-line-icons:arrow-up"
-                                        className={visibility.folders ? "rotate-90" : ""}
-                                    />
-                                </div>
-                                {visibility.folders && (
-                                    <FoldersView folders={folders} variant="trash" />
-                                )}
-                            </div>
+                            <ToggleSection
+                                type="folders"
+                                visibility={visibility}
+                                toggleVisibility={toggleVisibility}
+                                content={<FoldersViewWidget folders={folders} variant="trash" />}
+                            />
                         )}
 
-                        {!!folders.length && !!files.length && (
-                            <div className="h-[2px] bg-purple w-[1227px] mt-[18px] mb-[10px]" />
-                        )}
+                        {!!folders.length && !!files.length && <div className="h-[2px] bg-purple w-[1227px] mt-[18px] mb-[10px]" />}
 
                         {!!files.length && (
-                            <div>
-                                <div
-                                    className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]"
-                                    onClick={() => toggleVisibility("files")}
-                                >
-                                    <span>Все файлы</span>
-                                    <ButtonIcon
-                                        icon="simple-line-icons:arrow-up"
-                                        className={visibility.files ? "rotate-90" : ""}
-                                    />
-                                </div>
-                                {visibility.files && (
+                            <ToggleSection
+                                type="files"
+                                visibility={visibility}
+                                toggleVisibility={toggleVisibility}
+                                content={
                                     <>
-                                        {viewMode === "list" && (
-                                            <div className="grid grid-cols-[1.6fr_1fr_1.3fr_1fr_1fr] gap-6 pl-[36px] pr-[25px] py-[10px] text-center">
-                                                <span className="text-left">Наименование</span>
-                                                <span>Дата создания</span>
-                                                <span>Дата удаления</span>
-                                                <span>Размер файла</span>
-                                                <span>Действия</span>
-                                            </div>
-                                        )}
-                                        <FilesView files={files} viewMode={viewMode} variant="trash" />
+                                        <FilesRowHeaders viewMode={viewMode} variant="trash" />
+                                        <FilesViewWidget files={files} viewMode={viewMode} variant="trash" />
                                     </>
-                                )}
-                            </div>
+                                }
+                            />
                         )}
                     </>
-                )}
-            </div>
+                }
+            />
         </div>
     );
 };

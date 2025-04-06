@@ -43,7 +43,7 @@ const FoldersViewWidget: React.FC<IFileViewProps> = ({
 
     return (
         <div>
-            <div className="grid grid-cols-4 gap-[32px] w-[1227px]">
+            <div className="grid grid-cols-4 gap-8 w-[1227px]">
                 {folders.map((folder) => (
                     <div key={folder.id} onDoubleClick={handleFolderClick(folder.id)}>
                         <FolderCardItem
