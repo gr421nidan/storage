@@ -1,6 +1,6 @@
 import React from "react";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import { containerStyles, buttonWrapperStyles, buttonIconStyles } from "./style";
+import styles from "./style";
 
 interface IViewModeProps {
     viewMode: "grid" | "list";
@@ -14,12 +14,12 @@ const ViewModeToggle: React.FC<IViewModeProps> = ({ viewMode, setViewMode }) => 
     ] as const;
 
     return (
-        <div className={containerStyles}>
+        <div className={styles.wrapper}>
             {modes.map(({ type, icon, size }) => (
-                <div key={type} className={buttonWrapperStyles(viewMode === type)}>
+                <div key={type} className={styles.buttonWrapper(viewMode === type)}>
                     <ButtonIcon
                         icon={icon}
-                        className={buttonIconStyles(viewMode === type, size)}
+                        className={styles.buttonIcon(viewMode === type, size)}
                         onClick={() => setViewMode(type)}
                     />
                 </div>

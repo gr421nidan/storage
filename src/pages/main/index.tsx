@@ -150,7 +150,7 @@ const MainPage = (): ReactNode => {
                                     <>
                                         {viewMode === "list" && (
                                             <div
-                                                className="grid grid-cols-[1.5fr_1fr_1fr_1fr_1.3fr] gap-6 px-[36px] py-[10px] text-center">
+                                                className="grid grid-cols-[1.55fr_1fr_1fr_1fr_1.45fr] gap-6 px-[36px] py-[10px] text-center">
                                                 <span className="text-left">Наименование</span>
                                                 <span>Дата создания</span>
                                                 <span>Пометки (Тэги)</span>

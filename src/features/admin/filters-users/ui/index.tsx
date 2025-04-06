@@ -1,20 +1,15 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import CheckboxInput from "@/shared/components/inputs/checkbox-input";
-import {EGrantID} from "@/shared/enum/admin";
+import { EGrantID } from "@/shared/enum/admin";
 import Button from "@/shared/components/buttons/button";
-import {PopupMenu} from "@/shared/components/popup-menu";
-import {cn} from "@/shared/utils/cn";
-import {buttonStyles} from "@/shared/components/buttons/style.ts";
-import {
-    buttonContainerStyle, buttonStyle, containerButtonRadiosStyle,
-    containerFiltersStyle, containerRadioStyle,
-    radioButtonStyle,
-    separatorStyle, titleStyle
-} from "../style.ts";
+import { PopupMenu } from "@/shared/components/popup-menu";
+import { cn } from "@/shared/utils/cn";
+import { buttonStyles } from "@/shared/components/buttons/style.ts";
+import styles from "../style";
 
 interface IFilters {
-    access:EGrantID | undefined,
-    activity: boolean | undefined
+    access: EGrantID | undefined;
+    activity: boolean | undefined;
 }
 
 interface IFiltersPopupMenuProps {
@@ -55,65 +50,63 @@ const FiltersUsersPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
     };
 
     return (
-        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(containerFiltersStyle, "h-[256px]") }>
-            <p className={titleStyle}>Доступ</p>
-            <div className={containerButtonRadiosStyle}>
-                <label className={containerRadioStyle}>
+        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(styles.containerFilters, "h-[256px]")}>
+            <p className={styles.title}>Доступ</p>
+            <div className={styles.containerButtonRadios}>
+                <label className={styles.containerRadio}>
                     <CheckboxInput
                         type="radio"
                         name="access"
                         value={EGrantID.FULL_ACCESS}
                         checked={access === EGrantID.FULL_ACCESS}
                         onChange={() => handleAccessChange(EGrantID.FULL_ACCESS)}
-                        className={radioButtonStyle}
+                        className={styles.radioButton}
                     />
                     Полный доступ
                 </label>
-                <label className={containerRadioStyle}>
+                <label className={styles.containerRadio}>
                     <CheckboxInput
                         type="radio"
                         name="access"
                         value={EGrantID.VIEW}
                         checked={access === EGrantID.VIEW}
                         onChange={() => handleAccessChange(EGrantID.VIEW)}
-                        className={radioButtonStyle}
+                        className={styles.radioButton}
                     />
                     Просмотр
                 </label>
             </div>
-            <div className={separatorStyle}></div>
-            <p className={titleStyle}>Активность</p>
-            <div className={containerButtonRadiosStyle}>
-                <label className={containerRadioStyle}>
+            <div className={styles.separator}></div>
+            <p className={styles.title}>Активность</p>
+            <div className={styles.containerButtonRadios}>
+                <label className={styles.containerRadio}>
                     <CheckboxInput
                         type="radio"
                         name="activity"
                         value="true"
                         checked={activity === true}
                         onChange={() => handleActivityChange(true)}
-                        className={radioButtonStyle}
+                        className={styles.radioButton}
                     />
                     Активный
                 </label>
-                <label className={containerRadioStyle}>
+                <label className={styles.containerRadio}>
                     <CheckboxInput
                         type="radio"
                         name="activity"
                         value="false"
                         checked={activity === false}
                         onChange={() => handleActivityChange(false)}
-                        className={radioButtonStyle}
+                        className={styles.radioButton}
                     />
                     Неактивный
                 </label>
             </div>
-            <div className={buttonContainerStyle}>
-                <Button
-                    onClick={handleReset}
-                    className={cn(buttonStyles({variant: "baseSecondary"}), buttonStyle)}>
+            <div className={styles.buttonContainer}>
+                <Button onClick={handleReset} className={cn(buttonStyles({ variant: "baseSecondary" }), styles.button)}>
                     Сбросить
                 </Button>
-                <Button onClick={handleApply} className={buttonStyle}>
+                <Button onClick={handleApply} className={styles.button}>
                     Применить
                 </Button>
             </div>

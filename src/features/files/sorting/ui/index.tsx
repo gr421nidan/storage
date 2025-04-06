@@ -3,8 +3,8 @@ import CheckboxInput from "@/shared/components/inputs/checkbox-input";
 import Button from "@/shared/components/buttons/button";
 import { PopupMenu } from "@/shared/components/popup-menu";
 import { cn } from "@/shared/utils/cn";
-import { buttonContainerStyle, buttonStyle, containerFiltersStyle, radioButtonStyle } from "@/features/admin/filters-users/style";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
+import styles from "@/features/admin/filters-users/style";
 import {ISortingPort} from "@/shared/interface/files";
 import {ISortField, ISortOrder} from "@/shared/type/files/sorting";
 
@@ -38,52 +38,53 @@ const SortingFilesPopupMenu: React.FC<ISortingPopupMenuProps> = ({ isOpen, onClo
     const [sortBy, setSortBy] = useState<ISortField | undefined>(undefined);
     const [sortOrder, setSortOrder] = useState<ISortOrder | undefined>(undefined);
 
-    const handleSortChange = (field: ISortField, order: ISortOrder) => {
+    const createSortChangeHandler = (field: ISortField, order: ISortOrder) => () => {
         setSortBy(field);
         setSortOrder(order);
     };
+
     const handleApply = () => {
         if (sortBy && sortOrder) {
             onApply({ sort_by: sortBy, sort_order: sortOrder });
         }
     };
+
     const handleReset = () => {
         setSortBy(undefined);
         setSortOrder(undefined);
         onReset();
     };
-
     return (
-        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(containerFiltersStyle, "h-[510px]")}>
+        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(styles.containerFilters, "h-[510px]")}>
             <div>
                 {SORT_FIELDS.map(({ key, label, options }, index) => (
                     <div key={key}>
                         <p className="mb-2">{label}</p>
                         <div className="flex flex-col gap-2">
                             {options.map(({ label, value }) => (
-                                <label key={value} className="flex items-center">
+                                <label key={value} className={styles.containerRadio}>
                                     <CheckboxInput
                                         name={key}
                                         type="radio"
                                         value={value}
                                         checked={sortBy === key && sortOrder === value}
-                                        onChange={() => handleSortChange(key, value)}
-                                        className={radioButtonStyle}
+                                        onChange={createSortChangeHandler(key, value)}
+                                        className={styles.radioButton}
                                     />
                                     {label}
                                 </label>
                             ))}
                         </div>
                         {index !== SORT_FIELDS.length - 1 && index < 3 && (
-                            <div className="border-b-2 border-purple-light my-2"></div>
+                            <div className={cn(styles.separator, "my-2")}></div>
                         )}
                     </div>
                 ))}
-                <div className={buttonContainerStyle}>
-                    <Button onClick={handleReset} className={cn(buttonStyles({variant: "baseSecondary"}), buttonStyle)}>
+                <div className={styles.buttonContainer}>
+                    <Button onClick={handleReset} className={cn(buttonStyles({ variant: "baseSecondary" }), styles.button)}>
                         Сбросить
                     </Button>
-                    <Button onClick={handleApply} className={buttonStyle}>
+                    <Button onClick={handleApply} className={styles.button}>
                         Применить
                     </Button>
                 </div>

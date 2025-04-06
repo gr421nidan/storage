@@ -3,15 +3,7 @@ import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
-import {
-    dropzoneStyle,
-    buttonCancelStyle,
-    highlightTextStyle,
-    modalWrapperStyle,
-    buttonStyle,
-    fileWrapperStyle,
-    fileGridStyle
-} from "../style";
+import styles from "../style";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import useUploadFilePresenter from "@/entities/cases/storage/files/upload/presenter";
 
@@ -34,23 +26,25 @@ const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({ isOpen, onClose, c
         },
         multiple: true,
     });
+
     const handleCancel = () => {
         setValue("file", []);
         onClose();
     };
+
     if (!isOpen) return null;
 
     return (
         <Modal title="Загрузить файл" className="w-[655px]" onClose={onClose}>
-            <div className={modalWrapperStyle}>
-                <div {...getRootProps()} className={dropzoneStyle}>
+            <div className={styles.modalWrapper}>
+                <div {...getRootProps()} className={styles.dropzone}>
                     <input {...getInputProps()}/>
                     <p className="text-center text-2xl">
                         {isDragActive ? (
-                            <span className={highlightTextStyle}>Отпустите файлы для загрузки</span>
+                            <span className={styles.highlightText}>Отпустите файлы для загрузки</span>
                         ) : (
                             <>
-                                <span className={highlightTextStyle}>Нажмите</span> или перенесите<br /> файлы для загрузки
+                                <span className={styles.highlightText}>Нажмите</span> или перенесите<br /> файлы для загрузки
                             </>
                         )}
                     </p>
@@ -58,14 +52,13 @@ const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({ isOpen, onClose, c
                 {selectedFiles.length > 0 && (
                     <div>
                         <p className="text-xl mb-2">Выбранные файлы:</p>
-                        <div className={fileGridStyle}>
+                        <div className={styles.fileGrid}>
                             {selectedFiles.map((file, index) => (
-                                <div key={index} className={fileWrapperStyle}>
+                                <div key={index} className={styles.fileWrapper}>
                                     <span className="truncate" title={file.name}>{file.name}</span>
                                     <ButtonIcon
                                         icon="ic:round-close"
                                         onClick={() => setValue("file", selectedFiles.filter((_, i) => i !== index), { shouldValidate: true })}
-
                                     />
                                 </div>
                             ))}
@@ -74,10 +67,10 @@ const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({ isOpen, onClose, c
                 )}
 
                 <div className="flex justify-between">
-                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), buttonCancelStyle)} onClick={handleCancel}>
+                    <Button className={cn(buttonStyles({ variant: "baseSecondary" }), styles.buttonCancel)} onClick={handleCancel}>
                         Отменить
                     </Button>
-                    <Button className={buttonStyle} onClick={onSubmit} disabled={!selectedFiles.length}>
+                    <Button className={styles.button} onClick={onSubmit} disabled={!selectedFiles.length}>
                         Сохранить
                     </Button>
                 </div>

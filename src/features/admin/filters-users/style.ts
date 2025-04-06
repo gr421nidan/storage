@@ -1,19 +1,12 @@
-const containerFiltersStyle = "flex flex-col justify-between";
-const radioButtonStyle = "w-[20px] h-[20px] mr-2";
-const separatorStyle = "h-[2px] bg-purple-light";
-const buttonContainerStyle = "flex justify-between gap-4 mt-5";
-const buttonStyle = "border-1 text-base w-[109px] h-[30px] rounded-[10px]";
-const containerRadioStyle = "flex items-center";
-const containerButtonRadiosStyle = "flex gap-6";
-const titleStyle = "text-2xl";
-
-export {
-    titleStyle,
-    containerFiltersStyle,
-    containerButtonRadiosStyle,
-    radioButtonStyle,
-    separatorStyle,
-    buttonStyle,
-    buttonContainerStyle,
-    containerRadioStyle
+const styles = {
+    containerFilters: "flex flex-col justify-between",
+    radioButton: "w-[20px] h-[20px] mr-2",
+    separator: "h-[2px] bg-purple-light",
+    buttonContainer: "flex justify-between gap-4 mt-5",
+    button: "border-1 text-base w-[109px] h-[30px] rounded-[10px]",
+    containerRadio: "flex items-center",
+    containerButtonRadios: "flex gap-6",
+    title: "text-2xl",
 };
+
+export default styles;

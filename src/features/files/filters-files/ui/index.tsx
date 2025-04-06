@@ -4,14 +4,9 @@ import Button from "@/shared/components/buttons/button";
 import { PopupMenu } from "@/shared/components/popup-menu";
 import { cn } from "@/shared/utils/cn";
 import DatePickerButton from "@/shared/components/date-picker";
-import {
-    buttonContainerStyle,
-    buttonStyle,
-    containerFiltersStyle,
-    radioButtonStyle
-} from "@/features/admin/filters-users/style";
-import {buttonStyles} from "@/shared/components/buttons/style";
-import {IFiltersPort} from "@/shared/interface/files";
+import styles from "@/features/admin/filters-users/style";
+import { buttonStyles } from "@/shared/components/buttons/style";
+import { IFiltersPort } from "@/shared/interface/files";
 
 interface IFiltersPopupMenuProps {
     isOpen: boolean;
@@ -49,21 +44,21 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
     };
 
     return (
-        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(containerFiltersStyle, "h-[311px]") }>
+        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(styles.containerFilters, "h-[311px]") }>
             <div>
                 <div>
-                    <p>Тип данных</p>
+                    <p className="mb-2">Тип данных</p>
                     <div className="border-b-2 border-purple-light my-2"></div>
                     <div className="flex flex-col gap-2">
                         {fileTypeOptions.map(({ label, value }) => (
-                            <label key={value} className="flex items-center gap-1">
+                            <label key={value} className={styles.containerRadio}>
                                 <CheckboxInput
                                     name={value}
                                     type="checkbox"
                                     value={value}
                                     checked={selectedFileType === value}
                                     onChange={handleFileTypeChange(value)}
-                                    className={radioButtonStyle}
+                                    className={styles.radioButton}
                                 />
                                 {label}
                             </label>
@@ -78,13 +73,13 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
                     </div>
                 </div>
 
-                <div className={buttonContainerStyle}>
+                <div className={styles.buttonContainer}>
                     <Button
                         onClick={handleReset}
-                        className={cn(buttonStyles({variant: "baseSecondary"}), buttonStyle)}>
+                        className={cn(buttonStyles({variant: "baseSecondary"}), styles.button)}>
                         Сбросить
                     </Button>
-                    <Button onClick={handleApply} className={buttonStyle}>
+                    <Button onClick={handleApply} className={styles.button}>
                         Применить
                     </Button>
                 </div>
