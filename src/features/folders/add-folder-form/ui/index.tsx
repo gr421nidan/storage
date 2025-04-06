@@ -14,7 +14,7 @@ interface ICreateFolderModalProps {
 }
 
 const CreateFolderModal: React.FC<ICreateFolderModalProps> = ({isOpen, onClose, currentFolder}) => {
-    const {register, onSubmit, errors} = useCreateFolderPresenter(currentFolder);
+    const {register, onSubmit, errors} = useCreateFolderPresenter(currentFolder, onClose);
 
     if (!isOpen) return null;
 

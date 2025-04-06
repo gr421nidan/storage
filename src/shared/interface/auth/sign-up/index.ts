@@ -1,4 +1,4 @@
-import {ERoleID} from "@/shared/emum/user";
+import {ERoleID} from "@/shared/enum/user";
 
 interface ISignUpPort {
     firstname: string,

@@ -20,7 +20,6 @@ const useCreateFolderUseCase = () => {
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [QueryKey.FILES_AND_FOLDERS]});
-            enqueueSnackbar("Папка успешно создана", {variant: "successSnackbar"});
         },
         onError: (error) => {
             if (error.status === HttpStatusCode.Conflict) {

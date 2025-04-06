@@ -1,6 +1,6 @@
 import React from "react";
 import FileViewer from "@/shared/components/players";
-import { EFileType } from "@/shared/emum/file-types";
+import { EFileType } from "@/shared/enum/file-types";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 
 interface IFilePreviewProps {

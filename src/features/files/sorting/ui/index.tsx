@@ -5,27 +5,13 @@ import { PopupMenu } from "@/shared/components/popup-menu";
 import { cn } from "@/shared/utils/cn";
 import { buttonContainerStyle, buttonStyle, containerFiltersStyle, radioButtonStyle } from "@/features/admin/filters-users/style";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
-
-type ISortOrder = "asc" | "desc";
-
-type ISortField = "type" | "created_at" | "update_at" | "size";
-
-interface ISorting {
-    sort_by: ISortField;
-    sort_order: ISortOrder;
-}
+import {ISortingPort} from "@/shared/interface/files";
+import {ISortField, ISortOrder} from "@/shared/type/files/sorting";
 
 interface ISortingPopupMenuProps {
     isOpen: boolean;
     onClose: () => void;
-    onApply: (sorting: ISorting) => void;
-    onReset: () => void;
-}
-
-interface ISortingPopupMenuProps {
-    isOpen: boolean;
-    onClose: () => void;
-    onApply: (sorting: ISorting) => void;
+    onApply: (sorting: ISortingPort) => void;
     onReset: () => void;
 }
 

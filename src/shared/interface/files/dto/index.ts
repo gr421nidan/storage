@@ -1,4 +1,4 @@
-import {EFileType} from "@/shared/emum/file-types";
+import {EFileType} from "@/shared/enum/file-types";
 
 interface IGetStorageFileDto {
     id: string;
@@ -9,6 +9,9 @@ interface IGetStorageFileDto {
     update_at: string | null;
     path: string;
     tag_title: string | null;
+}
+interface IGetTrashFileDto extends IGetStorageFileDto {
+    deleted_at: string;
 }
 
 interface IUploadStorageFileDto {
@@ -26,9 +29,8 @@ interface IUploadStorageFileDto {
     path: string;
     storage_id: string;
 }
-interface IGetFileDto {
-    id: string;
-    title: string;
-    path: string;
+interface IActionFileDto {
+    message: string,
 }
-export type {IGetStorageFileDto, IUploadStorageFileDto, IGetFileDto};
+
+export type {IGetStorageFileDto, IUploadStorageFileDto, IActionFileDto, IGetTrashFileDto};

@@ -1,4 +1,4 @@
-import {EGrantID} from "@/shared/emum/admin";
+import {EGrantID} from "@/shared/enum/admin";
 
 interface IAddUserPort {
     user_id: string;

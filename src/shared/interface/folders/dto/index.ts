@@ -1,3 +1,5 @@
+import {IGetStorageFileDto} from "@/shared/interface/files";
+
 interface IGetStorageFolderDto {
     id: string;
     title: string;
@@ -15,4 +17,11 @@ interface ICreateStorageFolderDto {
     owner_id: string,
     deleted_at: string | null,
 }
-export type {IGetStorageFolderDto, ICreateStorageFolderDto};
+interface IActionFolderDto {
+    message: string,
+}
+interface IGetFolderDto {
+    files: IGetStorageFileDto[],
+    folders: IGetStorageFolderDto[]
+}
+export type {IGetStorageFolderDto, ICreateStorageFolderDto, IActionFolderDto, IGetFolderDto};

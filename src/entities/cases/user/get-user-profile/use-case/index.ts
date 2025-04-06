@@ -1,6 +1,6 @@
 import {useQuery} from "@tanstack/react-query";
 import getUserProfileRepository from "@/entities/repo/user/get-user-profile";
-import {ERoleID} from "@/shared/emum/user";
+import {ERoleID} from "@/shared/enum/user";
 import QueryKey from "@/shared/common/enum/query-key";
 import {AUTH_TOKEN_KEY} from "@/shared/config";
 

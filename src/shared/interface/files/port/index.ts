@@ -1,5 +1,16 @@
+import {ISortField, ISortOrder} from "@/shared/type/files/sorting";
+
 interface IUploadFilePort {
     file: File[];
     folderId?: string;
 }
-export type {IUploadFilePort};
+interface IFiltersPort {
+    fileType?: string[];
+    date?: Date | null;
+}
+
+interface ISortingPort {
+    sort_by: ISortField;
+    sort_order: ISortOrder;
+}
+export type {IUploadFilePort, IFiltersPort, ISortingPort};

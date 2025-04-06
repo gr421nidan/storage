@@ -4,5 +4,7 @@ enum QueryKey {
     USERS_STORAGE = "usersStorage",
     STORAGE_SIZE="storageSize",
     FILES_AND_FOLDERS = "folderAndFolders",
+    FOLDER = "folder",
+    TRASH = "trash",
 }
 export default QueryKey;

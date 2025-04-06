@@ -14,7 +14,7 @@ import docx from "@/assets/file-icons/icon-docx.png";
 import pdf from "@/assets/file-icons/icon-pdf.png";
 import txt from "@/assets/file-icons/icon-txt.png";
 import odt from "@/assets/file-icons/icon-odt.png";
-import {EFileType} from "@/shared/emum/file-types";
+import {EFileType} from "@/shared/enum/file-types";
 
 const fileIcons: Record<EFileType, string> = {
     [EFileType.JPEG]: jpeg,

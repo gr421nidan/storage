@@ -7,7 +7,7 @@ enum ERouterPath {
     USER_PROFILE = '/profile',
     STORAGE_SETTINGS = '/storage-settings',
     STORAGE_TRASH = '/storage-trash',
-    AVAILABLE_STORAGE = '/available-storage',
+    AVAILABLE_STORAGES = '/available-storages',
     USER_LOGS = '/users/:id_user',
     CONNECTING_STORAGE = '/connect',
     FORBIDDEN_PAGE = '/forbidden',

@@ -2,7 +2,7 @@ import {Navigate, Outlet} from "react-router-dom";
 import {FC} from "react";
 import ERouterPath from "@/shared/common/enum/router";
 import {AUTH_TOKEN_KEY} from "@/shared/config";
-import {ERoleID} from "@/shared/emum/user";
+import {ERoleID} from "@/shared/enum/user";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 
 interface IProtectedRouteProps {

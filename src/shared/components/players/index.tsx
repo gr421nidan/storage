@@ -2,7 +2,7 @@ import React from "react";
 import TextViewer from "@/shared/components/players/text-viewer";
 import VideoPlayer from "@/shared/components/players/video-player";
 import AudioPlayer from "@/shared/components/players/audio-player";
-import {EFileType} from "@/shared/emum/file-types";
+import {EFileType} from "@/shared/enum/file-types";
 import ImagePlayer from "@/shared/components/players/image-viewer";
 import DocViewer from "@/shared/components/players/doc-viewer";
 import PdfViewer from "@/shared/components/players/pdf-viewer";

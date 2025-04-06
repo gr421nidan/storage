@@ -11,7 +11,7 @@ import {
     separatorStyle,
     closeButtonStyle,
 } from "./style";
-import { EFileType } from "@/shared/emum/file-types"; // Используем стили
+import { EFileType } from "@/shared/enum/file-types"; // Используем стили
 
 interface IFileViewerModalProps {
     isOpen: boolean;

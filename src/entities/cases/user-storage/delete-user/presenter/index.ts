@@ -1,7 +1,7 @@
-import useUnblockUserUseCase from "../use-case";
+import useDeleteUserUseCase from "../use-case";
 
 const useDeleteUserPresenter = (onClose: () => void) => {
-    const { mutateAsync: deleteUser } = useUnblockUserUseCase();
+    const { mutateAsync: deleteUser } = useDeleteUserUseCase();
 
     const handleDeleteUser = async (userId: string) => {
         await deleteUser(userId);

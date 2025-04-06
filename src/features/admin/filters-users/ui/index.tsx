@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import CheckboxInput from "@/shared/components/inputs/checkbox-input";
-import {EGrantID} from "@/shared/emum/admin";
+import {EGrantID} from "@/shared/enum/admin";
 import Button from "@/shared/components/buttons/button";
 import {PopupMenu} from "@/shared/components/popup-menu";
 import {cn} from "@/shared/utils/cn";

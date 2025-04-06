@@ -10,7 +10,7 @@ export const buttonStyles = cva(
                 icon: "text-purple hover:custom-drop-shadow dark:text-purple-light dark:hover:text-purple dark:hover:custom-drop-shadow",
 
                 withIcon:
-                    "px-[27px] justify-between flex items-center border bg-white border-2 border-purple dark:bg-gray dark:text-white hover:custom-shadow focus:custom-shadow  hover:text-purple dark:hover:text-purple text-2xl",
+                    "px-[27px] justify-between flex items-center border bg-white border-2 border-purple dark:bg-gray dark:text-white hover:custom-shadow focus:custom-shadow  hover:text-purple dark:hover:text-purple text-xl",
                 baseSecondary: "shadow-inner-button border border-3 text-center items-center justify-center border-purple-light text-white dark:text-black bg-purple-secondary dark:bg-purple-dark-secondary dark:border-purple text-2xl",
                 date:" text-sm border-1 rounded-[20px] border-purple bg-white text-black dark:bg-gray items-center dark:text-white"
 

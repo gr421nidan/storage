@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import useAddUserPresenter from "@/entities/cases/user-storage/add-user/presenter";
-import { EGrantID } from "@/shared/emum/admin";
+import { EGrantID } from "@/shared/enum/admin";
 import Button from "@/shared/components/buttons/button";
 import { errorTextStyles } from "@/features/auth/style";
 import { formStyles } from "@/features/admin/add-users-form/style";

@@ -30,7 +30,7 @@ const adminNavItems: INavItem[] = [
 
 const userNavItems: INavItem[] = [
     {path: ERouterPath.MAIN_PAGE, label: "Моё хранилище", icon: "ion:cloud-upload-outline"},
-    {path: ERouterPath.AVAILABLE_STORAGE, label: "Доступные хранилища", icon: "bi:clouds"},
+    {path: ERouterPath.AVAILABLE_STORAGES, label: "Доступные хранилища", icon: "bi:clouds"},
     {path: ERouterPath.STORAGE_TRASH, label: "Корзина", icon: "lucide:trash"}
 ];
 

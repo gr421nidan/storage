@@ -1,6 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import {
-    LazyAvailableStoragePage, LazyConnectingStoragePage, LazyForbiddenPage,
+    LazyAvailableStoragePage,
+    LazyAvailableStoragesPage, LazyConnectingStoragePage, LazyForbiddenPage,
     LazyMainPage, LazyNotFoundPage,
     LazyResetPage,
     LazySignInPage,
@@ -13,88 +14,92 @@ import AuthLayout from "@/shared/components/layouts/auth";
 import MainLayout from "@/shared/components/layouts/main";
 import ProtectedRoute from "@/shared/components/protected-router";
 import ConnectingStorageLayout from "@/shared/components/layouts/connecting-storage";
-import {ERoleID} from "@/shared/emum/user";
+import {ERoleID} from "@/shared/enum/user";
 
 const router = createBrowserRouter([
     {
-        element: <AuthLayout />,
+        element: <AuthLayout/>,
         children: [
             {
                 path: ERouterPath.SIGN_IN_PAGE,
-                element: <LazySignInPage />,
+                element: <LazySignInPage/>,
             },
             {
                 path: ERouterPath.SIGN_UP_PAGE,
-                element: <LazySignUpPage />,
+                element: <LazySignUpPage/>,
             },
             {
                 path: ERouterPath.RESET_PAGE,
-                element: <LazyResetPage />,
+                element: <LazyResetPage/>,
             },
         ],
     },
     {
-        element: <ProtectedRoute allowedRoles={[ERoleID.USER, ERoleID.ADMIN]} />,
+        element: <ProtectedRoute allowedRoles={[ERoleID.USER, ERoleID.ADMIN]}/>,
         children: [
             {
-                element: <MainLayout />,
+                element: <MainLayout/>,
                 children: [
                     {
                         path: ERouterPath.MAIN_PAGE,
-                        element: <LazyMainPage />,
+                        element: <LazyMainPage/>,
                     },
                     {
                         path: ERouterPath.USER_PROFILE,
-                        element: <LazyUserProfilePage />,
+                        element: <LazyUserProfilePage/>,
                     },
                     {
                         path: ERouterPath.STORAGE_TRASH,
-                        element: <LazyStorageTrashPage />,
+                        element: <LazyStorageTrashPage/>,
                     },
                 ],
             },
         ],
     },
     {
-        element: <ProtectedRoute allowedRoles={[ERoleID.ADMIN]} />,
+        element: <ProtectedRoute allowedRoles={[ERoleID.ADMIN]}/>,
         children: [
             {
-                element: <MainLayout />,
+                element: <MainLayout/>,
                 children: [
                     {
                         path: ERouterPath.USERS,
-                        element: <LazyStorageUsersPage />,
+                        element: <LazyStorageUsersPage/>,
                     },
                     {
                         path: ERouterPath.USER_LOGS,
-                        element: <LazyUserLogsPage />,
+                        element: <LazyUserLogsPage/>,
                     },
                     {
                         path: ERouterPath.STORAGE_SETTINGS,
-                        element: <LazyStorageSettingsPage />,
+                        element: <LazyStorageSettingsPage/>,
                     },
                 ],
             },
         ],
     },
     {
-        element: <ProtectedRoute allowedRoles={[ERoleID.USER]} />,
+        element: <ProtectedRoute allowedRoles={[ERoleID.USER]}/>,
         children: [
             {
-                element: <MainLayout />,
+                element: <MainLayout/>,
                 children: [
                     {
-                        path: ERouterPath.AVAILABLE_STORAGE,
-                        element: <LazyAvailableStoragePage />,
+                        path: ERouterPath.AVAILABLE_STORAGES,
+                        element: <LazyAvailableStoragesPage/>,
+                    },
+                    {
+                        path: ERouterPath.STORAGE,
+                        element: <LazyAvailableStoragePage/>,
                     },
                 ],
             },
             {
-                element: <ConnectingStorageLayout />,
+                element: <ConnectingStorageLayout/>,
                 children: [
                     {
                         path: ERouterPath.CONNECTING_STORAGE,
-                        element: <LazyConnectingStoragePage />,
+                        element: <LazyConnectingStoragePage/>,
                     },
                 ],
             },

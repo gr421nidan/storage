@@ -1,4 +1,4 @@
-import {EGrantID} from "@/shared/emum/admin";
+import {EGrantID} from "@/shared/enum/admin";
 
 interface IGetUserDto {
     id: string

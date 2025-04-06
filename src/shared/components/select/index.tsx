@@ -2,7 +2,7 @@ import { useState, forwardRef } from "react";
 import { Icon } from "@iconify/react";
 import { cn } from "@/shared/utils/cn";
 import { selectBoxStyles, selectOptionStyles, optionStyles } from "./style";
-import {EGrantID} from "@/shared/emum/admin";
+import {EGrantID} from "@/shared/enum/admin";
 
 interface IOption {
     label: string;

@@ -17,7 +17,7 @@ const useUploadFileUseCase = () => {
             return uploadFileInFolderRepository(data, folderId);
         } else {
             if (!storageId) {
-                return Promise.reject(new Error("Storage ID не найден"));
+                return Promise.resolve([]);
             }
             return uploadFileRepository(data, storageId);
         }
@@ -27,7 +27,7 @@ const useUploadFileUseCase = () => {
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [QueryKey.FILES_AND_FOLDERS]});
             await queryClient.invalidateQueries({ queryKey: [QueryKey.STORAGE_SIZE] });
-            enqueueSnackbar("Файлы успешно загружен", {variant: "successSnackbar"});
+            enqueueSnackbar("Файлы успешно загружены", {variant: "successSnackbar"});
         },
         onError: (error) => {
             if (error.status === HttpStatusCode.BadRequest) {

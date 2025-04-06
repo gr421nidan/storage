@@ -11,17 +11,13 @@ import {
     radioButtonStyle
 } from "@/features/admin/filters-users/style";
 import {buttonStyles} from "@/shared/components/buttons/style";
-import {EFileType} from "@/shared/emum/file-types";
-
-interface IFilters {
-    fileType?: string[];
-    date?: Date | null;
-}
+import {EFileType} from "@/shared/enum/file-types";
+import {IFiltersPort} from "@/shared/interface/files";
 
 interface IFiltersPopupMenuProps {
     isOpen: boolean;
     onClose: () => void;
-    onApply: (filters: IFilters) => void;
+    onApply: (filters: IFiltersPort) => void;
     onReset: () => void;
 }
 const fileTypeMapping: Record<string, string[]> = {
@@ -66,7 +62,7 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
                     <div className="border-b-2 border-purple-light my-2"></div>
                     <div className="flex flex-col gap-2">
                         {fileTypeOptions.map(({ label, value }) => (
-                            <label key={value} className="flex items-center gap-2">
+                            <label key={value} className="flex items-center gap-1">
                                 <CheckboxInput
                                     name={value}
                                     type="checkbox"

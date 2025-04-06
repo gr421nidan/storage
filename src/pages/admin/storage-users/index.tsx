@@ -5,7 +5,7 @@ import UserCard from "@/features/admin/users-cards/ui";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import SearchInput from "@/shared/components/search";
 import FiltersUsersPopupMenu from "@/features/admin/filters-users/ui";
-import {EGrantID} from "@/shared/emum/admin";
+import {EGrantID} from "@/shared/enum/admin";
 
 const StorageUsersPage = (): ReactNode => {
     const [search, setSearch] = useState<string | undefined>(undefined);

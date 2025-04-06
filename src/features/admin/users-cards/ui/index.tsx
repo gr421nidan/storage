@@ -8,7 +8,7 @@ import ERouterPath from "@/shared/common/enum/router";
 import {useNavigate} from "react-router-dom";
 import DeleteUserConfirm from "@/features/admin/delete-user-confirm/ui";
 import UpdateUserGrants from "@/features/admin/update-grant-user/ui";
-import {EGrantID} from "@/shared/emum/admin";
+import {EGrantID} from "@/shared/enum/admin";
 
 interface IUserCardProps {
     user: IGetUserDto;

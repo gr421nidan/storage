@@ -14,7 +14,7 @@ const MainLayout: React.FC = () => {
         [ERouterPath.STORAGE_TRASH]: "Корзина",
         [ERouterPath.USERS]: "Пользователи",
         [ERouterPath.STORAGE_SETTINGS]: "Настройки хранилища",
-        [ERouterPath.AVAILABLE_STORAGE]: "Доступные хранилища",
+        [ERouterPath.AVAILABLE_STORAGES]: "Доступные хранилища",
         [ERouterPath.USER_LOGS]: "Пользователи",
     };
     const [isNavbarOpen, setNavbarOpen] = useState(false);

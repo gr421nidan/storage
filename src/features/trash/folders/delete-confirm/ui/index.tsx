@@ -4,32 +4,33 @@ import Button from "@/shared/components/buttons/button";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import { buttonsContainerStyle } from "../style";
+import useDeleteFolderPresenter from "@/entities/cases/storage/folders/delete/presenter";
 
 interface IDeleteFolderConfirmProps {
     isOpen: boolean;
     onClose: () => void;
+    folderId: string;
 }
 
-const DeleteFolderConfirm: React.FC<IDeleteFolderConfirmProps> = ({ isOpen, onClose }) => {
+const DeleteFolderConfirm: React.FC<IDeleteFolderConfirmProps> = ({ isOpen, onClose, folderId  }) => {
     const buttonsSize = "h-[52px]";
-
+    const { handleDeleteFolder } = useDeleteFolderPresenter(onClose);
     if (!isOpen) return null;
 
     return (
         <Modal title="Удалить" className="w-[655px]" onClose={onClose}>
             <div>
-                <p className="text-xl">Вы уверены, что хотите безвазвратно удалить папку?</p>
+                <p className="text-xl">Вы уверены в безвозвратном удалении?</p>
                 <div className={buttonsContainerStyle}>
                     <Button
                         className={cn(buttonStyles({ variant: "baseSecondary" }), "w-[206px]", buttonsSize)}
-                        onClick={onClose}
-                    >
+                        onClick={onClose}>
                         Отменить
                     </Button>
                     <Button
                         type="button"
                         className={`w-[217px] ${buttonsSize}`}
-                    >
+                        onClick={() => handleDeleteFolder(folderId)}>
                         Удалить
                     </Button>
                 </div>

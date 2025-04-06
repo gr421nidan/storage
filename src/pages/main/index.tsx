@@ -1,134 +1,116 @@
-import {ReactNode, useState} from "react";
+import { ReactNode, useState} from "react";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import FilesView from "@/widgets/files-view";
 import FoldersView from "@/widgets/folders-view";
-import SearchInput from "@/shared/components/search";
 import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-folders-and-files/use-case";
-import FiltersFilesPopupMenu from "@/features/files/filters-files/ui";
-import Button from "@/shared/components/buttons/button";
 import CreateFolderModal from "@/features/folders/add-folder-form/ui";
 import FilesUploadModal from "@/features/files/upload-files-form/ui";
-import SortingFilesPopupMenu from "@/features/files/sorting/ui";
-import ViewModeToggle from "@/shared/components/view-mode";
 import { format } from "date-fns";
 import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
 import notFound from "@/assets/img-empty/not_found.png";
 import notFoundDark from "@/assets/img-empty/not_found_dark.png";
-import {Icon} from "@iconify/react";
+import { Icon } from "@iconify/react";
+import ControlPanel from "@/widgets/control-panel";
+import useFolderNavigation from "@/shared/hooks/folder-navigation";
+import { IFiltersPort, ISortingPort } from "@/shared/interface/files";
 
 const MainPage = (): ReactNode => {
+    const [query, setQuery] = useState<{
+        search?: string;
+        sortBy?: string;
+        sortOrder?: "asc" | "desc";
+        fileType?: string[];
+        created_at?: string;
+    }>({});
+
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
-    const [showFiles, setShowFiles] = useState(true);
-    const [showFolders, setShowFolders] = useState(true);
-    const [search, setSearch] = useState<string | undefined>(undefined);
-    const [sortBy, setSortBy] = useState<string | undefined>(undefined);
-    const [sortOrder, setSortOrder] = useState<"asc" | "desc" | undefined>(undefined);
-    const [filters, setFilters] = useState<{ fileType?: string[]; created_at?: string }>({});
-    const {allFiles, folders} = useGetStorageFilesAndFoldersUseCase({
-        search,
-        sortBy,
-        sortOrder,
-        fileType: filters.fileType,
-        created_at: filters.created_at,
-    });
+    const [visibility, setVisibility] = useState({ files: true, folders: true });
+    const [modalState, setModalState] = useState({ create: false, upload: false });
     const [isFilterPopupOpen, setIsFilterPopupOpen] = useState(false);
     const [isSortingPopupOpen, setIsSortingPopupOpen] = useState(false);
-    const [isOpenCreate, setIsOpenCreate] = useState(false);
-    const [isOpenUpload, setIsOpenUpload] = useState(false);
-    const [currentFolder, setCurrentFolder] = useState<string | undefined>(undefined);
-    const handleToggleFiles = () => setShowFiles((prev) => !prev);
-    const handleToggleFolders = () => setShowFolders((prev) => !prev);
-    const handleOpenCreateModal = () => setIsOpenCreate(true);
-    const handleOpenUploadModal = () => setIsOpenUpload(true);
-    const handleCloseCreateModal = () => setIsOpenCreate(false);
-    const handleCloseUploadModal = () => setIsOpenUpload(false);
-    const handleApplySorting = (sorting: { sort_by: string, sort_order: "asc" | "desc" }) => {
-        setSortBy(sorting.sort_by);
-        setSortOrder(sorting.sort_order);
-    };
-    const handleFolderDoubleClick = (folderId: string) => {
-        setCurrentFolder(folderId);
+
+    const { currentFolder, openFolder, resetFolder } = useFolderNavigation();
+
+    const { allFiles, folders } = useGetStorageFilesAndFoldersUseCase({
+        ...query,
+        search: query.search,
+        sortBy: query.sortBy,
+        sortOrder: query.sortOrder,
+        fileType: query.fileType,
+        created_at: query.created_at,
+    });
+
+    const isEmpty = !folders.length && !allFiles.length;
+
+    const toggleVisibility = (key: "files" | "folders") => {
+        setVisibility(prev => ({ ...prev, [key]: !prev[key] }));
     };
 
-    const handleBackToAllFolders = () => {
-        setCurrentFolder(undefined);
-    };
-    const handleApplyFilters = (newFilters: { fileType?: string[]; date?: Date | null }) => {
-        setFilters({
+    const handleApplyFilters = (newFilters: IFiltersPort) => {
+        setQuery((prev) => ({
+            ...prev,
             fileType: newFilters.fileType,
             created_at: newFilters.date ? format(newFilters.date, "yyyy-MM-dd") : undefined,
-        });
+        }));
     };
+
+    const handleApplySorting = (sorting: ISortingPort) => {
+        setQuery((prev) => ({
+            ...prev,
+            sortBy: sorting.sort_by,
+            sortOrder: sorting.sort_order,
+        }));
+    };
+
+    const handleModalToggle = (modal: "create" | "upload", state: boolean) => {
+        setModalState((prev) => ({ ...prev, [modal]: state }));
+    };
+
     const toggleFilterPopup = () => setIsFilterPopupOpen((prev) => !prev);
     const toggleSortingPopup = () => setIsSortingPopupOpen((prev) => !prev);
-    const resetFilters = () => setFilters({});
-    const resetSorting = () => {
-        setSortBy(undefined);
-        setSortOrder(undefined);
-    };
-    const hasFiles = allFiles.length > 0;
-    const hasFolders = folders.length > 0;
-    const isEmpty = !hasFiles && !hasFolders;
+    const resetFilters = () => setQuery((prev) => ({ ...prev, fileType: undefined, created_at: undefined }));
+    const resetSorting = () => setQuery((prev) => ({ ...prev, sortBy: undefined, sortOrder: undefined }));
+
     return (
         <div className="dark:text-white flex flex-col gap-[40px]">
-            <div className="flex justify-between items-center mr-[17px]">
-                <SearchInput placeholder="Поиск материалов" className="w-[591px] h-[54px]" onSearch={setSearch}/>
-                <div className="flex items-center gap-[35px]">
-                    <div className="relative">
-                        <ButtonIcon
-                            icon="simple-line-icons:arrow-down"
-                            className="h-[52px] w-[248px]"
-                            onClick={toggleFilterPopup}
-                        >
-                            Фильтрация
-                        </ButtonIcon>
-                        {isFilterPopupOpen && (
-                            <div className="absolute left-0 top-full mt-2 z-50">
-                                <FiltersFilesPopupMenu
-                                    isOpen={isFilterPopupOpen}
-                                    onClose={toggleFilterPopup}
-                                    onApply={handleApplyFilters}
-                                    onReset={resetFilters}
-                                />
-                            </div>
-                        )}
-                    </div>
-                    <div className="relative">
-                        <ButtonIcon
-                            icon="simple-line-icons:arrow-down"
-                            className="h-[52px] w-[248px]"
-                            onClick={toggleSortingPopup}
-                        >
-                            Сортировка
-                        </ButtonIcon>
-                        {isSortingPopupOpen && (
-                            <div className="absolute left-0 top-full mt-2 z-50">
-                                <SortingFilesPopupMenu
-                                    isOpen={isSortingPopupOpen}
-                                    onClose={toggleSortingPopup}
-                                    onApply={handleApplySorting}
-                                    onReset={resetSorting}
-                                />
-                            </div>
-                        )}
-                    </div>
-                </div>
-                <ViewModeToggle viewMode={viewMode} setViewMode={setViewMode}/>
-            </div>
-            <div className="flex gap-[35px]">
-                <Button className="w-[295px] h-13" onClick={handleOpenUploadModal}>Загрузить файлы</Button>
-                <Button className="w-[261px] h-13" onClick={handleOpenCreateModal}>Создать папку</Button>
-            </div>
+            <ControlPanel
+                setSearch={(search) => setQuery((prev) => ({ ...prev, search }))}
+                isFilterPopupOpen={isFilterPopupOpen}
+                toggleFilterPopup={toggleFilterPopup}
+                isSortingPopupOpen={isSortingPopupOpen}
+                toggleSortingPopup={toggleSortingPopup}
+                handleApplyFilters={handleApplyFilters}
+                resetFilters={resetFilters}
+                handleApplySorting={handleApplySorting}
+                resetSorting={resetSorting}
+                viewMode={viewMode}
+                setViewMode={setViewMode}
+                handleOpenUploadModal={() => handleModalToggle("upload", true)}
+                handleOpenCreateModal={() => handleModalToggle("create", true)}
+            />
 
-            <CreateFolderModal isOpen={isOpenCreate} onClose={handleCloseCreateModal} currentFolder={currentFolder}/>
-            <FilesUploadModal isOpen={isOpenUpload} onClose={handleCloseUploadModal} currentFolder={currentFolder}/>
-            <div className="relative max-h-[560px] overflow-y-auto scrollbar ">
+            <CreateFolderModal
+                isOpen={modalState.create}
+                onClose={() => handleModalToggle("create", false)}
+                currentFolder={currentFolder}
+            />
+            <FilesUploadModal
+                isOpen={modalState.upload}
+                onClose={() => handleModalToggle("upload", false)}
+                currentFolder={currentFolder}
+            />
+
+            <div className="relative min-h-60 max-h-[560px] overflow-y-auto scrollbar">
                 {currentFolder && (
-                    <div className="flex items-center cursor-pointer gap-2 font-semibold mb-[15px]"
-                         onClick={handleBackToAllFolders}>
-                        <span className="flex items-center gap-2">Моё хранилище <Icon icon="simple-line-icons:arrow-right" width="15" height="15" /> {folders.find(f => f.id === currentFolder)?.title}</span>
-                    </div>)
-                }
+                    <div className="flex items-center cursor-pointer gap-2 font-semibold mb-[15px]" onClick={resetFolder}>
+                        <span className="flex items-center gap-2">
+                            Моё хранилище
+                            <Icon icon="simple-line-icons:arrow-right" width="15" height="15" />
+                            {folders.find((f) => f.id === currentFolder)?.title}
+                        </span>
+                    </div>
+                )}
+
                 {isEmpty ? (
                     <div className="flex flex-col items-center justify-center mt-[100px] h-full">
                         <ImgThemeSwitcher
@@ -141,25 +123,38 @@ const MainPage = (): ReactNode => {
                     </div>
                 ) : (
                     <>
-                    {hasFolders && (
-                        <div>
-                            <div className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]"
-                                 onClick={handleToggleFolders}>
-                                <span>Все папки</span>
-                                <ButtonIcon icon="simple-line-icons:arrow-up"
-                                            className={showFolders ? "rotate-90" : ""}/>
-                            </div>
-                            {showFolders && <FoldersView folders={folders} onFolderDoubleClick={handleFolderDoubleClick}/>}
-                        </div>
-                    )}
-                    {hasFolders && hasFiles && <div className="h-[2px] bg-purple w-[1227px] mt-[18px] mb-[10px]" />}
-                        {hasFiles && (
+                        {!!folders.length && (
                             <div>
-                                <div className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]" onClick={handleToggleFiles}>
-                                    <span>Все файлы</span>
-                                    <ButtonIcon icon="simple-line-icons:arrow-up" className={showFiles ? "rotate-90" : ""} />
+                                <div
+                                    className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]"
+                                    onClick={() => toggleVisibility("folders")}>
+                                    <span>Все папки</span>
+                                    <ButtonIcon
+                                        icon="simple-line-icons:arrow-up"
+                                        className={visibility.folders ? "rotate-90" : ""}
+                                    />
                                 </div>
-                                {showFiles && (
+                                {visibility.folders && (
+                                    <FoldersView folders={folders} onFolderDoubleClick={openFolder} variant="default" />
+                                )}
+                            </div>
+                        )}
+
+                        {!!folders.length && !!allFiles.length && (
+                            <div className="h-[2px] bg-purple w-[1227px] mt-[18px] mb-[10px]" />
+                        )}
+
+                        {!!allFiles.length && (
+                            <div>
+                                <div
+                                    className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]"
+                                    onClick={() => toggleVisibility("files")}>
+                                    <span>Все файлы</span>
+                                    <ButtonIcon
+                                        icon="simple-line-icons:arrow-up"
+                                        className={visibility.files ? "rotate-90" : ""}/>
+                                </div>
+                                {visibility.files && (
                                     <>
                                         {viewMode === "list" && (
                                             <div className="grid grid-cols-[1.6fr_1fr_1fr_1fr_1.4fr] gap-6 px-[36px] py-[10px] text-center">
@@ -170,7 +165,7 @@ const MainPage = (): ReactNode => {
                                                 <span>Действия</span>
                                             </div>
                                         )}
-                                        <FilesView files={allFiles} viewMode={viewMode} />
+                                        <FilesView files={allFiles} viewMode={viewMode} variant="default" />
                                     </>
                                 )}
                             </div>

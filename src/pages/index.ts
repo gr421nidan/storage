@@ -10,6 +10,7 @@ export const LazyUserLogsPage =LoadComponent(lazy(async () => import("@/pages/ad
 export const LazyUserProfilePage =LoadComponent(lazy(async () => import("@/pages/user/profile")))
 export const LazyStorageTrashPage =LoadComponent(lazy(async () => import("@/pages/user/storage-trash")))
 export const LazyAvailableStoragePage =LoadComponent(lazy(async () => import("@/pages/user/available-storage")))
+export const LazyAvailableStoragesPage =LoadComponent(lazy(async () => import("@/pages/user/available-storages")))
 export const LazyStorageSettingsPage =LoadComponent(lazy(async () => import("@/pages/admin/storage-settings")))
 export const LazyConnectingStoragePage =LoadComponent(lazy(async () => import("@/pages/user/connecting-storage")))
 
