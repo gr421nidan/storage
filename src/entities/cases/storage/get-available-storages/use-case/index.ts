@@ -6,11 +6,10 @@ import convertBytesToGB from "@/shared/utils/convertSizeStorage";
 
 const useGetAvailableStoragesUseCase = () => {
     const execute = async () => {
-        const { storage } = await getAvailableStoragesRepository();
-
-        return storage.map((item: IGetStorageDto) => ({
-            ...item,
-            size: convertBytesToGB(item.size),
+        const { storages } = await getAvailableStoragesRepository();
+        return storages.map((storage: IGetStorageDto) => ({
+            ...storage,
+            storage_size: convertBytesToGB(storage.storage_size !== null ? storage.storage_size : 0),
         }));
     };
 
@@ -20,7 +19,7 @@ const useGetAvailableStoragesUseCase = () => {
     });
 
     return {
-        storage: data || [],
+        storages: data || [],
         ...rest,
     };
 };

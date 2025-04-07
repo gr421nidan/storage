@@ -15,12 +15,12 @@ interface IGetFilesAndFoldersDto {
 
 interface IGetStorageDto {
     id: string;
-    name: string;
-    size: number;
+    title: string;
+    storage_size: number | null;
     grant_id: EGrantID;
 }
 
 interface IGetAvailableStoragesDto {
-    storage:IGetStorageDto[];
+    storages:IGetStorageDto[];
 }
 export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto };
