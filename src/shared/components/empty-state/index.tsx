@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {ReactNode} from "react";
 import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
 import emptyTrash from "@/assets/img-empty/empty_trash.png";
 import emptyTrashDark from "@/assets/img-empty/empty_trash_dark.png";
@@ -13,14 +13,14 @@ interface IEmptyStateProps {
 }
 
 const EmptyState: React.FC<IEmptyStateProps> = ({
-                                                                         isEmpty,
-                                                                         emptyImage,
-                                                                         emptyText,
-                                                                         content,
-                                                                     }) => {
+                                                    isEmpty,
+                                                    emptyImage,
+                                                    emptyText,
+                                                    content,
+                                                }) => {
     const defaultImages = {
-        trash: { light: emptyTrash, dark: emptyTrashDark },
-        notFound: { light: notFound, dark: notFoundDark },
+        trash: {light: emptyTrash, dark: emptyTrashDark},
+        notFound: {light: notFound, dark: notFoundDark},
     };
     const imageToUse = emptyImage || defaultImages.notFound;
 
@@ -32,7 +32,7 @@ const EmptyState: React.FC<IEmptyStateProps> = ({
                         light={imageToUse.light}
                         dark={imageToUse.dark}
                         alt={emptyText}
-                        className="w-[400px] h-[207px]"
+                        className="w-[380px] h-[180px]"
                     />
                     <span className="text-[32px] mt-5">{emptyText}</span>
                 </div>

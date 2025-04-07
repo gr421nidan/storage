@@ -14,7 +14,9 @@ interface IMoveToTrashFolderConfirmProps {
 
 const MoveToTrashFolderConfirm: React.FC<IMoveToTrashFolderConfirmProps> = ({ isOpen, onClose, folderId }) => {
     const { handleMoveToTrashFolder } = useMoveToTrashFolderPresenter(onClose);
-
+    const handleDelete = () => {
+        handleMoveToTrashFolder(folderId);
+    };
     if (!isOpen) return null;
 
     return (
@@ -30,7 +32,7 @@ const MoveToTrashFolderConfirm: React.FC<IMoveToTrashFolderConfirmProps> = ({ is
                     <Button
                         type="button"
                         className={styles.buttonDelete}
-                        onClick={() => handleMoveToTrashFolder(folderId)}>
+                        onClick={handleDelete}>
                         Удалить
                     </Button>
                 </div>

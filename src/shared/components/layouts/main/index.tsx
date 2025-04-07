@@ -2,12 +2,18 @@ import React, { useState } from "react";
 import NavbarWidget from "@/widgets/navbar";
 import HeaderWidget from "@/widgets/header";
 import SidebarWidget from "@/widgets/sidebar";
-import { Outlet, useLocation } from "react-router-dom";
+import {Outlet, useLocation, useMatch, useParams} from "react-router-dom";
 import ERouterPath from "@/shared/common/enum/router";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
+import useGetAvailableStoragesUseCase from "@/entities/cases/storage/get-available-storages/use-case";
 
 const MainLayout: React.FC = () => {
+    const location = useLocation();
+    const { id_storage } = useParams<{ id_storage: string }>();
+    const isStoragePage = useMatch("/storage/:id_storage");
+
     const { data } = useGetUserProfileUseCase();
+    const { storages } = useGetAvailableStoragesUseCase();
     const pageTitles: Record<string, string> = {
         [ERouterPath.MAIN_PAGE]: data?.isAdmin ? "Общее хранилище" : "Мое хранилище",
         [ERouterPath.USER_PROFILE]: "Личные данные",
@@ -17,33 +23,25 @@ const MainLayout: React.FC = () => {
         [ERouterPath.AVAILABLE_STORAGES]: "Доступные хранилища",
     };
 
-    const dynamicTitles: Record<string, (params: any) => string> = {
-        [ERouterPath.USER_LOGS]: () => "Пользователи",
-        [ERouterPath.STORAGE]: (params) => `Хранилище ${params.id_storage}`,
-    };
-
-    const getDynamicTitle = (pathname: string) => {
-        const userLogsMatch = pathname.match(/\/users\/(?<id_user>[^/]+)/);
-        const storageMatch = pathname.match(/\/storage\/(?<id_storage>[^/]+)/);
-        if (userLogsMatch && userLogsMatch.groups) {
-            return dynamicTitles[ERouterPath.USER_LOGS](userLogsMatch.groups);
+    const getDynamicTitle = () => {
+        if (location.pathname.startsWith("/users/")) {
+            return "Пользователи";
         }
-        if (storageMatch && storageMatch.groups) {
-            return dynamicTitles[ERouterPath.STORAGE](storageMatch.groups);
+        if (isStoragePage && id_storage) {
+            const storageTitle = storages.find(item => item.id === id_storage)?.title;
+            return storageTitle ? `Хранилище ${storageTitle}` : `Хранилище ${id_storage}`;
         }
         return null;
     };
+
+    const staticTitle = pageTitles[location.pathname];
+    const dynamicTitle = getDynamicTitle();
+    const title = staticTitle || dynamicTitle;
 
     const [isNavbarOpen, setNavbarOpen] = useState(false);
     const toggleNavbar = () => {
         setNavbarOpen(!isNavbarOpen);
     };
-
-    const location = useLocation();
-    const staticTitle = pageTitles[location.pathname];
-    const dynamicTitle = getDynamicTitle(location.pathname);
-    const title = staticTitle || dynamicTitle;
-
     return (
         <div className="flex flex-col min-h-screen">
             <HeaderWidget toggleNavbar={toggleNavbar} />

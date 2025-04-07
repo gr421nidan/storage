@@ -7,6 +7,7 @@ const styles = {
     containerRadio: "flex items-center",
     containerButtonRadios: "flex gap-6",
     title: "text-2xl",
+    datePickerContainer: "flex justify-between items-center mt-4",
 };
 
 export default styles;

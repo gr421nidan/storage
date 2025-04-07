@@ -2,9 +2,11 @@ import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 
-const CurrentStorage = (): string | undefined => {
+type ICurrentStorage =string | undefined;
+
+const CurrentStorage = (): ICurrentStorage => {
     const { id_storage } = useParams<{ id_storage?: string }>();
-    const [storageId, setStorageId] = useState<string | undefined>(undefined);
+    const [storageId, setStorageId] = useState<ICurrentStorage>(undefined);
     const { data: userProfile } = useGetUserProfileUseCase();
 
     useEffect(() => {

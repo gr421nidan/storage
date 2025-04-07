@@ -7,7 +7,6 @@ import useUpdateUserPhotoPresenter from "@/entities/cases/user/update-user-photo
 import {
     fileInputContainerStyle,
     fileNameStyle,
-    errorMessageStyle,
     buttonsContainerStyle,
     cancelButtonStyle,
     saveButtonStyle,
@@ -20,7 +19,7 @@ interface IUserPhotoUploadProps {
 }
 
 const UserPhotoUploadForm: React.FC<IUserPhotoUploadProps> = ({ isOpen, onClose }) => {
-    const { register, onSubmit, errors, handleFileChange, fileName } = useUpdateUserPhotoPresenter({
+    const { register, onSubmit, handleFileChange, fileName } = useUpdateUserPhotoPresenter({
         onClose,
     });
 
@@ -50,15 +49,11 @@ const UserPhotoUploadForm: React.FC<IUserPhotoUploadProps> = ({ isOpen, onClose 
                         </span>
                     </div>
                 </div>
-                {errors.file && (
-                    <div className={errorMessageStyle}>
-                        {errors.file.message}
-                    </div>
-                )}
                 <div className={buttonsContainerStyle}>
                     <Button className={cn(buttonStyles({ variant: "baseSecondary" }), cancelButtonStyle)} onClick={onClose}>Отменить</Button>
                     <Button
                         type="submit"
+                        disabled={!fileName}
                         className={saveButtonStyle}>
                         Сохранить
                     </Button>

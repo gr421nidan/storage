@@ -26,9 +26,7 @@ const CleaningTrashConfirm: React.FC<ICleaningConfirmProps> = ({ isOpen, onClose
                         onClick={onClose}>
                         Отменить
                     </Button>
-                    <Button
-                        type="button"
-                        className="w-[202px] h-[52px]"
+                    <Button type="button" className="w-[202px] h-13"
                         onClick={handleCleaning}>
                         Очистить
                     </Button>

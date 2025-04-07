@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import CheckboxInput from "@/shared/components/inputs/checkbox-input";
 import Button from "@/shared/components/buttons/button";
-import  PopupMenu from "@/shared/components/popup-menu";
-import { cn } from "@/shared/utils/cn";
+import PopupMenu from "@/shared/components/popup-menu";
+import {cn} from "@/shared/utils/cn";
 import DatePickerButton from "@/shared/components/date-picker";
 import styles from "@/features/admin/filters-users/style";
-import { buttonStyles } from "@/shared/components/buttons/style";
-import { IFiltersPort } from "@/shared/interface/files";
+import {buttonStyles} from "@/shared/components/buttons/style";
+import {IFiltersPort} from "@/shared/interface/files";
 
 interface IFiltersPopupMenuProps {
     isOpen: boolean;
@@ -16,47 +16,50 @@ interface IFiltersPopupMenuProps {
 }
 
 const fileTypeOptions = [
-    { label: "Изображения", value: "image" },
-    { label: "Аудио", value: "audio" },
-    { label: "Видео", value: "video" },
-    { label: "Текстовые файлы", value: "text" },
+    {label: "Изображения", value: "image"},
+    {label: "Аудио", value: "audio"},
+    {label: "Видео", value: "video"},
+    {label: "Текстовые файлы", value: "text"},
 ];
 
-const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClose, onApply, onReset }) => {
-    const [selectedFileType, setSelectedFileType] = useState<string | null>(null);
+const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({isOpen, onClose, onApply, onReset}) => {
+    const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]); // Используем массив для типов
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
     const handleFileTypeChange = (type: string) => () => {
-        setSelectedFileType(prev => (prev === type ? null : type));
+        setSelectedFileTypes(prev =>
+            prev.includes(type)
+                ? prev.filter(t => t !== type)
+                : [...prev, type]
+        );
     };
-
     const handleApply = () => {
-        onApply({
-            type: selectedFileType || undefined,
+        const filters: IFiltersPort = {
             date: selectedDate,
-        });
-    };
+            type: selectedFileTypes,
+        };
 
+        onApply(filters);
+    };
     const handleReset = () => {
-        setSelectedFileType(null);
+        setSelectedFileTypes([]);
         setSelectedDate(null);
         onReset();
     };
-
     return (
-        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(styles.containerFilters, "h-[311px]") }>
+        <PopupMenu isOpen={isOpen} onClose={onClose} className={cn(styles.containerFilters, "h-[311px]")}>
             <div>
                 <div>
-                    <p className="mb-2">Тип данных</p>
-                    <div className="border-b-2 border-purple-light my-2"></div>
+                    <p>Тип данных</p>
+                    <div className={cn(styles.separator, "my-2")}></div>
                     <div className="flex flex-col gap-2">
-                        {fileTypeOptions.map(({ label, value }) => (
+                        {fileTypeOptions.map(({label, value}) => (
                             <label key={value} className={styles.containerRadio}>
                                 <CheckboxInput
                                     name={value}
                                     type="checkbox"
                                     value={value}
-                                    checked={selectedFileType === value}
+                                    checked={selectedFileTypes.includes(value)}
                                     onChange={handleFileTypeChange(value)}
                                     className={styles.radioButton}
                                 />
@@ -66,10 +69,10 @@ const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({ isOpen, onClo
                     </div>
                 </div>
                 <div>
-                    <div className="border-b-2 border-purple-light my-1"></div>
-                    <div className="flex justify-between items-center mt-4">
+                    <div className={cn(styles.separator, "my-2")}></div>
+                    <div className={styles.datePickerContainer}>
                         <p>Дата добавления</p>
-                        <DatePickerButton value={selectedDate} onChange={setSelectedDate} format="dd.MM.yyyy" />
+                        <DatePickerButton value={selectedDate} onChange={setSelectedDate} format="dd.MM.yyyy"/>
                     </div>
                 </div>
 
