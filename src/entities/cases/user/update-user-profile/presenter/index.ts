@@ -1,20 +1,19 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import validationSchema from "../validation";
-import {IFormUpdateUserData} from "@/shared/type/user";
 import useUpdateUserUseCase from "../use-case";
+import mapValues from 'lodash/mapValues';
+import {IUpdateUserPort} from "@/shared/interface/user";
 
 const useUpdateUserPresenter = () => {
-    const {register, handleSubmit, formState: {errors}} = useForm<IFormUpdateUserData>({
+    const {register, handleSubmit, formState: {errors}} = useForm<IUpdateUserPort>({
         resolver: yupResolver(validationSchema),
     });
     const {mutateAsync} = useUpdateUserUseCase();
-    const onSubmit = handleSubmit(async (data: IFormUpdateUserData) => {
-        const cleanedData = Object.fromEntries(
-            Object.entries(data).filter(([, value]) => {
-                return value !== "" && value !== null && value !== undefined;
-            })
-        );
+    const onSubmit = handleSubmit(async (data: IUpdateUserPort) => {
+        const cleanedData =  mapValues(data, (value) => {
+            return value === "" || value === undefined ? null : value;
+        });
         await mutateAsync(cleanedData);
     });
 

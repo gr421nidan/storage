@@ -1,8 +1,8 @@
 interface IUpdateUserPort {
-    surname?: string;
-    firstname?: string;
-    patronymic?: string
-    phone?: string;
+    surname?: string | null;
+    firstname?: string | null;
+    patronymic?: string | null;
+    phone?: string | null;
 }
 
 interface IUpdateUserDto {
@@ -17,8 +17,9 @@ interface IPasswordUserChangePort {
     oldPassword: string;
     newPassword: string;
 }
+
 interface IFormPasswordChangeData extends IPasswordUserChangePort {
-    passwordRepeater:string;
+    passwordRepeater: string;
 }
 
 export type {

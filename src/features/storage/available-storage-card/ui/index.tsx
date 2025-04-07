@@ -1,9 +1,9 @@
 import React from "react";
-import { IGetStorageDto } from "@/shared/interface/storage";
+import {IGetStorageDto} from "@/shared/interface/storage";
 import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
 import AvailableStorage from "@/assets/storage-img/available_storage.png";
 import AvailableStorageDark from "@/assets/storage-img/available_storage_dark.png";
-import { EGrantID } from "@/shared/enum/admin";
+import {EGrantID} from "@/shared/enum/admin";
 import styles from "../style";
 import {useNavigate} from "react-router-dom";
 import ERouterPath from "@/shared/common/enum/router";
@@ -17,7 +17,7 @@ const GRANT_NAMES: Record<EGrantID, string> = {
     [EGrantID.FULL_ACCESS]: "полный доступ",
 };
 
-const AvailableStorageCard: React.FC<IAvailableStorageCardProps> = ({ storage }) => {
+const AvailableStorageCard: React.FC<IAvailableStorageCardProps> = ({storage}) => {
     const grantName = GRANT_NAMES[storage.grant_id];
     const totalGB = 15;
     const navigate = useNavigate();
@@ -37,9 +37,7 @@ const AvailableStorageCard: React.FC<IAvailableStorageCardProps> = ({ storage })
                     <h3 className="truncate ">{storage.title}</h3>
                 </span>
                 <span className={styles.accessType}>Тип доступа: {grantName}</span>
-                <div className={styles.storageInfo}>
-                    Занято {storage.storage_size} гб из {totalGB} гб
-                </div>
+                <span className="text-bold">Занято {storage.storage_size} гб из {totalGB} гб</span>
             </div>
         </div>
     );
