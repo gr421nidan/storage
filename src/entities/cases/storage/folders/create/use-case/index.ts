@@ -8,12 +8,9 @@ import {ICreateStorageFolderDto, ICreateStorageFolderPort} from "@/shared/interf
 import createFolderRepository from "@/entities/repo/storage/folders/create";
 
 const useCreateFolderUseCase = () => {
-    const storageId = CurrentStorage();
+    const storageId = CurrentStorage() as string;
     const queryClient = useQueryClient();
     const execute = (data: ICreateStorageFolderPort) => {
-        if (!storageId) {
-            return Promise.reject();
-        }
         return createFolderRepository(data, storageId);
     };
     return useMutation<ICreateStorageFolderDto, AxiosError<IApiErrorDto>, ICreateStorageFolderPort>({
