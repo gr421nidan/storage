@@ -2,7 +2,6 @@ enum EFileType {
     JPEG = "image/jpeg",
     JPG = "image/jpg",
     PNG = "image/png",
-    GIF = "image/gif",
     MP3 = "audio/mpeg",
     WAV = "audio/wave",
     FLAC = "audio/flac",

@@ -27,7 +27,7 @@ const useUploadFileUseCase = () => {
         },
         onError: (error) => {
             if (error.status === HttpStatusCode.BadRequest) {
-                enqueueSnackbar("Недопустимый тип файла. Разрешенные расширения JPG, JPEG PNG, GIF, ODT, DOC, DOCX, TXT, AAC, AVI, FLAC, MP3, MP4, WAV", {variant: 'errorSnackbar'});
+                enqueueSnackbar("Недопустимый тип файла. Разрешенные расширения JPG, JPEG PNG, ODT, DOC, DOCX, TXT, AAC, AVI, FLAC, MP3, MP4, WAV", {variant: 'errorSnackbar'});
             }
             if (error.status === HttpStatusCode.PayloadTooLarge) {
                 enqueueSnackbar("Недопустимый размер файла.", {variant: 'errorSnackbar'});

@@ -2,7 +2,6 @@ import React from "react";
 import jpeg from "@/assets/file-icons/icon-jpeg.png";
 import jpg from "@/assets/file-icons/icon-jpg.png";
 import png from "@/assets/file-icons/icon-png.png";
-import gif from "@/assets/file-icons/icon-gif.png";
 import mp3 from "@/assets/file-icons/icon-mp3.png";
 import wav from "@/assets/file-icons/icon-wav.png";
 import flac from "@/assets/file-icons/icon-flac.png";
@@ -20,7 +19,6 @@ const fileIcons: Record<EFileType, string> = {
     [EFileType.JPEG]: jpeg,
     [EFileType.JPG]: jpg,
     [EFileType.PNG]: png,
-    [EFileType.GIF]: gif,
     [EFileType.MP3]: mp3,
     [EFileType.WAV]: wav,
     [EFileType.FLAC]: flac,

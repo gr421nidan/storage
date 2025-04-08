@@ -17,7 +17,6 @@ const FileViewer: React.FC<IFileViewerProps> = ({ fileType, fileUrl }) => {
         case EFileType.JPEG:
         case EFileType.JPG:
         case EFileType.PNG:
-        case EFileType.GIF:
             return <ImagePlayer fileUrl={fileUrl} />;
 
         case EFileType.MP3:

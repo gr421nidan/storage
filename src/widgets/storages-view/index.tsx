@@ -15,7 +15,7 @@ const StoragesViewWidget: React.FC = () => {
         <EmptyState
             isEmpty={isEmpty}
             emptyImage={{ light: noStorages, dark: noStoragesDark }}
-            emptyText="Нет доступных хранилищ"
+            emptyText="Ничего не найдено"
             content={
                 <div className={styles.gridContainer}>
                     {storages.map((storage: IGetStorageDto) => (
