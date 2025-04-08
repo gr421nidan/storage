@@ -1,4 +1,4 @@
-import {ERoleID} from "../../../enum/user/role";
+import {ERoleID} from "@/shared/enum/auth";
 
 interface IGetUserProfileDto {
     id: string;
@@ -12,4 +12,7 @@ interface IGetUserProfileDto {
     storage_id: string;
 }
 
-export type {IGetUserProfileDto};
+interface IUpdateUserDto {
+    message: string;
+}
+export type {IGetUserProfileDto, IUpdateUserDto,};

@@ -19,7 +19,7 @@ import ERouterPath from "@/shared/common/enum/router";
 import CheckboxInput from "@/shared/components/inputs/checkbox-input";
 import React from "react";
 import {IFormData} from "@/shared/type/auth";
-import {ERoleID} from "@/shared/enum/user";
+import {ERoleID} from "@/shared/enum/auth";
 
 const SignUpForm: React.FC = () => {
     const sizeInputs = "w-[474px] h-[54px]";

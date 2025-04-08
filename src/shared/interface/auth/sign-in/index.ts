@@ -1,4 +1,4 @@
-import {ERoleID} from "@/shared/enum/user";
+import {ERoleID} from "@/shared/enum/auth";
 
 interface ISignInPort {
     password: string;
