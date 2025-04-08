@@ -33,26 +33,28 @@ const StorageUsersPage = (): ReactNode => {
                         className="w-[1036px] h-[54px]"
                         onSearch={setSearch}
                     />
-                    <ButtonIcon
-                        icon="simple-line-icons:arrow-down"
-                        className="h-[54px] w-[248px]"
-                        onClick={handlePopupToggle}>
-                        Фильтрация
-                    </ButtonIcon>
+                    <div className="relative">
+                        <ButtonIcon
+                            icon="simple-line-icons:arrow-down"
+                            className="h-[54px] w-[248px]"
+                            onClick={handlePopupToggle}>
+                            Фильтрация
+                        </ButtonIcon>
+                        <FiltersUsersPopupMenu
+                            isOpen={isPopupOpen}
+                            onClose={handleClose}
+                            onApply={(filters) => {
+                                setGrantId(filters.access);
+                                setIsActive(filters.activity);
+                            }}
+                            onReset={() => {
+                                setGrantId(undefined);
+                                setIsActive(undefined);
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
-            <FiltersUsersPopupMenu
-                isOpen={isPopupOpen}
-                onClose={handleClose}
-                onApply={(filters) => {
-                    setGrantId(filters.access);
-                    setIsActive(filters.activity);
-                }}
-                onReset={() => {
-                    setGrantId(undefined);
-                    setIsActive(undefined);
-                }}
-            />
             <div>
                 <div className="flex flex-col gap-6">
                     <div className="flex gap-[183px] ml-[31px] ">
