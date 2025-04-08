@@ -5,8 +5,7 @@ export const buttonStyles = cva(
     {
         variants: {
             variant: {
-                base: "shadow-inner-button border border-3 text-center items-center justify-center bg-purple text-white border-purple-light hover:custom-shadow active:text-purple-light dark:bg-purple-light dark:text-black dark:active:text-purple dark:border-purple active:shadow-none text-2xl" +
-                    " disabled:bg-white disabled:text-gray-400 disabled:border-gray-400 disabled:dark:bg-dark-theme",
+                base: "shadow-inner-button border border-3 text-center items-center justify-center bg-purple text-white border-purple-light hover:custom-shadow active:text-purple-light dark:bg-purple-light dark:text-black dark:active:text-purple dark:border-purple active:shadow-none text-2xl",
 
                 icon: "text-purple hover:custom-drop-shadow dark:text-purple-light dark:hover:text-purple dark:hover:custom-drop-shadow",
 

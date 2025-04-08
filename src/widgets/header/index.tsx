@@ -1,4 +1,5 @@
 import {
+    buttonContainerStyle,
     headerContainerStyles,
     iconContainerStyles,
     titleStyles
@@ -23,7 +24,7 @@ const HeaderWidget: React.FC<IHeaderWidgetProps> = ({toggleNavbar}) => {
                     <h3>Облачное хранилище</h3>
                 </div>
             </div>
-            <div className="flex items-center gap-[74px] justify-center ">
+            <div className={buttonContainerStyle}>
                 <ThemeSwitcher/>
                 <ProfileLink activeColorClass="text-purple" />
             </div>
