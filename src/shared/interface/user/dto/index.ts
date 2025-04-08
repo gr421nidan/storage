@@ -15,4 +15,4 @@ interface IGetUserProfileDto {
 interface IUpdateUserDto {
     message: string;
 }
-export type {IGetUserProfileDto, IUpdateUserDto,};
+export type {IGetUserProfileDto, IUpdateUserDto};

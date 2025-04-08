@@ -13,6 +13,7 @@ import FilesViewWidget from "@/widgets/files-view";
 import FilesRowHeaders from "@/shared/components/files-row-header";
 import ToggleSection from "@/shared/components/toggle-section";
 import EmptyState from "@/shared/components/empty-state";
+import { styles } from "./style";
 
 const StorageTrashPage = (): ReactNode => {
     const [search, setSearch] = useState<string | undefined>(undefined);
@@ -25,18 +26,16 @@ const StorageTrashPage = (): ReactNode => {
     const toggleVisibility = (key: "files" | "folders") => {
         setVisibility(prev => ({ ...prev, [key]: !prev[key] }));
     };
-
     const openClearTrashModal = () => setIsClearTrashModalOpen(true);
     const closeClearTrashModal = () => setIsClearTrashModalOpen(false);
-
     return (
-        <div className="dark:text-white flex flex-col gap-[40px]">
-            <div className="flex justify-between items-center mr-[17px]">
-                <SearchInput placeholder="Поиск материалов" className="w-[822px] h-[54px]" onSearch={setSearch} />
-                <div className="flex items-center gap-[35px]">
+        <div className={styles.wrapper}>
+            <div className={styles.header}>
+                <SearchInput placeholder="Поиск материалов" className={styles.searchInput} onSearch={setSearch} />
+                <div className={styles.actions}>
                     <ButtonIcon
                         icon="lucide:trash"
-                        className={cn(buttonStyles({ variant: "base" }), "w-[301px] h-[52px]")}
+                        className={cn(buttonStyles({ variant: "base" }), styles.clearTrashButton)}
                         onClick={openClearTrashModal}>
                         Очистить корзину
                     </ButtonIcon>
@@ -61,9 +60,7 @@ const StorageTrashPage = (): ReactNode => {
                                 content={<FoldersViewWidget folders={folders} variant="trash" />}
                             />
                         )}
-
-                        {!!folders.length && !!files.length && <div className="h-[2px] bg-purple w-[1227px] mt-[18px] mb-[10px]" />}
-
+                        {!!folders.length && !!files.length && <div className={styles.separator} />}
                         {!!files.length && (
                             <ToggleSection
                                 type="files"

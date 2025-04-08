@@ -1,9 +1,5 @@
 import React from "react";
-import {
-    iconNavStyles,
-    navbarContainerStyles,
-    navContainerStyles
-} from "./style";
+import {iconNavStyles, navbarContainerStyles, navContainerStyles} from "./style";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import useLogout from "@/entities/cases/user/logout";
 import {cn} from "@/shared/utils/cn";

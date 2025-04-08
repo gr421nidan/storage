@@ -13,7 +13,7 @@ import ERouterPath from "@/shared/common/enum/router";
 import AuthLayout from "@/shared/components/layouts/auth";
 import MainLayout from "@/shared/components/layouts/main";
 import ProtectedRoute from "@/shared/components/protected-router";
-import ConnectingStorageLayout from "../../shared/components/layouts/main-secondary";
+import ConnectingStorageLayout from "@/shared/components/layouts/main-secondary";
 import {ERoleID} from "@/shared/enum/auth";
 
 const router = createBrowserRouter([

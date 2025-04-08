@@ -14,7 +14,6 @@ const useGetStorageFilesAndFoldersUseCase = ({
                                                  created_at,
                                              }: IGetStorageFilesAndFoldersPort) => {
     const storageId = CurrentStorage();
-
     const execute = async () => {
         if (!storageId) return { files: [], folders: [] };
         const params = {

@@ -23,7 +23,7 @@ const fileTypeOptions = [
 ];
 
 const FiltersFilesPopupMenu: React.FC<IFiltersPopupMenuProps> = ({isOpen, onClose, onApply, onReset}) => {
-    const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]); // Используем массив для типов
+    const [selectedFileTypes, setSelectedFileTypes] = useState<string[]>([]);
     const [selectedDate, setSelectedDate] = useState<Date | null>(null);
 
     const handleFileTypeChange = (type: string) => () => {

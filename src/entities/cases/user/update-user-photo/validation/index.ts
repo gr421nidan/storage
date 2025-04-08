@@ -4,7 +4,7 @@ import { IUpdateUserPhotoPort } from "@/shared/interface/user";
 const validationSchema: yup.ObjectSchema<IUpdateUserPhotoPort> = yup.object().shape({
     file: yup
         .mixed<File>()
-        .required("Выберите изображение")
+        .required()
 });
 
 export default validationSchema;

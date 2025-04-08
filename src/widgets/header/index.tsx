@@ -1,9 +1,4 @@
-import {
-    buttonContainerStyle,
-    headerContainerStyles,
-    iconContainerStyles,
-    titleStyles
-} from "./style";
+import {buttonContainerStyle, headerContainerStyles, iconContainerStyles, titleStyles} from "./style";
 import icon from "@/assets/icon.svg";
 import React from "react";
 import ThemeSwitcher from "@/shared/components/theme-switcher";
