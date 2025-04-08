@@ -7,5 +7,6 @@ enum QueryKey {
     FOLDER = "folder",
     TRASH = "trash",
     USER_LOGS = "userLogs",
+    STORAGES ="storages"
 }
 export default QueryKey;

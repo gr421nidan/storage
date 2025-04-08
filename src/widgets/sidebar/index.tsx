@@ -24,10 +24,9 @@ const SidebarWidget: React.FC = () => {
             <div>
                 <div className={dataSidebarContainerStyles}>
                     <h3>Данные памяти</h3>
-                    {data?.isAdmin ? (<div className="flex flex-col items-end">
-                                <ContextMenu withSeparator iconSize="h-[40px] w-[30px]" items={menuItems}/></div>
-                        ) :
-                        (<div className="mt-4"/>)}
+                    {data?.isAdmin ?  (<div className="mt-4"/>) :(<div className="flex flex-col items-end">
+                            <ContextMenu withSeparator iconSize="h-[40px] w-[30px]" items={menuItems}/></div>
+                    )}
                     <StorageChart
                         used_size={storageData?.storageUsedSizeInGB ?? 0}
                         total_size={storageData?.storageSizeInGB ?? 0}

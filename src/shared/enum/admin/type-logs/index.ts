@@ -5,5 +5,4 @@ export enum ETypeLog {
     UPLOAD_FILE = 3,
     DOWNLOAD_FOLDER = 4,
     DOWNLOAD_FILE = 5,
-    CREATE_FILE = 6,
 }

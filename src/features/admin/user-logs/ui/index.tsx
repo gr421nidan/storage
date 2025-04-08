@@ -12,7 +12,6 @@ const LOG_TYPE_LABELS: Record<ETypeLog, string> = {
     [ETypeLog.CREATE_FOLDER]: "Создание папки",
     [ETypeLog.DELETE_FOLDER]: "Удаление папки",
     [ETypeLog.DOWNLOAD_FOLDER]: "Скачивание папки",
-    [ETypeLog.CREATE_FILE]: "Создание файла",
     [ETypeLog.DELETE_FILE]: "Удаление файла",
     [ETypeLog.DOWNLOAD_FILE]: "Скачивание файла",
     [ETypeLog.UPLOAD_FILE]: "Загрузка файла",
