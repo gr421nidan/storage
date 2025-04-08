@@ -37,31 +37,25 @@ const useGetStorageFilesAndFoldersPresenter = () => {
         setFolderHistory([]);
     };
 
-    const handleApplyFilters = (newFilters: IFiltersPort) => {
+    const handleApplyFilters = ({ type, date, ...rest }: IFiltersPort) => {
         setParams((prev) => ({
             ...prev,
-            type: newFilters.type && newFilters.type.length ? newFilters.type : undefined,
-            created_at: newFilters.date ? format(newFilters.date, "yyyy-MM-dd") : undefined,
+            ...rest,
+            type: type?.length ? type : undefined,
+            created_at: date ? format(date, "yyyy-MM-dd") : undefined,
         }));
     };
 
-    const handleApplySorting = (sorting: ISortingPort) => {
+    const handleApplySorting = ({ sort_by, sort_order, ...rest }: ISortingPort) => {
         setParams((prev) => ({
             ...prev,
-            sortBy: sorting.sort_by,
-            sortOrder: sorting.sort_order,
+            ...rest,
+            sortBy: sort_by,
+            sortOrder: sort_order,
         }));
     };
-
-    const resetFilters = () => {
-        setParams((prev) => ({
-            ...prev,
-            type: undefined,
-            created_at: undefined,
-        }));
-    };
+    const resetFilters = () => setParams((prev) => ({ ...prev, type: undefined, created_at: undefined }));
     const resetSorting = () => setParams((prev) => ({ ...prev, sortBy: undefined, sortOrder: undefined }));
-
     return {
         currentFolder,
         openFolder,

@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
+import styles from "./style";
 
 interface IEmptyStateProps {
     isEmpty: boolean;
@@ -8,14 +9,7 @@ interface IEmptyStateProps {
     content: ReactNode;
 }
 
-import styles from "./style";
-
-const EmptyState: React.FC<IEmptyStateProps> = ({
-                                                    isEmpty,
-                                                    emptyImage,
-                                                    emptyText,
-                                                    content,
-                                                }) => {
+const EmptyState: React.FC<IEmptyStateProps> = ({isEmpty, emptyImage, emptyText, content}) => {
     return (
         <div className={styles.wrapper}>
             {isEmpty ? (

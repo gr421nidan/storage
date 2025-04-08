@@ -9,18 +9,13 @@ import CurrentStorage from "@/shared/hooks/storage";
 import uploadFileInFolderRepository from "@/entities/repo/storage/files/upload-in-folder";
 
 const useUploadFileUseCase = () => {
-    const storageId = CurrentStorage();
+    const storageId = CurrentStorage() as string;
     const queryClient = useQueryClient();
     const execute = (data: IUploadFilePort) => {
         const { folderId } = data;
         if (folderId) {
             return uploadFileInFolderRepository(data, folderId);
-        } else {
-            if (!storageId) {
-                return Promise.resolve([]);
-            }
-            return uploadFileRepository(data, storageId);
-        }
+        }return uploadFileRepository(data, storageId);
     };
     return useMutation<IUploadStorageFileDto[], AxiosError<IApiErrorDto>, IUploadFilePort>({
         mutationFn: execute,

@@ -8,11 +8,8 @@ import CurrentStorage from "@/shared/hooks/storage";
 
 const useCleaningTrashUseCase = () => {
     const queryClient = useQueryClient();
-    const storageId = CurrentStorage();
+    const storageId = CurrentStorage() as string;
     const execute = () => {
-        if (!storageId) {
-            return Promise.reject();
-        }
         return cleaningTrashRepository(storageId);
     };
     return useMutation<AxiosResponse<ICleaningTrashDto>, AxiosError<IApiErrorDto>>({

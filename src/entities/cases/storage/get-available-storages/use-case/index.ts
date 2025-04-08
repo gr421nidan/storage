@@ -3,8 +3,10 @@ import QueryKey from "@/shared/common/enum/query-key";
 import getAvailableStoragesRepository from "@/entities/repo/storage/get-available-storages";
 import { IGetStorageDto } from "@/shared/interface/storage";
 import convertBytesToGB from "@/shared/utils/convertSizeStorage";
+import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 
 const useGetAvailableStoragesUseCase = () => {
+    const { data: userProfile } = useGetUserProfileUseCase();
     const execute = async () => {
         const { storages } = await getAvailableStoragesRepository();
         return storages.map((storage: IGetStorageDto) => ({
@@ -16,6 +18,7 @@ const useGetAvailableStoragesUseCase = () => {
     const { data, ...rest } = useQuery({
         queryKey: [QueryKey.STORAGES],
         queryFn: execute,
+        enabled: userProfile ? !userProfile.isAdmin : false,
     });
 
     return {

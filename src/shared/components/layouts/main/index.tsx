@@ -29,7 +29,7 @@ const MainLayout: React.FC = () => {
         }
         if (isStoragePage && id_storage) {
             const storageTitle = storages.find(item => item.id === id_storage)?.title;
-            return storageTitle ? `Хранилище ${storageTitle}` : `Хранилище ${id_storage}`;
+            return storageTitle && `Хранилище ${storageTitle}`;
         }
         return null;
     };

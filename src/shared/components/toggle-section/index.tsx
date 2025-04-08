@@ -1,5 +1,6 @@
-import {ReactNode} from "react";
+import { ReactNode } from "react";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
+import styles from "./style";
 
 interface IToggleSectionProps {
     type: "folders" | "files";
@@ -8,12 +9,19 @@ interface IToggleSectionProps {
     content: ReactNode;
 }
 
-const ToggleSection: React.FC<IToggleSectionProps> = ({type, visibility, toggleVisibility, content}) => {
+const ToggleSection: React.FC<IToggleSectionProps> = ({
+                                                          type,
+                                                          visibility,
+                                                          toggleVisibility,
+                                                          content,
+                                                      }) => {
+    const handleToggleVisibility = () => toggleVisibility(type);
+
     return (
         <div>
             <div
-                className="flex items-center cursor-pointer gap-2 text-xl mb-[15px]"
-                onClick={() => toggleVisibility(type)}>
+                className={styles.header}
+                onClick={handleToggleVisibility}>
                 <span>{type === "folders" ? "Все папки" : "Все файлы"}</span>
                 <ButtonIcon
                     icon="simple-line-icons:arrow-up"
