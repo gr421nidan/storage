@@ -26,7 +26,7 @@ const HeaderConnectingWidget: React.FC<IHeaderWidgetProps> = ({toggleNavbar}) =>
             </div>
             <div className="flex items-center gap-[74px] justify-center ">
                 <ThemeSwitcher/>
-                <ProfileLink activeColorClass="text-purple" />
+                <ProfileLink/>
             </div>
         </header>
     );

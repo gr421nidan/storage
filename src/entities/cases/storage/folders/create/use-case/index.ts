@@ -26,6 +26,9 @@ const useCreateFolderUseCase = () => {
             if (error.status === HttpStatusCode.Conflict) {
                 enqueueSnackbar("Папка с таким названием уже существует", {variant: 'errorSnackbar'});
             }
+            if (error.status === HttpStatusCode.Forbidden) {
+                enqueueSnackbar("У вас не хватает прав.", {variant: 'errorSnackbar'});
+            }
         },
     });
 };

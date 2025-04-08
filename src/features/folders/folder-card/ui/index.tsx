@@ -37,7 +37,7 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({folder, variant = "defa
 
     return (
         <div className={styles.wrapper}>
-            <img src={folderIcon} alt="folder" className={styles.image} />
+            <img src={folderIcon} alt="folder"/>
             <div className={styles.content}>
         <span className={styles.title} title={folder.title}>
           {folder.title}

@@ -26,7 +26,7 @@ const HeaderWidget: React.FC<IHeaderWidgetProps> = ({toggleNavbar}) => {
             </div>
             <div className={buttonContainerStyle}>
                 <ThemeSwitcher/>
-                <ProfileLink activeColorClass="text-purple" />
+                <ProfileLink/>
             </div>
         </header>
     );

@@ -1,9 +1,10 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IApiErrorDto } from "@/shared/interface/auth";
-import {AxiosError, AxiosResponse} from "axios";
+import {AxiosError, AxiosResponse, HttpStatusCode} from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import moveToTrashFileRepository from "@/entities/repo/storage/files/move-to-trash";
 import {IActionFileDto} from "@/shared/interface/files";
+import {enqueueSnackbar} from "notistack";
 
 const useMoveToTrashFileUseCase = () => {
     const queryClient = useQueryClient();
@@ -13,6 +14,11 @@ const useMoveToTrashFileUseCase = () => {
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
             await queryClient.invalidateQueries({queryKey: [QueryKey.FOLDER]});
+        },
+        onError: (error) => {
+            if (error.status === HttpStatusCode.Forbidden) {
+                enqueueSnackbar("У вас не хватает прав.", {variant: 'errorSnackbar'});
+            }
         },
     });
 };

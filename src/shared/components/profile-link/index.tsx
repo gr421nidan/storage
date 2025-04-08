@@ -1,18 +1,14 @@
-import React from "react";
+import {ReactNode} from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Icon } from "@iconify/react";
 import { cn } from "@/shared/utils/cn";
 import ERouterPath from "@/shared/common/enum/router";
-import {circleProfileStyle, profileButtonStyle, profileLinkStyle} from "./style";
+import {circleProfileStyle, profileButtonStyle, profileLinkStyle, activeColorStyles} from "./style";
 
-interface IProfileLinkProps {
-    activeColorClass: string;
-}
-
-const ProfileLink: React.FC<IProfileLinkProps> = ({ activeColorClass }) => {
+const ProfileLink = (): ReactNode => {
     const location = useLocation();
     const isActive = location.pathname === ERouterPath.USER_PROFILE;
-    const iconStyle = isActive ? activeColorClass : "";
+    const iconStyle = isActive ? activeColorStyles : "";
 
     return (
         <div className={profileButtonStyle}>
