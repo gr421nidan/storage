@@ -3,11 +3,9 @@ import {
     dataSidebarContainerStyles, infoDiagramStyles,
     sidebarContainerStyles,
 } from "./style";
-import {cn} from "@/shared/utils/cn";
 import StorageChart from "@/shared/components/diagrams/storage-memory";
 import RecentFiles from "@/shared/components/recent-files";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
-import ProfileLink from "@/shared/components/profile-link";
 import useGetStorageSizeUseCase from "@/entities/cases/storage/get-storage-size/use-case";
 import ContextMenu from "@/shared/components/context-menu";
 import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-folders-and-files/use-case";
@@ -22,9 +20,8 @@ const SidebarWidget: React.FC = () => {
         {label: "Подключение к S3", icon: "iconamoon:cloud-add"},
     ];
     return (
-        <div className={cn(sidebarContainerStyles)}>
+        <div className={sidebarContainerStyles}>
             <div>
-                <ProfileLink activeColorClass="text-purple"/>
                 <div className={dataSidebarContainerStyles}>
                     <h3>Данные памяти</h3>
                     {data?.isAdmin ? (<div className="flex flex-col items-end">

@@ -72,9 +72,6 @@ body {
     a {
         @apply hover:text-purple-light active:text-purple;
     }
-    p {
-        @apply dark:text-white;
-    }
 }
 
 @layer components {

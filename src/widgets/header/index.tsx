@@ -6,8 +6,8 @@ import {
 import icon from "@/assets/icon.svg";
 import React from "react";
 import ThemeSwitcher from "@/shared/components/theme-switcher";
-import {cn} from "@/shared/utils/cn";
 import BurgerMenu from "@/shared/components/burger-menu";
+import ProfileLink from "@/shared/components/profile-link";
 
 interface IHeaderWidgetProps {
     toggleNavbar: () => void;
@@ -15,7 +15,7 @@ interface IHeaderWidgetProps {
 
 const HeaderWidget: React.FC<IHeaderWidgetProps> = ({toggleNavbar}) => {
     return (
-        <header className={cn(headerContainerStyles)}>
+        <header className={headerContainerStyles}>
             <div className={iconContainerStyles}>
                 <BurgerMenu toggleNavbar={toggleNavbar} />
                 <div className={titleStyles}>
@@ -23,7 +23,10 @@ const HeaderWidget: React.FC<IHeaderWidgetProps> = ({toggleNavbar}) => {
                     <h3>Облачное хранилище</h3>
                 </div>
             </div>
-            <ThemeSwitcher/>
+            <div className="flex items-center gap-[74px] justify-center ">
+                <ThemeSwitcher/>
+                <ProfileLink activeColorClass="text-purple" />
+            </div>
         </header>
     );
 };
