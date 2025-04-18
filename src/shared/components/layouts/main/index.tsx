@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import NavbarWidget from "@/widgets/navbar";
 import HeaderWidget from "@/widgets/header";
 import SidebarWidget from "@/widgets/sidebar";
@@ -28,8 +28,7 @@ const MainLayout: React.FC = () => {
             return "Пользователи";
         }
         if (isStoragePage && id_storage) {
-            const storageTitle = storages.find(item => item.id === id_storage)?.title;
-            return storageTitle && `Хранилище ${storageTitle}`;
+            return storages.find(item => item.id === id_storage)?.title;
         }
         return null;
     };

@@ -33,7 +33,7 @@ const useGetFolderUseCase = (folderId: string | undefined, {    search,
         return { files: formattedFiles, folders };
     };
     const { data, ...rest } = useQuery({
-        queryKey: [QueryKey.FOLDER, storageId, folderId, , storageId, search, sortBy, sortOrder, type, created_at],
+        queryKey: [QueryKey.FOLDER, storageId, folderId, storageId, search, sortBy, sortOrder, type, created_at],
         queryFn: execute,
     });
 

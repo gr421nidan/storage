@@ -6,6 +6,7 @@ import {buttonStyles} from "@/shared/components/buttons/style.ts";
 import styles from "../style";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import useUploadFilePresenter from "@/entities/cases/storage/files/upload/presenter";
+import {enqueueSnackbar} from "notistack";
 
 interface IFilesUploadModalProps {
     isOpen: boolean;
@@ -20,8 +21,15 @@ const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({isOpen, onClose, cu
         setValue,
         onSubmit,
     } = useUploadFilePresenter(currentFolder);
-    const {getRootProps, getInputProps, isDragActive} = useDropzone({
+    const { getRootProps, getInputProps, isDragActive } = useDropzone({
         onDrop: (acceptedFiles) => {
+            const totalFiles = selectedFiles.length + acceptedFiles.length;
+
+            if (totalFiles > 10) {
+                enqueueSnackbar("Можно выбрать не более 10 файлов", { variant: "errorSnackbar" });
+                return;
+            }
+
             onUploadFiles([...selectedFiles, ...acceptedFiles]);
         },
         multiple: true,
@@ -40,7 +48,10 @@ const FilesUploadModal: React.FC<IFilesUploadModalProps> = ({isOpen, onClose, cu
         <Modal title="Загрузить файл" className="w-[655px]" onClose={onClose}>
             <div className={styles.modalWrapper}>
                 <div {...getRootProps()} className={styles.dropzone}>
-                    <input {...getInputProps()}/>
+                    <input
+                        {...getInputProps()}
+                        disabled={selectedFiles.length >= 10}
+                    />
                     <p className="text-center text-2xl">
                         {isDragActive ? (
                             <span className={styles.highlightText}>Отпустите файлы для загрузки</span>
