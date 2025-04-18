@@ -1,9 +1,10 @@
 import React from "react";
 import {IGetStorageFileDto, IGetTrashFileDto} from "@/shared/interface/files";
-import {formatFileSize} from "@/shared/utils/convertSizeFiles";
+import {formatSize} from "@/shared/utils/convertSize";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import downloadFile from "@/shared/utils/download-file";
 import styles from "../style";
+import copyPublicLink from "@/shared/utils/copy-public-link";
 
 interface IFileRowItemProps {
     file: IGetStorageFileDto;
@@ -24,7 +25,7 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({
     const handleMoveToTrashClick = () => onMoveToTrashClick?.(file.id);
     const handleDeleteClick = () => onDeleteClick?.(file.id);
     const handleRecoverClick = () => onRecoverClick?.(file.id);
-
+    const handleCopyLinkClick = () => copyPublicLink?.(file.id);
     const actionButtons = () => {
         if (variant === "trash") {
             return (
@@ -52,7 +53,7 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({
                 />
                 <ButtonIcon icon="ci:edit-pencil-line-02" className={styles.icon}/>
                 <ButtonIcon icon="akar-icons:arrow-down-left" className={styles.icon}/>
-                <ButtonIcon icon="mingcute:link-2-line" className={styles.icon}/>
+                <ButtonIcon icon="mingcute:link-2-line" className={styles.icon} onClick={handleCopyLinkClick}/>
                 <ButtonIcon
                     icon="lucide:trash"
                     className={styles.icon}
@@ -74,7 +75,7 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({
                 ? `#${file.tag_title}`
                 : "-"}
             </span>
-            <span>{formatFileSize(file.size)}</span>
+            <span>{formatSize(file.size)}</span>
 
             <div className={styles.actions}>{actionButtons()}</div>
         </div>

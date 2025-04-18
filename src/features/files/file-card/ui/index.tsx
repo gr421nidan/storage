@@ -1,10 +1,11 @@
 import React, { useMemo } from "react";
 import FileIcon from "@/shared/components/file-icon";
 import { IGetStorageFileDto, IGetTrashFileDto } from "@/shared/interface/files";
-import { formatFileSize } from "@/shared/utils/convertSizeFiles";
+import { formatSize } from "@/shared/utils/convertSize";
 import ContextMenu from "@/shared/components/context-menu";
 import downloadFile from "@/shared/utils/download-file";
 import styles from "../style";
+import copyPublicLink from "@/shared/utils/copy-public-link";
 
 interface IFileCardItemProps {
     file: IGetStorageFileDto | IGetTrashFileDto;
@@ -31,7 +32,7 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                 { label: "Скачать", icon: "fluent:arrow-download-32-filled", onClick: () => downloadFile(file.path, file.title) },
                 { label: "Переименовать", icon: "ci:edit-pencil-line-02" },
                 { label: "Пометка", icon: "akar-icons:arrow-down-left" },
-                { label: "Поделиться", icon: "mingcute:link-2-line" },
+                { label: "Поделиться", icon: "mingcute:link-2-line" , onClick:()=>copyPublicLink(file.id)},
                 { label: "Удалить", icon: "lucide:trash", onClick: () => onMoveToTrashClick?.(file.id) },
             ];
     }, [variant, file, onRecoverClick, onDeleteClick, onMoveToTrashClick]);
@@ -43,7 +44,7 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
         <span className={styles.title} title={file.title}>
           {file.title}
         </span>
-                <span className={styles.size}>{formatFileSize(file.size)}</span>
+                <span className={styles.size}>{formatSize(file.size)}</span>
             </div>
             <ContextMenu items={menuItems} />
         </div>

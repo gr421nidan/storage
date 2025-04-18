@@ -1,7 +1,7 @@
 import React from "react";
 import folderIcon from "@/assets/folder-icon/folder.png";
 import { IGetStorageFolderDto } from "@/shared/interface/folders";
-import { formatFileSize } from "@/shared/utils/convertSizeFiles";
+import { formatSize } from "@/shared/utils/convertSize";
 import ContextMenu from "@/shared/components/context-menu";
 import styles from "../style";
 
@@ -42,7 +42,7 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({folder, variant = "defa
         <span className={styles.title} title={folder.title}>
           {folder.title}
         </span>
-                <span className={styles.size}>{formatFileSize(folder.size)}</span>
+                <span className={styles.size}>{formatSize(folder.size)}</span>
             </div>
             <ContextMenu items={getMenuItems()} />
         </div>

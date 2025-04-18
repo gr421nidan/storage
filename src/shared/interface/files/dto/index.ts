@@ -32,5 +32,14 @@ interface IUploadStorageFileDto {
 interface IActionFileDto {
     message: string,
 }
+interface IGuestGetFileDto{
+    id: string;
+    title: string;
+    type: EFileType;
+    created_at:string;
+    size: number;
+    tag_title: string | null;
+    path: string;
+}
 
-export type {IGetStorageFileDto, IUploadStorageFileDto, IActionFileDto, IGetTrashFileDto};
+export type {IGetStorageFileDto, IUploadStorageFileDto, IActionFileDto, IGetTrashFileDto, IGuestGetFileDto};

@@ -7,7 +7,7 @@ import {
     LazySignInPage,
     LazySignUpPage, LazyStorageSettingsPage, LazyStorageTrashPage,
     LazyStorageUsersPage,
-    LazyUserLogsPage, LazyUserProfilePage
+    LazyUserLogsPage, LazyUserProfilePage,LazyGuestPublicViewPage
 } from "@/pages";
 import ERouterPath from "@/shared/common/enum/router";
 import AuthLayout from "@/shared/components/layouts/auth";
@@ -17,6 +17,10 @@ import ConnectingStorageLayout from "@/shared/components/layouts/main-secondary"
 import {ERoleID} from "@/shared/enum/auth";
 
 const router = createBrowserRouter([
+    {
+        path: ERouterPath.GUEST_PUBLIC_VIEW,
+        element: <LazyGuestPublicViewPage />,
+    },
     {
         element: <AuthLayout/>,
         children: [
