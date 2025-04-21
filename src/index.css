@@ -154,6 +154,8 @@ body {
     --color-border-search-select-text: var(--color-purple-light);
     --color-menu-background: white;
     --color-input-text: black;
+    --color-player-progress: var(--color-purple);
+    --color-player-text: black;
 }
 
 [data-theme="dark"] {
@@ -162,6 +164,8 @@ body {
     --color-border-search-select-text: var(--color-purple);
     --color-menu-background: var(--color-purple);
     --color-input-text: white;
+    --color-player-progress: var(--color-purple-light);
+    --color-player-text: white;
 }
 
 .react-datepicker__day--selected {
@@ -178,4 +182,5 @@ body {
 .react-datepicker__navigation--next {
     @apply text-white;
 }
+
 

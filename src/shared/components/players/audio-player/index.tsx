@@ -1,114 +1,48 @@
-import React, { useState, useRef, useEffect } from "react";
-import audioIcon from "@/assets/audio-img/e169382c7d3ce936a1faa03b7a876c8f.jpg";
+import React from "react";
+import ReactAudioPlayer from "react-h5-audio-player";
+import "react-h5-audio-player/lib/styles.css";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
+import { Icon } from "@iconify/react";
+import {customAudioPlayerStyles} from "@/shared/components/players/audio-player/style.ts";
 
 interface IAudioPlayerProps {
     fileUrl: string;
+    fileTitle: string;
+    onClose: () => void;
 }
 
-const AudioPlayer: React.FC<IAudioPlayerProps> = ({ fileUrl }) => {
-    const audioRef = useRef<HTMLAudioElement | null>(null);
-    const [isPlaying, setIsPlaying] = useState(false);
-    const [currentTime, setCurrentTime] = useState(0);
-    const [progress, setProgress] = useState(0);
-    const [duration, setDuration] = useState<number | null>(null); // Добавляем состояние для длительности
-
-    const togglePlay = () => {
-        if (audioRef.current?.paused) {
-            audioRef.current.play();
-            setIsPlaying(true);
-        } else {
-            audioRef.current?.pause();
-            setIsPlaying(false);
-        }
-    };
-
-    const handleStop = () => {
-        if (audioRef.current) {
-            audioRef.current.pause();
-            audioRef.current.currentTime = 0;
-            setIsPlaying(false);
-            setProgress(0);
-        }
-    };
-
-    const updateProgress = () => {
-        if (audioRef.current) {
-            const current = audioRef.current.currentTime;
-            const dur = audioRef.current.duration;
-
-            setCurrentTime(current);
-            if (dur) {
-                setProgress((current / dur) * 100);
-            }
-        }
-    };
-
-    const handleLoadedMetadata = () => {
-        if (audioRef.current) {
-            setDuration(audioRef.current.duration); // Устанавливаем длительность, когда метаданные загружены
-        }
-    };
-
-    useEffect(() => {
-        if (audioRef.current) {
-            audioRef.current.addEventListener("loadedmetadata", handleLoadedMetadata);
-        }
-
-        return () => {
-            if (audioRef.current) {
-                audioRef.current.removeEventListener("loadedmetadata", handleLoadedMetadata);
-            }
-        };
-    }, []);
-
+const AudioPlayer: React.FC<IAudioPlayerProps> = ({ fileUrl, fileTitle, onClose }) => {
     return (
-        <div className="w-full max-w-md shadow-md flex flex-col items-center justify-between gap-4">
-            <div className="flex flex-col items-center gap-4">
-                <img
-                    src={audioIcon}
-                    alt={"Аудиофайл"}
-                    className="h-80 w-80 rounded-lg object-cover"
-                />
-                <h3>Аудиофайл</h3>
-            </div>
-
-            <div className="flex flex-col items-center gap-2">
-                <div className="w-full bg-white h-1 rounded-full">
-                    <div
-                        className="bg-purple h-1 rounded-full"
-                        style={{ width: `${progress}%` }}
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-opacity-30 backdrop-saturate-150">
+            <div className="bg-white dark:bg-dark-theme rounded-[20px] p-6 shadow-lg w-full max-w-lg mx-auto relative">
+                <div className="flex items-center justify-between mb-4">
+                    <h3 className="truncate" title={fileTitle}>
+                        {fileTitle}
+                    </h3>
+                    <ButtonIcon
+                        icon="si:close-circle-line"
+                        onClick={onClose}
+                        className="h-10 w-10"
                     />
                 </div>
-                {/* Время */}
-                <div className="flex items-center gap-2">
-                    <span>{new Date(currentTime * 1000).toISOString().substr(14, 5)}</span>
-                    <span>/</span>
-                    <span>{duration ? new Date(duration * 1000).toISOString().substr(14, 5) : "00:00"}</span>
-                </div>
-            </div>
-
-            <div className="flex items-center gap-2">
-                <ButtonIcon
-                    onClick={togglePlay}
-                    icon={isPlaying ? "heroicons-outline:pause" : "material-symbols-light:play-circle-rounded"}
-                    className="h-12 w-12"
-                />
-                {/* Кнопка Stop */}
-                <ButtonIcon
-                    onClick={handleStop}
-                    icon="ic:round-stop"
-                    className="h-12 w-12"
+                <div className="border-t-3 border-purple my-4" />
+                <ReactAudioPlayer
+                    src={fileUrl}
+                    autoPlay={false}
+                    className="w-full bg-transparent text-purple"
+                    style={customAudioPlayerStyles.container}
+                    customIcons={{
+                        play: <Icon icon="heroicons-solid:play" className="text-purple" width="40" />,
+                        pause: <Icon icon="heroicons-solid:pause" className="text-purple" width="40" />,
+                        volume: <Icon icon="ic:baseline-volume-up" className="text-purple" width="24" />,
+                        volumeMute: <Icon icon="ic:baseline-volume-off" className="text-purple" width="24" />,
+                        rewind: <Icon icon="iconoir:rewind-solid" className="text-purple" width="30" />,
+                        forward: <Icon icon="iconoir:forward-solid" className="text-purple" width="30" />,
+                        loop: <Icon icon="tabler:repeat" className="text-purple" width="25" />,
+                        loopOff: <Icon icon="tabler:repeat-off" className="text-purple" width="25" />,
+                    }}
                 />
             </div>
-
-            {/* Тег аудио */}
-            <audio
-                ref={audioRef}
-                src={fileUrl}
-                onTimeUpdate={updateProgress}
-                onEnded={() => setIsPlaying(false)}
-            />
         </div>
     );
 };

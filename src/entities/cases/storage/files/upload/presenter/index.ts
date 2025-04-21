@@ -16,8 +16,11 @@ const useUploadFilePresenter = (currentFolder?: string) => {
     };
 
     const onSubmit = handleSubmit(async (data) => {
-        await mutateAsync({...data, folderId: currentFolder});
-        reset();
+        await mutateAsync({ ...data, folderId: currentFolder }, {
+            onSuccess: () => {
+                reset();
+            }
+        });
     });
 
     return {

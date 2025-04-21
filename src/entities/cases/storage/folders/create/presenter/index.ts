@@ -1,22 +1,31 @@
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import validationSchema from "../validation";
-import useAddUserUseCase from "../use-case";
+import useCreateFolderUseCase from "../use-case";
 import {ICreateStorageFolderPort} from "@/shared/interface/folders";
 
-const useCreateFolderPresenter = (currentFolder?: string, onClose?: () => void) => {
+interface ICreateFolderPresenterParams {
+    currentFolder?: string;
+    onClose?: () => void;
+}
+const useCreateFolderPresenter = ({ currentFolder, onClose }: ICreateFolderPresenterParams = {}) => {
     const {register, handleSubmit, reset, formState: {errors}} = useForm<ICreateStorageFolderPort>({
         resolver: yupResolver(validationSchema),
         defaultValues: {
             parent_folder_id: currentFolder || null,
         },
     });
-    const {mutateAsync} = useAddUserUseCase();
+    const {mutateAsync} = useCreateFolderUseCase();
     const onSubmit = handleSubmit(async (data: ICreateStorageFolderPort) => {
-        await mutateAsync({ ...data, parent_folder_id: currentFolder || null });
-        reset();
-        if (onClose) onClose();
-
+        await mutateAsync(
+            { ...data, parent_folder_id: currentFolder || null },
+            {
+                onSuccess: () => {
+                    reset();
+                    if (onClose) onClose();
+                },
+            }
+        );
     })
 
     return {

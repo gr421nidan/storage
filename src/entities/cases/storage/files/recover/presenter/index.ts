@@ -1,10 +1,10 @@
 import useRecoverFileUseCase from "../use-case";
 
 const useRecoverFilePresenter = () => {
-    const {mutateAsync: recoverFile} = useRecoverFileUseCase();
+    const {mutateAsync} = useRecoverFileUseCase();
 
     const handleRecoverFile = async (fileId: string) => {
-        await recoverFile(fileId);
+        await mutateAsync(fileId);
     };
 
     return {

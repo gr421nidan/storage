@@ -7,9 +7,8 @@ import {IGetStorageFilesAndFoldersPort} from "@/shared/interface/storage";
 import getTrashFilesAndFoldersRepository from "@/entities/repo/storage/trash/get-files-and-folders";
 
 const useGetTrashFilesAndFoldersUseCase = ({search}: IGetStorageFilesAndFoldersPort) => {
-    const storageId = CurrentStorage();
+    const storageId = CurrentStorage() as string;
     const execute = async () => {
-        if (!storageId) return {files: [], folders: []};
         const params = {search};
         const {files, folders} = await getTrashFilesAndFoldersRepository(storageId, params);
 
@@ -25,6 +24,7 @@ const useGetTrashFilesAndFoldersUseCase = ({search}: IGetStorageFilesAndFoldersP
     const {data, ...rest} = useQuery({
         queryKey: [QueryKey.TRASH, storageId, search],
         queryFn: execute,
+        enabled : !!storageId,
     });
 
     return {

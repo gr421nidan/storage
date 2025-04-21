@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, {useMemo, useState} from "react";
 import FileIcon from "@/shared/components/file-icon";
 import { IGetStorageFileDto, IGetTrashFileDto } from "@/shared/interface/files";
 import { formatSize } from "@/shared/utils/convertSize";
@@ -6,6 +6,8 @@ import ContextMenu from "@/shared/components/context-menu";
 import downloadFile from "@/shared/utils/download-file";
 import styles from "../style";
 import copyPublicLink from "@/shared/utils/copy-public-link";
+import {BUCKET_BASE_URL} from "@/shared/config";
+import FileViewer from "@/shared/components/players";
 
 interface IFileCardItemProps {
     file: IGetStorageFileDto | IGetTrashFileDto;
@@ -36,18 +38,35 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                 { label: "Удалить", icon: "lucide:trash", onClick: () => onMoveToTrashClick?.(file.id) },
             ];
     }, [variant, file, onRecoverClick, onDeleteClick, onMoveToTrashClick]);
-
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const handleDoubleClick = () => {
+        setIsViewerOpen(true);
+    };
+    const handleCloseViewer = () => {
+        setIsViewerOpen(false);
+    };
+    const fullFilePath = `${BUCKET_BASE_URL}${file.path}`;
     return (
-        <div className={styles.wrapper}>
-            <FileIcon fileType={file.type} size={45} />
-            <div className={styles.content}>
+        <>
+            <div className={styles.wrapper} onDoubleClick={handleDoubleClick}>
+                <FileIcon fileType={file.type} size={45} />
+                <div className={styles.content}>
         <span className={styles.title} title={file.title}>
           {file.title}
         </span>
-                <span className={styles.size}>{formatSize(file.size)}</span>
+                    <span className={styles.size}>{formatSize(file.size)}</span>
+                </div>
+                <ContextMenu items={menuItems} />
             </div>
-            <ContextMenu items={menuItems} />
-        </div>
+            {isViewerOpen && (
+                <FileViewer
+                    fileType={file.type}
+                    fileUrl={fullFilePath}
+                    fileTitle={file.title}
+                    onClose={handleCloseViewer}
+                />
+            )}
+        </>
     );
 };
 

@@ -1,15 +1,17 @@
-
 import useDeleteFileUseCase from "../use-case";
 
 const useDeleteFilePresenter = (onClose: () => void) => {
-    const { mutateAsync: deleteFile } = useDeleteFileUseCase();
+    const {mutateAsync} = useDeleteFileUseCase();
 
     const handleDeleteFile = async (fileId: string) => {
-        await deleteFile(fileId);
-        onClose();
+        await mutateAsync(fileId, {
+            onSuccess: () => {
+                onClose();
+            }
+        });
     };
 
-    return { handleDeleteFile };
+    return {handleDeleteFile};
 };
 
 export default useDeleteFilePresenter;

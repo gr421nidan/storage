@@ -6,17 +6,11 @@ import CurrentStorage from "@/shared/hooks/storage";
 import getFolderRepository from "@/entities/repo/storage/folders/get-folder";
 import {IGetStorageFilesAndFoldersPort} from "@/shared/interface/storage";
 
-const useGetFolderUseCase = (folderId: string | undefined, {    search,
-    sortBy,
-    sortOrder,
-    type,
-    created_at,}: IGetStorageFilesAndFoldersPort) => {
-    const storageId = CurrentStorage();
+const useGetFolderUseCase = (folderId: string | undefined, filters: IGetStorageFilesAndFoldersPort) => {
+    const storageId = CurrentStorage() as string;
 
     const execute = async () => {
-        if (!folderId || !storageId) {
-            return { files: [], folders: [] };
-        }
+        const {search, sortBy, sortOrder, type, created_at} = filters;
         const params = {
             search,
             sort_by: sortBy,
@@ -24,17 +18,23 @@ const useGetFolderUseCase = (folderId: string | undefined, {    search,
             type,
             created_at,
         };
-        const { files, folders } = await getFolderRepository(storageId, folderId, params);
+        const {files, folders} = await getFolderRepository(storageId, folderId, params);
         const formattedFiles = files.map((file: IGetStorageFileDto) => ({
             ...file,
             created_at: formatedDate(file.created_at),
         }));
 
-        return { files: formattedFiles, folders };
+        return {files: formattedFiles, folders};
     };
-    const { data, ...rest } = useQuery({
-        queryKey: [QueryKey.FOLDER, storageId, folderId, storageId, search, sortBy, sortOrder, type, created_at],
+    const queryKeyParams = {
+        storageId,
+        folderId,
+        filters,
+    };
+    const {data, ...rest} = useQuery({
+        queryKey: [QueryKey.FOLDER, queryKeyParams],
         queryFn: execute,
+        enabled: !!folderId
     });
 
     return {

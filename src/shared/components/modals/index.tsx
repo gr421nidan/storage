@@ -11,20 +11,20 @@ import {
 } from "./style";
 import {Icon} from "@iconify/react";
 
-interface IModalProps {
+interface IModalProps extends PropsWithChildren {
     title: string;
     onClose: () => void;
     className?: string;
 }
 
-const Modal: FC<PropsWithChildren<IModalProps>> = ({
-                                                       title,
-                                                       onClose,
-                                                       children,
-                                                       className,
-                                                   }) => {
+const Modal: FC<IModalProps> = ({
+                                    title,
+                                    onClose,
+                                    children,
+                                    className,
+                                }) => {
     return (
-        <Dialog open={true} onClose={() => {}} className={modalWrapperStyle}>
+        <Dialog open={true} onClose={onClose} className={modalWrapperStyle}>
             <div className={backdropStyle}></div>
             <Dialog.Panel
                 className={cn(modalPanelStyle, className)}>

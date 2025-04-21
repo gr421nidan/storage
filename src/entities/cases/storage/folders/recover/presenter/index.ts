@@ -1,9 +1,9 @@
 import useRecoverFolderUseCase from "../use-case";
 
 const useRecoverFolderPresenter = () => {
-    const {mutateAsync: recoverFolder} = useRecoverFolderUseCase();
+    const {mutateAsync} = useRecoverFolderUseCase();
     const handleRecoverFolder = async (folderId: string) => {
-        await recoverFolder(folderId);
+        await mutateAsync(folderId);
     };
 
     return {

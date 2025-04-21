@@ -5,13 +5,13 @@ import MoveToTrashFolderConfirm from "@/features/folders/move-to-trash-confirm/u
 import DeleteFolderConfirm from "@/features/trash/folders/delete-confirm/ui";
 import useRecoverFolderPresenter from "@/entities/cases/storage/folders/recover/presenter";
 
-interface IFileViewProps {
+interface IFolderViewProps {
     folders: IGetStorageFolderDto[];
     onFolderDoubleClick?: (folderId: string) => void;
     variant?: "default" | "trash";
 }
 
-const FoldersViewWidget: React.FC<IFileViewProps> = ({
+const FoldersViewWidget: React.FC<IFolderViewProps> = ({
                                                          folders,
                                                          onFolderDoubleClick,
                                                          variant = "default",
