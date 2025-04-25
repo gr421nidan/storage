@@ -1,15 +1,14 @@
-import { ReactNode } from "react";
+import {PropsWithChildren} from "react";
 import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
 import styles from "./style";
 
-interface IEmptyStateProps {
+interface IEmptyStateProps extends PropsWithChildren{
     isEmpty: boolean;
     emptyImage: { light: string; dark: string };
     emptyText: string;
-    content: ReactNode;
 }
 
-const EmptyState: React.FC<IEmptyStateProps> = ({isEmpty, emptyImage, emptyText, content}) => {
+const EmptyState: React.FC<IEmptyStateProps> = ({isEmpty, emptyImage, emptyText, children}) => {
     return (
         <div className={styles.wrapper}>
             {isEmpty ? (
@@ -23,7 +22,7 @@ const EmptyState: React.FC<IEmptyStateProps> = ({isEmpty, emptyImage, emptyText,
                     <span className={styles.text}>{emptyText}</span>
                 </div>
             ) : (
-                <>{content}</>
+                <>{children}</>
             )}
         </div>
     );

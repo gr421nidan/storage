@@ -121,15 +121,13 @@ const MainPage = (): ReactNode => {
                 <EmptyState
                     isEmpty={isEmpty}
                     emptyImage={{ light: notFound, dark: notFoundDark }}
-                    emptyText="Ничего не найдено"
-                    content={
-                        <>
-                            {hasFolders && renderFolderSection()}
-                            {showDivider && <div className={dividerStyles} />}
-                            {hasFiles && renderFileSection()}
-                        </>
-                    }
-                />
+                    emptyText="Ничего не найдено">
+                    <>
+                        {hasFolders && renderFolderSection()}
+                        {showDivider && <div className={dividerStyles} />}
+                        {hasFiles && renderFileSection()}
+                    </>
+                </EmptyState>
             </div>
         </div>
     );

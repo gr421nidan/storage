@@ -15,15 +15,13 @@ const StoragesViewWidget: React.FC = () => {
         <EmptyState
             isEmpty={isEmpty}
             emptyImage={{ light: noStorages, dark: noStoragesDark }}
-            emptyText="Ничего не найдено"
-            content={
-                <div className={styles.gridContainer}>
-                    {storages.map((storage: IGetStorageDto) => (
-                        <AvailableStorageCard key={storage.id} storage={storage} />
-                    ))}
-                </div>
-            }
-        />
+            emptyText="Ничего не найдено">
+            <div className={styles.gridContainer}>
+                {storages.map((storage: IGetStorageDto) => (
+                    <AvailableStorageCard key={storage.id} storage={storage} />
+                ))}
+            </div>
+        </EmptyState>
     );
 };
 

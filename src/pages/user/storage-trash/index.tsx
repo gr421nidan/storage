@@ -49,34 +49,32 @@ const StorageTrashPage = (): ReactNode => {
                 <EmptyState
                     isEmpty={isEmpty}
                     emptyText="Ничего не найдено"
-                    emptyImage={{light: emptyTrash, dark: emptyTrashDark}}
-                    content={
-                        <>
-                            {!!folders.length && (
-                                <ToggleSection
-                                    type="folders"
-                                    visibility={visibility}
-                                    toggleVisibility={toggleVisibility}
-                                    content={<FoldersViewWidget folders={folders} variant="trash"/>}
-                                />
-                            )}
-                            {!!folders.length && !!files.length && <div className={styles.separator}/>}
-                            {!!files.length && (
-                                <ToggleSection
-                                    type="files"
-                                    visibility={visibility}
-                                    toggleVisibility={toggleVisibility}
-                                    content={
-                                        <>
-                                            <FilesRowHeaders viewMode={viewMode} variant="trash"/>
-                                            <FilesViewWidget files={files} viewMode={viewMode} variant="trash"/>
-                                        </>
-                                    }
-                                />
-                            )}
-                        </>
-                    }
-                />
+                    emptyImage={{light: emptyTrash, dark: emptyTrashDark}}>
+                    <>
+                        {!!folders.length && (
+                            <ToggleSection
+                                type="folders"
+                                visibility={visibility}
+                                toggleVisibility={toggleVisibility}
+                                content={<FoldersViewWidget folders={folders} variant="trash"/>}
+                            />
+                        )}
+                        {!!folders.length && !!files.length && <div className={styles.separator}/>}
+                        {!!files.length && (
+                            <ToggleSection
+                                type="files"
+                                visibility={visibility}
+                                toggleVisibility={toggleVisibility}
+                                content={
+                                    <>
+                                        <FilesRowHeaders viewMode={viewMode} variant="trash"/>
+                                        <FilesViewWidget files={files} viewMode={viewMode} variant="trash"/>
+                                    </>
+                                }
+                            />
+                        )}
+                    </>
+                </EmptyState>
             </div>
 
         </div>

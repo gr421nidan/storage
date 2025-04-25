@@ -1,4 +1,4 @@
-import { ReactNode, useState } from "react";
+import {ReactNode, useState} from "react";
 import FilesView from "@/widgets/files-view";
 import FoldersView from "@/widgets/folders-view";
 import CreateFolderModal from "@/features/folders/add-folder-form/ui";
@@ -15,9 +15,9 @@ import {containerStyles, dividerStyles, scrollContainerStyles} from "@/pages/mai
 
 const AvailableStoragePage = (): ReactNode => {
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
-    const [visibility, setVisibility] = useState({ files: true, folders: true });
-    const [modals, setModals] = useState({ create: false, upload: false });
-    const [popups, setPopups] = useState({ filter: false, sorting: false });
+    const [visibility, setVisibility] = useState({files: true, folders: true});
+    const [modals, setModals] = useState({create: false, upload: false});
+    const [popups, setPopups] = useState({filter: false, sorting: false});
 
     const {
         currentFolder,
@@ -40,15 +40,15 @@ const AvailableStoragePage = (): ReactNode => {
     const showDivider = hasFolders && hasFiles;
 
     const toggleVisibility = (key: "files" | "folders") => {
-        setVisibility((prev) => ({ ...prev, [key]: !prev[key] }));
+        setVisibility((prev) => ({...prev, [key]: !prev[key]}));
     };
 
     const handleModalToggle = (modal: "create" | "upload", state: boolean) => {
-        setModals((prev) => ({ ...prev, [modal]: state }));
+        setModals((prev) => ({...prev, [modal]: state}));
     };
 
     const togglePopup = (type: "filter" | "sorting") => {
-        setPopups((prev) => ({ ...prev, [type]: !prev[type] }));
+        setPopups((prev) => ({...prev, [type]: !prev[type]}));
     };
     const handleFolderDoubleClick = (folderId: string) => {
         const folder = folders.find((f) => f.id === folderId);
@@ -76,8 +76,8 @@ const AvailableStoragePage = (): ReactNode => {
             toggleVisibility={toggleVisibility}
             content={
                 <>
-                    <FilesRowHeaders viewMode={viewMode} variant="default" />
-                    <FilesView files={files} viewMode={viewMode} variant="default" />
+                    <FilesRowHeaders viewMode={viewMode} variant="default"/>
+                    <FilesView files={files} viewMode={viewMode} variant="default"/>
                 </>
             }
         />
@@ -86,7 +86,7 @@ const AvailableStoragePage = (): ReactNode => {
     return (
         <div className={containerStyles}>
             <ControlPanel
-                setSearch={(search) => setParams((prev) => ({ ...prev, search }))}
+                setSearch={(search) => setParams((prev) => ({...prev, search}))}
                 isFilterPopupOpen={popups.filter}
                 toggleFilterPopup={() => togglePopup("filter")}
                 isSortingPopupOpen={popups.sorting}
@@ -120,16 +120,14 @@ const AvailableStoragePage = (): ReactNode => {
                 )}
                 <EmptyState
                     isEmpty={isEmpty}
-                    emptyImage={{ light: notFound, dark: notFoundDark }}
-                    emptyText="Ничего не найдено"
-                    content={
-                        <>
-                            {hasFolders && renderFolderSection()}
-                            {showDivider && <div className={dividerStyles} />}
-                            {hasFiles && renderFileSection()}
-                        </>
-                    }
-                />
+                    emptyImage={{light: notFound, dark: notFoundDark}}
+                    emptyText="Ничего не найдено">
+                    <>
+                        {hasFolders && renderFolderSection()}
+                        {showDivider && <div className={dividerStyles}/>}
+                        {hasFiles && renderFileSection()}
+                    </>
+                </EmptyState>
             </div>
         </div>
     );
