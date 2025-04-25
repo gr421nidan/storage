@@ -2,8 +2,12 @@ import {FC} from "react";
 import Select from "react-select";
 import {customStyles} from "@/shared/components/search-select/style.ts";
 
+interface IOption {
+    label: string;
+    value: string;
+}
 interface IUserSelectProps {
-    options: { value: string; label: string }[];
+    options: IOption[];
     onChange: (selectedUser: { value: string; label: string } | null) => void;
     onInputChange: (value: string) => void;
     placeholder: string;

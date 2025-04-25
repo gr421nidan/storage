@@ -1,6 +1,2 @@
-interface IGetAllUsersDto {
-    id: string
-    email: string
-}
-
-export type {IGetAllUsersDto};
+export * from './dto';
+export * from './port';

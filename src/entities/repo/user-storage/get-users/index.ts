@@ -1,16 +1,8 @@
-import { api } from "@/shared/api";
-import {IGetUserDto, IGetUsersParams} from "@/shared/interface/admin";
-import {EGrantID} from "@/shared/enum/admin";
+import {api} from "@/shared/api";
+import {IGetUserDto, IGetUsersPort} from "@/shared/interface/admin";
 
-const getUsersRepository = async ({ search, grant_id, is_active }: IGetUsersParams): Promise<IGetUserDto[]> => {
-    const params: Record<string, string | EGrantID | boolean> = {};
-    if (search) params.surname = search;
-    if (grant_id !== undefined) params.grant_id = grant_id;
-    if (is_active !== undefined) params.is_active = is_active;
-    const response = await api.get<IGetUserDto[]>("/storage/users", {
-        params,
-    });
-
+const getUsersRepository = async (params: IGetUsersPort): Promise<IGetUserDto[]> => {
+    const response = await api.get<IGetUserDto[]>("/storage/users", { params });
     return response.data;
 };
 

@@ -1,35 +1,42 @@
-import React, { useState, useEffect } from "react";
+import {useState, useEffect, ReactNode} from "react";
 import useAddUserPresenter from "@/entities/cases/user-storage/add-user/presenter";
-import { EGrantID } from "@/shared/enum/admin";
+import {EGrantID} from "@/shared/enum/admin";
 import Button from "@/shared/components/buttons/button";
-import { errorTextStyles } from "@/features/auth/style";
-import { formStyles } from "@/features/admin/add-users-form/style";
+import {errorTextStyles} from "@/features/auth/style";
+import {formStyles} from "../style";
 import CustomSelect from "@/shared/components/select";
 import SearchSelect from "@/shared/components/search-select";
-import { IGetAllUsersDto } from "@/shared/interface/admin";
+import {IGetAllUsersDto} from "@/shared/interface/admin";
 import useGetAllUsersUseCase from "@/entities/cases/user/get-all-users/use-case";
+import debounce from "lodash/debounce";
 
-const AddUserForm: React.FC = () => {
-    const { onSubmit, errors, watch, setValue} = useAddUserPresenter();
+const AddUserForm = (): ReactNode => {
+    const timeDebounce = 500;
+    const {onSubmit, errors, watch, setValue} = useAddUserPresenter();
     const [inputValue, setInputValue] = useState<string>("");
     const [debouncedValue, setDebouncedValue] = useState<string>("");
     useEffect(() => {
-        const handler = setTimeout(() => {
-            setDebouncedValue(inputValue);
-        }, 500);
-        return () => clearTimeout(handler);
+        const handler = debounce((value: string) => {
+            setDebouncedValue(value);
+        }, timeDebounce);
+
+        handler(inputValue);
+
+        return () => {
+            handler.cancel();
+        };
     }, [inputValue]);
 
-    const { data: users = []} = useGetAllUsersUseCase(debouncedValue);
+    const {data: users} = useGetAllUsersUseCase({email: debouncedValue});
 
-    const userOptions = users.map((user: IGetAllUsersDto) => ({
+    const userOptions = (users ?? []).map((user: IGetAllUsersDto) => ({
         value: user.id,
         label: user.email,
     }));
 
     const grantOptions = [
-        { value: EGrantID.VIEW, label: "Просмотр" },
-        { value: EGrantID.FULL_ACCESS, label: "Полный доступ" },
+        {value: EGrantID.VIEW, label: "Просмотр"},
+        {value: EGrantID.FULL_ACCESS, label: "Полный доступ"},
     ];
     const handleUserChange = (selectedUser: { value: string } | null) => {
         setValue("user_id", selectedUser?.value || "");

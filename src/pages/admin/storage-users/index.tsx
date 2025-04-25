@@ -12,7 +12,7 @@ const StorageUsersPage = (): ReactNode => {
     const [grantId, setGrantId] = useState<EGrantID | undefined>(undefined);
     const [isActive, setIsActive] = useState<boolean | undefined>(undefined);
     const [isPopupOpen, setIsPopupOpen] = useState(false);
-    const { data: users} = useGetUsersUseCase({
+    const { data: users = [] } = useGetUsersUseCase({
         search,
         grant_id: grantId,
         is_active: isActive,
