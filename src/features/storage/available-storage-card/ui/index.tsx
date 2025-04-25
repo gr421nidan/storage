@@ -17,12 +17,11 @@ const GRANT_NAMES: Record<EGrantID, string> = {
     [EGrantID.FULL_ACCESS]: "полный доступ",
 };
 
+const TOTAL_STORAGE_GB = 15;
 const AvailableStorageCard: React.FC<IAvailableStorageCardProps> = ({storage}) => {
-    const grantName = GRANT_NAMES[storage.grant_id];
-    const totalGB = 15;
     const navigate = useNavigate();
     const handleStorageClick = () => {
-        navigate(ERouterPath.STORAGE.replace(':id_storage', String(storage.id)));
+        navigate(ERouterPath.STORAGE.replace(':id_storage', storage.id));
     };
     return (
         <div className={styles.container} onDoubleClick={handleStorageClick}>
@@ -33,11 +32,11 @@ const AvailableStorageCard: React.FC<IAvailableStorageCardProps> = ({storage}) =
                 className={styles.image}
             />
             <div className={styles.content}>
-                <span className={styles.title}>
-                    <h3 className="truncate ">{storage.title}</h3>
+                <h3 className={`${styles.title} truncate`}>{storage.title}</h3>
+                <span className={styles.accessType}>
+                    Тип доступа: {GRANT_NAMES[storage.grant_id]}
                 </span>
-                <span className={styles.accessType}>Тип доступа: {grantName}</span>
-                <span className="text-bold">Занято {storage.storage_size} гб из {totalGB} гб</span>
+                <span className="text-bold">Занято {storage.storage_size} гб из {TOTAL_STORAGE_GB} гб</span>
             </div>
         </div>
     );

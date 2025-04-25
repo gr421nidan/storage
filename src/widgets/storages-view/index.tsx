@@ -3,7 +3,7 @@ import { IGetStorageDto } from "@/shared/interface/storage";
 import AvailableStorageCard from "@/features/storage/available-storage-card/ui";
 import useGetAvailableStoragesUseCase from "@/entities/cases/storage/get-available-storages/use-case";
 import EmptyState from "@/shared/components/empty-state";
-import styles from "./sryle";
+import styles from "./style";
 import noStorages from "@/assets/img-empty/no_available_storage.png";
 import noStoragesDark from "@/assets/img-empty/no_available_storage_dark.png";
 

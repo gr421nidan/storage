@@ -13,4 +13,7 @@ interface ISortingPort {
     sort_by: ISortField;
     sort_order: ISortOrder;
 }
-export type {IUploadFilePort, IFiltersPort, ISortingPort};
+interface IRenameFilePort {
+    title: string;
+}
+export type {IUploadFilePort, IFiltersPort, ISortingPort, IRenameFilePort};

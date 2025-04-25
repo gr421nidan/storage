@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import NavbarWidget from "@/widgets/navbar";
 import { Outlet } from "react-router-dom";
-import HeaderConnectingWidget from "../../../../widgets/header-secondary";
+import HeaderWidget from "@/widgets/header";
 
 const ConnectingStorageLayout: React.FC = () => {
     const [isNavbarOpen, setNavbarOpen] = useState(false);
@@ -11,7 +11,7 @@ const ConnectingStorageLayout: React.FC = () => {
 
     return (
         <div className="flex flex-col min-h-screen">
-            <HeaderConnectingWidget toggleNavbar={toggleNavbar}/>
+            <HeaderWidget toggleNavbar={toggleNavbar}/>
             <NavbarWidget isOpen={isNavbarOpen} />
             <main className=" pl-[193px] pr-[430px] pt-[166px]">
                 <Outlet />

@@ -1,10 +1,11 @@
 import React from "react";
 import ReactAudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
-import ButtonIcon from "@/shared/components/buttons/button-icon";
 import { Icon } from "@iconify/react";
-import {customAudioPlayerStyles} from "@/shared/components/players/audio-player/style.ts";
-
+import FilePlayerModal from "@/shared/components/players/modal-player";
+import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
+import PlayerLight from "@/assets/audio-img/audio_player_light.png";
+import PlayerDark from "@/assets/audio-img/audio_player_dark.png";
+import 'react-h5-audio-player/lib/styles.css';
 interface IAudioPlayerProps {
     fileUrl: string;
     fileTitle: string;
@@ -13,37 +14,30 @@ interface IAudioPlayerProps {
 
 const AudioPlayer: React.FC<IAudioPlayerProps> = ({ fileUrl, fileTitle, onClose }) => {
     return (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 backdrop-blur-md bg-opacity-30 backdrop-saturate-150">
-            <div className="bg-white dark:bg-dark-theme rounded-[20px] p-6 shadow-lg w-full max-w-lg mx-auto relative">
-                <div className="flex items-center justify-between mb-4">
-                    <h3 className="truncate" title={fileTitle}>
-                        {fileTitle}
-                    </h3>
-                    <ButtonIcon
-                        icon="si:close-circle-line"
-                        onClick={onClose}
-                        className="h-10 w-10"
-                    />
-                </div>
-                <div className="border-t-3 border-purple my-4" />
+        <FilePlayerModal title={fileTitle} onClose={onClose} className="w-fit mx-auto">
+            <div className="w-[885px] h-[548px] bg-gr-blocks rounded-[15px] flex flex-col items-center gap-8 pt-16 py-6">
+                <ImgThemeSwitcher
+                    light={PlayerLight}
+                    dark={PlayerDark}
+                    alt="Картинка аудио"
+                />
                 <ReactAudioPlayer
                     src={fileUrl}
                     autoPlay={false}
-                    className="w-full bg-transparent text-purple"
-                    style={customAudioPlayerStyles.container}
+                    className="w-full bg-transparent text-purple shadow-none"
                     customIcons={{
-                        play: <Icon icon="heroicons-solid:play" className="text-purple" width="40" />,
-                        pause: <Icon icon="heroicons-solid:pause" className="text-purple" width="40" />,
-                        volume: <Icon icon="ic:baseline-volume-up" className="text-purple" width="24" />,
-                        volumeMute: <Icon icon="ic:baseline-volume-off" className="text-purple" width="24" />,
-                        rewind: <Icon icon="iconoir:rewind-solid" className="text-purple" width="30" />,
-                        forward: <Icon icon="iconoir:forward-solid" className="text-purple" width="30" />,
-                        loop: <Icon icon="tabler:repeat" className="text-purple" width="25" />,
-                        loopOff: <Icon icon="tabler:repeat-off" className="text-purple" width="25" />,
+                        play: <Icon icon="heroicons-solid:play" className="text-purple dark:text-purple-light" width="40" />,
+                        pause: <Icon icon="heroicons-solid:pause" className="text-purple dark:text-purple-light" width="40" />,
+                        volume: <Icon icon="ic:round-volume-up" className="text-purple dark:text-purple-light" width="24" />,
+                        volumeMute: <Icon icon="ic:round-volume-off" className="text-purple dark:text-purple-light" width="24" />,
+                        rewind: <Icon icon="ic:round-skip-previous" className="text-purple dark:text-purple-light" width="30" />,
+                        forward: <Icon icon="ic:round-skip-next" className="text-purple dark:text-purple-light" width="30" />,
+                        loop: <Icon icon="tabler:repeat" className="text-purple dark:text-purple-light" width="25" />,
+                        loopOff: <Icon icon="tabler:repeat-off" className="text-purple dark:text-purple-light" width="25" />,
                     }}
                 />
             </div>
-        </div>
+        </FilePlayerModal>
     );
 };
 

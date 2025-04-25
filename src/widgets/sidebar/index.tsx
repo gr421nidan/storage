@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import {
     dataSidebarContainerStyles, infoDiagramStyles,
     sidebarContainerStyles,
@@ -9,15 +9,35 @@ import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use
 import useGetStorageSizeUseCase from "@/entities/cases/storage/get-storage-size/use-case";
 import ContextMenu from "@/shared/components/context-menu";
 import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-folders-and-files/use-case";
+import DiskCleanupConfirm from "@/features/storage/confirm_disk_cleanup";
+import {useNavigate} from "react-router-dom";
+import ERouterPath from "@/shared/common/enum/router";
 
 const SidebarWidget: React.FC = () => {
     const {data: storageData} = useGetStorageSizeUseCase();
     const { recentFiles } = useGetStorageFilesAndFoldersUseCase({});
     const {data} = useGetUserProfileUseCase();
+    const isStorageConnected = Boolean(data?.bucket_name);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
+    const handleCleanupDiskClick = () => {
+        setIsModalOpen(true);
+    };
+    const handleConnectS3Click = () => {
+        navigate(ERouterPath.CONNECTING_STORAGE);
+    };
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
     const menuItems = [
         {label: "Резервное копирование", icon: "garden:reload-stroke-12"},
-        {label: "Очистка диска", icon: "lucide:trash"},
-        {label: "Подключение к S3", icon: "iconamoon:cloud-add"},
+        {label: "Очистка диска", icon: "lucide:trash", onClick: handleCleanupDiskClick},
+        {
+            label: "Подключение к S3",
+            icon: "iconamoon:cloud-add",
+            onClick: handleConnectS3Click,
+            disabled: isStorageConnected
+        },
     ];
     return (
         <div className={sidebarContainerStyles}>
@@ -36,6 +56,12 @@ const SidebarWidget: React.FC = () => {
                     </p>
                 </div>
             </div>
+            {isModalOpen && (
+                    <DiskCleanupConfirm
+                        isOpen={isModalOpen}
+                        onClose={handleCloseModal}
+                    />
+            )}
             <div className="ml-auto">
                 <RecentFiles files={recentFiles}/>
             </div>

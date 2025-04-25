@@ -24,7 +24,6 @@ const FilesRowHeaders: React.FC<IFilesRowHeadersProps> = ({ viewMode, variant })
             <div className={styles.listDefaultHeader}>
                 <span className={styles.textLeft}>Наименование</span>
                 <span>Дата создания</span>
-                <span>Пометки (Тэги)</span>
                 <span>Размер файла</span>
                 <span>Действия</span>
             </div>

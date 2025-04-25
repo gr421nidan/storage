@@ -1,13 +1,14 @@
-import React, {useMemo, useState} from "react";
+import React, {useState, useMemo} from "react";
 import FileIcon from "@/shared/components/file-icon";
-import { IGetStorageFileDto, IGetTrashFileDto } from "@/shared/interface/files";
-import { formatSize } from "@/shared/utils/convertSize";
+import {IGetStorageFileDto, IGetTrashFileDto} from "@/shared/interface/files";
+import {formatSize} from "@/shared/utils/convertSize";
 import ContextMenu from "@/shared/components/context-menu";
 import downloadFile from "@/shared/utils/download-file";
 import styles from "../style";
 import copyPublicLink from "@/shared/utils/copy-public-link";
 import {BUCKET_BASE_URL} from "@/shared/config";
 import FileViewer from "@/shared/components/players";
+import useRenameFilePresenter from "@/entities/cases/storage/files/rename/presenter";
 
 interface IFileCardItemProps {
     file: IGetStorageFileDto | IGetTrashFileDto;
@@ -24,20 +25,37 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                                                         onDeleteClick,
                                                         onRecoverClick,
                                                     }) => {
+    const [isRenaming, setIsRenaming] = useState(false);
+    const handleEditClick = () => setIsRenaming(true);
+    const handleCloseRename = () => setIsRenaming(false);
+    const {
+        register,
+        onSubmit,
+        errors,
+    } = useRenameFilePresenter({
+        fileId: file.id,
+        currentTitle: file.title,
+        onClose: handleCloseRename,
+    });
+
     const menuItems = useMemo(() => {
         return variant === "trash"
             ? [
-                { label: "Восстановить", icon: "garden:reload-stroke-12", onClick: () => onRecoverClick?.(file.id) },
-                { label: "Удалить", icon: "lucide:trash", onClick: () => onDeleteClick?.(file.id) },
+                {label: "Восстановить", icon: "garden:reload-stroke-12", onClick: () => onRecoverClick?.(file.id)},
+                {label: "Удалить", icon: "lucide:trash", onClick: () => onDeleteClick?.(file.id)},
             ]
             : [
-                { label: "Скачать", icon: "fluent:arrow-download-32-filled", onClick: () => downloadFile(file.path, file.title) },
-                { label: "Переименовать", icon: "ci:edit-pencil-line-02" },
-                { label: "Пометка", icon: "akar-icons:arrow-down-left" },
-                { label: "Поделиться", icon: "mingcute:link-2-line" , onClick:()=>copyPublicLink(file.id)},
-                { label: "Удалить", icon: "lucide:trash", onClick: () => onMoveToTrashClick?.(file.id) },
+                {
+                    label: "Скачать",
+                    icon: "fluent:arrow-download-32-filled",
+                    onClick: () => downloadFile(file.path, file.title)
+                },
+                {label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: () => handleEditClick},
+                {label: "Поделиться", icon: "mingcute:link-2-line", onClick: () => copyPublicLink(file.id)},
+                {label: "Удалить", icon: "lucide:trash", onClick: () => onMoveToTrashClick?.(file.id)},
             ];
     }, [variant, file, onRecoverClick, onDeleteClick, onMoveToTrashClick]);
+
     const [isViewerOpen, setIsViewerOpen] = useState(false);
     const handleDoubleClick = () => {
         setIsViewerOpen(true);
@@ -46,25 +64,35 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
         setIsViewerOpen(false);
     };
     const fullFilePath = `${BUCKET_BASE_URL}${file.path}`;
+
     return (
         <>
             <div className={styles.wrapper} onDoubleClick={handleDoubleClick}>
-                <FileIcon fileType={file.type} size={45} />
+                <FileIcon fileType={file.type} size={45}/>
                 <div className={styles.content}>
-        <span className={styles.title} title={file.title}>
-          {file.title}
-        </span>
-                    <span className={styles.size}>{formatSize(file.size)}</span>
+                    {isRenaming ? (
+                        <form onSubmit={onSubmit}>
+                            <input
+                                {...register("title")}
+                                autoFocus
+                                onBlur={onSubmit}
+                                className={`${styles.input} ${errors.title ? "border-red-500" : "border-black"}`}
+                            />
+                        </form>
+                    ) : (
+                        <>
+                            <span className={styles.title} title={file.title}>
+                                {file.title}
+                            </span>
+                            <span className={styles.size}>{formatSize(file.size)}</span>
+                        </>
+                    )}
                 </div>
-                <ContextMenu items={menuItems} />
+                <ContextMenu items={menuItems}/>
             </div>
             {isViewerOpen && (
-                <FileViewer
-                    fileType={file.type}
-                    fileUrl={fullFilePath}
-                    fileTitle={file.title}
-                    onClose={handleCloseViewer}
-                />
+                <FileViewer fileType={file.type} fileUrl={fullFilePath} fileTitle={file.title}
+                            onClose={handleCloseViewer}/>
             )}
         </>
     );
