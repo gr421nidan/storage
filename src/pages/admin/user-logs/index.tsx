@@ -8,11 +8,11 @@ import defaultAvatar from "@/assets/default-avatar.png";
 import { BUCKET_BASE_URL } from "@/shared/config";
 import PageHeader from "@/shared/components/page-header";
 import Button from "@/shared/components/buttons/button";
-
+import FiltersUserLogsPopupMenu from "@/features/admin/filters-logs/ui";
 const StorageUserLogsPage: React.FC = () => {
     const { id_user } = useParams<{ id_user: string }>();
     const [search, setSearch] = useState("");
-
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const { data, isLoading, isError } = useGetUserLogsUseCase(id_user ?? "");
 
     if (isLoading) return <div>Загрузка логов...</div>;
@@ -22,7 +22,12 @@ const StorageUserLogsPage: React.FC = () => {
     const { user, logs } = data;
     const fullName = `${user.surname} ${user.firstname} ${user.patronymic ?? ""}`.trim();
     const userPhoto = user.img ? `${BUCKET_BASE_URL}${user.img}` : defaultAvatar;
-
+    const handleOpenFilter = () => {
+        setIsFilterOpen(true);
+    };
+    const handleCloseFilter = () => {
+        setIsFilterOpen(false);
+    };
     return (
         <>
             <PageHeader className="mb-4">
@@ -41,11 +46,20 @@ const StorageUserLogsPage: React.FC = () => {
                         className="w-[1036px] h-[54px]"
                         onSearch={setSearch}
                     />
-                    <ButtonIcon
-                        icon="solar:alt-arrow-down-outline"
-                        className="h-[54px] w-[248px]">
-                        Фильтрация
-                    </ButtonIcon>
+                    <div className="relative">
+                        <ButtonIcon
+                            icon="solar:alt-arrow-down-outline"
+                            className="h-[54px] w-[248px]"
+                            onClick={handleOpenFilter}>
+                            Фильтрация
+                        </ButtonIcon>
+                        {isFilterOpen && (
+                        <FiltersUserLogsPopupMenu
+                            isOpen={isFilterOpen}
+                            onClose={handleCloseFilter}
+                        />
+                        )}
+                    </div>
                 </div>
                 <div className="flex items-center gap-4">
                     <img

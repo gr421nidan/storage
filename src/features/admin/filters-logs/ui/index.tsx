@@ -5,19 +5,23 @@ import Button from "@/shared/components/buttons/button";
 import PopupMenu from "@/shared/components/popup-menu";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
-import styles from "@/features/admin/filters-users/style";
+import styles from "../style";
+import DatePickerButton from "@/shared/components/date-picker";
+import { format } from "date-fns"; // чтобы удобно форматировать дату для бэка
 
 const logTypeLabels: { [key in ETypeLog]: string } = {
     [ETypeLog.DELETE_FOLDER]: "Удаление папки",
     [ETypeLog.DELETE_FILE]: "Удаление файла",
     [ETypeLog.CREATE_FOLDER]: "Создание папки",
     [ETypeLog.UPLOAD_FILE]: "Загрузка файла",
-    [ETypeLog.DOWNLOAD_FOLDER]: "Скачивание папки",
-    [ETypeLog.DOWNLOAD_FILE]: "Скачивание файла",
+    [ETypeLog.RENAME_FOLDER]: "Переименование папки",
+    [ETypeLog.RENAME_FILE]: "Переименование файла",
 };
 
 interface IFilters {
-    logType: ETypeLog | undefined;
+    type: ETypeLog | undefined;
+    dateFrom: string | undefined;
+    dateTo: string | undefined;
 }
 
 interface IFiltersPopupMenuProps {
@@ -34,19 +38,21 @@ const FiltersUserLogsPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
                                                                         onReset,
                                                                     }) => {
     const [logType, setLogType] = useState<ETypeLog | undefined>(undefined);
-
-    const handleLogTypeChange = (value: ETypeLog | undefined) => {
-        setLogType(value);
-    };
+    const [dateFrom, setDateFrom] = useState<Date | null>(null);
+    const [dateTo, setDateTo] = useState<Date | null>(null);
 
     const handleApply = () => {
         onApply({
-            logType,
+            type: logType,
+            dateFrom: dateFrom ? format(dateFrom, "yyyy-MM-dd") : undefined,
+            dateTo: dateTo ? format(dateTo, "yyyy-MM-dd") : undefined,
         });
     };
 
     const handleReset = () => {
         setLogType(undefined);
+        setDateFrom(null);
+        setDateTo(null);
         onReset();
     };
 
@@ -55,23 +61,35 @@ const FiltersUserLogsPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
             <p className={styles.title}>Тип операций</p>
             <div className={styles.separator}></div>
             <div className={styles.containerButtonRadios}>
-                {Object.entries(ETypeLog).map(([key, value]) => (
-                    <label className={styles.containerRadio} key={key}>
-                        <CheckboxInput
-                            type="radio"
-                            name="logType"
-                            value={value}
-                            checked={logType === value}
-                            onChange={() => handleLogTypeChange(value as ETypeLog)}
-                            className={styles.radioButton}
-                        />
-                        {logTypeLabels[value as ETypeLog]}
-                    </label>
-                ))}
+                {Object.entries(ETypeLog)
+                    .filter(([key]) => isNaN(Number(key))) // исключаем числовые ключи
+                    .map(([key, value]) => (
+                        <label className={styles.containerRadio} key={key}>
+                            <CheckboxInput
+                                type="radio"
+                                name="logType"
+                                value={value}
+                                checked={logType === value}
+                                onChange={() => setLogType(value as ETypeLog)}
+                                className={styles.radioButton}
+                            />
+                            {logTypeLabels[value as ETypeLog]}
+                        </label>
+                    ))}
             </div>
             <div className={styles.separator}></div>
-            <div className="flex">
+            <div className="flex gap-2">
                 <p className={styles.title}>Дата</p>
+                <DatePickerButton
+                    value={dateFrom}
+                    onChange={(date) => setDateFrom(date)}
+                    format="dd.MM.yyyy"
+                />
+                <DatePickerButton
+                    value={dateTo}
+                    onChange={(date) => setDateTo(date)}
+                    format="dd.MM.yyyy"
+                />
             </div>
             <div className={styles.buttonContainer}>
                 <Button
