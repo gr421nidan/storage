@@ -4,7 +4,7 @@ import {IApiErrorDto} from "@/shared/interface/auth";
 import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
 import renameFileRepository from "@/entities/repo/storage/files/rename";
-import {IGetStorageFileDto, IRenameFilePort} from "@/shared/interface/files";
+import {IActionFileDto, IRenameFilePort} from "@/shared/interface/files";
 
 const useRenameFileUseCase = (fileId: string) => {
     const queryClient = useQueryClient();
@@ -13,16 +13,13 @@ const useRenameFileUseCase = (fileId: string) => {
         return renameFileRepository(data, fileId);
     };
 
-    return useMutation<IGetStorageFileDto, AxiosError<IApiErrorDto>, IRenameFilePort>({
+    return useMutation<IActionFileDto, AxiosError<IApiErrorDto>, IRenameFilePort>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FOLDER] });
         },
         onError: (error) => {
-            if (error.status === HttpStatusCode.Conflict) {
-                enqueueSnackbar("Файл уже с текущим названием", { variant: 'errorSnackbar' });
-            }
             if (error.status === HttpStatusCode.Forbidden) {
                 enqueueSnackbar("У вас не хватает прав.", { variant: 'errorSnackbar' });
             }
