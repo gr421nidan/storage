@@ -1,9 +1,11 @@
-import React from "react";
+import React, {useState} from "react";
 import {formatSize} from "@/shared/utils/convertSize";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import downloadFile from "@/shared/utils/download-file";
 import styles from "@/features/files/file-row/style";
 import {IGuestGetFileDto} from "@/shared/interface/files";
+import FileViewer from "@/shared/components/players";
+import {BUCKET_BASE_URL} from "@/shared/config";
 
 interface IFileRowItemGuestProps {
     file: IGuestGetFileDto;
@@ -12,7 +14,15 @@ interface IFileRowItemGuestProps {
 const FileRowItemGuest: React.FC<IFileRowItemGuestProps> = ({
                                                       file,
                                                   }) => {
+    const [isViewerOpen, setIsViewerOpen] = useState(false);
+    const handleDoubleClick = () => {
+        setIsViewerOpen(true);
+    };
+    const handleCloseViewer = () => {
+        setIsViewerOpen(false);
+    };
     const handleDownloadClick = () => downloadFile(file.path, file.title);
+    const fullFilePath = `${BUCKET_BASE_URL}${file.path}`;
     const actionButtons = () => {
         return (
             <>
@@ -25,15 +35,25 @@ const FileRowItemGuest: React.FC<IFileRowItemGuestProps> = ({
         );
     };
     return (
-        <div className={styles.wrapper}>
-            <div className={styles.title} title={file.title}>
-                {file.title}
-            </div>
-            <span>{file.created_at}</span>
-            <span>{formatSize(file.size)}</span>
+        <>
+            <div className={styles.wrapper} onDoubleClick={handleDoubleClick}>
+                <div className={styles.title} title={file.title}>
+                    {file.title}
+                </div>
+                <span>{file.created_at}</span>
+                <span>{formatSize(file.size)}</span>
 
-            <div className={styles.actions}>{actionButtons()}</div>
-        </div>
+                <div className={styles.actions}>{actionButtons()}</div>
+            </div>
+            {isViewerOpen && (
+                <FileViewer
+                    fileType={file.type}
+                    fileUrl={fullFilePath}
+                    fileTitle={file.title}
+                    onClose={handleCloseViewer}
+                />
+            )}
+        </>
     );
 };
 

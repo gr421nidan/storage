@@ -16,11 +16,17 @@ import ProtectedRoute from "@/shared/components/protected-router";
 import ConnectingStorageLayout from "@/shared/components/layouts/main-secondary";
 import {ERoleID} from "@/shared/enum/auth";
 import MainAdditionalLayout from "@/shared/components/layouts/main-additional";
+import GuestLayout from "@/shared/components/layouts/guest";
 
 const router = createBrowserRouter([
     {
-        path: ERouterPath.GUEST_PUBLIC_VIEW,
-        element: <LazyGuestPublicViewPage />,
+        element: <GuestLayout/>,
+        children: [
+            {
+                path: ERouterPath.GUEST_PUBLIC_VIEW,
+                element: <LazyGuestPublicViewPage />,
+            }
+        ]
     },
     {
         element: <AuthLayout/>,
