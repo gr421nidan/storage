@@ -9,9 +9,10 @@ import styles from "../style";
 interface IFolderCardItemProps {
     folder: IGetStorageFolderDto;
     variant?: "default" | "trash";
+    onAddAccessClick?: (folderId: string) => void;
     onMoveToTrashClick?: (folderId: string) => void;
     onDeleteClick?: (folderId: string) => void;
-    onRecoverClick?: (fileId: string) => void;
+    onRecoverClick?: (folderId: string) => void;
 }
 
 const FolderCardItem: React.FC<IFolderCardItemProps> = ({
@@ -20,9 +21,11 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
                                                             onMoveToTrashClick,
                                                             onDeleteClick,
                                                             onRecoverClick,
+                                                            onAddAccessClick,
                                                         }) => {
     const [isRenaming, setIsRenaming] = useState(false);
-
+    const handleEditClick = () => setIsRenaming(true);
+    const handleCloseRename = () => setIsRenaming(false);
     const {
         register,
         onSubmit,
@@ -30,13 +33,18 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
     } = useRenameFolderPresenter({
         folderId: folder.id,
         currentTitle: folder.title,
-        onClose: () => setIsRenaming(false),
+        onClose: handleCloseRename,
     });
-
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            onSubmit();
+        }
+    };
     const getMenuItems = () => {
         const recoverClick = () => onRecoverClick?.(folder.id);
         const deleteClick = () => onDeleteClick?.(folder.id);
         const moveToTrashClick = () => onMoveToTrashClick?.(folder.id);
+        const addAccessClick = () => onAddAccessClick?.(folder.id);
 
         if (variant === "trash") {
             return [
@@ -47,8 +55,8 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
 
         return [
             { label: "Скачать", icon: "fluent:arrow-download-32-filled" },
-            { label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: () => setIsRenaming(true) },
-            { label: "Поделиться", icon: "mingcute:link-2-line" },
+            { label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: handleEditClick },
+            { label: "Поделиться", icon: "mingcute:link-2-line", onClick: addAccessClick},
             { label: "Удалить", icon: "lucide:trash", onClick: moveToTrashClick },
         ];
     };
@@ -62,7 +70,8 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
                         <input
                             {...register("title")}
                             autoFocus
-                            onBlur={onSubmit}
+                            onBlur={handleCloseRename}
+                            onKeyDown={handleKeyDown}
                             className={`${styles.input} ${errors.title ? 'border-red-500' : 'border-black'}`}
                         />
                     </form>

@@ -4,6 +4,7 @@ import FolderCardItem from "@/features/folders/folder-card/ui";
 import MoveToTrashFolderConfirm from "@/features/folders/move-to-trash-confirm/ui";
 import DeleteFolderConfirm from "@/features/trash/folders/delete-confirm/ui";
 import useRecoverFolderPresenter from "@/entities/cases/storage/folders/recover/presenter";
+import AddAccessForFolder from "@/features/folders/add-access-form/ui";
 
 interface IFolderViewProps {
     folders: IGetStorageFolderDto[];
@@ -19,19 +20,24 @@ const FoldersViewWidget: React.FC<IFolderViewProps> = ({
     const { handleRecoverFolder } = useRecoverFolderPresenter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const [isAddAccessModalOpen, setIsAddAccessModalOpen] = useState(false);
     const [selectedFolderId, setSelectedFolderId] = useState<string | null>(null);
     const handleMoveToTrashClick = (folderId: string) => {
         setSelectedFolderId(folderId);
         setIsModalOpen(true);
     };
+    const handleAddAccessClick = (folderId: string) => {
+        setSelectedFolderId(folderId);
+        setIsAddAccessModalOpen(true);
+    };
     const handleDeleteClick = (folderId: string) => {
         setSelectedFolderId(folderId);
         setIsDeleteModalOpen(true);
     };
-
     const handleCloseModal = () => {
         setIsDeleteModalOpen(false);
         setIsModalOpen(false);
+        setIsAddAccessModalOpen(false);
         setSelectedFolderId(null);
     };
 
@@ -49,6 +55,7 @@ const FoldersViewWidget: React.FC<IFolderViewProps> = ({
                         <FolderCardItem
                             folder={folder}
                             variant={variant}
+                            onAddAccessClick={handleAddAccessClick}
                             onMoveToTrashClick={handleMoveToTrashClick}
                             onDeleteClick={handleDeleteClick}
                             onRecoverClick={handleRecoverFolder}
@@ -66,6 +73,13 @@ const FoldersViewWidget: React.FC<IFolderViewProps> = ({
             {isDeleteModalOpen && selectedFolderId && (
                 <DeleteFolderConfirm
                     isOpen={isDeleteModalOpen}
+                    onClose={handleCloseModal}
+                    folderId={selectedFolderId}
+                />
+            )}
+            {isAddAccessModalOpen && selectedFolderId && (
+                <AddAccessForFolder
+                    isOpen={isAddAccessModalOpen}
                     onClose={handleCloseModal}
                     folderId={selectedFolderId}
                 />

@@ -35,7 +35,6 @@ const useRenameFilePresenter = ({ fileId, currentTitle, onClose }: IRenameFilePr
             }
         );
     });
-
     return {
         register,
         onSubmit,

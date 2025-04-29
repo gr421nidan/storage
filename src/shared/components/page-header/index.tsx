@@ -1,10 +1,15 @@
 import React, {PropsWithChildren} from "react";
 
-const PageHeader: React.FC<PropsWithChildren> = ({children}) => {
+interface IPageHeaderProps {
+    className?: string;
+}
+const PageHeader: React.FC<PropsWithChildren<IPageHeaderProps>> = ({ children, className }) => {
     return (
         <div>
-            <div>{children}</div>
-            <div className="h-1 mt-4 bg-purple"></div>
+            <div className={className}>
+                {children}
+            </div>
+            <div className="h-1 mb-[40px] bg-purple" />
         </div>
     );
 };

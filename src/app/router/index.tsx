@@ -15,6 +15,7 @@ import MainLayout from "@/shared/components/layouts/main";
 import ProtectedRoute from "@/shared/components/protected-router";
 import ConnectingStorageLayout from "@/shared/components/layouts/main-secondary";
 import {ERoleID} from "@/shared/enum/auth";
+import MainAdditionalLayout from "@/shared/components/layouts/main-additional";
 
 const router = createBrowserRouter([
     {
@@ -70,6 +71,11 @@ const router = createBrowserRouter([
                         path: ERouterPath.USERS,
                         element: <LazyStorageUsersPage/>,
                     },
+                ],
+            },
+            {
+                element: <MainAdditionalLayout/>,
+                children: [
                     {
                         path: ERouterPath.USER_LOGS,
                         element: <LazyUserLogsPage/>,

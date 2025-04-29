@@ -8,7 +8,6 @@ interface IGetStorageFileDto {
     created_at:string;
     update_at: string | null;
     path: string;
-    tag_title: string | null;
 }
 interface IGetTrashFileDto extends IGetStorageFileDto{
     deleted_at: string;
@@ -23,7 +22,6 @@ interface IUploadStorageFileDto {
     update_at: string | null;
     deleted_at: string | null;
     size: number;
-    tag_id: string | null;
     is_deleted: boolean;
     owner_id:string;
     path: string;
@@ -38,7 +36,6 @@ interface IGuestGetFileDto{
     type: EFileType;
     created_at:string;
     size: number;
-    tag_title: string | null;
     path: string;
 }
 

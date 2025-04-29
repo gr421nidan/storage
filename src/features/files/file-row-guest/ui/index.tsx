@@ -30,10 +30,6 @@ const FileRowItemGuest: React.FC<IFileRowItemGuestProps> = ({
                 {file.title}
             </div>
             <span>{file.created_at}</span>
-            <span>{file.tag_title
-                ? `#${file.tag_title}`
-                : "-"}
-            </span>
             <span>{formatSize(file.size)}</span>
 
             <div className={styles.actions}>{actionButtons()}</div>

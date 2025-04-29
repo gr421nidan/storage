@@ -1,4 +1,5 @@
 import {IGetStorageFileDto} from "@/shared/interface/files";
+import {IGetAllUsersDto} from "@/shared/interface/admin";
 
 interface IGetStorageFolderDto {
     id: string;
@@ -13,7 +14,6 @@ interface ICreateStorageFolderDto {
     is_deleted: boolean,
     parent_folder_id: string | null,
     is_restricted: false,
-    tag_id: string | null,
     storage_id: string,
     owner_id: string,
     deleted_at: string | null,
@@ -27,9 +27,11 @@ interface IGetFolderDto {
     files: IGetStorageFileDto[],
     folders: IGetStorageFolderDto[]
 }
-
+interface IGetUsersWithAccessDto {
+    users: IGetAllUsersDto[],
+}
 interface IGetTrashFolderDto extends IGetStorageFolderDto {
     deleted_at: string,
 }
 
-export type {IGetStorageFolderDto, ICreateStorageFolderDto, IActionFolderDto, IGetFolderDto, IGetTrashFolderDto};
+export type {IGetStorageFolderDto, ICreateStorageFolderDto, IActionFolderDto, IGetFolderDto, IGetTrashFolderDto, IGetUsersWithAccessDto};

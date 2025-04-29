@@ -8,7 +8,8 @@ enum QueryKey {
     TRASH = "trash",
     USER_LOGS = "userLogs",
     STORAGES = "storages",
-    GUEST_FILE = "guestFile"
+    GUEST_FILE = "guestFile",
+    ACCESS_USERS="accessUsers"
 }
 
 export default QueryKey;

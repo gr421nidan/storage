@@ -50,7 +50,7 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                     icon: "fluent:arrow-download-32-filled",
                     onClick: () => downloadFile(file.path, file.title)
                 },
-                {label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: () => handleEditClick},
+                {label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: handleEditClick},
                 {label: "Поделиться", icon: "mingcute:link-2-line", onClick: () => copyPublicLink(file.id)},
                 {label: "Удалить", icon: "lucide:trash", onClick: () => onMoveToTrashClick?.(file.id)},
             ];
@@ -64,7 +64,11 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
         setIsViewerOpen(false);
     };
     const fullFilePath = `${BUCKET_BASE_URL}${file.path}`;
-
+    const handleKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === 'Enter') {
+            onSubmit();
+        }
+    };
     return (
         <>
             <div className={styles.wrapper} onDoubleClick={handleDoubleClick}>
@@ -75,7 +79,8 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                             <input
                                 {...register("title")}
                                 autoFocus
-                                onBlur={onSubmit}
+                                onBlur={handleCloseRename}
+                                onKeyDown={handleKeyDown}
                                 className={`${styles.input} ${errors.title ? "border-red-500" : "border-black"}`}
                             />
                         </form>
