@@ -4,7 +4,8 @@ import {IRenameFilePort} from "@/shared/interface/files";
 const validationSchema: yup.ObjectSchema<IRenameFilePort> = yup.object().shape({
     title: yup
         .string()
-        .required(),
+        .trim()
+        .required("Название файла обязательно для заполнения"),
 });
 
 export default validationSchema;

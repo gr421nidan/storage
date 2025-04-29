@@ -2,12 +2,12 @@ import {useQuery} from "@tanstack/react-query";
 import QueryKey from "@/shared/common/enum/query-key";
 import {IGetStorageFileDto} from "@/shared/interface/files";
 import formatedDate from "@/shared/utils/formatedDate";
-import CurrentStorage from "@/shared/hooks/storage";
 import getFolderRepository from "@/entities/repo/storage/folders/get-folder";
 import {IGetStorageFilesAndFoldersPort} from "@/shared/interface/storage";
+import useCurrentStorage from "@/shared/hooks/storage";
 
 const useGetFolderUseCase = (folderId: string | undefined, filters: IGetStorageFilesAndFoldersPort) => {
-    const storageId = CurrentStorage() as string;
+    const storageId = useCurrentStorage() as string;
 
     const execute = async () => {
         const {search, sortBy, sortOrder, type, created_at} = filters;

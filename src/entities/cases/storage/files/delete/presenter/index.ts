@@ -1,13 +1,11 @@
 import useDeleteFileUseCase from "../use-case";
 
-const useDeleteFilePresenter = (onClose: () => void) => {
+const useDeleteFilePresenter = (onSuccess: () => void) => {
     const {mutateAsync} = useDeleteFileUseCase();
 
     const handleDeleteFile = async (fileId: string) => {
         await mutateAsync(fileId, {
-            onSuccess: () => {
-                onClose();
-            }
+            onSuccess,
         });
     };
 

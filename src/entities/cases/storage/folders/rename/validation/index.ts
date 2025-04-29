@@ -1,10 +1,11 @@
 import * as yup from "yup";
-import {IRenameStorageFolderPort} from "@/shared/interface/folders";
+import {IRenameFolderForm} from "@/shared/interface/folders";
 
-const validationSchema: yup.ObjectSchema<IRenameStorageFolderPort> = yup.object().shape({
+const validationSchema: yup.ObjectSchema<IRenameFolderForm> = yup.object().shape({
     title: yup
         .string()
-        .required(),
+        .trim()
+        .required("Название папки обязательно для заполнения"),
 });
 
 export default validationSchema;

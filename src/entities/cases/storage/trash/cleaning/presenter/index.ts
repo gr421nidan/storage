@@ -1,17 +1,15 @@
 import useCleaningTrashUseCase from "../use-case";
 
-const useCleaningTrashPresenter = (onClose: () => void) => {
-    const {mutateAsync} = useCleaningTrashUseCase();
+const useCleaningTrashPresenter = (storageId: string, onSuccess: () => void) => {
+    const { mutateAsync } = useCleaningTrashUseCase({ storageId });
 
     const handleCleaningTrash = async () => {
         await mutateAsync(undefined, {
-            onSuccess: () => {
-                onClose();
-            },
+            onSuccess,
         });
     };
 
-    return {handleCleaningTrash};
+    return { handleCleaningTrash };
 };
 
 export default useCleaningTrashPresenter;

@@ -13,7 +13,9 @@ interface IMoveToTrashFolderConfirmProps {
 }
 
 const MoveToTrashFolderConfirm: React.FC<IMoveToTrashFolderConfirmProps> = ({ isOpen, onClose, folderId }) => {
-    const { handleMoveToTrashFolder } = useMoveToTrashFolderPresenter(onClose);
+    const { handleMoveToTrashFolder } = useMoveToTrashFolderPresenter(() => {
+        onClose();
+    });
     const handleDelete = () => {
         handleMoveToTrashFolder(folderId);
     };

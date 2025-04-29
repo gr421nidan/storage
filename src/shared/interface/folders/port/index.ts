@@ -1,12 +1,14 @@
 import {ELinkActivity} from "@/shared/enum/folder";
 
-interface ICreateStorageFolderPort {
+interface IBaseFolder {
     title: string;
+}
+
+interface ICreateStorageFolderPort extends IBaseFolder {
     parent_folder_id?: string | null;
 }
-interface IRenameStorageFolderPort {
-    title: string;
-}
+
+type IRenameStorageFolderPort = IBaseFolder
 interface IAddAccessForUserPort {
     user_id: string;
 }
@@ -16,4 +18,4 @@ interface IChooseAccessForFolderPort {
 interface ILinkActivityPort {
     date_of_expiration: ELinkActivity;
 }
-export type { ICreateStorageFolderPort, IRenameStorageFolderPort, IAddAccessForUserPort, IChooseAccessForFolderPort, ILinkActivityPort};
+export type { ICreateStorageFolderPort, IRenameStorageFolderPort, IAddAccessForUserPort, IChooseAccessForFolderPort, ILinkActivityPort, IBaseFolder};

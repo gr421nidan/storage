@@ -5,11 +5,11 @@ import {IUploadFilePort, IUploadStorageFileDto} from "@/shared/interface/files";
 import uploadFileRepository from "@/entities/repo/storage/files/upload-files";
 import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
-import CurrentStorage from "@/shared/hooks/storage";
+import useCurrentStorage from "@/shared/hooks/storage";
 import uploadFileInFolderRepository from "@/entities/repo/storage/files/upload-in-folder";
 
 const useUploadFileUseCase = () => {
-    const storageId = CurrentStorage() as string;
+    const storageId = useCurrentStorage() as string;
     const queryClient = useQueryClient();
     const execute = (data: IUploadFilePort) => {
         const { folderId } = data;

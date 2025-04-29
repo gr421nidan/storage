@@ -2,12 +2,12 @@ import {useQuery} from "@tanstack/react-query";
 import QueryKey from "@/shared/common/enum/query-key";
 import {IGetTrashFileDto} from "@/shared/interface/files";
 import formatedDate from "@/shared/utils/formatedDate";
-import CurrentStorage from "@/shared/hooks/storage";
 import {IGetStorageFilesAndFoldersPort} from "@/shared/interface/storage";
 import getTrashFilesAndFoldersRepository from "@/entities/repo/storage/trash/get-files-and-folders";
+import useCurrentStorage from "@/shared/hooks/storage";
 
 const useGetTrashFilesAndFoldersUseCase = ({search}: IGetStorageFilesAndFoldersPort) => {
-    const storageId = CurrentStorage() as string;
+    const storageId = useCurrentStorage() as string;
     const execute = async () => {
         const params = {search};
         const {files, folders} = await getTrashFilesAndFoldersRepository(storageId, params);

@@ -4,11 +4,11 @@ import validationSchema from "../validation";
 import useCreateFolderUseCase from "../use-case";
 import {ICreateStorageFolderPort} from "@/shared/interface/folders";
 
-interface ICreateFolderPresenterParams {
+interface ICreateFolderPresenterProps {
     currentFolder?: string;
     onClose?: () => void;
 }
-const useCreateFolderPresenter = ({ currentFolder, onClose }: ICreateFolderPresenterParams = {}) => {
+const useCreateFolderPresenter = ({ currentFolder, onClose }: ICreateFolderPresenterProps = {}) => {
     const {register, handleSubmit, reset, formState: {errors}} = useForm<ICreateStorageFolderPort>({
         resolver: yupResolver(validationSchema),
         defaultValues: {

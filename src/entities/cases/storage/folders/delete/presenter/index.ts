@@ -1,13 +1,11 @@
 import useDeleteFolderUseCase from "../use-case";
 
-const useDeleteFolderPresenter = (onClose: () => void) => {
+const useDeleteFolderPresenter = (onSuccess?: () => void) => {
     const {mutateAsync} = useDeleteFolderUseCase();
 
     const handleDeleteFolder = async (folderId: string) => {
         await mutateAsync(folderId, {
-            onSuccess: () => {
-                onClose();
-            },
+            onSuccess,
         });
     };
 

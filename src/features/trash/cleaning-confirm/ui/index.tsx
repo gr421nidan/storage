@@ -2,9 +2,10 @@ import React from "react";
 import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
 import { cn } from "@/shared/utils/cn";
-import { buttonStyles } from "@/shared/components/buttons/style.ts";;
+import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import  styles  from "@/features/files/move-to-trash-confirm/style";
 import useCleaningTrashPresenter from "@/entities/cases/storage/trash/cleaning/presenter";
+import useCurrentStorage from "@/shared/hooks/storage";
 
 interface ICleaningConfirmProps {
     isOpen: boolean;
@@ -12,10 +13,11 @@ interface ICleaningConfirmProps {
 }
 
 const CleaningTrashConfirm: React.FC<ICleaningConfirmProps> = ({ isOpen, onClose}) => {
-    const { handleCleaningTrash } = useCleaningTrashPresenter(onClose);
-    const handleCleaning = () => handleCleaningTrash();
-    if (!isOpen) return null;
+    const storageId = useCurrentStorage() as string;
+    const { handleCleaningTrash } = useCleaningTrashPresenter(storageId, onClose);
 
+    if (!isOpen) return null;
+    const handleCleaning = () => handleCleaningTrash();
     return (
         <Modal title="Удалить" className="w-[655px]" onClose={onClose}>
             <div>

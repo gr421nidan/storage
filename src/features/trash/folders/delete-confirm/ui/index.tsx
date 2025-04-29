@@ -13,7 +13,9 @@ interface IDeleteFolderConfirmProps {
 }
 
 const DeleteFolderConfirm: React.FC<IDeleteFolderConfirmProps> = ({ isOpen, onClose, folderId  }) => {
-    const { handleDeleteFolder } = useDeleteFolderPresenter(onClose);
+    const { handleDeleteFolder } = useDeleteFolderPresenter(() => {
+        onClose();
+    });
     const handleDelete = () => handleDeleteFolder(folderId);
     if (!isOpen) return null;
 

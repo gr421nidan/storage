@@ -1,6 +1,6 @@
 const styles = {
     wrapper:
-        "flex justify-between cursor-pointer text-lg items-center gap-4 bg-gr-blocks py-4 px-9 border-2 border-purple-light h-16 rounded-2xl w-[1227px]",
+        "grid cursor-pointer text-lg items-center gap-4 bg-gr-blocks py-4 px-9 border-2 border-purple-light h-16 rounded-2xl w-[1227px]",
     title: "truncate max-w-full",
     actions: "flex gap-4",
     icon: "w-5 h-5",

@@ -3,8 +3,8 @@ import QueryKey from "@/shared/common/enum/query-key";
 import { IGetStorageFileDto } from "@/shared/interface/files";
 import formatedDate from "@/shared/utils/formatedDate";
 import getStorageFilesAndFoldersRepository from "@/entities/repo/storage/get-folders-and-files";
-import CurrentStorage from "@/shared/hooks/storage";
 import { IGetStorageFilesAndFoldersPort } from "@/shared/interface/storage";
+import useCurrentStorage from "@/shared/hooks/storage";
 
 const useGetStorageFilesAndFoldersUseCase = ({
                                                  search,
@@ -13,7 +13,7 @@ const useGetStorageFilesAndFoldersUseCase = ({
                                                  type,
                                                  created_at,
                                              }: IGetStorageFilesAndFoldersPort) => {
-    const storageId = CurrentStorage();
+    const storageId = useCurrentStorage();
     const execute = async () => {
         if (!storageId) return { files: [], folders: [] };
         const params = {

@@ -1,17 +1,15 @@
 import useMoveToTrashFileUseCase from "../use-case";
 
-const useMoveToTrashFilePresenter = (onClose: () => void) => {
-    const { mutateAsync} = useMoveToTrashFileUseCase();
+const useMoveToTrashFilePresenter = (onSuccess: () => void) => {
+    const {mutateAsync} = useMoveToTrashFileUseCase();
 
     const handleMoveToTrashFile = async (fileId: string) => {
         await mutateAsync(fileId, {
-            onSuccess: () => {
-                onClose();
-            }
+            onSuccess
         });
     };
 
-    return { handleMoveToTrashFile };
+    return {handleMoveToTrashFile};
 };
 
 export default useMoveToTrashFilePresenter;
