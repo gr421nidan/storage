@@ -7,7 +7,8 @@ import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import styles from "../style";
 import DatePickerButton from "@/shared/components/date-picker";
-import { format } from "date-fns"; // чтобы удобно форматировать дату для бэка
+import { format } from "date-fns";
+import {IFiltersLogsPort} from "@/shared/interface/admin";
 
 const logTypeLabels: { [key in ETypeLog]: string } = {
     [ETypeLog.DELETE_FOLDER]: "Удаление папки",
@@ -17,17 +18,10 @@ const logTypeLabels: { [key in ETypeLog]: string } = {
     [ETypeLog.RENAME_FOLDER]: "Переименование папки",
     [ETypeLog.RENAME_FILE]: "Переименование файла",
 };
-
-interface IFilters {
-    type: ETypeLog | undefined;
-    dateFrom: string | undefined;
-    dateTo: string | undefined;
-}
-
 interface IFiltersPopupMenuProps {
     isOpen: boolean;
     onClose: () => void;
-    onApply: (filters: IFilters) => void;
+    onApply: (filters: IFiltersLogsPort) => void;
     onReset: () => void;
 }
 
@@ -58,11 +52,11 @@ const FiltersUserLogsPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
 
     return (
         <PopupMenu isOpen={isOpen} onClose={onClose} className={styles.containerFilters}>
-            <p className={styles.title}>Тип операций</p>
+            <p>Тип операций</p>
             <div className={styles.separator}></div>
             <div className={styles.containerButtonRadios}>
                 {Object.entries(ETypeLog)
-                    .filter(([key]) => isNaN(Number(key))) // исключаем числовые ключи
+                    .filter(([key]) => isNaN(Number(key)))
                     .map(([key, value]) => (
                         <label className={styles.containerRadio} key={key}>
                             <CheckboxInput
@@ -79,7 +73,7 @@ const FiltersUserLogsPopupMenu: React.FC<IFiltersPopupMenuProps> = ({
             </div>
             <div className={styles.separator}></div>
             <div className="flex gap-2">
-                <p className={styles.title}>Дата</p>
+                <p>Дата</p>
                 <DatePickerButton
                     value={dateFrom}
                     onChange={(date) => setDateFrom(date)}
