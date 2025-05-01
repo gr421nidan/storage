@@ -1,4 +1,4 @@
-import React from "react";
+import {ReactNode} from "react";
 
 const steps = [
     <>
@@ -27,7 +27,7 @@ const steps = [
     </>
 ];
 
-const ConnectStorageStepOne: React.FC = () => {
+const ConnectStorageStepOne = (): ReactNode => {
     return (
         <div className="pt-[42px] flex flex-col gap-[40px] px-[22px] items-center">
             <h2 className="text-center text-2x leading-none">

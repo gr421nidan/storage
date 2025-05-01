@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { IDeleteLogsPort } from "@/shared/interface/logs";
+import { IDeleteLogsPort } from "@/shared/interface/logs-user";
 import validationSchema from "../validation";
 import useAutomaticDeleteUserLogsUseCase from "../use-case";
 import useAutomaticDeleteUsersLogsUseCase from "@/entities/cases/logs-user/automatic-delete-users-logs/use-case";

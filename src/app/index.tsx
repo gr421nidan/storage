@@ -7,7 +7,6 @@ import ErrorBoundaryProvider from "@/app/provider/error-boundary";
 import {ThemeProvider} from "@/app/provider/theme";
 import {SnackbarProvider} from "notistack";
 import CustomSnackbar from "@/shared/components/snackbar";
-import {CurrentStorageProvider} from "@/app/provider/current-storage";
 
 const client = new QueryClient({
     defaultOptions: {
@@ -30,16 +29,14 @@ const App = (): ReactNode => {
         <ThemeProvider>
             <ErrorBoundaryProvider>
                 <QueryClientProvider client={client}>
-                        <SnackbarProvider
-                            Components={{
-                                successSnackbar: CustomSnackbar,
-                                errorSnackbar: CustomSnackbar
-                            }}>
-                            <ReactQueryDevtools initialIsOpen={false}/>
-                            <CurrentStorageProvider>
-                                <RouterProvider router={router} />
-                            </CurrentStorageProvider>
-                        </SnackbarProvider>
+                    <SnackbarProvider
+                        Components={{
+                            successSnackbar: CustomSnackbar,
+                            errorSnackbar: CustomSnackbar
+                        }}>
+                        <ReactQueryDevtools initialIsOpen={false}/>
+                        <RouterProvider router={router} />
+                    </SnackbarProvider>
                 </QueryClientProvider>
             </ErrorBoundaryProvider>
         </ThemeProvider>

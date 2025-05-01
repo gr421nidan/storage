@@ -1,4 +1,4 @@
-import React from "react";
+import {ReactNode} from "react";
 import Input from "@/shared/components/inputs/base-input";
 import {cn} from "@/shared/utils/cn";
 import {inputsStyles} from "@/shared/components/inputs/style.ts";
@@ -7,7 +7,7 @@ import Button from "@/shared/components/buttons/button";
 import useConnectStorageS3Presenter from "@/entities/cases/storage/ connect-storage-s3/presenter";
 import {IConnectStorageS3Form} from "@/shared/interface/storage";
 
-const ConnectStorageStepThree: React.FC = () => {
+const ConnectStorageStepThree = (): ReactNode => {
     const {register, onSubmit, errors} = useConnectStorageS3Presenter();
     const inputSize = "w-[582px] h-[54px]"
     const isError = (field: keyof IConnectStorageS3Form): boolean => !!errors[field];

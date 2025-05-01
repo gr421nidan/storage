@@ -1,4 +1,4 @@
-import React from "react";
+import {ReactNode} from "react";
 
 const steps = [
     <>Войдите в свою учетную запись.</>,
@@ -20,7 +20,7 @@ const steps = [
     </>
 ];
 
-const ConnectStorageStepTwo: React.FC = () => {
+const ConnectStorageStepTwo = (): ReactNode => {
     return (
         <div className="px-[42px] pt-[42px]">
             <div className="flex flex-col gap-3">

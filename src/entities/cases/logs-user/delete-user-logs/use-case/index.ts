@@ -3,7 +3,7 @@ import {IApiErrorDto} from "@/shared/interface/auth";
 import {AxiosError, HttpStatusCode} from "axios";
 import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
-import {IDeleteLogsDto} from "@/shared/interface/logs";
+import {IDeleteLogsDto} from "@/shared/interface/logs-user";
 import deleteUserLogsRepository from "@/entities/repo/logs-user/delete-user-logs";
 
 const useDeleteUserLogsUseCase = () => {

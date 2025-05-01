@@ -6,14 +6,15 @@ import {Outlet, useLocation, useMatch, useParams} from "react-router-dom";
 import ERouterPath from "@/shared/common/enum/router";
 import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 import useGetAvailableStoragesUseCase from "@/entities/cases/storage/get-available-storages/use-case";
+import { CurrentStorageProvider } from "@/app/provider/current-storage";
 
 const MainLayout: React.FC = () => {
     const location = useLocation();
-    const { id_storage } = useParams<{ id_storage: string }>();
+    const {id_storage} = useParams<{ id_storage: string }>();
     const isStoragePage = useMatch("/storage/:id_storage");
 
-    const { data } = useGetUserProfileUseCase();
-    const { storages } = useGetAvailableStoragesUseCase();
+    const {data} = useGetUserProfileUseCase();
+    const {storages} = useGetAvailableStoragesUseCase();
     const pageTitles: Record<string, string> = {
         [ERouterPath.MAIN_PAGE]: data?.isAdmin ? "Общее хранилище" : "Мое хранилище",
         [ERouterPath.USER_PROFILE]: "Личные данные",
@@ -42,16 +43,18 @@ const MainLayout: React.FC = () => {
         setNavbarOpen(!isNavbarOpen);
     };
     return (
-        <div className="flex flex-col min-h-screen">
-            <HeaderWidget toggleNavbar={toggleNavbar} />
-            <NavbarWidget isOpen={isNavbarOpen} />
-            <main className="pl-[193px] pr-[430px] pt-[166px]">
-                <h2>{title}</h2>
-                <div className="h-1 mt-4 mb-[40px] bg-purple"></div>
-                <Outlet />
-            </main>
-            <SidebarWidget />
-        </div>
+        <CurrentStorageProvider>
+            <div className="flex flex-col min-h-screen">
+                <HeaderWidget toggleNavbar={toggleNavbar}/>
+                <NavbarWidget isOpen={isNavbarOpen}/>
+                <main className="pl-[193px] pr-[430px] pt-[166px]">
+                    <h2>{title}</h2>
+                    <div className="h-1 mt-4 mb-[40px] bg-purple"></div>
+                    <Outlet/>
+                </main>
+                <SidebarWidget/>
+            </div>
+        </CurrentStorageProvider>
     );
 };
 
