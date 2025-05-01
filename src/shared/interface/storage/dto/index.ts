@@ -27,4 +27,7 @@ interface IGetAvailableStoragesDto {
 interface ICleanupDiskDto {
     message:string;
 }
-export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, ICleanupDiskDto };
+interface IConnectStorageS3Dto{
+    message:string;
+}
+export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, ICleanupDiskDto, IConnectStorageS3Dto };

@@ -5,7 +5,7 @@ import PopupMenu from "@/shared/components/popup-menu";
 import { cn } from "@/shared/utils/cn";
 import styles from "../style";
 import { EClearingInterval } from "@/shared/enum/admin";
-import useAutomaticDeleteLogsPresenter from "@/entities/cases/logs/automatic-delete-user-logs/presenter";
+import useAutomaticDeleteLogsPresenter from "@/entities/cases/logs-user/automatic-delete-user-logs/presenter";
 import {buttonStyles} from "@/shared/components/buttons/style.ts";
 
 const automaticClearingLabels: { [key in EClearingInterval]: string } = {

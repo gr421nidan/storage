@@ -9,7 +9,7 @@ import { BUCKET_BASE_URL } from "@/shared/config";
 import PageHeader from "@/shared/components/page-header";
 import Button from "@/shared/components/buttons/button";
 import FiltersUserLogsPopupMenu from "@/features/admin/filters-logs/ui";
-import useDeleteUserLogsPresenter from "@/entities/cases/logs/delete-user-logs/presenter";
+import useDeleteUserLogsPresenter from "@/entities/cases/logs-user/delete-user-logs/presenter";
 import AutomaticClearingPopupMenu from "@/features/admin/automatic-cleaning/ui";
 import {IFiltersLogsPort} from "@/shared/interface/admin";
 const StorageUserLogsPage = (): ReactNode => {

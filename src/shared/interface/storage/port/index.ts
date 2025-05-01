@@ -5,4 +5,10 @@ interface IGetStorageFilesAndFoldersPort {
     type?: string[];
     created_at?: string;
 }
-export type {IGetStorageFilesAndFoldersPort}
+interface IConnectStorageS3Port {
+    endpoint: string;
+    bucket_name: string;
+    access_key: string;
+    secret_key: string;
+}
+export type {IGetStorageFilesAndFoldersPort, IConnectStorageS3Port}
