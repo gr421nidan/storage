@@ -4,10 +4,10 @@ import {IGetStorageFileDto} from "@/shared/interface/files";
 import formatedDate from "@/shared/utils/formatedDate";
 import getFolderRepository from "@/entities/repo/storage/folders/get-folder";
 import {IGetStorageFilesAndFoldersPort} from "@/shared/interface/storage";
-import useCurrentStorage from "@/shared/hooks/storage";
+import {useCurrentStorage} from "@/shared/hooks/storage";
 
 const useGetFolderUseCase = (folderId: string | undefined, filters: IGetStorageFilesAndFoldersPort) => {
-    const storageId = useCurrentStorage() as string;
+    const storageId = useCurrentStorage();
 
     const execute = async () => {
         const {search, sortBy, sortOrder, type, created_at} = filters;

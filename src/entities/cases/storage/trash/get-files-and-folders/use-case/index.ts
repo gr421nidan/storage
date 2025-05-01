@@ -4,10 +4,10 @@ import {IGetTrashFileDto} from "@/shared/interface/files";
 import formatedDate from "@/shared/utils/formatedDate";
 import {IGetStorageFilesAndFoldersPort} from "@/shared/interface/storage";
 import getTrashFilesAndFoldersRepository from "@/entities/repo/storage/trash/get-files-and-folders";
-import useCurrentStorage from "@/shared/hooks/storage";
+import {useCurrentStorage} from "@/shared/hooks/storage";
 
 const useGetTrashFilesAndFoldersUseCase = ({search}: IGetStorageFilesAndFoldersPort) => {
-    const storageId = useCurrentStorage() as string;
+    const storageId = useCurrentStorage();
     const execute = async () => {
         const params = {search};
         const {files, folders} = await getTrashFilesAndFoldersRepository(storageId, params);

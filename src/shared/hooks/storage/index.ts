@@ -1,23 +1,13 @@
-import {useParams} from "react-router-dom";
-import {useState, useEffect} from "react";
-import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
+import {createContext, useContext} from "react";
 
-type ICurrentStorage = string | undefined;
+type ICurrentStorageContextProps = string | undefined;
 
-const useCurrentStorage = (): ICurrentStorage => {
-    const {id_storage} = useParams<{ id_storage?: string }>();
-    const [storageId, setStorageId] = useState<ICurrentStorage>(undefined);
-    const {data: userProfile} = useGetUserProfileUseCase();
+const CurrentStorageContext = createContext<ICurrentStorageContextProps | null>(null);
 
-    useEffect(() => {
-        if (id_storage) {
-            setStorageId(id_storage);
-        } else if (userProfile?.storage_id) {
-            setStorageId(userProfile.storage_id);
-        }
-    }, [id_storage, userProfile?.storage_id]);
-
-    return storageId;
+const useCurrentStorage = () => {
+    const context = useContext(CurrentStorageContext);
+    if (!context) throw new Error("CurrentStorageContext is not implemented or undefined");
+    return context;
 };
 
-export default useCurrentStorage;
+export {CurrentStorageContext, useCurrentStorage};

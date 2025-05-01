@@ -4,14 +4,11 @@ import { AxiosError, AxiosResponse } from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import cleaningTrashRepository from "@/entities/repo/storage/trash/cleaning";
 import { ICleaningTrashDto } from "@/shared/interface/trash";
+import {useCurrentStorage} from "@/shared/hooks/storage";
 
-interface IUseCleaningTrashUseCaseProps {
-    storageId: string;
-}
-
-const useCleaningTrashUseCase = ({ storageId }: IUseCleaningTrashUseCaseProps) => {
+const useCleaningTrashUseCase = () => {
     const queryClient = useQueryClient();
-
+    const storageId = useCurrentStorage();
     const execute = () => {
         return cleaningTrashRepository(storageId);
     };

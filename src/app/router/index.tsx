@@ -13,7 +13,7 @@ import ERouterPath from "@/shared/common/enum/router";
 import AuthLayout from "@/shared/components/layouts/auth";
 import MainLayout from "@/shared/components/layouts/main";
 import ProtectedRoute from "@/shared/components/protected-router";
-import ConnectingStorageLayout from "@/shared/components/layouts/main-secondary";
+import MainSecondaryLayout from "@/shared/components/layouts/main-secondary";
 import {ERoleID} from "@/shared/enum/auth";
 import MainAdditionalLayout from "@/shared/components/layouts/main-additional";
 import GuestLayout from "@/shared/components/layouts/guest";
@@ -111,7 +111,7 @@ const router = createBrowserRouter([
                 ],
             },
             {
-                element: <ConnectingStorageLayout/>,
+                element: <MainSecondaryLayout/>,
                 children: [
                     {
                         path: ERouterPath.CONNECTING_STORAGE,
@@ -122,13 +122,17 @@ const router = createBrowserRouter([
         ],
     },
     {
-        path: ERouterPath.FORBIDDEN_PAGE,
-        element: <LazyForbiddenPage/>,
-    },
-    {
-        path: "*",
-        element: <LazyNotFoundPage/>,
-    },
-
+        element: <MainSecondaryLayout/>,
+        children: [
+            {
+                path: ERouterPath.FORBIDDEN_PAGE,
+                element: <LazyForbiddenPage/>,
+            },
+            {
+                path: "*",
+                element: <LazyNotFoundPage/>,
+            },
+        ],
+    }
 ])
 export default router

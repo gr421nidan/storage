@@ -4,7 +4,7 @@ import { IGetStorageFileDto } from "@/shared/interface/files";
 import formatedDate from "@/shared/utils/formatedDate";
 import getStorageFilesAndFoldersRepository from "@/entities/repo/storage/get-folders-and-files";
 import { IGetStorageFilesAndFoldersPort } from "@/shared/interface/storage";
-import useCurrentStorage from "@/shared/hooks/storage";
+import {useCurrentStorage} from "@/shared/hooks/storage";
 
 const useGetStorageFilesAndFoldersUseCase = ({
                                                  search,

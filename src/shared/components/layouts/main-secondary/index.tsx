@@ -3,7 +3,7 @@ import NavbarWidget from "@/widgets/navbar";
 import { Outlet } from "react-router-dom";
 import HeaderWidget from "@/widgets/header";
 
-const ConnectingStorageLayout: React.FC = () => {
+const MainSecondaryLayout: React.FC = () => {
     const [isNavbarOpen, setNavbarOpen] = useState(false);
     const toggleNavbar = () => {
         setNavbarOpen(!isNavbarOpen);
@@ -20,4 +20,4 @@ const ConnectingStorageLayout: React.FC = () => {
     );
 };
 
-export default ConnectingStorageLayout;
+export default MainSecondaryLayout;

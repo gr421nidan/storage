@@ -3,12 +3,12 @@ import {AxiosError, HttpStatusCode} from "axios";
 import {IApiErrorDto} from "@/shared/interface/auth";
 import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
-import CurrentStorage from "@/shared/hooks/storage";
+import {useCurrentStorage} from "@/shared/hooks/storage";
 import {ICreateStorageFolderDto, ICreateStorageFolderPort} from "@/shared/interface/folders";
 import createFolderRepository from "@/entities/repo/storage/folders/create";
 
 const useCreateFolderUseCase = () => {
-    const storageId = CurrentStorage() as string;
+    const storageId = useCurrentStorage();
     const queryClient = useQueryClient();
     const execute = (data: ICreateStorageFolderPort) => {
         return createFolderRepository(data, storageId);

@@ -5,7 +5,6 @@ import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import  styles  from "@/features/files/move-to-trash-confirm/style";
 import useCleaningTrashPresenter from "@/entities/cases/storage/trash/cleaning/presenter";
-import useCurrentStorage from "@/shared/hooks/storage";
 
 interface ICleaningConfirmProps {
     isOpen: boolean;
@@ -13,8 +12,7 @@ interface ICleaningConfirmProps {
 }
 
 const CleaningTrashConfirm: React.FC<ICleaningConfirmProps> = ({ isOpen, onClose}) => {
-    const storageId = useCurrentStorage() as string;
-    const { handleCleaningTrash } = useCleaningTrashPresenter(storageId, onClose);
+    const { handleCleaningTrash } = useCleaningTrashPresenter(onClose);
 
     if (!isOpen) return null;
     const handleCleaning = () => handleCleaningTrash();
