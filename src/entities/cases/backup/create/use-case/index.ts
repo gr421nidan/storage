@@ -3,17 +3,19 @@ import { IApiErrorDto } from "@/shared/interface/auth";
 import {AxiosError, HttpStatusCode} from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import {enqueueSnackbar} from "notistack";
-import cleanupDiskRepository from "@/entities/repo/storage/cleanup-disk";
-import {ICleanupDiskDto} from "@/shared/interface/storage";
+import {ICreateBackupDto} from "@/shared/interface/backup";
+import getCreateBackupRepository from "@/entities/repo/backup/create";
+import {useCurrentStorage} from "@/shared/hooks/storage";
 
-const useCleanupDiskUseCase = () => {
+const useCreateBackupUseCase = () => {
     const queryClient = useQueryClient();
-    const execute = () => cleanupDiskRepository();
-    return useMutation<ICleanupDiskDto, AxiosError<IApiErrorDto>>({
+    const storageId = useCurrentStorage();
+    const execute = () => getCreateBackupRepository(storageId);
+    return useMutation<ICreateBackupDto, AxiosError<IApiErrorDto>>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
-            await queryClient.invalidateQueries({ queryKey: [QueryKey.TRASH] });
+            enqueueSnackbar("Резервная копия успешно создана", {variant: "successSnackbar"});
         },
         onError: (error) => {
             if (error.status === HttpStatusCode.Forbidden) {
@@ -23,4 +25,4 @@ const useCleanupDiskUseCase = () => {
     });
 };
 
-export default useCleanupDiskUseCase;
+export default useCreateBackupUseCase;

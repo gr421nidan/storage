@@ -12,14 +12,16 @@ import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-fo
 import DiskCleanupConfirm from "@/features/storage/confirm_disk_cleanup";
 import {useNavigate} from "react-router-dom";
 import ERouterPath from "@/shared/common/enum/router";
+import useCreateBackupPresenter from "@/entities/cases/backup/create/presenter";
 
 const SidebarWidget: React.FC = () => {
     const {data: storageData} = useGetStorageSizeUseCase();
     const { recentFiles } = useGetStorageFilesAndFoldersUseCase({});
     const {data} = useGetUserProfileUseCase();
-    const isStorageConnected = Boolean(data?.bucket_name);
+    const isStorageConnected = data?.bucket_name;
     const [isModalOpen, setIsModalOpen] = useState(false);
     const navigate = useNavigate();
+    const { handleBackup } = useCreateBackupPresenter();
     const handleCleanupDiskClick = () => {
         setIsModalOpen(true);
     };
@@ -30,7 +32,7 @@ const SidebarWidget: React.FC = () => {
         setIsModalOpen(false);
     };
     const menuItems = [
-        {label: "Резервное копирование", icon: "garden:reload-stroke-12"},
+        {label: "Резервное копирование", icon: "garden:reload-stroke-12", onClick: handleBackup},
         {label: "Очистка диска", icon: "lucide:trash", onClick: handleCleanupDiskClick},
         {
             label: "Подключение к S3",
@@ -45,7 +47,7 @@ const SidebarWidget: React.FC = () => {
                 <div className={dataSidebarContainerStyles}>
                     <h3>Данные памяти</h3>
                     {data?.isAdmin ?  (<div className="mt-4"/>) :(<div className="flex flex-col items-end">
-                            <ContextMenu withSeparator iconSize="h-[40px] w-[30px]" items={menuItems}/></div>
+                            <ContextMenu withSeparator iconSize="h-[40px] w-[30px]"  menuClassName="w-[364px] р-[163px]" items={menuItems}/></div>
                     )}
                     <StorageChart
                         used_size={storageData?.storageUsedSizeInGB ?? 0}

@@ -1,4 +1,5 @@
 import {ReactNode} from "react";
+import style from "@/features/storage/connect-storage-s3/style";
 
 const steps = [
     <>
@@ -20,7 +21,8 @@ const steps = [
         хранилища.
     </>,
     <>
-        При перебросе на страницу всех бакетов откройте <br /> страницу <strong>“Object Storage API”</strong> в боковом меню.
+        При перебросе на страницу всех бакетов откройте <br/> страницу <strong>“Object Storage API”</strong> в боковом
+        меню.
     </>,
     <>
         Нам пригодится <strong>Endpoint</strong> и <strong>Регион</strong> — сохраните их себе.
@@ -29,21 +31,21 @@ const steps = [
 
 const ConnectStorageStepOne = (): ReactNode => {
     return (
-        <div className="pt-[42px] flex flex-col gap-[40px] px-[22px] items-center">
+        <div className={style.connectStepOneWrapper}>
             <h2 className="text-center text-2x leading-none">
-                Подключение<br />S3 хранилища
+                Подключение<br/>S3 хранилища
             </h2>
-            <p className="font-semibold dark:text-white-secondary text-dark-gray text-center leading-relaxed">
-                В этом руководстве вы узнаете, как подключить облачное хранилище СберКлауд к <br />
+            <p className={style.connectDesc}>
+                В этом руководстве вы узнаете, как подключить облачное хранилище СберКлауд к <br/>
                 нашему сервису, чтобы увеличить доступное пространство для хранения ваших файлов.
             </p>
-            <div className="flex flex-col gap-2 w-full">
+            <div className={style.connectItemWrapper}>
                 {steps.map((content, index) => (
-                    <div key={index} className="flex items-start gap-2">
-                        <span className="font-semibold text-xl text-right w-[28px] shrink-0 dark:text-white">
+                    <div key={index} className={style.connectStepRow}>
+                        <span className={style.connectStepNumber}>
                             {index + 1}.
                         </span>
-                        <p className="font-semibold text-xl dark:text-white leading-relaxed">
+                        <p className={style.connectStepText}>
                             {content}
                         </p>
                     </div>

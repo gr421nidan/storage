@@ -20,6 +20,7 @@ const useGetStorageFilesAndFoldersPresenter = () => {
     const isRoot = !currentFolder;
     const files = isRoot ? storageData.allFiles : folderData.files;
     const folders = isRoot ? storageData.folders : folderData.folders;
+    const backups = isRoot ? storageData.backups : [];
 
     const openFolder = (folderId: string, folderName: string) => {
         setFolderHistory(prevHistory => [...prevHistory, { id: folderId, title: folderName }]);
@@ -63,6 +64,7 @@ const useGetStorageFilesAndFoldersPresenter = () => {
         goBack,
         files,
         folders,
+        backups,
         folderHistory,
         params,
         setParams,

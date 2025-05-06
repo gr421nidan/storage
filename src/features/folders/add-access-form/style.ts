@@ -7,6 +7,7 @@ const styles = {
     buttonsContainer: "mt-[40px] flex justify-between w-full",
     buttonCancel: "w-[206px] h-[52px]",
     buttonSave: "w-[217px] h-[52px]",
+    buttonCopyLink: "text-base w-[281px] h-[30px] rounded-[10px] border-1",
 };
 
 export default styles;

@@ -1,6 +1,6 @@
 import { ReactNode, useState } from "react";
-import FilesView from "@/widgets/files-view";
-import FoldersView from "@/widgets/folders-view";
+import FilesViewWidget from "@/widgets/files-view";
+import FoldersViewWidget from "@/widgets/folders-view";
 import CreateFolderModal from "@/features/folders/add-folder-form/ui";
 import FilesUploadModal from "@/features/files/upload-files-form/ui";
 import notFound from "@/assets/img-empty/not_found.png";
@@ -26,6 +26,7 @@ const MainPage = (): ReactNode => {
         goBack,
         files,
         folders,
+        backups,
         folderHistory,
         setParams,
         handleApplyFilters,
@@ -60,8 +61,9 @@ const MainPage = (): ReactNode => {
             visibility={visibility}
             toggleVisibility={toggleVisibility}
             content={
-                <FoldersView
+                <FoldersViewWidget
                     folders={folders}
+                    backups={backups}
                     onFolderDoubleClick={handleFolderDoubleClick}
                     variant="default"
                 />
@@ -77,7 +79,7 @@ const MainPage = (): ReactNode => {
             content={
                 <>
                     <FilesRowHeaders viewMode={viewMode} variant="default" />
-                    <FilesView files={files} viewMode={viewMode} variant="default" />
+                    <FilesViewWidget files={files} viewMode={viewMode} variant="default" />
                 </>
             }
         />

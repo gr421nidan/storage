@@ -7,13 +7,13 @@ import useAddUserAccessPresenter from "@/entities/cases/storage/folders/add-acce
 import useGetUsersWithAccessUseCase from "@/entities/cases/storage/folders/get-users-with-access/use-case";
 import useDeleteUserPresenter from "@/entities/cases/storage/folders/delete-user-with-access/presenter";
 import useGetAllUsersForAccessUseCase from "@/entities/cases/storage/folders/get-all-users/use-case";
-import CopyLinkFolder from "@/features/folders/copy-link/ui";
 import ChooseAccessForFolder from "@/features/folders/choose-access/ui";
 import SearchSelect from "@/shared/components/search-select";
 import debounce from "lodash/debounce";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import {errorTextStyles} from "@/features/auth/style.ts";
 import styles from "../style";
+import useCopyLinkFolderPresenter from "@/entities/cases/storage/folders/copy-link/presenter";
 
 interface IAddAccessForFolderProps {
     isOpen: boolean;
@@ -25,7 +25,7 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({ isOpen, onClos
     const { onSubmit, setValue, errors } = useAddUserAccessPresenter(folderId);
     const { users } = useGetUsersWithAccessUseCase(folderId);
     const { handleDeleteUser } = useDeleteUserPresenter();
-
+    const {onCopyLink,} = useCopyLinkFolderPresenter({folderId});
     const [inputValue, setInputValue] = useState<string>("");
     const [debouncedValue, setDebouncedValue] = useState<string>("");
 
@@ -94,7 +94,12 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({ isOpen, onClos
                     <p className="text-xl">Настройка доступа:</p>
 
                     <div className={styles.accessSettings}>
-                        <CopyLinkFolder folderId={folderId} />
+                        <Button
+                            onClick={onCopyLink}
+                            className={cn(buttonStyles({variant: "baseSecondary"}), styles.buttonCopyLink)}
+                        >
+                            Копировать ссылку
+                        </Button>
                         <ChooseAccessForFolder folderId={folderId} />
                     </div>
 

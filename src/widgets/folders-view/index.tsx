@@ -5,9 +5,13 @@ import MoveToTrashFolderConfirm from "@/features/folders/move-to-trash-confirm/u
 import DeleteFolderConfirm from "@/features/trash/folders/delete-confirm/ui";
 import useRecoverFolderPresenter from "@/entities/cases/storage/folders/recover/presenter";
 import AddAccessForFolder from "@/features/folders/add-access-form/ui";
+import { IBackupDto } from "@/shared/interface/backup";
+import FolderZipCardItem from "@/features/folders/backup-card";
+import useDeleteBackupPresenter from "@/entities/cases/backup/delete/presenter";
 
 interface IFolderViewProps {
     folders: IGetStorageFolderDto[];
+    backups?: IBackupDto[];
     onFolderDoubleClick?: (folderId: string) => void;
     variant?: "default" | "trash";
 }
@@ -16,8 +20,10 @@ const FoldersViewWidget: React.FC<IFolderViewProps> = ({
                                                          folders,
                                                          onFolderDoubleClick,
                                                          variant = "default",
+                                                           backups = [],
                                                      }) => {
     const { handleRecoverFolder } = useRecoverFolderPresenter();
+    const { handleDeleteBackup } = useDeleteBackupPresenter();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     const [isAddAccessModalOpen, setIsAddAccessModalOpen] = useState(false);
@@ -30,7 +36,7 @@ const FoldersViewWidget: React.FC<IFolderViewProps> = ({
         setSelectedFolderId(folderId);
         setIsAddAccessModalOpen(true);
     };
-    const handleDeleteClick = (folderId: string) => {
+    const handleDeleteFolderClick = (folderId: string) => {
         setSelectedFolderId(folderId);
         setIsDeleteModalOpen(true);
     };
@@ -50,6 +56,11 @@ const FoldersViewWidget: React.FC<IFolderViewProps> = ({
     return (
         <div>
             <div className="grid grid-cols-4 gap-8 w-[1227px]">
+                {backups.map((backup) => (
+                    <div key={backup.id}>
+                        <FolderZipCardItem backup={backup} onDeleteClick={handleDeleteBackup}/>
+                    </div>
+                ))}
                 {folders.map((folder) => (
                     <div key={folder.id} onDoubleClick={handleFolderClick(folder.id)}>
                         <FolderCardItem
@@ -57,7 +68,7 @@ const FoldersViewWidget: React.FC<IFolderViewProps> = ({
                             variant={variant}
                             onAddAccessClick={handleAddAccessClick}
                             onMoveToTrashClick={handleMoveToTrashClick}
-                            onDeleteClick={handleDeleteClick}
+                            onDeleteClick={handleDeleteFolderClick}
                             onRecoverClick={handleRecoverFolder}
                         />
                     </div>

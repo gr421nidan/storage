@@ -1,9 +1,9 @@
 import { api } from "@/shared/api";
 import {ICleanupDiskDto} from "@/shared/interface/storage";
-import {AxiosResponse} from "axios";
 
-const cleanupDiskRepository = async (): Promise<AxiosResponse> => {
-    return api.delete<ICleanupDiskDto>("/storage/usage");
+const cleanupDiskRepository = async (): Promise<ICleanupDiskDto> => {
+    const response = await api.delete<ICleanupDiskDto>("/storage/usage");
+    return response.data;
 };
 
 export default cleanupDiskRepository;

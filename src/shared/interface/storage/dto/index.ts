@@ -1,6 +1,7 @@
 import {IGetStorageFileDto} from "@/shared/interface/files";
 import {IGetStorageFolderDto} from "@/shared/interface/folders";
 import {EGrantID} from "@/shared/enum/admin";
+import {IBackupDto} from "@/shared/interface/backup";
 
 interface IGetStorageSizeDto {
     usedSpace: number;
@@ -10,7 +11,8 @@ interface IGetStorageSizeDto {
 
 interface IGetFilesAndFoldersDto {
     files: IGetStorageFileDto[],
-    folders: IGetStorageFolderDto[]
+    folders: IGetStorageFolderDto[],
+    backups:IBackupDto[],
 }
 
 interface IGetStorageDto {
@@ -30,4 +32,5 @@ interface ICleanupDiskDto {
 interface IConnectStorageS3Dto{
     message:string;
 }
-export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, ICleanupDiskDto, IConnectStorageS3Dto };
+
+export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, ICleanupDiskDto, IConnectStorageS3Dto};
