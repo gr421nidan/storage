@@ -5,38 +5,24 @@ interface IGetStorageFileDto {
     title: string;
     type: EFileType;
     size: number;
-    created_at:string;
+    created_at: string;
     update_at: string | null;
     path: string;
-}
-interface IGetTrashFileDto extends IGetStorageFileDto{
-    deleted_at: string;
 }
 
-interface IUploadStorageFileDto {
-    id: string;
+interface IGetTrashFileDto extends IGetStorageFileDto {
+    deleted_at: string;
+}
+interface IUploadStorageFileDto extends IGetStorageFileDto{
     folder_id: string;
-    title: string;
-    type: EFileType;
-    created_at:string;
-    update_at: string | null;
     deleted_at: string | null;
-    size: number;
     is_deleted: boolean;
-    owner_id:string;
-    path: string;
+    owner_id: string;
     storage_id: string;
 }
 interface IActionFileDto {
     message: string,
 }
-interface IGuestGetFileDto{
-    id: string;
-    title: string;
-    type: EFileType;
-    created_at:string;
-    size: number;
-    path: string;
-}
+type IGuestGetFileDto = IGetStorageFileDto
 
-export type {IGetStorageFileDto, IUploadStorageFileDto, IActionFileDto, IGetTrashFileDto, IGuestGetFileDto};
+export type {IGetStorageFileDto, IGetTrashFileDto, IUploadStorageFileDto, IActionFileDto, IGuestGetFileDto};

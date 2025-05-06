@@ -2,7 +2,7 @@ import React, {useState, useMemo} from "react";
 import {IGetStorageFileDto, IGetTrashFileDto} from "@/shared/interface/files";
 import {formatSize} from "@/shared/utils/convertSize";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import downloadFile from "@/shared/utils/download-file";
+import download from "@/shared/utils/download";
 import copyPublicLink from "@/shared/utils/copy-public-link";
 import useRenameFilePresenter from "@/entities/cases/storage/files/rename/presenter";
 import styles from "../style";
@@ -46,7 +46,7 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({
         onClose: handleCloseRename,
     });
     const handlers = useMemo(() => ({
-        download: () => downloadFile(file.path, file.title),
+        download: () => download(file.path, file.title),
         moveToTrash: () => onMoveToTrashClick?.(file.id),
         delete: () => onDeleteClick?.(file.id),
         recover: () => onRecoverClick?.(file.id),

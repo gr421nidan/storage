@@ -3,7 +3,7 @@ import FileIcon from "@/shared/components/file-icon";
 import {IGetStorageFileDto, IGetTrashFileDto} from "@/shared/interface/files";
 import {formatSize} from "@/shared/utils/convertSize";
 import ContextMenu from "@/shared/components/context-menu";
-import downloadFile from "@/shared/utils/download-file";
+import download from "@/shared/utils/download";
 import styles from "../style";
 import copyPublicLink from "@/shared/utils/copy-public-link";
 import {BUCKET_BASE_URL} from "@/shared/config";
@@ -48,7 +48,7 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                 {
                     label: "Скачать",
                     icon: "fluent:arrow-download-32-filled",
-                    onClick: () => downloadFile(file.path, file.title)
+                    onClick: () => download(file.path, file.title)
                 },
                 {label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: handleEditClick},
                 {label: "Поделиться", icon: "mingcute:link-2-line", onClick: () => copyPublicLink(file.id)},

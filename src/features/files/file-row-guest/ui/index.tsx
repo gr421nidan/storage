@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {formatSize} from "@/shared/utils/convertSize";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import downloadFile from "@/shared/utils/download-file";
+import download from "@/shared/utils/download";
 import styles from "@/features/files/file-row/style";
 import {IGuestGetFileDto} from "@/shared/interface/files";
 import FileViewer from "@/shared/components/players";
@@ -21,7 +21,7 @@ const FileRowItemGuest: React.FC<IFileRowItemGuestProps> = ({
     const handleCloseViewer = () => {
         setIsViewerOpen(false);
     };
-    const handleDownloadClick = () => downloadFile(file.path, file.title);
+    const handleDownloadClick = () => download(file.path, file.title);
     const fullFilePath = `${BUCKET_BASE_URL}${file.path}`;
     const actionButtons = () => {
         return (

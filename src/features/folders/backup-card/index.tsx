@@ -4,6 +4,7 @@ import {formatSize} from "@/shared/utils/convertSize";
 import ContextMenu from "@/shared/components/context-menu";
 import styles from "@/features/folders/folder-card/style";
 import {IBackupDto} from "@/shared/interface/backup";
+import download from "@/shared/utils/download";
 
 interface IBackupCardItemProps {
     backup: IBackupDto;
@@ -13,9 +14,12 @@ interface IBackupCardItemProps {
 const FolderZipCardItem: React.FC<IBackupCardItemProps> = ({backup, onDeleteClick,}) => {
     const getMenuItems = () => {
         const deleteClick = () => onDeleteClick?.(backup.id);
+        const handleDownload = () => {
+            download(backup.path, backup.title);
+        };
 
         return [
-            {label: "Скачать", icon: "fluent:arrow-download-32-filled"},
+            {label: "Скачать", icon: "fluent:arrow-download-32-filled", onClick: handleDownload},
             {label: "Удалить", icon: "lucide:trash", onClick: deleteClick},
         ];
     };
