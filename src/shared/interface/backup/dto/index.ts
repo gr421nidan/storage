@@ -16,4 +16,7 @@ interface IActionBackupDto {
     message: string;
 }
 
-export type {ICreateBackupDto, IBackupDto, IActionBackupDto}
+interface IGetBackupDto {
+    backups: IBackupDto[]
+}
+export type {ICreateBackupDto, IBackupDto, IActionBackupDto, IGetBackupDto}
