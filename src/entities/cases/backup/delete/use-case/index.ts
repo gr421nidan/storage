@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IApiErrorDto } from "@/shared/interface/auth";
-import {AxiosError} from "axios";
+import {AxiosError, HttpStatusCode} from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import deleteBackupRepository from "@/entities/repo/backup/delete";
 import {IActionBackupDto} from "@/shared/interface/backup";
@@ -14,6 +14,11 @@ const useDeleteBackupUseCase = () => {
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
             enqueueSnackbar("Резервная копия успешно удалена", {variant: "successSnackbar"});
+        },
+        onError: (error) => {
+            if (error.status === HttpStatusCode.Forbidden) {
+                enqueueSnackbar("Вы не являетесь владельцем этой резервной копии", {variant: 'errorSnackbar'});
+            }
         },
     });
 };

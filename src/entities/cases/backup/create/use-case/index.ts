@@ -15,11 +15,14 @@ const useCreateBackupUseCase = () => {
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
-            enqueueSnackbar("Резервная копия успешно создана", {variant: "successSnackbar"});
+            enqueueSnackbar("Резервная копия успешно создана.", {variant: "successSnackbar"});
         },
         onError: (error) => {
             if (error.status === HttpStatusCode.Forbidden) {
-                enqueueSnackbar("У вас не хватает прав.", {variant: 'errorSnackbar'});
+                enqueueSnackbar("Нет прав для создания резервной копии.", {variant: 'errorSnackbar'});
+            }
+            if (error.status === HttpStatusCode.BadRequest) {
+                enqueueSnackbar("Недостаточно места для осуществление операции.", {variant: 'errorSnackbar'});
             }
         },
     });
