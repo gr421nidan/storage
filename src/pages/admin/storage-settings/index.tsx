@@ -5,10 +5,18 @@ import {BackupStatus} from '@/features/admin/storage-settings/backup-status/ui';
 import BackupList from '@/features/admin/storage-settings/backup-table/ui';
 import styles from './style';
 import StorageSettingsForm from "@/features/admin/storage-settings/storege-form/ui";
+import CleanupBackupsConfirm from "@/features/admin/storage-settings/cleanup-backups-confirm";
 
 const StorageSettingsPage = (): ReactNode => {
     const [isActive, setIsActive] = useState(true);
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+    const handleOpenDeleteModal = () => {
+        setIsDeleteModalOpen(true);
+    };
 
+    const handleCloseDeleteModal = () => {
+        setIsDeleteModalOpen(false);
+    };
     return (
         <>
             <StorageSettingsForm/>
@@ -46,7 +54,7 @@ const StorageSettingsPage = (): ReactNode => {
             <span className={styles.label}>
               Управление резервными копиями
             </span>
-                        <Button className="h-[54px] w-[415px]">
+                        <Button className="h-[54px] w-[415px]" onClick={handleOpenDeleteModal}>
                             Очистить список резервных копий
                         </Button>
                     </div>
@@ -57,6 +65,10 @@ const StorageSettingsPage = (): ReactNode => {
                     <BackupList/>
                 </div>
             </div>
+            <CleanupBackupsConfirm
+                isOpen={isDeleteModalOpen}
+                onClose={handleCloseDeleteModal}
+            />
         </>
     );
 };
