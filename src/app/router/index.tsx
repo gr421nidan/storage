@@ -77,6 +77,10 @@ const router = createBrowserRouter([
                         path: ERouterPath.USERS,
                         element: <LazyStorageUsersPage/>,
                     },
+                    {
+                        path: ERouterPath.STORAGE_SETTINGS,
+                        element: <LazyStorageSettingsPage/>,
+                    },
                 ],
             },
             {
@@ -85,10 +89,6 @@ const router = createBrowserRouter([
                     {
                         path: ERouterPath.USER_LOGS,
                         element: <LazyUserLogsPage/>,
-                    },
-                    {
-                        path: ERouterPath.STORAGE_SETTINGS,
-                        element: <LazyStorageSettingsPage/>,
                     },
                 ],
             },
