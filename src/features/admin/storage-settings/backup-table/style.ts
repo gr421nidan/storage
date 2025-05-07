@@ -1,4 +1,4 @@
-const container = 'px-6 pb-6 flex flex-col gap-6';
+const container = 'px-4 pb-6 flex flex-col gap-6 w-[1279px]';
 
 const title = 'text-xl dark:text-white';
 
@@ -13,29 +13,26 @@ const tableWrapper = `
 const tableContent = 'max-h-[430px] overflow-y-auto pr-2 scrollbar';
 
 const headerRow = `
-    grid grid-cols-4 
-    gap-55 
-    border-b-2 border-purple-light dark:border-purple-dark 
+w-[1200px]
+    grid  grid-cols-[1.1fr_0.8fr_1.2fr_0.3fr]
+    border-b-4 border-purple
     pb-3
 `;
 
 const dataRow = `
-    grid grid-cols-4 
+    grid
+    grid-cols-[1.1fr_0.8fr_1.3fr_0.2fr]
     gap-4 
     items-center 
     my-2 
     rounded-[15px] 
     px-5 py-3 
     bg-[#AEA1C9]/70 dark:bg-[#624699]/50 
-    hover:custom-shadow
 `;
 
-const cellHeader = 'text-gray-800 dark:text-gray-300 text-base text-left';
+const cellHeader = 'font-semibold text-xl text-left dark:text-white';
 
-const cell = 'text-gray-900 dark:text-white text-left';
-
-const cellActions = 'flex justify-end space-x-2 text-gray-900 dark:text-white';
-
+const cell = 'font-semibold text-left dark:text-white';
 export default {
     container,
     title,
@@ -45,5 +42,4 @@ export default {
     cellHeader,
     dataRow,
     cell,
-    cellActions,
 };

@@ -16,9 +16,6 @@ const useDeleteUserLogsUseCase = () => {
             enqueueSnackbar("Логи пользователя удалены", {variant: 'successSnackbar'});
         },
         onError: (error) => {
-            if (error.status === HttpStatusCode.NotFound) {
-                enqueueSnackbar("У пользователя нет логов", {variant: 'errorSnackbar'});
-            }
             if (error.status === HttpStatusCode.Forbidden) {
                 enqueueSnackbar("У вас не хватает прав.", {variant: 'errorSnackbar'});
             }

@@ -1,31 +1,32 @@
 import {ReactNode, useState} from "react";
-import { useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 import useGetUserLogsUseCase from "@/entities/cases/user-storage/get-user-logs/use-case";
 import LogsCard from "@/features/admin/user-logs/ui";
 import SearchInput from "@/shared/components/search";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import defaultAvatar from "@/assets/default-avatar.png";
-import { BUCKET_BASE_URL } from "@/shared/config";
+import {BUCKET_BASE_URL} from "@/shared/config";
 import PageHeader from "@/shared/components/page-header";
 import Button from "@/shared/components/buttons/button";
 import FiltersUserLogsPopupMenu from "@/features/admin/filters-logs/ui";
 import AutomaticClearingPopupMenu from "@/features/admin/automatic-cleaning/ui";
 import {IFiltersLogsPort} from "@/shared/interface/admin";
 import DeleteLogsUserConfirm from "@/features/admin/delete-user-logs-confirm/ui";
+
 const StorageUserLogsPage = (): ReactNode => {
-    const { id_user = "" } = useParams<{ id_user: string }>();
+    const {id_user = ""} = useParams<{ id_user: string }>();
     const [filters, setFilters] = useState<IFiltersLogsPort>({});
-    const { data } = useGetUserLogsUseCase(id_user, filters);
+    const {data} = useGetUserLogsUseCase(id_user, filters);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isAutomaticClearingOpen, setIsAutomaticClearingOpen] = useState(false);
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     if (!data) return <div>Нет данных</div>;
-
-    const { user, logs } = data;
+    const {user, logs} = data;
+    const isDisabled = logs.length === 0;
     const fullName = `${user.surname} ${user.firstname} ${user.patronymic ?? ""}`.trim();
     const userPhoto = user.img ? `${BUCKET_BASE_URL}${user.img}` : defaultAvatar;
     const handleSearch = (value?: string) => {
-        setFilters((prev) => ({ ...prev, search: value ?? "" }));
+        setFilters((prev) => ({...prev, search: value ?? ""}));
     };
     const handleOpenFilter = () => {
         setIsFilterOpen(true);
@@ -61,14 +62,15 @@ const StorageUserLogsPage = (): ReactNode => {
                                 Автоматическая очистка
                             </Button>
                             {isAutomaticClearingOpen && (
-                            <AutomaticClearingPopupMenu
-                                isOpen={isAutomaticClearingOpen}
-                                onClose={handleCloseAutomaticClearing}
-                                userId={user.id}
-                            />
+                                <AutomaticClearingPopupMenu
+                                    isOpen={isAutomaticClearingOpen}
+                                    onClose={handleCloseAutomaticClearing}
+                                    userId={user.id}
+                                />
                             )}
                         </div>
-                        <Button className="w-[255px] h-[52px] text-xl" onClick={handleOpenDeleteModal}>Очистить историю</Button>
+                        <Button className="w-[255px] h-[52px] text-xl" disabled={isDisabled} onClick={handleOpenDeleteModal}>Очистить
+                            историю</Button>
                     </div>
                 </div>
             </PageHeader>
@@ -91,7 +93,7 @@ const StorageUserLogsPage = (): ReactNode => {
                                 isOpen={isFilterOpen}
                                 onClose={handleCloseFilter}
                                 onApply={(newFilters) => {
-                                    setFilters((prev) => ({ ...prev, ...newFilters }));
+                                    setFilters((prev) => ({...prev, ...newFilters}));
                                     handleCloseFilter();
                                 }}
                                 onReset={() => {
@@ -108,9 +110,10 @@ const StorageUserLogsPage = (): ReactNode => {
                         alt="avatar"
                         className="w-[60px] h-[60px] rounded-full object-cover"
                     />
-                    <h2 >{fullName}</h2>
+                    <h2>{fullName}</h2>
                 </div>
-                <div className="grid grid-cols-[2.7fr_0.5fr_0.4fr] justify-between text-right mt-2 text-xl px-10 w-[1198px]">
+                <div
+                    className="grid grid-cols-[2.7fr_0.5fr_0.4fr] justify-between text-right mt-2 text-xl px-10 w-[1198px]">
                     <span className="text-left">Действие</span>
                     <span>Время</span>
                     <span>Дата</span>
@@ -119,7 +122,7 @@ const StorageUserLogsPage = (): ReactNode => {
                     {logs.length === 0 ? (
                         <div className="text-lg">Логи отсутствуют</div>
                     ) : (
-                        logs.map((log) => <LogsCard key={log.id} log={log} />)
+                        logs.map((log) => <LogsCard key={log.id} log={log}/>)
                     )}
                 </div>
             </div>

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import {ReactNode, useState} from 'react';
 import CheckboxInput from '@/shared/components/inputs/checkbox-input';
 import styles from '../style';
 
-export const BackupStatus: React.FC = () => {
+export const BackupStatus = (): ReactNode => {
     const [isActive, setIsActive] = useState(true);
 
     return (

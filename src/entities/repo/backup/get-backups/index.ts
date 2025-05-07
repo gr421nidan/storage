@@ -1,8 +1,8 @@
 import { api } from "@/shared/api";
-import { IGetBackupDto } from "@/shared/interface/backup";
+import {IBackupDto} from "@/shared/interface/backup";
 
-const getBackupsRepository = async (): Promise<IGetBackupDto> => {
-    const response = await api.get<IGetBackupDto>("/backup");
+const getBackupsRepository = async (): Promise<IBackupDto[]> => {
+    const response = await api.get<IBackupDto[]>("/backup");
     return response.data;
 };
 
