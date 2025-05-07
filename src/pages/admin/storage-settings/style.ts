@@ -9,15 +9,15 @@ const divider = 'border-b-[2px] border-purple-light dark:border-purple-dark';
 const label = 'text-[26px] leading-[32px] dark:text-white text-left';
 
 const sectionWrapper =
-    'mt-6 border-b border-purple-light dark:border-purple-dark pb-4 flex justify-between items-center';
+    'px-6 mt-8 border-b-[2px] border-purple-light dark:border-purple-dark pb-4 flex justify-between items-center';
 
-const sectionTitle = 'text-xl text-gray-900 dark:text-white';
+const sectionTitle = 'text-[26px] leading-[31px] font-normal text-gray-900 dark:text-white';
 
-const stateWrapper = 'flex items-center space-x-2';
+const stateWrapper = 'flex items-center gap-[12px]';
 
-const stateText = 'text-lg text-gray-900 dark:text-white';
+const stateText = 'text-[20px] font-medium text-gray-900 dark:text-white';
 
-const iconStyles = 'w-6 h-6 text-gray-900 dark:text-white cursor-pointer';
+const iconStyles = 'w-[24px] h-[24px] text-[#624699]';
 
 export default {
     pageContainer,
