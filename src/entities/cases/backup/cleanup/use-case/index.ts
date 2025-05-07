@@ -12,7 +12,7 @@ const useCleanupBackupsUseCase = () => {
     const execute = () => {
         return cleanupBackupsRepository(storageId);
     };
-    return useMutation<IActionBackupDto, AxiosError<IApiErrorDto>, string>({
+    return useMutation<IActionBackupDto, AxiosError<IApiErrorDto>>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [QueryKey.BACKUPS]});

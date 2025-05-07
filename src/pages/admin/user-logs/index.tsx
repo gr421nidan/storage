@@ -9,16 +9,16 @@ import { BUCKET_BASE_URL } from "@/shared/config";
 import PageHeader from "@/shared/components/page-header";
 import Button from "@/shared/components/buttons/button";
 import FiltersUserLogsPopupMenu from "@/features/admin/filters-logs/ui";
-import useDeleteUserLogsPresenter from "@/entities/cases/logs-user/delete-user-logs/presenter";
 import AutomaticClearingPopupMenu from "@/features/admin/automatic-cleaning/ui";
 import {IFiltersLogsPort} from "@/shared/interface/admin";
+import DeleteLogsUserConfirm from "@/features/admin/delete-user-logs-confirm/ui";
 const StorageUserLogsPage = (): ReactNode => {
     const { id_user = "" } = useParams<{ id_user: string }>();
     const [filters, setFilters] = useState<IFiltersLogsPort>({});
     const { data } = useGetUserLogsUseCase(id_user, filters);
     const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [isAutomaticClearingOpen, setIsAutomaticClearingOpen] = useState(false);
-    const { handleDeleteUserLogs } = useDeleteUserLogsPresenter();
+    const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
     if (!data) return <div>Нет данных</div>;
 
     const { user, logs } = data;
@@ -39,6 +39,13 @@ const StorageUserLogsPage = (): ReactNode => {
 
     const handleCloseAutomaticClearing = () => {
         setIsAutomaticClearingOpen(false);
+    };
+    const handleOpenDeleteModal = () => {
+        setIsDeleteModalOpen(true);
+    };
+
+    const handleCloseDeleteModal = () => {
+        setIsDeleteModalOpen(false);
     };
     return (
         <>
@@ -61,7 +68,7 @@ const StorageUserLogsPage = (): ReactNode => {
                             />
                             )}
                         </div>
-                        <Button className="w-[255px] h-[52px] text-xl" onClick={() => handleDeleteUserLogs(user.id)}>Очистить историю</Button>
+                        <Button className="w-[255px] h-[52px] text-xl" onClick={handleOpenDeleteModal}>Очистить историю</Button>
                     </div>
                 </div>
             </PageHeader>
@@ -116,6 +123,11 @@ const StorageUserLogsPage = (): ReactNode => {
                     )}
                 </div>
             </div>
+            <DeleteLogsUserConfirm
+                isOpen={isDeleteModalOpen}
+                onClose={handleCloseDeleteModal}
+                userId={user.id}
+            />
         </>
     );
 };
