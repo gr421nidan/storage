@@ -11,7 +11,7 @@ import FilesRowHeaders from "@/shared/components/files-row-header";
 import EmptyState from "@/shared/components/empty-state";
 import ToggleSection from "@/shared/components/toggle-section";
 import FolderHistory from "@/shared/components/folder-history";
-import {containerStyles, dividerStyles, scrollContainerStyles} from "@/pages/main/style.ts";
+import styles from "@/pages/main/style.ts";
 
 const AvailableStoragePage = (): ReactNode => {
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
@@ -86,7 +86,7 @@ const AvailableStoragePage = (): ReactNode => {
     );
 
     return (
-        <div className={containerStyles}>
+        <div className={styles.container}>
             <ControlPanel
                 setSearch={(search) => setParams((prev) => ({...prev, search}))}
                 isFilterPopupOpen={popups.filter}
@@ -112,7 +112,7 @@ const AvailableStoragePage = (): ReactNode => {
                 onClose={() => handleModalToggle("upload", false)}
                 currentFolder={currentFolder}
             />
-            <div className={scrollContainerStyles}>
+            <div className={styles.scrollArea}>
                 {folderHistory.length > 0 && (
                     <FolderHistory
                         folderHistory={folderHistory}
@@ -126,7 +126,7 @@ const AvailableStoragePage = (): ReactNode => {
                     emptyText="Ничего не найдено">
                     <>
                         {hasFolders && renderFolderSection()}
-                        {showDivider && <div className={dividerStyles}/>}
+                        {showDivider && <div className={styles.divider}/>}
                         {hasFiles && renderFileSection()}
                     </>
                 </EmptyState>

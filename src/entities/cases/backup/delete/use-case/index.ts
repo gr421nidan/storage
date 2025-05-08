@@ -13,6 +13,7 @@ const useDeleteBackupUseCase = () => {
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
+            await queryClient.invalidateQueries({ queryKey: [QueryKey.BACKUPS] });
             enqueueSnackbar("Резервная копия успешно удалена", {variant: "successSnackbar"});
         },
         onError: (error) => {
