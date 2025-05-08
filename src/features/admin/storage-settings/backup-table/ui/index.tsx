@@ -1,17 +1,22 @@
-import {ReactNode} from 'react';
+import React from 'react';
 import ButtonIcon from '@/shared/components/buttons/button-icon';
-import styles from '../style.ts';
-import useGetBackupsUseCase from "@/entities/cases/backup/get-backups/use-case";
+import useGetBackupsUseCase from '@/entities/cases/backup/get-backups/use-case';
+import useDeleteBackupPresenter from '@/entities/cases/backup/delete/presenter';
+import download from '@/shared/utils/download';
+import styles from '../style';
 
-const BackupList  = (): ReactNode => {
+const BackupList: React.FC = () => {
     const { data: backups } = useGetBackupsUseCase();
-    if (!backups || backups.length === 0) {
+    const { handleDeleteBackup } = useDeleteBackupPresenter();
+
+    if (!backups.length) {
         return (
             <div className="text-center py-6 text-black dark:text-white">
                 Пока резервные копии отсутствуют
             </div>
         );
     }
+
     return (
         <div className={styles.container}>
             <div className={styles.tableWrapper}>
@@ -26,13 +31,17 @@ const BackupList  = (): ReactNode => {
                     {backups.map((item) => (
                         <div key={item.id} className={styles.dataRow}>
                             <div className={styles.cell}>{item.title}</div>
-                            <div className={styles.cell}>
-                                {item.backup_time}
-                            </div>
+                            <div className={styles.cell}>{item.backup_time}</div>
                             <div className={styles.cell}>{item.size}</div>
-                            <div className="flex gap-3">
-                                 <ButtonIcon icon="lucide:trash" className="w-fit"/>
-                                <ButtonIcon icon="fluent:arrow-download-32-filled" className="w-fit"/>
+                            <div className={styles.actionButtons}>
+                                <ButtonIcon
+                                    icon="fluent:arrow-download-32-filled"
+                                    onClick={() => download(item.path, item.title)}
+                                />
+                                <ButtonIcon
+                                    icon="lucide:trash"
+                                    onClick={() => handleDeleteBackup(item.id)}
+                                />
                             </div>
                         </div>
                     ))}

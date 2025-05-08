@@ -1,17 +1,10 @@
-const statusWrapper = 'flex flex-col gap-[24px]';
+const styles = {
+    statusWrapper: 'flex flex-col gap-[24px]',
+    statusTitle: 'text-[26px] leading-none text-black dark:text-white',
 
-const statusTitle = 'text-[26px] text-black dark:text-white leading-none';
-
-const statusOptions = 'flex gap-[32px] items-center';
-
-const radioOption = 'flex items-center gap-[8px] text-[18px] text-gray-900 dark:text-white';
-
-const radioInput = 'w-5 h-5';
-
-export default {
-    statusWrapper,
-    statusTitle,
-    statusOptions,
-    radioOption,
-    radioInput,
+    statusOptions: 'flex items-center gap-[32px]',
+    radioOption: 'flex items-center gap-[8px] text-[18px] text-gray-900 dark:text-white',
+    radioInput: 'w-[20px] h-[20px]',
 };
+
+export default styles;

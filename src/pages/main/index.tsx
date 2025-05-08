@@ -11,7 +11,7 @@ import FilesRowHeaders from "@/shared/components/files-row-header";
 import EmptyState from "@/shared/components/empty-state";
 import ToggleSection from "@/shared/components/toggle-section";
 import FolderHistory from "@/shared/components/folder-history";
-import { containerStyles, scrollContainerStyles, dividerStyles } from "./style";
+import styles from "./style";
 
 const MainPage = (): ReactNode => {
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
@@ -51,10 +51,12 @@ const MainPage = (): ReactNode => {
     const togglePopup = (type: "filter" | "sorting") => {
         setPopups((prev) => ({ ...prev, [type]: !prev[type] }));
     };
+
     const handleFolderDoubleClick = (folderId: string) => {
         const folder = folders.find((f) => f.id === folderId);
         if (folder) openFolder(folder.id, folder.title);
     };
+
     const renderFolderSection = () => (
         <ToggleSection
             type="folders"
@@ -86,7 +88,7 @@ const MainPage = (): ReactNode => {
     );
 
     return (
-        <div className={containerStyles}>
+        <div className={styles.container}>
             <ControlPanel
                 setSearch={(search) => setParams((prev) => ({ ...prev, search }))}
                 isFilterPopupOpen={popups.filter}
@@ -102,17 +104,20 @@ const MainPage = (): ReactNode => {
                 handleOpenUploadModal={() => handleModalToggle("upload", true)}
                 handleOpenCreateModal={() => handleModalToggle("create", true)}
             />
+
             <CreateFolderModal
                 isOpen={modals.create}
                 onClose={() => handleModalToggle("create", false)}
                 currentFolder={currentFolder}
             />
+
             <FilesUploadModal
                 isOpen={modals.upload}
                 onClose={() => handleModalToggle("upload", false)}
                 currentFolder={currentFolder}
             />
-            <div className={scrollContainerStyles}>
+
+            <div className={styles.scrollArea}>
                 {folderHistory.length > 0 && (
                     <FolderHistory
                         folderHistory={folderHistory}
@@ -120,13 +125,15 @@ const MainPage = (): ReactNode => {
                         goBack={goBack}
                     />
                 )}
+
                 <EmptyState
                     isEmpty={isEmpty}
                     emptyImage={{ light: notFound, dark: notFoundDark }}
-                    emptyText="Ничего не найдено">
+                    emptyText="Ничего не найдено"
+                >
                     <>
                         {hasFolders && renderFolderSection()}
-                        {showDivider && <div className={dividerStyles} />}
+                        {showDivider && <div className={styles.divider} />}
                         {hasFiles && renderFileSection()}
                     </>
                 </EmptyState>

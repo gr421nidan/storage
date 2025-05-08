@@ -1,4 +1,4 @@
-import {ReactNode, useState} from 'react';
+import { ReactNode, useState } from 'react';
 import CheckboxInput from '@/shared/components/inputs/checkbox-input';
 import styles from '../style';
 
