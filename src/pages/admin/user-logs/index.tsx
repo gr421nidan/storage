@@ -12,6 +12,7 @@ import FiltersUserLogsPopupMenu from "@/features/admin/filters-logs/ui";
 import AutomaticClearingPopupMenu from "@/features/admin/automatic-cleaning/ui";
 import {IFiltersLogsPort} from "@/shared/interface/admin";
 import DeleteLogsUserConfirm from "@/features/admin/delete-user-logs-confirm/ui";
+import styles from "./style";
 
 const StorageUserLogsPage = (): ReactNode => {
     const {id_user = ""} = useParams<{ id_user: string }>();
@@ -51,14 +52,11 @@ const StorageUserLogsPage = (): ReactNode => {
     return (
         <>
             <PageHeader className="mb-4">
-                <div className="flex justify-between items-center">
+                <div className={styles.header}>
                     <h2>Пользователи</h2>
-                    <div className="flex gap-2">
-                        <div className="relative">
-                            <Button
-                                className="w-[257px] h-[52px] text-xl"
-                                onClick={handleOpenAutomaticClearing}
-                            >
+                    <div className={styles.headerActions}>
+                        <div className={styles.popupWrapper}>
+                            <Button className="w-[257px] h-[52px] text-xl" onClick={handleOpenAutomaticClearing}>
                                 Автоматическая очистка
                             </Button>
                             {isAutomaticClearingOpen && (
@@ -69,23 +67,30 @@ const StorageUserLogsPage = (): ReactNode => {
                                 />
                             )}
                         </div>
-                        <Button className="w-[255px] h-[52px] text-xl" disabled={isDisabled} onClick={handleOpenDeleteModal}>Очистить
-                            историю</Button>
+                        <Button
+                            className="w-[255px] h-[52px] text-xl"
+                            disabled={isDisabled}
+                            onClick={handleOpenDeleteModal}
+                        >
+                            Очистить историю
+                        </Button>
                     </div>
                 </div>
             </PageHeader>
-            <div className="dark:text-white w-full max-w-[1400px] mx-auto flex flex-col gap-5 pb-6">
-                <div className="flex items-center justify-between">
+
+            <div className={styles.pageWrapper}>
+                <div className={styles.topControls}>
                     <SearchInput
                         placeholder="Поиск по названию папок и файлов"
-                        className="w-[1036px] h-[54px]"
+                        className={styles.searchInput}
                         onSearch={handleSearch}
                     />
-                    <div className="relative">
+                    <div className={styles.popupWrapper}>
                         <ButtonIcon
                             icon="solar:alt-arrow-down-outline"
-                            className="h-[54px] w-[248px]"
-                            onClick={handleOpenFilter}>
+                            className={styles.filterButton}
+                            onClick={handleOpenFilter}
+                        >
                             Фильтрация
                         </ButtonIcon>
                         {isFilterOpen && (
@@ -93,7 +98,7 @@ const StorageUserLogsPage = (): ReactNode => {
                                 isOpen={isFilterOpen}
                                 onClose={handleCloseFilter}
                                 onApply={(newFilters) => {
-                                    setFilters((prev) => ({...prev, ...newFilters}));
+                                    setFilters((prev) => ({ ...prev, ...newFilters }));
                                     handleCloseFilter();
                                 }}
                                 onReset={() => {
@@ -104,28 +109,27 @@ const StorageUserLogsPage = (): ReactNode => {
                         )}
                     </div>
                 </div>
-                <div className="flex items-center gap-4">
-                    <img
-                        src={userPhoto}
-                        alt="avatar"
-                        className="w-[60px] h-[60px] rounded-full object-cover"
-                    />
-                    <h2>{fullName}</h2>
+
+                <div className={styles.userInfo}>
+                    <img src={userPhoto} alt="avatar" className={styles.avatar} />
+                    <h2 className={styles.userName}>{fullName}</h2>
                 </div>
-                <div
-                    className="grid grid-cols-[2.7fr_0.5fr_0.4fr] justify-between text-right mt-2 text-xl px-10 w-[1198px]">
-                    <span className="text-left">Действие</span>
+
+                <div className={styles.logsHeader}>
+                    <span className={styles.logsHeaderItem}>Действие</span>
                     <span>Время</span>
                     <span>Дата</span>
                 </div>
-                <div className="flex flex-col gap-4 max-h-[530px] overflow-y-auto scrollbar w-[1280px]">
+
+                <div className={styles.logsContainer}>
                     {logs.length === 0 ? (
-                        <div className="text-lg">Логи отсутствуют</div>
+                        <div className={styles.emptyState}>Логи отсутствуют</div>
                     ) : (
-                        logs.map((log) => <LogsCard key={log.id} log={log}/>)
+                        logs.map((log) => <LogsCard key={log.id} log={log} />)
                     )}
                 </div>
             </div>
+
             <DeleteLogsUserConfirm
                 isOpen={isDeleteModalOpen}
                 onClose={handleCloseDeleteModal}

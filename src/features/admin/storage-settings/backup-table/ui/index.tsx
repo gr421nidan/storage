@@ -26,13 +26,14 @@ const BackupList: React.FC = () => {
                     <div className={styles.cellHeader}>Объём</div>
                     <div className={styles.cellHeader}>Действие</div>
                 </div>
+
                 <div className={styles.tableContent}>
                     {backups.map((item) => (
                         <div key={item.id} className={styles.dataRow}>
                             <div className={styles.cell}>{item.title}</div>
                             <div className={styles.cell}>{item.backup_time}</div>
                             <div className={styles.cell}>{item.size}</div>
-                            <div className="flex gap-3">
+                            <div className={styles.actionButtons}>
                                 <ButtonIcon
                                     icon="fluent:arrow-download-32-filled"
                                     onClick={() => download(item.path, item.title)}
