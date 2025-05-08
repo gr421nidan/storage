@@ -8,7 +8,7 @@ enum QueryKey {
     TRASH = "trash",
     USER_LOGS = "userLogs",
     STORAGES = "storages",
-    GUEST_FILE = "guestFile",
+    ACCESS_FILE = "accessFile",
     ACCESS_USERS = "accessUsers",
     BACKUPS = "backups",
 }

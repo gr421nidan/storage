@@ -1,4 +1,3 @@
-
 interface IBaseFolder {
     title: string;
 }
@@ -8,10 +7,25 @@ interface ICreateStorageFolderPort extends IBaseFolder {
 }
 
 type IRenameStorageFolderPort = IBaseFolder
+
 interface IAddAccessForUserPort {
     user_id: string;
 }
+
 interface IChooseAccessForFolderPort {
     is_restricted: boolean;
 }
-export type { ICreateStorageFolderPort, IRenameStorageFolderPort, IAddAccessForUserPort, IChooseAccessForFolderPort, IBaseFolder};
+
+interface IDeleteUserWithAccessPort {
+    userId: string;
+    folderId: string;
+}
+
+export type {
+    ICreateStorageFolderPort,
+    IRenameStorageFolderPort,
+    IAddAccessForUserPort,
+    IChooseAccessForFolderPort,
+    IBaseFolder,
+    IDeleteUserWithAccessPort
+};

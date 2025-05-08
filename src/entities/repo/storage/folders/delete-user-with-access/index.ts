@@ -1,9 +1,10 @@
 import {api} from "@/shared/api";
-import {AxiosResponse} from "axios";
-import {IActionFolderDto} from "@/shared/interface/folders";
+import {IActionFolderDto, IDeleteUserWithAccessPort} from "@/shared/interface/folders";
 
-const deleteUserWithAccessRepository = async (userId: string): Promise<AxiosResponse<IActionFolderDto>> => {
-    return api.delete<IActionFolderDto>(`/file/delete-folder-user/${userId}`);
+
+const deleteUserWithAccessRepository = async ({ userId, folderId }: IDeleteUserWithAccessPort): Promise<IActionFolderDto> => {
+    const response = await api.delete<IActionFolderDto>(`/file/folders/${folderId}/access/${userId}`);
+    return response.data;
 
 };
 export default deleteUserWithAccessRepository;

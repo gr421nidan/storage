@@ -7,7 +7,7 @@ import {
     LazySignInPage,
     LazySignUpPage, LazyStorageSettingsPage, LazyStorageTrashPage,
     LazyStorageUsersPage,
-    LazyUserLogsPage, LazyUserProfilePage,LazyGuestPublicViewPage
+    LazyUserLogsPage, LazyUserProfilePage, LazyUserAccessViewPage
 } from "@/pages";
 import ERouterPath from "@/shared/common/enum/router";
 import AuthLayout from "@/shared/components/layouts/auth";
@@ -16,18 +16,8 @@ import ProtectedRoute from "@/shared/components/protected-router";
 import MainSecondaryLayout from "@/shared/components/layouts/main-secondary";
 import {ERoleID} from "@/shared/enum/auth";
 import MainAdditionalLayout from "@/shared/components/layouts/main-additional";
-import GuestLayout from "@/shared/components/layouts/guest";
 
 const router = createBrowserRouter([
-    {
-        element: <GuestLayout/>,
-        children: [
-            {
-                path: ERouterPath.GUEST_PUBLIC_VIEW,
-                element: <LazyGuestPublicViewPage />,
-            }
-        ]
-    },
     {
         element: <AuthLayout/>,
         children: [
@@ -63,6 +53,10 @@ const router = createBrowserRouter([
                         path: ERouterPath.STORAGE_TRASH,
                         element: <LazyStorageTrashPage/>,
                     },
+                    {
+                        path: ERouterPath.USER_ACCESS_VIEW,
+                        element: <LazyUserAccessViewPage />,
+                    }
                 ],
             },
         ],

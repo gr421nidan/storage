@@ -1,5 +1,5 @@
 import {useMutation, useQueryClient} from "@tanstack/react-query";
-import {AxiosError} from "axios";
+import {AxiosError, HttpStatusCode} from "axios";
 import {enqueueSnackbar} from "notistack";
 import addAccessForUserRepository from "@/entities/repo/storage/folders/add-access-for-user";
 import {IApiErrorDto} from "@/shared/interface/auth";
@@ -18,7 +18,10 @@ const useAddAccessForUserUseCase = (folderId: string) => {
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [QueryKey.ACCESS_USERS, folderId]});
         },
-        onError: () => {
+        onError: (error) => {
+            if (error.status === HttpStatusCode.Conflict) {
+                enqueueSnackbar("Данному пользователю уже открыт доступ", {variant: 'errorSnackbar'});
+            }
             enqueueSnackbar("Не удалось добавить доступ", {variant: "errorSnackbar"});
         },
     });

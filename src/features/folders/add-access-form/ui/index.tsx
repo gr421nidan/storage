@@ -55,7 +55,9 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({ isOpen, onClos
     const handleInputChange = (value: string) => {
         setInputValue(value);
     };
-
+    const deleteUserHandler = (userId: string) => {
+        handleDeleteUser(userId, folderId);
+    };
     if (!isOpen) return null;
 
     return (
@@ -75,7 +77,7 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({ isOpen, onClos
                     <div
                         className={cn(
                             styles.formContainer,
-                            users.length > 0 ? styles.formContainerWithUsers : "h-[40px]"
+                            users.length > 0 ? styles.formContainerWithUsers : "h-0"
                         )}
                     >
                         {users.map((user) => (
@@ -84,7 +86,7 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({ isOpen, onClos
                                 <ButtonIcon
                                     type="button"
                                     className={styles.buttonIcon}
-                                    onClick={() => handleDeleteUser(user.id)}
+                                    onClick={() => deleteUserHandler(user.id)}
                                     icon="ic:round-close"
                                 />
                             </div>

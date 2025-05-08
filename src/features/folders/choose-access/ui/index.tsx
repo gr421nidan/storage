@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import Button from "@/shared/components/buttons/button";
 import PopupMenu from "@/shared/components/popup-menu";
 import { cn } from "@/shared/utils/cn";
@@ -16,11 +16,10 @@ const ChooseAccessForFolder: React.FC<IChooseAccessForFolderProps> = ({ folderId
         isRestricted,
         setRestrictedAccess,
         setLinkAccess,
-        isPopupOpen,
-        openPopup,
-        closePopup
     } = useChooseAccessTypePresenter({ folderId });
-
+    const [isPopupOpen, setIsPopupOpen] = useState(false);
+    const openPopup = () => setIsPopupOpen(true);
+    const closePopup = () => setIsPopupOpen(false);
     return (
         <div className="relative">
             <div className="flex">
@@ -32,16 +31,14 @@ const ChooseAccessForFolder: React.FC<IChooseAccessForFolderProps> = ({ folderId
                             isActive: isPopupOpen,
                         }),
                         styles.buttonAccess
-                    )}
-                >
+                    )}>
                     Тип доступа
                 </Button>
             </div>
             <PopupMenu
                 isOpen={isPopupOpen}
                 onClose={closePopup}
-                className={styles.popupWrapper}
-            >
+                className={styles.popupWrapper}>
                 <label className={styles.buttonWrapper}>
                     <CheckboxInput
                         name="accessType"

@@ -23,6 +23,6 @@ interface IUploadStorageFileDto extends IGetStorageFileDto{
 interface IActionFileDto {
     message: string,
 }
-type IGuestGetFileDto = IGetStorageFileDto
+type IUserAccessGetFileDto = IGetStorageFileDto
 
-export type {IGetStorageFileDto, IGetTrashFileDto, IUploadStorageFileDto, IActionFileDto, IGuestGetFileDto};
+export type {IGetStorageFileDto, IGetTrashFileDto, IUploadStorageFileDto, IActionFileDto, IUserAccessGetFileDto};

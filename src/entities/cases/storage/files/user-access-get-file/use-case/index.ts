@@ -1,13 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
 import QueryKey from "@/shared/common/enum/query-key";
-import guestGetFileRepository from "@/entities/repo/storage/files/guest-get-file";
-import {IGuestGetFileDto} from "@/shared/interface/files";
 import formatedDate from "@/shared/utils/formatedDate";
+import userAccessGetFileRepository from "@/entities/repo/storage/files/user-access-get-file";
+import {IUserAccessGetFileDto} from "@/shared/interface/files";
 
-const useGuestGetFileUseCase = (fileId: string) => {
+const useUserAccessGetFileUseCase = (fileId: string) => {
     const execute = async () => {
-        const response = await guestGetFileRepository(fileId);
-        const fileData = response.data;
+        const fileData = await userAccessGetFileRepository(fileId);
         return fileData
             ? {
                 ...fileData,
@@ -17,14 +16,14 @@ const useGuestGetFileUseCase = (fileId: string) => {
     };
 
     const { data, ...rest } = useQuery({
-        queryKey: [QueryKey.GUEST_FILE, fileId],
+        queryKey: [QueryKey.ACCESS_FILE, fileId],
         queryFn: execute,
     });
 
     return {
-        file: data as IGuestGetFileDto,
+        file: data as IUserAccessGetFileDto,
         ...rest,
     };
 };
 
-export default useGuestGetFileUseCase;
+export default useUserAccessGetFileUseCase;

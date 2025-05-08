@@ -28,6 +28,9 @@ const MainLayout: React.FC = () => {
         if (location.pathname.startsWith("/users/")) {
             return "Пользователи";
         }
+        if (location.pathname.startsWith("/access/")) {
+            return "Материалы для просмотра";
+        }
         if (isStoragePage && id_storage) {
             return storages.find(item => item.id === id_storage)?.title;
         }

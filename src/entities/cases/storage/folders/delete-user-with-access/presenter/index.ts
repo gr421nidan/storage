@@ -1,10 +1,10 @@
 import useDeleteUserWithAccessUseCase from "../use-case";
 
 const useDeleteUserPresenter = () => {
-    const { mutateAsync } = useDeleteUserWithAccessUseCase();
+    const {mutateAsync} = useDeleteUserWithAccessUseCase();
 
-    const handleDeleteUser = async (userId: string) => {
-        await mutateAsync(userId);
+    const handleDeleteUser = async (userId: string, folderId: string) => {
+        await mutateAsync({ userId, folderId });
     };
 
     return {

@@ -3,7 +3,7 @@ import {IGetStorageFileDto, IGetTrashFileDto} from "@/shared/interface/files";
 import {formatSize} from "@/shared/utils/convertSize";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import download from "@/shared/utils/download";
-import copyPublicLink from "@/shared/utils/copy-public-link";
+import copyPublicLink from "../../../../shared/utils/copy-link";
 import useRenameFilePresenter from "@/entities/cases/storage/files/rename/presenter";
 import styles from "../style";
 import {cn} from "@/shared/utils/cn";
@@ -12,7 +12,7 @@ import FileViewer from "@/shared/components/players";
 
 interface IFileRowItemProps {
     file: IGetStorageFileDto;
-    variant?: "default" | "trash";
+    variant?: "default" | "trash" | "access";
     onMoveToTrashClick?: (fileId: string) => void;
     onDeleteClick?: (fileId: string) => void;
     onRecoverClick?: (fileId: string) => void;
@@ -53,19 +53,29 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({
         copyLink: () => copyPublicLink?.(file.id),
     }), [file, onMoveToTrashClick, onDeleteClick, onRecoverClick]);
 
-    const renderActions = () => variant === "trash" ? (
-        <>
-            <ButtonIcon icon="ph:arrow-counter-clockwise-bold" className={styles.icon} onClick={handlers.recover}/>
-            <ButtonIcon icon="lucide:trash" className={styles.icon} onClick={handlers.delete}/>
-        </>
-    ) : (
-        <>
-            <ButtonIcon icon="fluent:arrow-download-32-filled" className={styles.icon} onClick={handlers.download}/>
-            <ButtonIcon icon="ci:edit-pencil-line-02" className={styles.icon} onClick={handleEditClick}/>
-            <ButtonIcon icon="mingcute:link-2-line" className={styles.icon} onClick={handlers.copyLink}/>
-            <ButtonIcon icon="lucide:trash" className={styles.icon} onClick={handlers.moveToTrash}/>
-        </>
-    );
+    const renderActions = () => {
+        if (variant === "trash") {
+            return (
+                <>
+                    <ButtonIcon icon="ph:arrow-counter-clockwise-bold" className={styles.icon} onClick={handlers.recover} />
+                    <ButtonIcon icon="lucide:trash" className={styles.icon} onClick={handlers.delete} />
+                </>
+            );
+        }
+        if (variant === "access") {
+            return (
+                <ButtonIcon icon="fluent:arrow-download-32-filled" className={styles.icon} onClick={handlers.download} />
+            );
+        }
+        return (
+            <>
+                <ButtonIcon icon="fluent:arrow-download-32-filled" className={styles.icon} onClick={handlers.download} />
+                <ButtonIcon icon="ci:edit-pencil-line-02" className={styles.icon} onClick={handleEditClick} />
+                <ButtonIcon icon="mingcute:link-2-line" className={styles.icon} onClick={handlers.copyLink} />
+                <ButtonIcon icon="lucide:trash" className={styles.icon} onClick={handlers.moveToTrash} />
+            </>
+        );
+    };
     const wrapperStyle = cn(
         styles.wrapper,
         variant === "trash"

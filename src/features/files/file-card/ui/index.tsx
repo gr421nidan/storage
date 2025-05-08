@@ -5,7 +5,7 @@ import {formatSize} from "@/shared/utils/convertSize";
 import ContextMenu from "@/shared/components/context-menu";
 import download from "@/shared/utils/download";
 import styles from "../style";
-import copyPublicLink from "@/shared/utils/copy-public-link";
+import copyPublicLink from "../../../../shared/utils/copy-link";
 import {BUCKET_BASE_URL} from "@/shared/config";
 import FileViewer from "@/shared/components/players";
 import useRenameFilePresenter from "@/entities/cases/storage/files/rename/presenter";
