@@ -5,7 +5,7 @@ import {formatSize} from "@/shared/utils/convertSize";
 import ContextMenu from "@/shared/components/context-menu";
 import download from "@/shared/utils/download";
 import styles from "../style";
-import copyPublicLink from "../../../../shared/utils/copy-link";
+import copyLink from "@/shared/utils/copy-link";
 import {BUCKET_BASE_URL} from "@/shared/config";
 import FileViewer from "@/shared/components/players";
 import useRenameFilePresenter from "@/entities/cases/storage/files/rename/presenter";
@@ -51,7 +51,7 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                     onClick: () => download(file.path, file.title)
                 },
                 {label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: handleEditClick},
-                {label: "Поделиться", icon: "mingcute:link-2-line", onClick: () => copyPublicLink(file.id)},
+                {label: "Поделиться", icon: "mingcute:link-2-line", onClick: () => copyLink(file.id)},
                 {label: "Удалить", icon: "lucide:trash", onClick: () => onMoveToTrashClick?.(file.id)},
             ];
     }, [variant, file, onRecoverClick, onDeleteClick, onMoveToTrashClick]);

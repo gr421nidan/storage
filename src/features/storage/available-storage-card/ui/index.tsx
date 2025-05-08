@@ -7,6 +7,7 @@ import {EGrantID} from "@/shared/enum/admin";
 import styles from "../style";
 import {useNavigate} from "react-router-dom";
 import ERouterPath from "@/shared/common/enum/router";
+import {enqueueSnackbar} from "notistack";
 
 interface IAvailableStorageCardProps {
     storage: IGetStorageDto;
@@ -20,8 +21,13 @@ const GRANT_NAMES: Record<EGrantID, string> = {
 const TOTAL_STORAGE_GB = 15;
 const AvailableStorageCard: React.FC<IAvailableStorageCardProps> = ({storage}) => {
     const navigate = useNavigate();
+
     const handleStorageClick = () => {
-        navigate(ERouterPath.STORAGE.replace(':id_storage', storage.id));
+        if (!storage.is_active) {
+            enqueueSnackbar("Хранилище недоступно", { variant: "warning" });
+            return;
+        }
+        navigate(ERouterPath.STORAGE.replace(":id_storage", storage.id));
     };
     return (
         <div className={styles.container} onDoubleClick={handleStorageClick}>

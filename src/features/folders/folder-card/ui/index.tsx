@@ -6,10 +6,11 @@ import ContextMenu from "@/shared/components/context-menu";
 import useRenameFolderPresenter from "@/entities/cases/storage/folders/rename/presenter";
 import styles from "../style";
 import useDownloadFolderPresenter from "@/entities/cases/storage/folders/download/presenter";
+import ButtonIcon from "@/shared/components/buttons/button-icon";
 
 interface IFolderCardItemProps {
     folder: IGetStorageFolderDto;
-    variant?: "default" | "trash";
+    variant?: "default" | "trash" | "access";
     onAddAccessClick?: (folderId: string) => void;
     onMoveToTrashClick?: (folderId: string) => void;
     onDeleteClick?: (folderId: string) => void;
@@ -55,7 +56,9 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
                 { label: "Удалить", icon: "lucide:trash", onClick: deleteClick },
             ];
         }
-
+        if (variant === "access") {
+            return [];
+        }
         return [
             { label: "Скачать", icon: "fluent:arrow-download-32-filled", onClick: downloadClick },
             { label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: handleEditClick },
@@ -87,7 +90,10 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
                     </>
                 )}
             </div>
-            <ContextMenu items={getMenuItems()} />
+            {variant !== "access" && <ContextMenu items={getMenuItems()} />}
+            {variant === "access" && (
+                <ButtonIcon icon="fluent:arrow-download-32-filled" className="w-5 h-5" onClick={() => handleDownloadFolder(folder.id)} />
+            )}
         </div>
     );
 };

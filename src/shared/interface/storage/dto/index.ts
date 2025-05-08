@@ -20,6 +20,7 @@ interface IGetStorageDto {
     title: string;
     storage_size: number | null;
     grant_id: EGrantID;
+    is_active: boolean;
 }
 
 interface IGetAvailableStoragesDto {

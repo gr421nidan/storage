@@ -1,18 +1,18 @@
 import {ReactNode} from "react";
 import {useParams} from "react-router-dom";
 import FileRowItem from "@/features/files/file-row/ui";
-import useUserAccessGetFileUseCase from "@/entities/cases/storage/files/user-access-get-file/use-case";
+import FolderCardItem from "@/features/folders/folder-card/ui";
+import useUserAvailableFolderOrFilePresenter from "@/entities/cases/storage/folders/get-available-folder/presenter";
 
 const UserAccessViewPage = (): ReactNode => {
     const { id } = useParams<{ id: string }>();
-    console.log(id)
-    const { file } = useUserAccessGetFileUseCase(id!);
-    console.log(file)
+    const { type, file, folder } = useUserAvailableFolderOrFilePresenter(id!);
+
     return (
-        <div className="p-4">
-            {file && <FileRowItem file={file} variant="access" />}
-        </div>
+        <>
+            {type === "file" && file && <FileRowItem file={file} variant="access" />}
+            {type === "folder" && folder && <FolderCardItem folder={folder} variant="access" />}
+        </>
     );
 };
-
 export default UserAccessViewPage;

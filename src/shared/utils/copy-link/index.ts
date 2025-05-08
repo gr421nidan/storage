@@ -1,8 +1,8 @@
 import {enqueueSnackbar} from "notistack";
 
-const copyPublicLink  = (fileId: string) => {
-    const publicLink = `${window.location.origin}/access/${fileId}`;
-    navigator.clipboard.writeText(publicLink)
+const copyLink  = (id: string) => {
+    const link = `${window.location.origin}/access/${id}`;
+    navigator.clipboard.writeText(link)
         .then(() => {
             enqueueSnackbar("Ссылка скопирована в буфер обмена", {variant: "successSnackbar"});
         })
@@ -10,4 +10,4 @@ const copyPublicLink  = (fileId: string) => {
             enqueueSnackbar("Не удалось скопировать ссылку", {variant: "errorSnackbar"});
         });
 };
-export default copyPublicLink ;
+export default copyLink ;

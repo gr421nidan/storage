@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, {useState, useEffect} from "react";
 import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
-import { cn } from "@/shared/utils/cn";
-import { buttonStyles } from "@/shared/components/buttons/style.ts";
+import {cn} from "@/shared/utils/cn";
+import {buttonStyles} from "@/shared/components/buttons/style.ts";
 import useAddUserAccessPresenter from "@/entities/cases/storage/folders/add-access-for-folder/presenter";
 import useGetUsersWithAccessUseCase from "@/entities/cases/storage/folders/get-users-with-access/use-case";
 import useDeleteUserPresenter from "@/entities/cases/storage/folders/delete-user-with-access/presenter";
@@ -13,7 +13,7 @@ import debounce from "lodash/debounce";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import {errorTextStyles} from "@/features/auth/style.ts";
 import styles from "../style";
-import useCopyLinkFolderPresenter from "@/entities/cases/storage/folders/copy-link/presenter";
+import copyLink from "@/shared/utils/copy-link";
 
 interface IAddAccessForFolderProps {
     isOpen: boolean;
@@ -21,11 +21,10 @@ interface IAddAccessForFolderProps {
     folderId: string;
 }
 
-const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({ isOpen, onClose, folderId }) => {
-    const { onSubmit, setValue, errors } = useAddUserAccessPresenter(folderId);
-    const { users } = useGetUsersWithAccessUseCase(folderId);
-    const { handleDeleteUser } = useDeleteUserPresenter();
-    const {onCopyLink,} = useCopyLinkFolderPresenter({folderId});
+const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({isOpen, onClose, folderId}) => {
+    const {onSubmit, setValue, errors} = useAddUserAccessPresenter(folderId);
+    const {users} = useGetUsersWithAccessUseCase(folderId);
+    const {handleDeleteUser} = useDeleteUserPresenter();
     const [inputValue, setInputValue] = useState<string>("");
     const [debouncedValue, setDebouncedValue] = useState<string>("");
 
@@ -41,7 +40,7 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({ isOpen, onClos
         };
     }, [inputValue]);
 
-    const { data: allUsers } = useGetAllUsersForAccessUseCase({ email: debouncedValue });
+    const {data: allUsers} = useGetAllUsersForAccessUseCase({email: debouncedValue});
 
     const userOptions = (allUsers ?? []).map((user) => ({
         value: user.id,
@@ -97,18 +96,18 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({ isOpen, onClos
 
                     <div className={styles.accessSettings}>
                         <Button
-                            onClick={onCopyLink}
+                            onClick={() => copyLink(folderId)}
                             className={cn(buttonStyles({variant: "baseSecondary"}), styles.buttonCopyLink)}
                         >
                             Копировать ссылку
                         </Button>
-                        <ChooseAccessForFolder folderId={folderId} />
+                        <ChooseAccessForFolder folderId={folderId}/>
                     </div>
 
                     <div className={styles.buttonsContainer}>
                         <Button
                             type="button"
-                            className={cn(buttonStyles({ variant: "baseSecondary" }), styles.buttonCancel)}
+                            className={cn(buttonStyles({variant: "baseSecondary"}), styles.buttonCancel)}
                             onClick={onClose}
                         >
                             Отменить

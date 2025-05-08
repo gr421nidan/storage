@@ -9,6 +9,7 @@ enum QueryKey {
     USER_LOGS = "userLogs",
     STORAGES = "storages",
     ACCESS_FILE = "accessFile",
+    ACCESS_FOLDER = "accessFolder",
     ACCESS_USERS = "accessUsers",
     BACKUPS = "backups",
 }

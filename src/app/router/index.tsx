@@ -1,7 +1,7 @@
 import {createBrowserRouter} from "react-router-dom";
 import {
     LazyAvailableStoragePage,
-    LazyAvailableStoragesPage, LazyConnectingStoragePage, LazyForbiddenPage,
+    LazyAvailableStoragesPage, LazyForbiddenPage,
     LazyMainPage, LazyNotFoundPage,
     LazyResetPage,
     LazySignInPage,
@@ -55,7 +55,7 @@ const router = createBrowserRouter([
                     },
                     {
                         path: ERouterPath.USER_ACCESS_VIEW,
-                        element: <LazyUserAccessViewPage />,
+                        element: <LazyUserAccessViewPage/>,
                     }
                 ],
             },
@@ -101,15 +101,6 @@ const router = createBrowserRouter([
                     {
                         path: ERouterPath.STORAGE,
                         element: <LazyAvailableStoragePage/>,
-                    },
-                ],
-            },
-            {
-                element: <MainSecondaryLayout/>,
-                children: [
-                    {
-                        path: ERouterPath.CONNECTING_STORAGE,
-                        element: <LazyConnectingStoragePage/>,
                     },
                 ],
             },

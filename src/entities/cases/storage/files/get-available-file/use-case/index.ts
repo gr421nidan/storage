@@ -1,12 +1,12 @@
 import {useQuery} from "@tanstack/react-query";
 import QueryKey from "@/shared/common/enum/query-key";
 import formatedDate from "@/shared/utils/formatedDate";
-import userAccessGetFileRepository from "@/entities/repo/storage/files/user-access-get-file";
-import {IUserAccessGetFileDto} from "@/shared/interface/files";
+import {IGetAvailableFileDto} from "@/shared/interface/files";
+import userGetAvailableFileRepository from "@/entities/repo/storage/files/get-available-file";
 
-const useUserAccessGetFileUseCase = (fileId: string) => {
+const useGetAvailableFileUseCase = (fileId: string) => {
     const execute = async () => {
-        const fileData = await userAccessGetFileRepository(fileId);
+        const fileData = await userGetAvailableFileRepository(fileId);
         return fileData
             ? {
                 ...fileData,
@@ -21,9 +21,9 @@ const useUserAccessGetFileUseCase = (fileId: string) => {
     });
 
     return {
-        file: data as IUserAccessGetFileDto,
+        file: data as IGetAvailableFileDto,
         ...rest,
     };
 };
 
-export default useUserAccessGetFileUseCase;
+export default useGetAvailableFileUseCase;

@@ -3,12 +3,12 @@ import {IGetStorageFileDto, IGetTrashFileDto} from "@/shared/interface/files";
 import {formatSize} from "@/shared/utils/convertSize";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
 import download from "@/shared/utils/download";
-import copyPublicLink from "../../../../shared/utils/copy-link";
 import useRenameFilePresenter from "@/entities/cases/storage/files/rename/presenter";
 import styles from "../style";
 import {cn} from "@/shared/utils/cn";
 import {BUCKET_BASE_URL} from "@/shared/config";
 import FileViewer from "@/shared/components/players";
+import copyLink from "@/shared/utils/copy-link";
 
 interface IFileRowItemProps {
     file: IGetStorageFileDto;
@@ -50,7 +50,7 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({
         moveToTrash: () => onMoveToTrashClick?.(file.id),
         delete: () => onDeleteClick?.(file.id),
         recover: () => onRecoverClick?.(file.id),
-        copyLink: () => copyPublicLink?.(file.id),
+        copyLink: () => copyLink?.(file.id),
     }), [file, onMoveToTrashClick, onDeleteClick, onRecoverClick]);
 
     const renderActions = () => {

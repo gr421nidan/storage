@@ -8,7 +8,6 @@ interface IGetUserProfileDto {
     phone: string | null;
     role_id: ERoleID;
     img: string | null;
-    bucket_name: string | null;
     storage_id: string;
 }
 
