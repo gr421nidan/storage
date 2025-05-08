@@ -5,6 +5,7 @@ import { formatSize } from "@/shared/utils/convertSize";
 import ContextMenu from "@/shared/components/context-menu";
 import useRenameFolderPresenter from "@/entities/cases/storage/folders/rename/presenter";
 import styles from "../style";
+import useDownloadFolderPresenter from "@/entities/cases/storage/folders/download/presenter";
 
 interface IFolderCardItemProps {
     folder: IGetStorageFolderDto;
@@ -23,6 +24,7 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
                                                             onRecoverClick,
                                                             onAddAccessClick,
                                                         }) => {
+    const {handleDownloadFolder} = useDownloadFolderPresenter()
     const [isRenaming, setIsRenaming] = useState(false);
     const handleEditClick = () => setIsRenaming(true);
     const handleCloseRename = () => setIsRenaming(false);
@@ -41,6 +43,7 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
         }
     };
     const getMenuItems = () => {
+        const downloadClick =()=> handleDownloadFolder(folder.id);
         const recoverClick = () => onRecoverClick?.(folder.id);
         const deleteClick = () => onDeleteClick?.(folder.id);
         const moveToTrashClick = () => onMoveToTrashClick?.(folder.id);
@@ -54,7 +57,7 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
         }
 
         return [
-            { label: "Скачать", icon: "fluent:arrow-download-32-filled" },
+            { label: "Скачать", icon: "fluent:arrow-download-32-filled", onClick: downloadClick },
             { label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: handleEditClick },
             { label: "Поделиться", icon: "mingcute:link-2-line", onClick: addAccessClick},
             { label: "Удалить", icon: "lucide:trash", onClick: moveToTrashClick },

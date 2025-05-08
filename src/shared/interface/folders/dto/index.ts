@@ -33,5 +33,9 @@ interface IGetUsersWithAccessDto {
 interface IGetTrashFolderDto extends IGetStorageFolderDto {
     deleted_at: string,
 }
+interface IDownloadFolderDto {
+    folder_id: string,
+    folder_name: string,
+}
 
-export type {IGetStorageFolderDto, ICreateStorageFolderDto, IActionFolderDto, IGetFolderDto, IGetTrashFolderDto, IGetUsersWithAccessDto};
+export type {IGetStorageFolderDto, ICreateStorageFolderDto, IActionFolderDto, IGetFolderDto, IGetTrashFolderDto, IGetUsersWithAccessDto, IDownloadFolderDto};
