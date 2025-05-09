@@ -50,7 +50,7 @@ const FileRowItem: React.FC<IFileRowItemProps> = ({
         moveToTrash: () => onMoveToTrashClick?.(file.id),
         delete: () => onDeleteClick?.(file.id),
         recover: () => onRecoverClick?.(file.id),
-        copyLink: () => copyLink?.(file.id),
+        copyLink: () => copyLink?.(file.id, "file"),
     }), [file, onMoveToTrashClick, onDeleteClick, onRecoverClick]);
 
     const renderActions = () => {

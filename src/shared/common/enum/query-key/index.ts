@@ -12,6 +12,7 @@ enum QueryKey {
     ACCESS_FOLDER = "accessFolder",
     ACCESS_USERS = "accessUsers",
     BACKUPS = "backups",
+    STORAGE = "storage",
 }
 
 export default QueryKey;

@@ -24,7 +24,7 @@ const AvailableStorageCard: React.FC<IAvailableStorageCardProps> = ({storage}) =
 
     const handleStorageClick = () => {
         if (!storage.is_active) {
-            enqueueSnackbar("Хранилище недоступно", { variant: "warning" });
+            enqueueSnackbar("Хранилище недоступно", { variant: 'errorSnackbar'  });
             return;
         }
         navigate(ERouterPath.STORAGE.replace(":id_storage", storage.id));

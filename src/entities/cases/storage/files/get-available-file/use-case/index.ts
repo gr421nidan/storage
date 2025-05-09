@@ -3,21 +3,25 @@ import QueryKey from "@/shared/common/enum/query-key";
 import formatedDate from "@/shared/utils/formatedDate";
 import {IGetAvailableFileDto} from "@/shared/interface/files";
 import userGetAvailableFileRepository from "@/entities/repo/storage/files/get-available-file";
+import { AxiosError} from "axios";
+import { IApiErrorDto } from "@/shared/interface/auth";
 
 const useGetAvailableFileUseCase = (fileId: string) => {
-    const execute = async () => {
+    const execute = async (): Promise<IGetAvailableFileDto> => {
         const fileData = await userGetAvailableFileRepository(fileId);
-        return fileData
-            ? {
-                ...fileData,
-                created_at: fileData.created_at ? formatedDate(fileData.created_at) : null,
-            }
-            : null;
+        return {
+            ...fileData,
+            created_at: formatedDate(fileData.created_at),
+        };
     };
 
-    const { data, ...rest } = useQuery({
+    const { data, ...rest } = useQuery<
+        IGetAvailableFileDto,
+        AxiosError<IApiErrorDto>
+    >({
         queryKey: [QueryKey.ACCESS_FILE, fileId],
         queryFn: execute,
+        retry: false,
     });
 
     return {

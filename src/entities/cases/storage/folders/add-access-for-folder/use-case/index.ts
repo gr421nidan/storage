@@ -22,7 +22,6 @@ const useAddAccessForUserUseCase = (folderId: string) => {
             if (error.status === HttpStatusCode.Conflict) {
                 enqueueSnackbar("Данному пользователю уже открыт доступ", {variant: 'errorSnackbar'});
             }
-            enqueueSnackbar("Не удалось добавить доступ", {variant: "errorSnackbar"});
         },
     });
 };

@@ -11,4 +11,8 @@ interface IConnectStorageS3Port {
     access_key: string;
     secret_key: string;
 }
-export type {IGetStorageFilesAndFoldersPort, IConnectStorageS3Port}
+interface IUpdateStoragePort {
+    title: string;
+    description: string;
+}
+export type {IGetStorageFilesAndFoldersPort, IConnectStorageS3Port, IUpdateStoragePort}

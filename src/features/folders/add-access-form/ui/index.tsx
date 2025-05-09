@@ -14,6 +14,7 @@ import ButtonIcon from "@/shared/components/buttons/button-icon";
 import {errorTextStyles} from "@/features/auth/style.ts";
 import styles from "../style";
 import copyLink from "@/shared/utils/copy-link";
+import {Controller} from "react-hook-form";
 
 interface IAddAccessForFolderProps {
     isOpen: boolean;
@@ -22,16 +23,17 @@ interface IAddAccessForFolderProps {
 }
 
 const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({isOpen, onClose, folderId}) => {
-    const {onSubmit, setValue, errors} = useAddUserAccessPresenter(folderId);
+    const timeDebounce = 700;
+    const {onSubmit, setValue, errors, control, watch} = useAddUserAccessPresenter(folderId);
     const {users} = useGetUsersWithAccessUseCase(folderId);
     const {handleDeleteUser} = useDeleteUserPresenter();
     const [inputValue, setInputValue] = useState<string>("");
     const [debouncedValue, setDebouncedValue] = useState<string>("");
-
+    const userId = watch("user_id");
     useEffect(() => {
         const handler = debounce((value: string) => {
             setDebouncedValue(value);
-        }, 500);
+        }, timeDebounce);
 
         handler(inputValue);
 
@@ -47,10 +49,9 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({isOpen, onClose
         label: user.email,
     }));
 
-    const handleUserChange = (selectedUser: { value: string; label: string } | null) => {
+    const handleUserChange = (selectedUser: { value: string } | null) => {
         setValue("user_id", selectedUser?.value || "");
     };
-
     const handleInputChange = (value: string) => {
         setInputValue(value);
     };
@@ -63,12 +64,19 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({isOpen, onClose
         <Modal title="Кто имеет доступ" className="w-[631px]" onClose={onClose}>
             <form onSubmit={onSubmit}>
                 <div>
-                    <SearchSelect
-                        placeholder="Введите почту"
-                        className="w-full"
-                        options={userOptions}
-                        onChange={handleUserChange}
-                        onInputChange={handleInputChange}
+                    <Controller
+                        name="user_id"
+                        control={control}
+                        render={({field}) => (
+                            <SearchSelect
+                                {...field}
+                                placeholder="Введите почту"
+                                className="w-full"
+                                options={userOptions}
+                                onInputChange={handleInputChange}
+                                onChange={handleUserChange}
+                            />
+                        )}
                     />
                     {errors.user_id && (
                         <p className={errorTextStyles()}>{errors.user_id.message}</p>
@@ -96,7 +104,7 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({isOpen, onClose
 
                     <div className={styles.accessSettings}>
                         <Button
-                            onClick={() => copyLink(folderId)}
+                            onClick={() => copyLink(folderId, "folder")}
                             className={cn(buttonStyles({variant: "baseSecondary"}), styles.buttonCopyLink)}
                         >
                             Копировать ссылку
@@ -112,7 +120,7 @@ const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({isOpen, onClose
                         >
                             Отменить
                         </Button>
-                        <Button type="submit" className={styles.buttonSave}>
+                        <Button type="submit" className={styles.buttonSave} disabled={!userId}>
                             Сохранить
                         </Button>
                     </div>

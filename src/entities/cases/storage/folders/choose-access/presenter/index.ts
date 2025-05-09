@@ -1,16 +1,15 @@
-import useChooseAccessTypeUseCase from "../use-case/";
+import useChooseAccessTypeUseCase from "../use-case";
 import { IChooseAccessForFolderPort } from "@/shared/interface/folders";
 import {useState} from "react";
 
-interface IUseChooseAccessTypePresenterProps{
+interface IUseChooseAccessTypePresenterProps {
     folderId: string;
+    initialRestricted?: boolean;
 }
 
-const useChooseAccessTypePresenter = ({ folderId }: IUseChooseAccessTypePresenterProps) => {
+const useChooseAccessTypePresenter = ({folderId, initialRestricted = false}: IUseChooseAccessTypePresenterProps) => {
     const { mutateAsync } = useChooseAccessTypeUseCase(folderId);
-
-    const [isRestricted, setIsRestricted] = useState<boolean>(false);
-
+    const [isRestricted, setIsRestricted] = useState(initialRestricted);
     const setAccess = async (isActive: boolean) => {
         setIsRestricted(isActive);
         const data: IChooseAccessForFolderPort = { is_restricted: isActive };

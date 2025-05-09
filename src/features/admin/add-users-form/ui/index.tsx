@@ -7,12 +7,12 @@ import { formStyles } from "../style";
 import CustomSelect from "@/shared/components/select";
 import SearchSelect from "@/shared/components/search-select";
 import { IGetAllUsersDto } from "@/shared/interface/admin";
-import useGetAllUsersUseCase from "@/entities/cases/user/get-all-users/use-case";
 import debounce from "lodash/debounce";
 import { Controller } from "react-hook-form";
+import useGetAllUsersUseCase from "@/entities/cases/user-storage/get-all-users/use-case";
 
 const AddUserForm = (): ReactNode => {
-    const timeDebounce = 500;
+    const timeDebounce = 700;
     const { onSubmit, form } = useAddUserPresenter();
     const { setValue, formState: { errors } } = form;
     const [inputValue, setInputValue] = useState<string>("");

@@ -3,7 +3,7 @@ import Button from '@/shared/components/buttons/button';
 import ButtonIcon from '@/shared/components/buttons/button-icon';
 import { BackupStatus } from '@/features/admin/storage-settings/backup-status/ui';
 import BackupList from '@/features/admin/storage-settings/backup-table/ui';
-import StorageSettingsForm from '@/features/admin/storage-settings/storege-form/ui';
+import StorageSettingsForm from '@/features/admin/storage-settings/starage-form/ui';
 import CleanupBackupsConfirm from '@/features/admin/storage-settings/cleanup-backups-confirm';
 import useGetBackupsUseCase from '@/entities/cases/backup/get-backups/use-case';
 import useCreateBackupPresenter from '@/entities/cases/backup/create/presenter';

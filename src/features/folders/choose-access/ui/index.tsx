@@ -6,17 +6,21 @@ import useChooseAccessTypePresenter from "@/entities/cases/storage/folders/choos
 import CheckboxInput from "@/shared/components/inputs/checkbox-input";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import styles from "../style";
+import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-folders-and-files/use-case";
 
 interface IChooseAccessForFolderProps {
     folderId: string;
 }
 
 const ChooseAccessForFolder: React.FC<IChooseAccessForFolderProps> = ({ folderId }) => {
+    const { folders } = useGetStorageFilesAndFoldersUseCase({});
+    const folder = folders.find(f => f.id === folderId);
+    const initialRestricted = folder?.is_restricted ?? false;
     const {
         isRestricted,
         setRestrictedAccess,
         setLinkAccess,
-    } = useChooseAccessTypePresenter({ folderId });
+    } = useChooseAccessTypePresenter({ folderId, initialRestricted });
     const [isPopupOpen, setIsPopupOpen] = useState(false);
     const openPopup = () => setIsPopupOpen(true);
     const closePopup = () => setIsPopupOpen(false);

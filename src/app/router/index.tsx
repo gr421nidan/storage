@@ -7,7 +7,7 @@ import {
     LazySignInPage,
     LazySignUpPage, LazyStorageSettingsPage, LazyStorageTrashPage,
     LazyStorageUsersPage,
-    LazyUserLogsPage, LazyUserProfilePage, LazyUserAccessViewPage
+    LazyUserLogsPage, LazyUserProfilePage, LazyUserFolderViewPage, LazyUserFileViewPage
 } from "@/pages";
 import ERouterPath from "@/shared/common/enum/router";
 import AuthLayout from "@/shared/components/layouts/auth";
@@ -54,8 +54,12 @@ const router = createBrowserRouter([
                         element: <LazyStorageTrashPage/>,
                     },
                     {
-                        path: ERouterPath.USER_ACCESS_VIEW,
-                        element: <LazyUserAccessViewPage/>,
+                        path: ERouterPath.USER_FOLDER_VIEW,
+                        element: <LazyUserFolderViewPage/>,
+                    },
+                    {
+                        path: ERouterPath.USER_FILE_VIEW,
+                        element: <LazyUserFileViewPage/>,
                     }
                 ],
             },

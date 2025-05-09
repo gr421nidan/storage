@@ -1,4 +1,5 @@
-import {IConnectStorageS3Port} from "@/shared/interface/storage";
+import {IConnectStorageS3Port, IUpdateStoragePort} from "@/shared/interface/storage";
 
 type IConnectStorageS3Form = IConnectStorageS3Port;
-export type {IConnectStorageS3Form}
+type IUpdateStorageForm = IUpdateStoragePort;
+export type {IConnectStorageS3Form, IUpdateStorageForm}

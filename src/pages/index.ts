@@ -16,4 +16,5 @@ export const LazyConnectingStoragePage =LoadComponent(lazy(async () => import("@
 
 export const LazyForbiddenPage =LoadComponent(lazy(async () => import("@/pages/error/forbidden")))
 export const LazyNotFoundPage =LoadComponent(lazy(async () => import("@/pages/error/not-found")))
-export const LazyUserAccessViewPage =LoadComponent(lazy(async () => import("@/pages/access")))
+export const LazyUserFileViewPage =LoadComponent(lazy(async () => import("@/pages/access/file-view")))
+export const LazyUserFolderViewPage =LoadComponent(lazy(async () => import("@/pages/access/folder-view")))

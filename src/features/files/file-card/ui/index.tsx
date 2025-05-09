@@ -51,7 +51,7 @@ const FileCardItem: React.FC<IFileCardItemProps> = ({
                     onClick: () => download(file.path, file.title)
                 },
                 {label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: handleEditClick},
-                {label: "Поделиться", icon: "mingcute:link-2-line", onClick: () => copyLink(file.id)},
+                {label: "Поделиться", icon: "mingcute:link-2-line", onClick: () => copyLink(file.id, "file")},
                 {label: "Удалить", icon: "lucide:trash", onClick: () => onMoveToTrashClick?.(file.id)},
             ];
     }, [variant, file, onRecoverClick, onDeleteClick, onMoveToTrashClick]);

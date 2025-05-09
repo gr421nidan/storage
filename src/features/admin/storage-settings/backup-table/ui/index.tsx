@@ -1,11 +1,11 @@
-import React from 'react';
+import {ReactNode} from 'react';
 import ButtonIcon from '@/shared/components/buttons/button-icon';
 import useGetBackupsUseCase from '@/entities/cases/backup/get-backups/use-case';
 import useDeleteBackupPresenter from '@/entities/cases/backup/delete/presenter';
 import download from '@/shared/utils/download';
 import styles from '../style';
 
-const BackupList: React.FC = () => {
+const BackupList = (): ReactNode => {
     const { data: backups } = useGetBackupsUseCase();
     const { handleDeleteBackup } = useDeleteBackupPresenter();
 
