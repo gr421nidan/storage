@@ -1,8 +1,8 @@
 import { enqueueSnackbar } from "notistack";
 
-type AccessType = "file" | "folder";
+type IAccessType = "file" | "folder";
 
-const copyLink = (id: string, type: AccessType) => {
+const copyLink = (id: string, type: IAccessType) => {
     const path = type === "file" ? "file" : "folder";
     const link = `${window.location.origin}/access/${path}/${id}`;
 
