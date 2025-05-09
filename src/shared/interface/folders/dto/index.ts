@@ -7,6 +7,7 @@ interface IGetStorageFolderDto {
     size: number;
     parent_folder_id: string | null,
     is_restricted: false,
+    owner_id: string,
 }
 
 interface ICreateStorageFolderDto {

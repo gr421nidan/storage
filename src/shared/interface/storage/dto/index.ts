@@ -2,6 +2,7 @@ import {IGetStorageFileDto} from "@/shared/interface/files";
 import {IGetStorageFolderDto} from "@/shared/interface/folders";
 import {EGrantID} from "@/shared/enum/admin";
 import {IBackupDto} from "@/shared/interface/backup";
+import {EClearingStorageInterval} from "@/shared/enum/storage/clearing-interval";
 
 interface IGetStorageSizeDto {
     usedSpace: number;
@@ -27,11 +28,18 @@ interface IGetAvailableStoragesDto {
     storages:IGetStorageDto[];
 }
 
-interface ICleanupDiskDto {
-    message:string;
+interface IBackupInterval {
+    days: number;
 }
-interface IConnectStorageS3Dto{
-    message:string;
+interface IGetStorageInfoDto {
+    id: string;
+    title: string;
+    description: string;
+    is_active: boolean;
+    backup_is_active: boolean;
+    clearing_interval:EClearingStorageInterval;
+    size: number | null;
+    backup_interval:IBackupInterval
 }
 
-export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, ICleanupDiskDto, IConnectStorageS3Dto};
+export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, IGetStorageInfoDto};

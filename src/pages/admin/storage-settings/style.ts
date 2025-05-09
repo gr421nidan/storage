@@ -7,7 +7,7 @@ const styles = {
 
     label: 'text-[26px] leading-[32px] dark:text-white text-left',
 
-    sectionWrapper: 'mt-8 pb-4 flex justify-between items-center px-6',
+    sectionWrapper: 'mt-8 pb-4 flex justify-between items-center',
 
     sectionTitle: 'text-[26px] leading-[31px] font-normal text-gray-900 dark:text-white',
 

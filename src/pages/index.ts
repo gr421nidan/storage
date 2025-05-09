@@ -12,7 +12,6 @@ export const LazyStorageTrashPage =LoadComponent(lazy(async () => import("@/page
 export const LazyAvailableStoragePage =LoadComponent(lazy(async () => import("@/pages/user/available-storage")))
 export const LazyAvailableStoragesPage =LoadComponent(lazy(async () => import("@/pages/user/available-storages")))
 export const LazyStorageSettingsPage =LoadComponent(lazy(async () => import("@/pages/admin/storage-settings")))
-export const LazyConnectingStoragePage =LoadComponent(lazy(async () => import("@/pages/user/connecting-storage")))
 
 export const LazyForbiddenPage =LoadComponent(lazy(async () => import("@/pages/error/forbidden")))
 export const LazyNotFoundPage =LoadComponent(lazy(async () => import("@/pages/error/not-found")))

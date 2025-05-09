@@ -7,6 +7,7 @@ import useRenameFolderPresenter from "@/entities/cases/storage/folders/rename/pr
 import styles from "../style";
 import useDownloadFolderPresenter from "@/entities/cases/storage/folders/download/presenter";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
+import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use-case";
 
 interface IFolderCardItemProps {
     folder: IGetStorageFolderDto;
@@ -38,13 +39,15 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
         currentTitle: folder.title,
         onClose: handleCloseRename,
     });
+    const { data: user } = useGetUserProfileUseCase();
+
     const handleKeyDown = (e: React.KeyboardEvent) => {
         if (e.key === 'Enter') {
             onSubmit();
         }
     };
     const getMenuItems = () => {
-        const downloadClick =()=> handleDownloadFolder(folder.id);
+        const downloadClick = () => handleDownloadFolder(folder.id);
         const recoverClick = () => onRecoverClick?.(folder.id);
         const deleteClick = () => onDeleteClick?.(folder.id);
         const moveToTrashClick = () => onMoveToTrashClick?.(folder.id);
@@ -56,17 +59,22 @@ const FolderCardItem: React.FC<IFolderCardItemProps> = ({
                 { label: "Удалить", icon: "lucide:trash", onClick: deleteClick },
             ];
         }
+
         if (variant === "access") {
             return [];
         }
-        return [
+
+        const menuItems = [
             { label: "Скачать", icon: "fluent:arrow-download-32-filled", onClick: downloadClick },
             { label: "Переименовать", icon: "ci:edit-pencil-line-02", onClick: handleEditClick },
-            { label: "Поделиться", icon: "mingcute:link-2-line", onClick: addAccessClick},
             { label: "Удалить", icon: "lucide:trash", onClick: moveToTrashClick },
         ];
-    };
+        if (folder.owner_id === user?.id) {
+            menuItems.splice(2, 0, { label: "Поделиться", icon: "mingcute:link-2-line", onClick: addAccessClick });
+        }
 
+        return menuItems;
+    };
     return (
         <div className={styles.wrapper}>
             <img src={folderIcon} alt="folder" />

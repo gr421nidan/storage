@@ -23,7 +23,7 @@ interface IAddAccessForFolderProps {
 }
 
 const AddAccessForFolder: React.FC<IAddAccessForFolderProps> = ({isOpen, onClose, folderId}) => {
-    const timeDebounce = 700;
+    const timeDebounce = 2000;
     const {onSubmit, setValue, errors, control, watch} = useAddUserAccessPresenter(folderId);
     const {users} = useGetUsersWithAccessUseCase(folderId);
     const {handleDeleteUser} = useDeleteUserPresenter();

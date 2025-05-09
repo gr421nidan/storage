@@ -1,5 +1,5 @@
 const styles = {
-    statusWrapper: 'flex flex-col gap-[24px]',
+    statusWrapper: 'flex justify-between',
     statusTitle: 'text-[26px] leading-none text-black dark:text-white',
 
     statusOptions: 'flex items-center gap-[32px]',

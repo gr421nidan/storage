@@ -1,3 +1,5 @@
+import {EClearingStorageInterval} from "@/shared/enum/storage/clearing-interval";
+
 interface IGetStorageFilesAndFoldersPort {
     search?: string;
     sortBy?: string;
@@ -5,14 +7,17 @@ interface IGetStorageFilesAndFoldersPort {
     type?: string[];
     created_at?: string;
 }
-interface IConnectStorageS3Port {
-    endpoint: string;
-    bucket_name: string;
-    access_key: string;
-    secret_key: string;
-}
 interface IUpdateStoragePort {
     title: string;
     description: string;
 }
-export type {IGetStorageFilesAndFoldersPort, IConnectStorageS3Port, IUpdateStoragePort}
+interface IUpdateBackupStatusPort {
+    backup_is_active: boolean;
+}
+interface IBlockUnblockStoragePort {
+    is_active: boolean;
+}
+interface IAutomaticCleanupDiskPort {
+    clearing_interval: EClearingStorageInterval;
+}
+export type {IGetStorageFilesAndFoldersPort, IUpdateStoragePort, IUpdateBackupStatusPort, IBlockUnblockStoragePort, IAutomaticCleanupDiskPort}
