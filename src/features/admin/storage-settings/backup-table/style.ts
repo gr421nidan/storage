@@ -15,7 +15,7 @@ const styles = {
 
     headerRow: `
     w-[1200px]
-    grid grid-cols-[1.1fr_0.8fr_1.2fr_0.3fr]
+    grid grid-cols-[1fr_0.8fr_1.2fr_0.3fr]
     border-b-4 border-purple
     pb-3
   `,
