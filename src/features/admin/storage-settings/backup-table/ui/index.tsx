@@ -6,17 +6,8 @@ import download from '@/shared/utils/download';
 import styles from '../style';
 
 const BackupList = (): ReactNode => {
-    const { data: backups } = useGetBackupsUseCase();
-    const { handleDeleteBackup } = useDeleteBackupPresenter();
-
-    if (!backups.length) {
-        return (
-            <div className="text-center py-6 text-black dark:text-white">
-                Пока резервные копии отсутствуют
-            </div>
-        );
-    }
-
+    const {data: backups} = useGetBackupsUseCase();
+    const {handleDeleteBackup} = useDeleteBackupPresenter();
     return (
         <div className={styles.container}>
             <div className={styles.tableWrapper}>
@@ -28,23 +19,29 @@ const BackupList = (): ReactNode => {
                 </div>
 
                 <div className={styles.tableContent}>
-                    {backups.map((item) => (
-                        <div key={item.id} className={styles.dataRow}>
-                            <div className={styles.cell}>{item.title}</div>
-                            <div className={styles.cell}>{item.backup_time}</div>
-                            <div className={styles.cell}>{item.size}</div>
-                            <div className={styles.actionButtons}>
-                                <ButtonIcon
-                                    icon="fluent:arrow-download-32-filled"
-                                    onClick={() => download(item.path, item.title)}
-                                />
-                                <ButtonIcon
-                                    icon="lucide:trash"
-                                    onClick={() => handleDeleteBackup(item.id)}
-                                />
+                    {!backups.length ? (
+                        <p className="text-center text-xl py-4 text-black dark:text-white">
+                            Пока резервные копии отсутствуют
+                        </p>
+                    ) : (
+                        backups.map((item) => (
+                            <div key={item.id} className={styles.dataRow}>
+                                <div className={styles.cell}>{item.title}</div>
+                                <div className={styles.cell}>{item.backup_time}</div>
+                                <div className={styles.cell}>{item.size}</div>
+                                <div className={styles.actionButtons}>
+                                    <ButtonIcon
+                                        icon="lucide:trash" className="w-5 h-5"
+                                        onClick={() => handleDeleteBackup(item.id)}
+                                    />
+                                    <ButtonIcon
+                                        icon="fluent:arrow-download-32-filled" className="w-5 h-5"
+                                        onClick={() => download(item.path, item.title)}
+                                    />
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))
+                    )}
                 </div>
             </div>
         </div>

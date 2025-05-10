@@ -1,5 +1,5 @@
 const styles = {
-    container: 'px-4 pb-6 flex flex-col gap-6 w-[1279px]',
+    container: 'px-4 pb-6 flex flex-col gap-6 w-[1279px] h-[223px]',
 
     title: 'text-xl dark:text-white',
 
@@ -11,7 +11,7 @@ const styles = {
     flex flex-col gap-4
   `,
 
-    tableContent: 'max-h-[430px] overflow-y-auto pr-2 scrollbar',
+    tableContent: 'max-h-[100px] overflow-y-auto pr-2 scrollbar',
 
     headerRow: `
     w-[1200px]
