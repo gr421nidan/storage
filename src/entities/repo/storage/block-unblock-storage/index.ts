@@ -1,7 +1,8 @@
 import {api} from "@/shared/api";
-import {IBlockUnblockStoragePort} from "@/shared/interface/storage";
+import {IActionStorageDto, IBlockUnblockStoragePort} from "@/shared/interface/storage";
 
-const blockUnblockStorageRepository = async (storageId: string, data: IBlockUnblockStoragePort): Promise<void> => {
-    await api.patch(`/backup//${storageId}`, data);
+const blockUnblockStorageRepository = async (storageId: string, data: IBlockUnblockStoragePort): Promise<IActionStorageDto> => {
+    const response = await api.patch(`/storage/${storageId}`, data);
+    return response.data;
 };
 export default blockUnblockStorageRepository;

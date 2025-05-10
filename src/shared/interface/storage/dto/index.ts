@@ -41,5 +41,8 @@ interface IGetStorageInfoDto {
     size: number | null;
     backup_interval:IBackupInterval
 }
+interface IActionStorageDto {
+    message: string;
+}
 
-export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, IGetStorageInfoDto};
+export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, IGetStorageInfoDto, IActionStorageDto};

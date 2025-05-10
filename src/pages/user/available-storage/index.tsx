@@ -1,4 +1,5 @@
-import {ReactNode, useState} from "react";
+import {ReactNode, useEffect, useState} from "react";
+import {useNavigate} from "react-router-dom";
 import FilesView from "@/widgets/files-view";
 import FoldersView from "@/widgets/folders-view";
 import CreateFolderModal from "@/features/folders/add-folder-form/ui";
@@ -12,8 +13,17 @@ import EmptyState from "@/shared/components/empty-state";
 import ToggleSection from "@/shared/components/toggle-section";
 import FolderHistory from "@/shared/components/folder-history";
 import styles from "@/pages/main/style.ts";
+import ERouterPath from "@/shared/common/enum/router";
+import useGetStorageInfoUseCase from "@/entities/cases/storage/get-info/use-case";
 
 const AvailableStoragePage = (): ReactNode => {
+    const navigate = useNavigate();
+    const {data: storage} = useGetStorageInfoUseCase();
+    useEffect(() => {
+        if (storage && !storage.is_active) {
+            navigate(ERouterPath.AVAILABLE_STORAGES);
+        }
+    }, [storage]);
     const [viewMode, setViewMode] = useState<"grid" | "list">("list");
     const [visibility, setVisibility] = useState({files: true, folders: true});
     const [modals, setModals] = useState({create: false, upload: false});
