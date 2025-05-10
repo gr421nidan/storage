@@ -7,7 +7,10 @@ import useUserAvailableFolderPresenter from "@/entities/cases/storage/folders/ge
 import EmptyState from "@/shared/components/empty-state";
 import notFound from "@/assets/img-empty/not_found.png";
 import notFoundDark from "@/assets/img-empty/not_found_dark.png";
+import noAccess from "@/assets/storage-img/no_access.png";
+import noAccessDark from "@/assets/storage-img/no_access_dark.png";
 import styles from "./style";
+import ImgThemeSwitcher from "@/shared/components/img-theme-switcher";
 
 const UserFolderViewPage = (): ReactNode => {
     const {folder_id} = useParams<{ folder_id: string }>();
@@ -37,7 +40,14 @@ const UserFolderViewPage = (): ReactNode => {
         [folderFolders, openSubfolder]
     );
     if (type === "error") {
-        return <div>У вас нет доступа для просмотра!</div>;
+        return <div className={styles.forbiddenContent}>
+            <ImgThemeSwitcher
+                light={noAccess}
+                dark={noAccessDark}
+                alt="Нет доступа"
+            />
+            <span className={styles.text}>У вас нет доступа для просмотра</span>
+        </div>;
     }
 
     if (type === "folder" && folder) {
