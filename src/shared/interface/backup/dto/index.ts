@@ -15,5 +15,8 @@ interface ICreateBackupDto extends IBackupDto {
 interface IActionBackupDto {
     message: string;
 }
+interface IGetBackupNextDateDto {
+    next_backup_date: string | null;
+}
 
-export type {ICreateBackupDto, IBackupDto, IActionBackupDto}
+export type {ICreateBackupDto, IBackupDto, IActionBackupDto, IGetBackupNextDateDto}

@@ -11,13 +11,11 @@ interface IUpdateStoragePort {
     title: string;
     description: string;
 }
-interface IUpdateBackupStatusPort {
-    backup_is_active: boolean;
-}
+
 interface IBlockUnblockStoragePort {
     is_active: boolean;
 }
 interface IAutomaticCleanupDiskPort {
     clearing_interval: EClearingStorageInterval;
 }
-export type {IGetStorageFilesAndFoldersPort, IUpdateStoragePort, IUpdateBackupStatusPort, IBlockUnblockStoragePort, IAutomaticCleanupDiskPort}
+export type {IGetStorageFilesAndFoldersPort, IUpdateStoragePort, IBlockUnblockStoragePort, IAutomaticCleanupDiskPort}

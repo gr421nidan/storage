@@ -5,17 +5,16 @@ import QueryKey from "@/shared/common/enum/query-key";
 import {enqueueSnackbar} from "notistack";
 import {ICreateBackupDto} from "@/shared/interface/backup";
 import getCreateBackupRepository from "@/entities/repo/backup/create";
-import {useCurrentStorage} from "@/shared/hooks/storage";
 
 const useCreateBackupUseCase = () => {
     const queryClient = useQueryClient();
-    const storageId = useCurrentStorage();
-    const execute = () => getCreateBackupRepository(storageId);
+    const execute = () => getCreateBackupRepository();
     return useMutation<ICreateBackupDto, AxiosError<IApiErrorDto>>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
             await queryClient.invalidateQueries({ queryKey: [QueryKey.BACKUPS] });
+            await queryClient.invalidateQueries({ queryKey: [QueryKey.BACKUP_DATE] });
             enqueueSnackbar("Резервная копия успешно создана.", {variant: "successSnackbar"});
         },
         onError: (error) => {

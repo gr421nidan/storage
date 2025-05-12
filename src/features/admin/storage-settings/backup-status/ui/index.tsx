@@ -18,7 +18,7 @@ export const BackupStatus = (): ReactNode => {
         setIsActive(value);
         if (data?.id) {
             await handleUpdateBackupStatus({
-                backup_is_active: value
+                is_active: value
             });
         }
     };

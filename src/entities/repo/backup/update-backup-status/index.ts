@@ -1,8 +1,8 @@
 import {api} from "@/shared/api";
-import {IUpdateBackupStatusPort} from "@/shared/interface/storage";
+import {IActionBackupDto, IUpdateBackupStatusPort} from "@/shared/interface/backup";
 
-const updateBackupStatusRepository = async (storageId: string, data: IUpdateBackupStatusPort): Promise<void> => {
-    const response = await api.patch(`/backup//${storageId}`, data);
+const updateBackupStatusRepository = async (storageId: string, data: IUpdateBackupStatusPort): Promise<IActionBackupDto> => {
+    const response = await api.patch(`/backup/status/${storageId}`, data);
     return response.data;
 };
 export default updateBackupStatusRepository;

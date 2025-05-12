@@ -1,6 +1,6 @@
 const styles = {
     formWrapper:
-        "bg-gr-blocks border-2 border-purple-light rounded-[15px] p-6 flex flex-col gap-4 w-[1279px]",
+        "bg-gr-blocks border-2 border-purple-light rounded-[15px] p-4 flex flex-col gap-4 w-[1279px]",
     inputsRow: "flex items-center justify-between",
     leftControls: "flex gap-[8px]",
     rightControls: "flex gap-[8px]",

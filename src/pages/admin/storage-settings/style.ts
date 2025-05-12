@@ -16,6 +16,9 @@ const styles = {
     stateText: 'text-[20px] font-medium text-gray-900 dark:text-white',
 
     iconStyles: 'w-10 h-10 text-[#624699]',
+    header: 'flex justify-between items-center',
+
+    headerActions: 'flex gap-2',
 };
 
 export default styles;

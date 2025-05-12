@@ -1,5 +1,5 @@
 import useUpdateBackupStatusUseCase from "../use-case";
-import {IUpdateBackupStatusPort} from "@/shared/interface/storage";
+import {IUpdateBackupStatusPort} from "@/shared/interface/backup";
 
 const useUpdateBackupStatusPresenter = () => {
     const {mutateAsync} = useUpdateBackupStatusUseCase();
