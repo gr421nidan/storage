@@ -1,7 +1,8 @@
 import { api } from "@/shared/api";
 
 const cleanupDiskRepository = async (): Promise<void> => {
-    await api.delete("/storage/clear");
+    const response = await api.delete("/storage/clear");
+    return response.data;
 };
 
 export default cleanupDiskRepository;
