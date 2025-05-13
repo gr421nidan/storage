@@ -2,7 +2,7 @@ import {api} from "@/shared/api";
 import {IDownloadFolderDto} from "@/shared/interface/folders";
 
 const downloadFolderRepository = async (folderId: string): Promise<IDownloadFolderDto> => {
-    const response = await api.get<IDownloadFolderDto>(`/file/download-folder/${folderId}`);
+    const response = await api.get<IDownloadFolderDto>(`/folder/download-folder/${folderId}`);
     return response.data;
 };
 export default downloadFolderRepository;
