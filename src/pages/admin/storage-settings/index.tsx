@@ -7,7 +7,7 @@ import StorageSettingsForm from '@/features/admin/storage-settings/starage-form/
 import CleanupBackupsConfirm from '@/features/admin/storage-settings/cleanup-backups-confirm/ui';
 import BlockUnblockConfirm from '@/features/admin/storage-settings/block-unblock-confirm/ui';
 import useGetBackupsUseCase from '@/entities/cases/backup/get-backups/use-case';
-import useGetStorageInfoUseCase from '@/entities/cases/storage/get-info/use-case';
+import useGetStorageInfoUseCase from '@/entities/cases/user-storage/get-info/use-case';
 import useCreateBackupPresenter from '@/entities/cases/backup/create/presenter';
 import styles from './style';
 import useGetDateNextBackupUseCase from "@/entities/cases/backup/get-next-backup/use-case";

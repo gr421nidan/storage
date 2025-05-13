@@ -7,8 +7,8 @@ import { styles } from "../style";
 import { cn } from "@/shared/utils/cn";
 import { inputsStyles } from "@/shared/components/inputs/style.ts";
 import { errorTextStyles } from "@/features/auth/style.ts";
-import useGetStorageInfoUseCase from "@/entities/cases/storage/get-info/use-case";
-import useUpdateStoragePresenter from "@/entities/cases/storage/settings/update/presenter";
+import useGetStorageInfoUseCase from "@/entities/cases/user-storage/get-info/use-case";
+import useUpdateStoragePresenter from "@/entities/cases/user-storage/update-storage/presenter";
 import { IUpdateStoragePort } from "@/shared/interface/storage";
 import AutomaticCleanupPopupMenu from "@/features/admin/storage-settings/automatic-cleanup/ui";
 

@@ -3,14 +3,13 @@ import { IApiErrorDto } from "@/shared/interface/auth";
 import { AxiosError } from "axios";
 import deleteUserRepository from "@/entities/repo/user-storage/delete-user";
 import { enqueueSnackbar } from "notistack";
-import { IDeleteUserDto } from "@/shared/interface/admin";
 import QueryKey from "@/shared/common/enum/query-key";
 
 const useDeleteUserUseCase = () => {
     const queryClient = useQueryClient();
     const execute = (userId: string) => deleteUserRepository(userId);
 
-    return useMutation<IDeleteUserDto, AxiosError<IApiErrorDto>, string>({
+    return useMutation<void, AxiosError<IApiErrorDto>, string>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.USERS_STORAGE] });

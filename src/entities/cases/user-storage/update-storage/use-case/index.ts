@@ -3,7 +3,7 @@ import { IApiErrorDto } from "@/shared/interface/auth";
 import {AxiosError, HttpStatusCode} from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import { enqueueSnackbar } from "notistack";
-import updateStorageRepository from "../../../../../repo/storage/settings-storage/update";
+import updateStorageRepository from "@/entities/repo/user-storage/update-storage";
 import {IUpdateStoragePort} from "@/shared/interface/storage";
 
 const useUpdateStorageUseCase = () => {

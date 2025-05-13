@@ -6,8 +6,8 @@ import { cn } from "@/shared/utils/cn";
 import styles from "../style";
 import { EClearingStorageInterval } from "@/shared/enum/storage/clearing-interval";
 import {buttonStyles} from "@/shared/components/buttons/style.ts";
-import useAutomaticCleanupDiskPresenter from "@/entities/cases/storage/automatic-cleanup-disk/presenter";
-import useGetStorageInfoUseCase from "@/entities/cases/storage/get-info/use-case";
+import useAutomaticCleanupDiskPresenter from "@/entities/cases/user-storage/automatic-cleanup-disk/presenter";
+import useGetStorageInfoUseCase from "@/entities/cases/user-storage/get-info/use-case";
 
 const AutomaticClearingLabels: { [key in EClearingStorageInterval]: string } = {
     [EClearingStorageInterval.DEFAULT]: "По умолчанию",

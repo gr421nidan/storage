@@ -1,7 +1,7 @@
 import {ReactNode, useEffect, useState} from 'react';
 import CheckboxInput from '@/shared/components/inputs/checkbox-input';
 import styles from '../style';
-import useGetStorageInfoUseCase from "@/entities/cases/storage/get-info/use-case";
+import useGetStorageInfoUseCase from "@/entities/cases/user-storage/get-info/use-case";
 import useUpdateBackupStatusPresenter from "@/entities/cases/backup/update-backup-status/presenter";
 
 export const BackupStatus = (): ReactNode => {

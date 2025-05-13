@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IApiErrorDto } from "@/shared/interface/auth";
 import {AxiosError, HttpStatusCode} from "axios";
-import { IAddUserDto, IAddUserPort } from "@/shared/interface/admin";
+import {IAddUserPort } from "@/shared/interface/admin";
 import addUserRepository from "@/entities/repo/user-storage/add-user";
 import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
@@ -9,7 +9,7 @@ import QueryKey from "@/shared/common/enum/query-key";
 const useAddUserUseCase = () => {
     const queryClient = useQueryClient();
     const execute = (data: IAddUserPort) => addUserRepository(data);
-    return useMutation<IAddUserDto, AxiosError<IApiErrorDto>, IAddUserPort>({
+    return useMutation<void, AxiosError<IApiErrorDto>, IAddUserPort>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.USERS_STORAGE] });

@@ -14,7 +14,7 @@ import ToggleSection from "@/shared/components/toggle-section";
 import FolderHistory from "@/shared/components/folder-history";
 import styles from "@/pages/main/style.ts";
 import ERouterPath from "@/shared/common/enum/router";
-import useGetStorageInfoUseCase from "@/entities/cases/storage/get-info/use-case";
+import useGetStorageInfoUseCase from "../../../entities/cases/user-storage/get-info/use-case";
 
 const AvailableStoragePage = (): ReactNode => {
     const navigate = useNavigate();

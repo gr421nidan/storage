@@ -4,7 +4,7 @@ import Button from "@/shared/components/buttons/button";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import { buttonsContainerStyle } from "@/features/admin/delete-user-confirm/style.ts";
-import useBlockUnblockStoragePresenter from "@/entities/cases/storage/block-unblock-storage/presenter";
+import useBlockUnblockStoragePresenter from "@/entities/cases/user-storage/block-unblock-storage/presenter";
 
 interface IBlockUnblockConfirmProps {
     isOpen: boolean;
