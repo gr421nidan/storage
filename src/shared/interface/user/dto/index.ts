@@ -12,6 +12,6 @@ interface IGetUserProfileDto {
 }
 
 interface IUpdateUserDto {
-    message: string;
+    img: string;
 }
 export type {IGetUserProfileDto, IUpdateUserDto};
