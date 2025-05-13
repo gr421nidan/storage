@@ -1,9 +1,7 @@
-import { api } from '@/shared/api';
-import { IActionBackupDto } from '@/shared/interface/backup';
+import {api} from '@/shared/api';
 
-const cleanupBackupsRepository = async (storageId: string): Promise<IActionBackupDto> => {
-    const response = await api.delete<IActionBackupDto>(`/backup/delete/${storageId}`);
-    return response.data;
+const cleanupBackupsRepository = async (storageId: string): Promise<void> => {
+    await api.delete(`/backup/delete/${storageId}`);
 };
 
 export default cleanupBackupsRepository;

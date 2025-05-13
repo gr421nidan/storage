@@ -5,13 +5,13 @@ import QueryKey from "@/shared/common/enum/query-key";
 import {useCurrentStorage} from "@/shared/hooks/storage";
 import updateBackupStatusRepository from "@/entities/repo/backup/update-backup-status";
 import {enqueueSnackbar} from "notistack";
-import {IActionBackupDto, IUpdateBackupStatusPort} from "@/shared/interface/backup";
+import {IUpdateBackupStatusPort} from "@/shared/interface/backup";
 
 const useUpdateBackupStatusUseCase = () => {
     const queryClient = useQueryClient();
     const storageId = useCurrentStorage();
     const execute = (data:IUpdateBackupStatusPort) => updateBackupStatusRepository(storageId, data);
-    return useMutation<IActionBackupDto, AxiosError<IApiErrorDto>, IUpdateBackupStatusPort>({
+    return useMutation<void, AxiosError<IApiErrorDto>, IUpdateBackupStatusPort>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.STORAGE] });
