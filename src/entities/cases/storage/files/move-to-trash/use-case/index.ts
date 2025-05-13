@@ -3,13 +3,12 @@ import { IApiErrorDto } from "@/shared/interface/auth";
 import {AxiosError, HttpStatusCode} from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import moveToTrashFileRepository from "@/entities/repo/storage/files/move-to-trash";
-import {IActionFileDto} from "@/shared/interface/files";
 import {enqueueSnackbar} from "notistack";
 
 const useMoveToTrashFileUseCase = () => {
     const queryClient = useQueryClient();
     const execute = (fileId: string) => moveToTrashFileRepository(fileId);
-    return useMutation<IActionFileDto, AxiosError<IApiErrorDto>, string>({
+    return useMutation<void, AxiosError<IApiErrorDto>, string>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
