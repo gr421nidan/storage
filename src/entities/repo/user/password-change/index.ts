@@ -1,9 +1,8 @@
 import {api} from "@/shared/api";
-import {IPasswordUserChangePort, IUpdateUserDto} from "@/shared/interface/user";
-import {AxiosResponse} from "axios";
+import {IPasswordUserChangePort} from "@/shared/interface/user";
 
-const changePasswordRepository = async (data: IPasswordUserChangePort):  Promise<AxiosResponse<IUpdateUserDto>> => {
-    return api.patch<IUpdateUserDto>("/user/change-password", data);
+const changePasswordRepository = async (data: IPasswordUserChangePort): Promise<void> => {
+    await api.patch("/user/change-password", data);
 };
 
 export default changePasswordRepository;
