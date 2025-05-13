@@ -1,21 +1,10 @@
 import {api} from "@/shared/api";
-import {
-    IResetCodePort,
-    IResetCodeDto,
-    IResetPasswordPort,
-} from "@/shared/interface/auth";
-import {IResetPasswordDto} from "@/shared/type/auth";
+import {IResetCodePort, IResetPasswordPort} from "@/shared/interface/auth";
 
-export const sendResetCodeUser = async (
-    data: IResetCodePort
-): Promise<IResetCodeDto> => {
-    const response = await api.post<IResetCodeDto>("/user/send-reset-code", data);
-    return response.data;
+export const sendResetCodeUser = async (data: IResetCodePort): Promise<void> => {
+    await api.post("/user/send-reset-code", data);
 };
 
-export const resetPasswordUser = async (
-    data: IResetPasswordPort
-): Promise<IResetPasswordDto> => {
-    const response = await api.patch<IResetPasswordDto>("/user/reset-password", data);
-    return response.data;
+export const resetPasswordUser = async (data: IResetPasswordPort): Promise<void> => {
+    await api.patch("/user/reset-password", data);
 };
