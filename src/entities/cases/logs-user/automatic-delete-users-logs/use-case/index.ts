@@ -3,7 +3,7 @@ import {IApiErrorDto} from "@/shared/interface/auth";
 import {AxiosError, HttpStatusCode} from "axios";
 import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
-import {IDeleteLogsDto, IDeleteLogsPort} from "@/shared/interface/logs-user";
+import {IDeleteLogsPort} from "@/shared/interface/logs-user";
 import automaticDeleteUsersLogsRepository from "@/entities/repo/logs-user/automatic-delete-users-logs";
 
 const useAutomaticDeleteUsersLogsUseCase = () => {
@@ -11,7 +11,7 @@ const useAutomaticDeleteUsersLogsUseCase = () => {
     const execute = (data: IDeleteLogsPort) => {
         return automaticDeleteUsersLogsRepository(data);
     };
-    return useMutation<IDeleteLogsDto, AxiosError<IApiErrorDto>, IDeleteLogsPort>({
+    return useMutation<void, AxiosError<IApiErrorDto>, IDeleteLogsPort>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({queryKey: [QueryKey.USER_LOGS]});

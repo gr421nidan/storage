@@ -1,9 +1,6 @@
 import {api} from "@/shared/api";
-import {IDeleteLogsDto} from "@/shared/interface/logs-user";
 
-const deleteUserLogsRepository = async (userId: string): Promise<IDeleteLogsDto> => {
-    const response = await api.delete<IDeleteLogsDto>(`/logs/users/${userId}`);
-    return response.data;
-
+const deleteUserLogsRepository = async (userId: string): Promise<void> => {
+     await api.delete(`/logs/users/${userId}`);
 };
 export default deleteUserLogsRepository;
