@@ -3,7 +3,7 @@ import {AxiosError, HttpStatusCode} from "axios";
 import {IApiErrorDto} from "@/shared/interface/auth";
 import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
-import {IActionFolderDto, IRenameStorageFolderPort} from "@/shared/interface/folders";
+import {IRenameStorageFolderPort} from "@/shared/interface/folders";
 import renameFolderRepository from "@/entities/repo/storage/folders/rename";
 
 const useRenameFolderUseCase = (folderId: string) => {
@@ -13,7 +13,7 @@ const useRenameFolderUseCase = (folderId: string) => {
         return renameFolderRepository(data, folderId);
     };
 
-    return useMutation<IActionFolderDto, AxiosError<IApiErrorDto>, IRenameStorageFolderPort>({
+    return useMutation<void, AxiosError<IApiErrorDto>, IRenameStorageFolderPort>({
         mutationFn: execute,
         onSuccess: async () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });

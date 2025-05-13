@@ -1,8 +1,6 @@
 import {api} from "@/shared/api";
-import {IActionFolderDto} from "@/shared/interface/folders";
 
-const recoverFolderRepository = async (folderId: string): Promise<IActionFolderDto> => {
-    const response = await api.patch<IActionFolderDto>(`/folder/restore-folder/${folderId}`);
-    return response.data;
+const recoverFolderRepository = async (folderId: string): Promise<void> => {
+    await api.patch(`/folder/restore-folder/${folderId}`);
 };
 export default recoverFolderRepository;

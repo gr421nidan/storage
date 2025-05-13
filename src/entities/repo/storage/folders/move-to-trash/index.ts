@@ -1,8 +1,6 @@
 import {api} from "@/shared/api";
-import {IActionFolderDto} from "@/shared/interface/folders";
 
-const moveToTrashFolderRepository = async (folderId: string): Promise<IActionFolderDto> => {
-    const response = await api.patch<IActionFolderDto>(`/folder/folder-delete/${folderId}`);
-    return response.data;
+const moveToTrashFolderRepository = async (folderId: string): Promise<void> => {
+    await api.patch(`/folder/folder-delete/${folderId}`);
 };
 export default moveToTrashFolderRepository;

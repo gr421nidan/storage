@@ -1,8 +1,7 @@
 import {api} from "@/shared/api";
-import {IActionFolderDto, IChooseAccessForFolderPort} from "@/shared/interface/folders";
+import {IChooseAccessForFolderPort} from "@/shared/interface/folders";
 
-const chooseAccessForFolderRepository = async (folderId: string, data: IChooseAccessForFolderPort): Promise<IActionFolderDto> => {
-    const response = await api.patch<IActionFolderDto>(`/folder/${folderId}/access`, data);
-    return response.data;
+const chooseAccessForFolderRepository = async (folderId: string, data: IChooseAccessForFolderPort): Promise<void> => {
+    await api.patch(`/folder/${folderId}/access`, data);
 };
 export default chooseAccessForFolderRepository;

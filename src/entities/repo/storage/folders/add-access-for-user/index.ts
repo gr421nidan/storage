@@ -1,8 +1,7 @@
 import {api} from "@/shared/api";
-import {IActionFolderDto, IAddAccessForUserPort} from "@/shared/interface/folders";
+import {IAddAccessForUserPort} from "@/shared/interface/folders";
 
-const addAccessForUserRepository = async (data: IAddAccessForUserPort, folderId: string): Promise<IActionFolderDto> => {
-    const response = await api.post<IActionFolderDto>(`/folder/${folderId}/access`, data);
-    return response.data;
+const addAccessForUserRepository = async (data: IAddAccessForUserPort, folderId: string): Promise<void> => {
+    await api.post(`/folder/${folderId}/access`, data);
 };
 export default addAccessForUserRepository;
