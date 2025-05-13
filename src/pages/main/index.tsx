@@ -35,8 +35,8 @@ const MainPage = (): ReactNode => {
         resetSorting,
     } = useGetStorageFilesAndFoldersPresenter();
 
-    const isEmpty = !folders.length && !files.length;
-    const hasFolders = !!folders.length;
+    const isEmpty = !folders.length && !files.length && !backups.length;
+    const hasFolders = !!folders.length || !!backups.length;
     const hasFiles = !!files.length;
     const showDivider = hasFolders && hasFiles;
 

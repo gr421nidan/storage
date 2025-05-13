@@ -36,7 +36,6 @@ const AvailableStoragePage = (): ReactNode => {
         goBack,
         files,
         folders,
-        backups,
         folderHistory,
         setParams,
         handleApplyFilters,
@@ -73,7 +72,6 @@ const AvailableStoragePage = (): ReactNode => {
             content={
                 <FoldersView
                     folders={folders}
-                    backups={backups}
                     onFolderDoubleClick={handleFolderDoubleClick}
                     variant="default"
                 />
