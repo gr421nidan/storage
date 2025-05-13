@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { IApiErrorDto } from "@/shared/interface/auth";
-import {AxiosError} from "axios";
+import {AxiosError, HttpStatusCode} from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import cleanupDiskRepository from "@/entities/repo/storage/cleanup-disk";
 import {enqueueSnackbar} from "notistack";
@@ -16,6 +16,11 @@ const useCleanupDiskUseCase = () => {
             await queryClient.invalidateQueries({ queryKey: [QueryKey.STORAGE_SIZE] });
             await queryClient.invalidateQueries({ queryKey: [QueryKey.TRASH] });
             enqueueSnackbar("Хранилище успешно очищено", {variant: "successSnackbar"});
+        },
+        onError: (error) => {
+            if (error.status === HttpStatusCode.Conflict) {
+                enqueueSnackbar("В хранилище пусто", {variant: 'errorSnackbar'});
+            }
         },
     });
 };

@@ -18,7 +18,7 @@ const useChangePasswordUseCase = () => {
                 if (error.response.status === HttpStatusCode.Unauthorized) {
                     enqueueSnackbar("Неверный пароль", { variant: "errorSnackbar" });
                 }
-                if (error.response.status === HttpStatusCode.BadRequest) {
+                if (error.response.status === HttpStatusCode.UnprocessableEntity) {
                     enqueueSnackbar("Введенный пароль совпадает с текущим", { variant: "errorSnackbar" });
                 }
             }
