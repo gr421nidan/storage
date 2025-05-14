@@ -14,7 +14,7 @@ interface IChooseAccessForFolderProps {
 
 const ChooseAccessForFolder: React.FC<IChooseAccessForFolderProps> = ({ folderId }) => {
     const { folders } = useGetStorageFilesAndFoldersUseCase({});
-    const folder = folders.find(f => f.id === folderId);
+    const folder = folders.find(folder => folder.id === folderId);
     const initialRestricted = folder?.is_restricted ?? false;
     const {
         isRestricted,
