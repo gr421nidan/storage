@@ -20,9 +20,7 @@ interface IUploadStorageFileDto extends IGetStorageFileDto{
     owner_id: string;
     storage_id: string;
 }
-interface IActionFileDto {
-    message: string,
-}
+
 type IGetAvailableFileDto = IGetStorageFileDto
 
-export type {IGetStorageFileDto, IGetTrashFileDto, IUploadStorageFileDto, IActionFileDto, IGetAvailableFileDto};
+export type {IGetStorageFileDto, IGetTrashFileDto, IUploadStorageFileDto, IGetAvailableFileDto};

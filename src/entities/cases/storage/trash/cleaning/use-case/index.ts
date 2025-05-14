@@ -1,9 +1,8 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IApiErrorDto } from "@/shared/interface/auth";
-import { AxiosError, AxiosResponse } from "axios";
+import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {IApiErrorDto} from "@/shared/interface/auth";
+import {AxiosError} from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import cleaningTrashRepository from "@/entities/repo/storage/trash/cleaning";
-import { ICleaningTrashDto } from "@/shared/interface/trash";
 import {useCurrentStorage} from "@/shared/hooks/storage";
 
 const useCleaningTrashUseCase = () => {
@@ -13,10 +12,10 @@ const useCleaningTrashUseCase = () => {
         return cleaningTrashRepository(storageId);
     };
 
-    return useMutation<AxiosResponse<ICleaningTrashDto>, AxiosError<IApiErrorDto>>({
+    return useMutation<void, AxiosError<IApiErrorDto>>({
         mutationFn: execute,
         onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: [QueryKey.TRASH] });
+            await queryClient.invalidateQueries({queryKey: [QueryKey.TRASH]});
         },
     });
 };

@@ -2,10 +2,6 @@ interface IResetCodePort {
     email: string;
 }
 
-interface IResetCodeDto {
-    message: string;
-}
-
 interface IResetPasswordPort {
     email: string;
     confirmation_code: string;
@@ -23,7 +19,6 @@ interface IFormSendCodeData {
 }
 
 export type {
-    IResetCodeDto,
     IResetPasswordPort,
     IResetCodePort,
     IFormNewPasswordData,

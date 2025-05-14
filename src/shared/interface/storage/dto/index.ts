@@ -13,7 +13,7 @@ interface IGetStorageSizeDto {
 interface IGetFilesAndFoldersDto {
     files: IGetStorageFileDto[],
     folders: IGetStorageFolderDto[],
-    backups:IBackupDto[],
+    backups: IBackupDto[],
 }
 
 interface IGetStorageDto {
@@ -25,24 +25,28 @@ interface IGetStorageDto {
 }
 
 interface IGetAvailableStoragesDto {
-    storages:IGetStorageDto[];
+    storages: IGetStorageDto[];
 }
 
 interface IBackupInterval {
     days: number;
 }
+
 interface IGetStorageInfoDto {
     id: string;
     title: string;
     description: string;
     is_active: boolean;
     backup_is_active: boolean;
-    clearing_interval:EClearingStorageInterval;
+    clearing_interval: EClearingStorageInterval;
     size: number | null;
-    backup_interval:IBackupInterval
-}
-interface IActionStorageDto {
-    message: string;
+    backup_interval: IBackupInterval
 }
 
-export type { IGetStorageSizeDto, IGetFilesAndFoldersDto, IGetStorageDto, IGetAvailableStoragesDto, IGetStorageInfoDto, IActionStorageDto};
+export type {
+    IGetStorageSizeDto,
+    IGetFilesAndFoldersDto,
+    IGetStorageDto,
+    IGetAvailableStoragesDto,
+    IGetStorageInfoDto
+};

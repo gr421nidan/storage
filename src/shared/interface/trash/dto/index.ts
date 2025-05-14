@@ -5,7 +5,5 @@ interface IGetTrashFilesAndFoldersDto {
     files: IGetTrashFileDto[],
     folders: IGetTrashFolderDto[]
 }
-interface ICleaningTrashDto {
-    message: string,
-}
-export type {ICleaningTrashDto, IGetTrashFilesAndFoldersDto}
+
+export type {IGetTrashFilesAndFoldersDto}

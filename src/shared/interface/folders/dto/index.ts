@@ -22,10 +22,6 @@ interface ICreateStorageFolderDto {
     deleted_at: string | null,
 }
 
-interface IActionFolderDto {
-    message: string,
-}
-
 interface IGetFolderDto {
     files: IGetStorageFileDto[],
     folders: IGetStorageFolderDto[]
@@ -49,7 +45,6 @@ type IGetAvailableFolderDto = IGetStorageFolderDto
 export type {
     IGetStorageFolderDto,
     ICreateStorageFolderDto,
-    IActionFolderDto,
     IGetFolderDto,
     IGetTrashFolderDto,
     IGetUsersWithAccessDto,

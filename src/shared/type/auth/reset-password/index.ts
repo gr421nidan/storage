@@ -1,10 +1,5 @@
-import {IResetCodeDto, IResetCodePort} from "@/shared/interface/auth";
-
-type IResetPasswordDto = IResetCodeDto;
+import {IResetCodePort} from "@/shared/interface/auth";
 
 type IFormSendEmailData = IResetCodePort;
 
-export type {
-    IResetPasswordDto,
-    IFormSendEmailData,
-};
+export type {IFormSendEmailData};
