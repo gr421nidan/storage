@@ -3,15 +3,11 @@ import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
 import {cn} from "@/shared/utils/cn";
 import {buttonStyles} from "@/shared/components/buttons/style.ts";
-import styles from "@/features/files/move-to-trash-confirm/style";
+import styles from "../style";
 import useCleanupDiskPresenter from "@/entities/cases/storage/cleanup-disk/presenter";
+import {IConfirmModalProps} from "@/shared/interface/modal";
 
-interface IDiskCleanupConfirmProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
-const DiskCleanupConfirm: React.FC<IDiskCleanupConfirmProps> = ({isOpen, onClose}) => {
+const DiskCleanupConfirm: React.FC<IConfirmModalProps> = ({isOpen, onClose}) => {
     const { handleCleanupDisk } = useCleanupDiskPresenter(onClose);
     if (!isOpen) return null;
 

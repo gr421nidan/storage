@@ -5,10 +5,9 @@ import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import { buttonsContainerStyle } from "@/features/admin/delete-user-confirm/style.ts";
 import useDeleteUserLogsPresenter from "@/entities/cases/logs-user/delete-user-logs/presenter";
+import {IConfirmModalProps} from "@/shared/interface/modal";
 
-interface IDeleteLogsUserConfirmProps {
-    isOpen: boolean;
-    onClose: () => void;
+interface IDeleteLogsUserConfirmProps extends IConfirmModalProps{
     userId: string;
 }
 

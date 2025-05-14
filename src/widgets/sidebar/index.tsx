@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import {ReactNode, useState} from "react";
 import {
     dataSidebarContainerStyles, infoDiagramStyles,
     sidebarContainerStyles,
@@ -9,15 +9,15 @@ import useGetUserProfileUseCase from "@/entities/cases/user/get-user-profile/use
 import useGetStorageSizeUseCase from "@/entities/cases/storage/get-storage-size/use-case";
 import ContextMenu from "@/shared/components/context-menu";
 import useGetStorageFilesAndFoldersUseCase from "@/entities/cases/storage/get-folders-and-files/use-case";
-import DiskCleanupConfirm from "@/features/storage/confirm_disk_cleanup";
+import DiskCleanupConfirm from "@/features/storage/confirm_disk_cleanup/ui";
 import useCreateBackupPresenter from "@/entities/cases/backup/create/presenter";
 
-const SidebarWidget: React.FC = () => {
+const SidebarWidget = (): ReactNode => {
     const {data: storageData} = useGetStorageSizeUseCase();
-    const { recentFiles } = useGetStorageFilesAndFoldersUseCase({});
+    const {recentFiles} = useGetStorageFilesAndFoldersUseCase({});
     const {data} = useGetUserProfileUseCase();
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const { handleBackup } = useCreateBackupPresenter();
+    const {handleBackup} = useCreateBackupPresenter();
     const handleCleanupDiskClick = () => {
         setIsModalOpen(true);
     };
@@ -33,8 +33,9 @@ const SidebarWidget: React.FC = () => {
             <div>
                 <div className={dataSidebarContainerStyles}>
                     <h3>Данные памяти</h3>
-                    {data?.isAdmin ?  (<div className="mt-4"/>) :(<div className="flex flex-col items-end">
-                            <ContextMenu withSeparator iconSize="h-[40px] w-[30px]"  menuClassName="w-[364px] р-[163px]" items={menuItems}/></div>
+                    {data?.isAdmin ? (<div className="mt-4"/>) : (<div className="flex flex-col items-end">
+                            <ContextMenu withSeparator iconSize="h-[40px] w-[30px]" menuClassName="w-[364px] р-[163px]"
+                                         items={menuItems}/></div>
                     )}
                     <StorageChart
                         used_size={storageData?.storageUsedSizeInGB ?? 0}
@@ -46,10 +47,10 @@ const SidebarWidget: React.FC = () => {
                 </div>
             </div>
             {isModalOpen && (
-                    <DiskCleanupConfirm
-                        isOpen={isModalOpen}
-                        onClose={handleCloseModal}
-                    />
+                <DiskCleanupConfirm
+                    isOpen={isModalOpen}
+                    onClose={handleCloseModal}
+                />
             )}
             <div className="ml-auto">
                 <RecentFiles files={recentFiles}/>

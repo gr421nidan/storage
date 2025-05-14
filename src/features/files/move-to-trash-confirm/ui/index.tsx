@@ -3,12 +3,11 @@ import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
 import {cn} from "@/shared/utils/cn";
 import {buttonStyles} from "@/shared/components/buttons/style.ts";
-import styles from "../style.ts";
+import  styles  from "@/features/storage/confirm_disk_cleanup/style";
 import useMoveToTrashFilePresenter from "@/entities/cases/storage/files/move-to-trash/presenter";
+import {IConfirmModalProps} from "@/shared/interface/modal";
 
-interface IMoveToTrashConfirmProps {
-    isOpen: boolean;
-    onClose: () => void;
+interface IMoveToTrashConfirmProps extends IConfirmModalProps{
     fileId: string;
 }
 

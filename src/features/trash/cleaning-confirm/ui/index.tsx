@@ -3,15 +3,11 @@ import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
-import  styles  from "@/features/files/move-to-trash-confirm/style";
+import  styles  from "@/features/storage/confirm_disk_cleanup/style";
 import useCleaningTrashPresenter from "@/entities/cases/storage/trash/cleaning/presenter";
+import {IConfirmModalProps} from "@/shared/interface/modal";
 
-interface ICleaningConfirmProps {
-    isOpen: boolean;
-    onClose: () => void;
-}
-
-const CleaningTrashConfirm: React.FC<ICleaningConfirmProps> = ({ isOpen, onClose}) => {
+const CleaningTrashConfirm: React.FC<IConfirmModalProps> = ({ isOpen, onClose}) => {
     const { handleCleaningTrash } = useCleaningTrashPresenter(onClose);
 
     if (!isOpen) return null;

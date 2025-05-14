@@ -4,11 +4,10 @@ import Button from "@/shared/components/buttons/button";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
 import useDeleteFolderPresenter from "@/entities/cases/storage/folders/delete/presenter";
-import styles from "@/features/files/move-to-trash-confirm/style";
+import  styles  from "@/features/storage/confirm_disk_cleanup/style";
+import {IConfirmModalProps} from "@/shared/interface/modal";
 
-interface IDeleteFolderConfirmProps {
-    isOpen: boolean;
-    onClose: () => void;
+interface IDeleteFolderConfirmProps extends IConfirmModalProps{
     folderId: string;
 }
 

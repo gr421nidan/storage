@@ -2,7 +2,7 @@ import { ReactNode, useState } from "react";
 import Input from "@/shared/components/inputs/base-input";
 import Button from "@/shared/components/buttons/button";
 import ButtonIcon from "@/shared/components/buttons/button-icon";
-import DiskCleanupConfirm from "@/features/storage/confirm_disk_cleanup";
+import DiskCleanupConfirm from "@/features/storage/confirm_disk_cleanup/ui";
 import { styles } from "../style";
 import { cn } from "@/shared/utils/cn";
 import { inputsStyles } from "@/shared/components/inputs/style.ts";

@@ -3,19 +3,16 @@ import Modal from "@/shared/components/modals";
 import Button from "@/shared/components/buttons/button";
 import { cn } from "@/shared/utils/cn";
 import { buttonStyles } from "@/shared/components/buttons/style.ts";
-import  styles  from "@/features/files/move-to-trash-confirm/style";
+import  styles  from "@/features/storage/confirm_disk_cleanup/style";
 import useMoveToTrashFolderPresenter from "@/entities/cases/storage/folders/move-to-trash/presenter";
+import {IConfirmModalProps} from "@/shared/interface/modal";
 
-interface IMoveToTrashFolderConfirmProps {
-    isOpen: boolean;
-    onClose: () => void;
+interface IMoveToTrashFolderConfirmProps extends IConfirmModalProps{
     folderId: string;
 }
 
 const MoveToTrashFolderConfirm: React.FC<IMoveToTrashFolderConfirmProps> = ({ isOpen, onClose, folderId }) => {
-    const { handleMoveToTrashFolder } = useMoveToTrashFolderPresenter(() => {
-        onClose();
-    });
+    const { handleMoveToTrashFolder } = useMoveToTrashFolderPresenter(onClose);
     const handleDelete = () => {
         handleMoveToTrashFolder(folderId);
     };

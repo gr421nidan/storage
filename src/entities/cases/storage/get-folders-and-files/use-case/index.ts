@@ -15,7 +15,6 @@ const useGetStorageFilesAndFoldersUseCase = ({
                                              }: IGetStorageFilesAndFoldersPort) => {
     const storageId = useCurrentStorage();
     const execute = async () => {
-        if (!storageId) return { files: [], folders: [] };
         const params = {
             search, sort_by: sortBy, sort_order: sortOrder, type, created_at,
         };
