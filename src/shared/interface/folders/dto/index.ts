@@ -1,5 +1,4 @@
 import {IGetStorageFileDto} from "@/shared/interface/files";
-import {IGetAllUsersDto} from "@/shared/interface/admin";
 
 interface IGetStorageFolderDto {
     id: string;
@@ -42,6 +41,11 @@ interface IDownloadFolderDto {
 
 type IGetAvailableFolderDto = IGetStorageFolderDto
 
+interface IGetAllUsersDto {
+    id: string;
+    email: string;
+}
+
 export type {
     IGetStorageFolderDto,
     ICreateStorageFolderDto,
@@ -49,5 +53,6 @@ export type {
     IGetTrashFolderDto,
     IGetUsersWithAccessDto,
     IDownloadFolderDto,
-    IGetAvailableFolderDto
+    IGetAvailableFolderDto,
+    IGetAllUsersDto
 };

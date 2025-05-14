@@ -20,12 +20,15 @@ interface IDeleteUserWithAccessPort {
     userId: string;
     folderId: string;
 }
-
+interface IGetAllUsersPort {
+    email?: string;
+}
 export type {
     ICreateStorageFolderPort,
     IRenameStorageFolderPort,
     IAddAccessForUserPort,
     IChooseAccessForFolderPort,
     IBaseFolder,
-    IDeleteUserWithAccessPort
+    IDeleteUserWithAccessPort,
+    IGetAllUsersPort
 };
