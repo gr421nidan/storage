@@ -1,7 +1,7 @@
 import * as yup from "yup";
-import {IFormUpdateUserData} from "@/shared/type/user";
+import {IUpdateUserPort} from "@/shared/interface/user";
 
-const validationSchema: yup.ObjectSchema<IFormUpdateUserData> = yup.object().shape({
+const validationSchema: yup.ObjectSchema<IUpdateUserPort> = yup.object().shape({
     surname: yup
         .string()
         .matches(/^$|^[А-Яа-яЁё -]{1,255}$/, "Поле введено некорректно")

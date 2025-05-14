@@ -2,9 +2,9 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import validationSchema from "../validation";
 import useRenameFileUseCase from "../use-case";
-import { IRenameFilePort } from "@/shared/interface/files";
+import {IRenameFileForm} from "@/shared/interface/files";
 
-interface IRenameFilePresenterParams {
+interface IRenameFilePresenterProps {
     fileId: string;
     currentTitle: string;
     onClose?: () => void;
@@ -12,10 +12,10 @@ interface IRenameFilePresenterParams {
 const getTitleWithoutExtension = (title: string) =>
     title.replace(/\.[^/.]+$/, "");
 
-const useRenameFilePresenter = ({ fileId, currentTitle, onClose }: IRenameFilePresenterParams) => {
+const useRenameFilePresenter = ({ fileId, currentTitle, onClose }: IRenameFilePresenterProps) => {
     const pureTitle = getTitleWithoutExtension(currentTitle);
 
-    const { register, handleSubmit, reset, formState: { errors } } = useForm<IRenameFilePort>({
+    const { register, handleSubmit, reset, formState: { errors } } = useForm<IRenameFileForm>({
         resolver: yupResolver(validationSchema),
         defaultValues: {
             title: pureTitle,
@@ -24,16 +24,13 @@ const useRenameFilePresenter = ({ fileId, currentTitle, onClose }: IRenameFilePr
 
     const { mutateAsync } = useRenameFileUseCase(fileId);
 
-    const onSubmit = handleSubmit(async (data: IRenameFilePort) => {
-        await mutateAsync(
-            { title: data.title },
-            {
-                onSuccess: () => {
-                    reset();
-                    onClose?.();
-                },
-            }
-        );
+    const onSubmit = handleSubmit(async (data) => {
+        await mutateAsync(data, {
+            onSuccess: () => {
+                reset();
+                onClose?.();
+            },
+        });
     });
     return {
         register,

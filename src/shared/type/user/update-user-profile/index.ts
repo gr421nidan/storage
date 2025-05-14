@@ -1,6 +1,5 @@
-import {IUpdateUserPhotoPort, IUpdateUserPort} from "@/shared/interface/user";
+import {IUpdateUserPort} from "@/shared/interface/user";
 
 type IFormUpdateUserData = IUpdateUserPort
-type IFormUpdatePhotoData = IUpdateUserPhotoPort;
 
-export type {IFormUpdateUserData, IFormUpdatePhotoData};
+export type {IFormUpdateUserData};
