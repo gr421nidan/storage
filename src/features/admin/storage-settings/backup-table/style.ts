@@ -11,7 +11,7 @@ const styles = {
     flex flex-col gap-4
   `,
 
-    tableContent: 'max-h-[100px] overflow-y-auto pr-2 scrollbar',
+    tableContent: 'max-h-[120px] overflow-y-auto pr-2 scrollbar',
 
     headerRow: `
     w-[1200px]
@@ -26,7 +26,7 @@ const styles = {
     gap-4 
     items-center 
     my-2 
-    rounded-[15px] 
+    rounded-[21px] 
     px-5 py-3 
     bg-[#AEA1C9]/70 dark:bg-[#624699]/50 
   `,

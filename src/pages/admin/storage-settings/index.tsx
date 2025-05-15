@@ -52,7 +52,7 @@ const StorageSettingsPage = (): ReactNode => {
                     <Button
                         onClick={() => setIsDeleteModalOpen(true)}
                         disabled={isDisabled}
-                        className="h-[54px] w-[415px]"
+                        className="h-[52px] w-[415px] text-[22px]"
                     >
                         Очистить список резервных копий
                     </Button>

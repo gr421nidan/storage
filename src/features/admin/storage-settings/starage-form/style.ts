@@ -10,7 +10,7 @@ const styles = {
     clearButton: "h-[52px] w-[281px]",
     relativeWrapper: "relative",
     textarea:
-        "outline-none h-[97px] text-xl placeholder-black dark:placeholder-white font-semibold w-full rounded-[15px] p-3 bg-purple-light/30 dark:bg-purple-dark/30 dark:text-white resize-none",
+        "outline-none h-[72px] text-xl placeholder-black dark:placeholder-white font-semibold w-full rounded-[15px] p-3 bg-purple-light/30 dark:bg-purple-dark/30 dark:text-white resize-none",
     errorTextarea: "border-2 border-error-primary bg-error-secondary",
 };
 
