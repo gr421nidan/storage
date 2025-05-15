@@ -1,17 +1,20 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { IApiErrorDto } from "@/shared/interface/auth";
+import {useMutation} from "@tanstack/react-query";
+import {IApiErrorDto} from "@/shared/interface/auth";
 import {AxiosError} from "axios";
 import QueryKey from "@/shared/common/enum/query-key";
 import recoverFileRepository from "@/entities/repo/storage/files/recover";
+import useInvalidateManyQueries from "@/shared/hooks/invalidate-many-queries";
 
 const useRecoverFileUseCase = () => {
-    const queryClient = useQueryClient();
+    const invalidateManyQueries = useInvalidateManyQueries();
     const execute = (fileId: string) => recoverFileRepository(fileId);
     return useMutation<void, AxiosError<IApiErrorDto>, string>({
         mutationFn: execute,
         onSuccess: async () => {
-            await queryClient.invalidateQueries({ queryKey: [QueryKey.FILES_AND_FOLDERS] });
-            await queryClient.invalidateQueries({ queryKey: [QueryKey.TRASH] });
+            await invalidateManyQueries([
+                [QueryKey.FILES_AND_FOLDERS],
+                [QueryKey.TRASH],
+            ]);
         },
     });
 };

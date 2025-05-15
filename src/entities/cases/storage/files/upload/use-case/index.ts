@@ -1,4 +1,4 @@
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
 import {AxiosError, HttpStatusCode} from "axios";
 import {IApiErrorDto} from "@/shared/interface/auth";
 import {IUploadFilePort, IUploadStorageFileDto} from "@/shared/interface/files";
@@ -7,10 +7,11 @@ import {enqueueSnackbar} from "notistack";
 import QueryKey from "@/shared/common/enum/query-key";
 import {useCurrentStorage} from "@/shared/hooks/storage";
 import uploadFileInFolderRepository from "@/entities/repo/storage/files/upload-in-folder";
+import useInvalidateManyQueries from "@/shared/hooks/invalidate-many-queries";
 
 const useUploadFileUseCase = () => {
     const storageId = useCurrentStorage();
-    const queryClient = useQueryClient();
+    const invalidateManyQueries = useInvalidateManyQueries();
     const execute = (data: IUploadFilePort) => {
         const {folderId} = data;
         if (folderId) {
@@ -21,9 +22,11 @@ const useUploadFileUseCase = () => {
     return useMutation<IUploadStorageFileDto[], AxiosError<IApiErrorDto>, IUploadFilePort>({
         mutationFn: execute,
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: [QueryKey.FILES_AND_FOLDERS]});
-            await queryClient.invalidateQueries({queryKey: [QueryKey.FOLDER]});
-            await queryClient.invalidateQueries({queryKey: [QueryKey.STORAGE_SIZE]});
+            await invalidateManyQueries([
+                [QueryKey.FILES_AND_FOLDERS],
+                [QueryKey.FOLDER],
+                [QueryKey.STORAGE_SIZE],
+            ]);
             enqueueSnackbar("Файлы успешно загружены", {variant: "successSnackbar"});
         },
         onError: (error) => {

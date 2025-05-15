@@ -1,4 +1,4 @@
-import {useMutation, useQueryClient} from "@tanstack/react-query";
+import {useMutation} from "@tanstack/react-query";
 import {AxiosError, HttpStatusCode} from "axios";
 import {IApiErrorDto} from "@/shared/interface/auth";
 import {enqueueSnackbar} from "notistack";
@@ -6,18 +6,21 @@ import QueryKey from "@/shared/common/enum/query-key";
 import {useCurrentStorage} from "@/shared/hooks/storage";
 import {ICreateStorageFolderDto, ICreateStorageFolderPort} from "@/shared/interface/folders";
 import createFolderRepository from "@/entities/repo/storage/folders/create";
+import useInvalidateManyQueries from "@/shared/hooks/invalidate-many-queries";
 
 const useCreateFolderUseCase = () => {
     const storageId = useCurrentStorage();
-    const queryClient = useQueryClient();
+    const invalidateManyQueries = useInvalidateManyQueries();
     const execute = (data: ICreateStorageFolderPort) => {
         return createFolderRepository(data, storageId);
     };
     return useMutation<ICreateStorageFolderDto, AxiosError<IApiErrorDto>, ICreateStorageFolderPort>({
         mutationFn: execute,
         onSuccess: async () => {
-            await queryClient.invalidateQueries({queryKey: [QueryKey.FILES_AND_FOLDERS]});
-            await queryClient.invalidateQueries({queryKey: [QueryKey.FOLDER]});
+            await invalidateManyQueries([
+                [QueryKey.FILES_AND_FOLDERS],
+                [QueryKey.FOLDER],
+            ]);
         },
         onError: (error) => {
             if (error.status === HttpStatusCode.Conflict) {
